@@ -1,0 +1,13 @@
+
+\.pypirc
+
+\.idea/
+
+*.pyc
+
+/main\.py
+
+/makefile
+
+/test/
+examples/
