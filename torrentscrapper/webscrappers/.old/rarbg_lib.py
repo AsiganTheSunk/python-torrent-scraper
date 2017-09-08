@@ -64,21 +64,3 @@ def rarbg_parser (content=None):
     else:
         print 'rarbg.to seems to not be working at the moment, please try again later'
 
-    '''
-    soup = BeautifulSoup(content.text, 'html.parser')
-    magnet = soup.findAll('a', href=True)
-    #magnet2 = (soup.findAll('a', href=True)[21])['href']
-
-    print '____' * 20
-    #print magnet2
-    print '____' * 20
-
-    contador = 1
-    for item in magnet:
-
-        #print contador, item
-        contador = contador + 1
-
-        #print '____'*3
-        #print magnet
-    '''

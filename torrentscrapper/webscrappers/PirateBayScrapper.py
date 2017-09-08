@@ -2,7 +2,7 @@
 
 from bs4 import BeautifulSoup
 from torrentscrapper.utils.torcurl import TorPyCurl as tpc
-import requests
+from torrentscrapper import TorrentInstance as ti
 
 class PirateBayScrapper():
     def __init__(self):
@@ -21,26 +21,42 @@ class PirateBayScrapper():
 
     def thepiratebay_webscrapper(self, content):
 
+        torrent_instance = ti.TorrentInstance()
         soup = BeautifulSoup(content, 'html.parser')
-        print soup.prettify()
-
-        ttable = soup.findAll('table', {'searchResult'})
-        print ttable
-
+        ttable = soup.findAll('table', {'id':'searchResult'})
 
         if ttable != []:
-            print 'Retrieving individual values from the table'
+            print 'PirateBayScrapper retrieving individual values from the table\n'
 
-        return
+            for items in ttable:
+                tbody = items.findAll('tr')
 
-    def retrieve_seeders(self):
-        return
+                for tr in tbody[1:]:
+                    title = (tr.findAll('a'))[2].text
+                    seed = (tr.findAll('td'))[2].text
+                    leech = (tr.findAll('td'))[3].text
+                    magnet_link = (tr.findAll('a'))[2]['href']
+                    size_string = (tr.findAll('font',{'class':'detDesc'}))
+                    size = (size_string[0].text).split(',')[1][6:]
+                    if 'MiB' in size:
+                        size = size.replace('MiB','MB')
+                    elif 'GiB' in size:
+                        size = size.replace('GiB', 'GB')
 
-    def retrieve_leechers(self):
-        return
+                    torrent_instance.add_namelist(title)
+                    torrent_instance.add_seedlist(seed)
+                    torrent_instance.add_leechlist(leech)
+                    torrent_instance.add_magnetlist(magnet_link)
+                    torrent_instance.add_sizelist(size)
+        else:
+            print 'PirateBayScrapper seems to not be working at the moment, please try again later'
+        return torrent_instance
 
-    def retrieve_magnet(self):
-        return
 
+    def _magnet_link(self, content):
+        soup = BeautifulSoup(content, 'html.parser')
+        div = (soup.findAll('div',{'class':'download'}))
+        magnet = div[0].findAll('a')[0]['href']
+        return (magnet)
 
 
