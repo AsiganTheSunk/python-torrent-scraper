@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #-*- coding. utf-8 -*-
 
-from torrentscrapper.utils import color
 from colorama import Fore, Style
+
 class TorrentInstance():
 
     def __init__(self):
