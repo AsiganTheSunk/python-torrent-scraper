@@ -3,4 +3,5 @@
 class TorrentScrapper():
 
     def __init__(self):
+        # launch searchs
         return
