@@ -18,14 +18,14 @@ class RarbgScrapper():
         self.default_serie_categories = '&category%5B%5D=18&category%5B%5D=41&category%5B%5D=49'
         self.default_film_categories = '&category[]=14&category[]=48&category[]=17&category[]=44&category[]=45&category[]=47&category[]=50&category[]=51&category[]=52&category[]=42&category[]=46'
 
-    def _build_film_request(self, title='', year=''):
-        return (self.default_url + (title.replace(" ", "%20") + '%20' + str(year)) + self.default_film_categories)
+    def _build_film_request(self, quality='',title='', year=''):
+        return (self.default_url + (title.replace(" ", "%20") + '%20' + str(year) + '%20' + str(quality)) + self.default_film_categories)
 
-    def _build_show_request(self, title='', season='', episode=''):
-        return (self.default_url + (title.replace(" ", "%20") + '%20S' + str(season) + 'E' + str(episode)) + self.default_serie_categories)
+    def _build_show_request(self, quality='',title='', season='', episode=''):
+        return (self.default_url + (title.replace(" ", "%20") + '%20S' + str(season) + 'E' + str(episode) + '%20' + str(quality)) + self.default_serie_categories)
 
 
-    def rarbg_parser (self, content=None):
+    def webscrapper (self, content=None):
 
         torrent_instance = ti.TorrentInstance()
         soup = BeautifulSoup (content, 'html.parser')
@@ -33,6 +33,7 @@ class RarbgScrapper():
 
         if ttable != []:
             print 'RarbgScrapper retrieving individual values from the table\n'
+
             for items in ttable:
                 title = (items.findAll('a')[1])['title']
                 size = items.findAll('td', {'class': 'lista'})[3].text
@@ -47,8 +48,7 @@ class RarbgScrapper():
                 torrent_instance.add_sizelist(size)
 
         else:
-            print 'rarbg.to seems to not be working at the moment, please try again later'
-
+            print 'RarbgScrapper seems to not be working at the moment, please try again later ...\n'
         return torrent_instance
 
     def _magnet_link(self, content):

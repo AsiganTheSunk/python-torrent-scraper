@@ -10,19 +10,20 @@ class PirateBayScrapper():
         self.default_category = '&category=0&page=0&orderby=99'
         return
 
-    def _build_film_request(self, title='', year=''):
-        return (self.default_url + (title.replace(" ", "+") + '+' + str(year)) + self.default_category)
+    def _build_film_request(self, quality='', title='', year=''):
+        return (self.default_url + (title.replace(" ", "+") + '+' + str(year) + '+' + str(quality)) + self.default_category)
 
-    def _build_show_request(self, title='', season='', episode=''):
-        return (self.default_url + (title.replace(" ", "+") + '+S' + str(season) + 'E' + str(episode)) + self.default_category)
+    def _build_show_request(self, quality='', title='', season='', episode=''):
+        return (self.default_url + (title.replace(" ", "+") + '+S' + str(season) + 'E' + str(episode) + '+' + str(quality)) + self.default_category)
 
     def _build_anime_request(self):
         return
 
-    def thepiratebay_webscrapper(self, content):
+    def webscrapper(self, content):
 
         torrent_instance = ti.TorrentInstance()
         soup = BeautifulSoup(content, 'html.parser')
+        #print soup.prettify()
         ttable = soup.findAll('table', {'id':'searchResult'})
 
         if ttable != []:
@@ -49,7 +50,7 @@ class PirateBayScrapper():
                     torrent_instance.add_magnetlist(magnet_link)
                     torrent_instance.add_sizelist(size)
         else:
-            print 'PirateBayScrapper seems to not be working at the moment, please try again later'
+            print 'PirateBayScrapper seems to not be working at the moment, please try again later ...\n'
         return torrent_instance
 
 
