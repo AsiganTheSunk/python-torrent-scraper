@@ -6,6 +6,12 @@ from torrentscrapper import TorrentInstance as ti
 
 class PirateBayScrapper():
     def __init__(self):
+        self.name = 'PirateBayScrapper'
+
+        self.main_landing_page = 'https://unblockedbay.info/'
+        self.show_landing_page = ''
+        self.film_landing_page = ''
+
         self.default_url = 'https://unblockedbay.info/s/?q='
         self.default_category = '&category=0&page=0&orderby=99'
         return
@@ -36,6 +42,8 @@ class PirateBayScrapper():
                     title = (tr.findAll('a'))[2].text
                     seed = (tr.findAll('td'))[2].text
                     leech = (tr.findAll('td'))[3].text
+                    if leech == '0':
+                        leech = '1'
                     magnet_link = (tr.findAll('a'))[2]['href']
                     size_string = (tr.findAll('font',{'class':'detDesc'}))
                     size = (size_string[0].text).split(',')[1][6:]
@@ -43,12 +51,13 @@ class PirateBayScrapper():
                         size = size.replace('MiB','MB')
                     elif 'GiB' in size:
                         size = size.replace('GiB', 'GB')
+                        size = float(size[:-2]) * 1000
 
                     torrent_instance.add_namelist(title)
-                    torrent_instance.add_seedlist(seed)
-                    torrent_instance.add_leechlist(leech)
+                    torrent_instance.add_seedlist(int(seed))
+                    torrent_instance.add_leechlist(int(leech))
                     torrent_instance.add_magnetlist(magnet_link)
-                    torrent_instance.add_sizelist(size)
+                    torrent_instance.add_sizelist(int(size))
         else:
             print 'PirateBayScrapper seems to not be working at the moment, please try again later ...\n'
         return torrent_instance

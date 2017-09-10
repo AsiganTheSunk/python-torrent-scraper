@@ -14,15 +14,20 @@ ANIME_FLAG = '10'
 class RarbgScrapper():
 
     def __init__(self):
-        self.default_url = 'https://www.rarbg.to/torrents.php?search='
-        self.default_serie_categories = '&category%5B%5D=18&category%5B%5D=41&category%5B%5D=49'
-        self.default_film_categories = '&category[]=14&category[]=48&category[]=17&category[]=44&category[]=45&category[]=47&category[]=50&category[]=51&category[]=52&category[]=42&category[]=46'
+        self.name = 'RarbgScrapper'
+        self.main_landing_page = 'https://rarbg.unblockall.org/index8.php'
+        self.show_landing_page = 'https://rarbg.unblockall.org/torrents.php?category=1;18;41;49'
+        self.film_landing_page = 'https://rarbg.unblockall.org/torrents.php?category=movies'
+
+        self.search_url = 'https://rarbg.unblockall.org/?search='
+        self.serie_categories = '&category%5B%5D=18&category%5B%5D=41&category%5B%5D=49'
+        self.film_categories = '&category[]=14&category[]=48&category[]=17&category[]=44&category[]=45&category[]=47&category[]=50&category[]=51&category[]=52&category[]=42&category[]=46'
 
     def _build_film_request(self, quality='',title='', year=''):
-        return (self.default_url + (title.replace(" ", "%20") + '%20' + str(year) + '%20' + str(quality)) + self.default_film_categories)
+        return (self.search_url + (title.replace(" ", "%20") + '%20' + str(year) + '%20' + str(quality)) + self.film_categories)
 
     def _build_show_request(self, quality='',title='', season='', episode=''):
-        return (self.default_url + (title.replace(" ", "%20") + '%20S' + str(season) + 'E' + str(episode) + '%20' + str(quality)) + self.default_serie_categories)
+        return (self.search_url + (title.replace(" ", "%20") + '%20S' + str(season) + 'E' + str(episode) + '%20' + str(quality)) + self.serie_categories)
 
 
     def webscrapper (self, content=None):
@@ -39,13 +44,21 @@ class RarbgScrapper():
                 size = items.findAll('td', {'class': 'lista'})[3].text
                 seed = items.findAll('td', {'class': 'lista'})[4].text
                 leech = items.findAll('td', {'class': 'lista'})[5].text
+                if leech == '0':
+                    leech = '1'
                 magnet_link = (items.findAll('a')[1])['href']
 
+                if 'GB' in size:
+                    size = float(size[:-2]) * 1000
+                else:
+                    size = float(size[:-2])
+
                 torrent_instance.add_namelist(title)
-                torrent_instance.add_seedlist(seed)
-                torrent_instance.add_leechlist(leech)
+                torrent_instance.add_sizelist(int(size))
+                torrent_instance.add_seedlist(int(seed))
+                torrent_instance.add_leechlist(int(leech))
                 torrent_instance.add_magnetlist(magnet_link)
-                torrent_instance.add_sizelist(size)
+
 
         else:
             print 'RarbgScrapper seems to not be working at the moment, please try again later ...\n'

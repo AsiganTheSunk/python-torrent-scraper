@@ -15,7 +15,7 @@ class TorrentInstance():
     def list(self):
         struct = zip(self.namelist, self.sizelist, self.seedlist, self.leechlist, self.magnetlist)
         for name, size, seed, leech, magnet in struct:
-            print Fore.LIGHTMAGENTA_EX + name + Style.RESET_ALL, Fore.GREEN + size + Style.RESET_ALL, Fore.BLUE + seed + Style.RESET_ALL, Fore.LIGHTRED_EX + leech + Style.RESET_ALL, magnet
+            print Fore.LIGHTMAGENTA_EX + name + Style.RESET_ALL, Fore.GREEN + str(size) + Style.RESET_ALL, Fore.BLUE + str(seed) + Style.RESET_ALL, Fore.LIGHTRED_EX + str(leech) + Style.RESET_ALL, magnet
         return
 
     def add_namelist(self, value):
