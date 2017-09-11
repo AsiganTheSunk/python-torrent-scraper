@@ -20,7 +20,7 @@ def kat_usearch(url):
 
 def kat_parser(content):
     soup = BeautifulSoup(content.text, "html.parser")
-    table = soup.findAll('table', {"class": "data"})
+    ttable = soup.findAll('table', {"class": "data"})
 
     myMagnetList = []
     mySeedList = []

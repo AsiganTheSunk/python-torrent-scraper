@@ -4,7 +4,6 @@
 from colorama import Fore, Style
 
 class TorrentInstance():
-
     def __init__(self, name):
         self.scrapper_name = name
         self.namelist = []

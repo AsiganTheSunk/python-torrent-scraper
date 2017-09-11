@@ -2,6 +2,7 @@
 
 from torrentscrapper.webscrappers import RarbgScrapper as rs
 from torrentscrapper.webscrappers import PirateBayScrapper as pbs
+from torrentscrapper.webscrappers import KatScrapper as kats
 from torrentscrapper.utils.torcurl import TorPyCurl as tpc
 from torrentscrapper import ScrapperEngine as se
 

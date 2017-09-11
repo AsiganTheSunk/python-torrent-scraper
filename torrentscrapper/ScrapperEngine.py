@@ -2,6 +2,7 @@
 
 from torrentscrapper.webscrappers import RarbgScrapper as rs
 from torrentscrapper.webscrappers import PirateBayScrapper as pbs
+from torrentscrapper.webscrappers import KatScrapper as kats
 
 import requests
 import pandas as pd
@@ -24,7 +25,7 @@ class ScrapperEngine():
 
     def __init__(self):
         # rs.RarbgScrapper(),
-        self.webscrappers = [rs.RarbgScrapper(),pbs.PirateBayScrapper()]
+        self.webscrappers = [kats.KatScrapper(), rs.RarbgScrapper(), pbs.PirateBayScrapper()]
         return
 
     # it takes torrrent instances and takes de decisions!
@@ -144,9 +145,9 @@ class ScrapperEngine():
 
         # Pre-calculating the ratio on the tables to use it on the filtering
         ini_dataframe = self.create_data_frame(torrents[0])
-        ini_dataframe['ratio'] = (ini_dataframe['seed'] / ini_dataframe['leech'])
 
         for i in range(1, len(torrents), 1):
+            ini_dataframe['ratio'] = (ini_dataframe['seed'] / ini_dataframe['leech'])
             tmp_dataframe = self.create_data_frame(torrents[i])
             tmp_dataframe['ratio'] = (tmp_dataframe['seed'] / tmp_dataframe['leech'])
 
@@ -154,12 +155,13 @@ class ScrapperEngine():
             cmmn_dataframe = pd.merge(ini_dataframe, tmp_dataframe, how='inner', on=['name'])
 
             conditions = [cmmn_dataframe['ratio_x'] > cmmn_dataframe['ratio_y'],
-                          cmmn_dataframe['ratio_y'] > cmmn_dataframe['ratio_x']]
+                          cmmn_dataframe['ratio_y'] > cmmn_dataframe['ratio_x'],
+                          cmmn_dataframe['ratio_x'] == cmmn_dataframe['ratio_y']]
 
-            leech_choices = [cmmn_dataframe['leech_x'], cmmn_dataframe ['leech_y']]
-            seed_choices = [cmmn_dataframe['seed_x'], cmmn_dataframe ['seed_y']]
-            magnet_choices = [cmmn_dataframe['magnet_x'], cmmn_dataframe['magnet_y']]
-            size_choices = [cmmn_dataframe['size_x'], cmmn_dataframe['size_y']]
+            leech_choices = [cmmn_dataframe['leech_x'], cmmn_dataframe ['leech_y'], cmmn_dataframe['leech_x']]
+            seed_choices = [cmmn_dataframe['seed_x'], cmmn_dataframe ['seed_y'], cmmn_dataframe['leech_y']]
+            magnet_choices = [cmmn_dataframe['magnet_x'], cmmn_dataframe['magnet_y'], cmmn_dataframe['magnet_y']]
+            size_choices = [cmmn_dataframe['size_x'], cmmn_dataframe['size_y'], cmmn_dataframe['size_y']]
 
             # Calculate the winners
             cmmn_dataframe['size'] = np.select(conditions, size_choices, default=np.nan)
@@ -167,8 +169,15 @@ class ScrapperEngine():
             cmmn_dataframe['leech'] = np.select(conditions, leech_choices, default=np.nan)
             cmmn_dataframe['magnet'] = np.select(conditions, magnet_choices, default=np.nan)
 
+            print 'cmmn_dataframe'
+            print cmmn_dataframe
+            print '------------------' * 5
+
             # Reshape the table, there it's no longer need for the _x and _y entries
             tmp_result = cmmn_dataframe[['name', 'size', 'seed', 'leech', 'magnet']]
+            print 'TEMP RESULT'
+            print tmp_result
+            print '::::::::::::::::::' * 5
 
             # Remove cmmn name entries from the 2 tables that we're crossing
             aux_names = DataFrame()
@@ -183,8 +192,11 @@ class ScrapperEngine():
             # Reset the index to avoid (0, 4, 7, ...) and Re-arrange the columns in a proper way
             ini_dataframe = ini_dataframe[['name', 'size', 'seed', 'leech', 'magnet']].reset_index(drop=True)
 
-        return ini_dataframe
+            print 'dataframe ini'
+            print ini_dataframe
+            print '000000000' * 7
 
+        return ini_dataframe
 
     def calculate_top_spot(self, dataframe):
 
@@ -192,7 +204,7 @@ class ScrapperEngine():
         print 'Full Search'
         print dataframe
         dataframe = self.filter_data_frame(dataframe)
-        dataframe = dataframe.sort_values(by=['seed','ratio'], ascending=False)
+        dataframe = dataframe.sort_values(by=['seed', 'ratio'], ascending=False)
         print dataframe
         print '\n'
         print 'Top 10 Torrents selected from Scrappers'

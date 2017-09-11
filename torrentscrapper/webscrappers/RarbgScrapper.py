@@ -36,6 +36,7 @@ class RarbgScrapper():
         soup = BeautifulSoup (content, 'html.parser')
         ttable = soup.findAll('tr', {'class': 'lista2'})
 
+
         if ttable != []:
             print 'RarbgScrapper retrieving individual values from the table\n'
 
@@ -53,11 +54,11 @@ class RarbgScrapper():
                 else:
                     size = float(size[:-2])
 
-                torrent_instance.add_namelist(title)
+                torrent_instance.add_namelist(str(title).strip())
                 torrent_instance.add_sizelist(int(size))
                 torrent_instance.add_seedlist(int(seed))
                 torrent_instance.add_leechlist(int(leech))
-                torrent_instance.add_magnetlist(magnet_link)
+                torrent_instance.add_magnetlist(str(magnet_link))
 
 
         else:
