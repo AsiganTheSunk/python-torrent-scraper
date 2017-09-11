@@ -20,7 +20,6 @@ piratebay_file = open('/home/asigan/python-torrent-scrapper/examples/thepirateba
 rarbg_magnet = open('/home/asigan/python-torrent-scrapper/examples/ttlkrarbg.html')
 piratebay_magnet = open('/home/asigan/python-torrent-scrapper/examples/gotTPB.html')
 
-
 class ScrapperEngine():
 
     def __init__(self):
@@ -51,7 +50,6 @@ class ScrapperEngine():
 
     def search(self, quality, title, year, season, episode, subber):
         torrent_list = []
-
         if (title and year) is not None:
             for webscrappers in self.webscrappers:
                 # Main Page
@@ -66,6 +64,7 @@ class ScrapperEngine():
                 # Searched Page
                 web_url = webscrappers._build_film_request(quality=quality, title=title, year=year)
                 response = self.websearch(url=web_url)
+                # TODO till cloudflare/bot detection solved we use dummy .html file for testing
                 if webscrappers.name is 'RarbgScrapper':
                     torrent_instance = webscrappers.webscrapper(content=rarbg_file)
                 else:
@@ -103,7 +102,6 @@ class ScrapperEngine():
 
         return
 
-
     def websearch (self, url):
         headers = {'UserAgent':str(UserAgent().random)}
         try:
@@ -111,7 +109,6 @@ class ScrapperEngine():
             return r
         except Exception as e:
             print 'Unable to stablish connection'
-
 
     def create_data_frame(self, torrent=None):
 
@@ -123,87 +120,83 @@ class ScrapperEngine():
                     }
 
         dataframe = DataFrame(raw_data, columns=['name', 'size', 'seed', 'leech', 'magnet'])
-        print(dataframe)
-
         return dataframe
 
 
-    def filter_data_frame(self, df):
+    def filter_data_frame(self, dataframe):
 
-        df['health'] = (df['seed']*100)/(df['seed']+df['leech']+0.00000001)
-        df['ratio'] = (df['seed']/df['leech'])
-        #print ('\n')
-        #print df
+        # df['health'] = (df['seed']*100)/(df['seed']+df['leech']+0.00000001)
+        # df = df[df['health'] > 60]
 
-        df = df[df['ratio'] > 1.0]
-        df = df[df['health'] > 60]
-        df = df[df['size'] > 1500]
-        df = df[df['size'] < 3000]
+        dataframe['ratio'] = (dataframe['seed'] / dataframe['leech'])
+        dataframe = dataframe[dataframe['ratio'] > 1.0]
 
-        df = df.reset_index(drop=True)  #Reset the index to avoid (0,4,7...)
-        return df
+        # Size limitations
+        # TODO read from .cfg so you can implement the range for 480p.Anime, 480p.Serie ...
+        dataframe = dataframe[dataframe['size'] > 1500]
+        dataframe = dataframe[dataframe['size'] < 3000]
 
-    def unify_torrent_table(self, torrent0, torrent1):
-        t0 = self.create_data_frame(torrent0)
-        t0['ratio'] = (t0['seed'] / t0['leech'])
-        t1 = self.create_data_frame(torrent1)
-        t1['ratio'] = (t1['seed'] / t1['leech'])
-        dataframe = pd.merge(t0, t1, how='inner', on=['name'])
+        # Reset the index to avoid (0, 4, 7, ...)
+        dataframe = dataframe.reset_index(drop=True)
+        return dataframe
 
-        df = dataframe
+    def unifiy_torrent_table(self, torrents):
 
-        print 'original'
-        print df
+        # Pre-calculating the ratio on the tables to use it on the filtering
+        ini_dataframe = self.create_data_frame(torrents[0])
+        ini_dataframe['ratio'] = (ini_dataframe['seed'] / ini_dataframe['leech'])
 
-        conditions = [df['ratio_x'] > df['ratio_y'], df['ratio_y'] > df['ratio_x'] ]
-        leech_choices = [df['leech_x'], df['leech_y']]
-        seed_choices = [df['seed_x'], df['seed_y']]
-        magnet_choices = [df['magnet_x'], df['magnet_y']]
-        size_choices = [df['size_x'], df['size_y']]
+        for i in range(1, len(torrents), 1):
+            tmp_dataframe = self.create_data_frame(torrents[i])
+            tmp_dataframe['ratio'] = (tmp_dataframe['seed'] / tmp_dataframe['leech'])
 
-        df['leech'] = np.select(conditions, leech_choices, default=np.nan)
-        df['seed'] = np.select(conditions, seed_choices, default=np.nan)
-        df['magnet'] = np.select(conditions, magnet_choices, default=np.nan)
-        df['size'] = np.select(conditions, size_choices, default=np.nan)
+            # Create the intersection of the 2 tables so we can retrieve the common entries
+            cmmn_dataframe = pd.merge(ini_dataframe, tmp_dataframe, how='inner', on=['name'])
 
-        del df['seed_x']
-        del df['leech_x']
-        del df['seed_y']
-        del df['leech_y']
-        del df['magnet_x']
-        del df['magnet_y']
-        del df['size_x']
-        del df['size_y']
-        del df['ratio_x']
-        del df['ratio_y']
+            conditions = [cmmn_dataframe['ratio_x'] > cmmn_dataframe['ratio_y'],
+                          cmmn_dataframe['ratio_y'] > cmmn_dataframe['ratio_x']]
 
-        print df
+            leech_choices = [cmmn_dataframe['leech_x'], cmmn_dataframe ['leech_y']]
+            seed_choices = [cmmn_dataframe['seed_x'], cmmn_dataframe ['seed_y']]
+            magnet_choices = [cmmn_dataframe['magnet_x'], cmmn_dataframe['magnet_y']]
+            size_choices = [cmmn_dataframe['size_x'], cmmn_dataframe['size_y']]
 
-        print 'clean the other tables'
-        names = DataFrame()
-        names['name'] = df['name']
-        # print names
+            # Calculate the winners
+            cmmn_dataframe['size'] = np.select(conditions, size_choices, default=np.nan)
+            cmmn_dataframe['seed'] = np.select(conditions, seed_choices, default=np.nan)
+            cmmn_dataframe['leech'] = np.select(conditions, leech_choices, default=np.nan)
+            cmmn_dataframe['magnet'] = np.select(conditions, magnet_choices, default=np.nan)
 
-        for index in range(0, len(names.index), 1):
-            name = names.iloc[int(index)]['name']
-            t0 = t0[t0.name != name]
-            t1 = t1[t1.name != name]
+            # Reshape the table, there it's no longer need for the _x and _y entries
+            tmp_result = cmmn_dataframe[['name', 'size', 'seed', 'leech', 'magnet']]
 
-        print '--------------' * 10
-        dataframe = pd.concat([df, t0, t1])
+            # Remove cmmn name entries from the 2 tables that we're crossing
+            aux_names = DataFrame()
+            aux_names['name'] = tmp_result['name']
 
-        dataframe = dataframe[['name', 'size', 'seed', 'leech', 'magnet']]
-        print '\n'
-        print 'Full Search Unfiltered'
+            for index in range(0, len(aux_names.index), 1):
+                name = aux_names.iloc[int(index)]['name']
+                ini_dataframe = ini_dataframe[ini_dataframe.name != name]
+                tmp_dataframe = tmp_dataframe[tmp_dataframe.name != name]
+
+            ini_dataframe = pd.concat([tmp_result, ini_dataframe, tmp_dataframe])
+            # Reset the index to avoid (0, 4, 7, ...) and Re-arrange the columns in a proper way
+            ini_dataframe = ini_dataframe[['name', 'size', 'seed', 'leech', 'magnet']].reset_index(drop=True)
+
+        return ini_dataframe
+
+
+    def calculate_top_spot(self, dataframe):
+
+        print '-----------------' * 5
+        print 'Full Search'
         print dataframe
         dataframe = self.filter_data_frame(dataframe)
+        dataframe = dataframe.sort_values(by=['seed','ratio'], ascending=False)
+        print dataframe
         print '\n'
-        print 'Full Search Filtered'
-        print '\n'
-        result = dataframe.sort_values(by=['seed','ratio'],ascending=False)
-        print result
-        print '\n'
-        print 'Top 5 Torrents Selected from this search'
-        print result[:10].reset_index(drop=True)
-
-
+        print 'Top 10 Torrents selected from Scrappers'
+        result_dataframe = dataframe[:10].reset_index(drop=True)
+        print result_dataframe
+        print '-----------------' * 5
+        return result_dataframe

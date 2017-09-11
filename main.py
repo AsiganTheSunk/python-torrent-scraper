@@ -26,11 +26,10 @@ def main():
     for torrent in torrents:
         torrent.list()
         print '\n'
-        scrapper_engine.create_data_frame(torrent=torrent)
 
+    result = scrapper_engine.unifiy_torrent_table(torrents=torrents)
+    scrapper_engine.calculate_top_spot(dataframe=result)
 
-
-    scrapper_engine.unify_torrent_table(torrents[0],torrents[1])
 
     return
 

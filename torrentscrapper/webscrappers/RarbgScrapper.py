@@ -32,7 +32,7 @@ class RarbgScrapper():
 
     def webscrapper (self, content=None):
 
-        torrent_instance = ti.TorrentInstance()
+        torrent_instance = ti.TorrentInstance(name=self.name)
         soup = BeautifulSoup (content, 'html.parser')
         ttable = soup.findAll('tr', {'class': 'lista2'})
 

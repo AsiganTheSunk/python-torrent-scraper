@@ -27,7 +27,7 @@ class PirateBayScrapper():
 
     def webscrapper(self, content):
 
-        torrent_instance = ti.TorrentInstance()
+        torrent_instance = ti.TorrentInstance(name=self.name)
         soup = BeautifulSoup(content, 'html.parser')
         #print soup.prettify()
         ttable = soup.findAll('table', {'id':'searchResult'})

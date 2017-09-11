@@ -5,7 +5,8 @@ from colorama import Fore, Style
 
 class TorrentInstance():
 
-    def __init__(self):
+    def __init__(self, name):
+        self.scrapper_name = name
         self.namelist = []
         self.sizelist = []
         self.seedlist = []
@@ -14,6 +15,7 @@ class TorrentInstance():
 
     def list(self):
         struct = zip(self.namelist, self.sizelist, self.seedlist, self.leechlist, self.magnetlist)
+        print self.scrapper_name + '\n'
         for name, size, seed, leech, magnet in struct:
             print Fore.LIGHTMAGENTA_EX + name + Style.RESET_ALL, Fore.GREEN + str(size) + Style.RESET_ALL, Fore.BLUE + str(seed) + Style.RESET_ALL, Fore.LIGHTRED_EX + str(leech) + Style.RESET_ALL, magnet
         return
