@@ -24,7 +24,6 @@ piratebay_magnet = open('/home/asigan/python-torrent-scrapper/examples/gotTPB.ht
 class ScrapperEngine():
 
     def __init__(self):
-        # rs.RarbgScrapper(),
         self.webscrappers = [kats.KatScrapper(), rs.RarbgScrapper(), pbs.PirateBayScrapper()]
         return
 
@@ -32,36 +31,22 @@ class ScrapperEngine():
     def multi_search(self, quality, title, season, subber):
         return
 
-
-    def single_search(self, quality, title, year, season, episode, subber):
-        torrent_list = []
-
-        try:
-            for webscrappers in self.webscrappers:
-                web_url = webscrappers._build_film_request(title=title, year=year)  # add quality to the search
-                print web_url
-                response = self.websearch(url=web_url)
-                torrent_instance = webscrappers.webscrapper(content=response.text)
-                torrent_list.append(torrent_instance)
-
-            return
-        except:
-            print 'There was a problem in single_search function!'
-            return
-
     def search(self, quality, title, year, season, episode, subber):
         torrent_list = []
+
         if (title and year) is not None:
             for webscrappers in self.webscrappers:
                 # Main Page
                 self.websearch(url = webscrappers.main_landing_page)
                 sleep(randint(2, 3))
                 print ('%s visiting main landing page ...' % webscrappers.name)
+
                 # Shows Page
                 if webscrappers.film_landing_page != '':
                     self.websearch(url = webscrappers.film_landing_page)
                     sleep(randint(1, 3))
                     print ('%s visiting films landing page ...' % webscrappers.name)
+
                 # Searched Page
                 web_url = webscrappers._build_film_request(quality=quality, title=title, year=year)
                 response = self.websearch(url=web_url)
@@ -84,11 +69,13 @@ class ScrapperEngine():
                 self.websearch(url = webscrappers.main_landing_page)
                 sleep(randint(2, 3))
                 print ('%s visiting main landing page ...' % webscrappers.name)
+
                 # Shows Page
                 if webscrappers.film_landing_page != '':
                     self.websearch(url = webscrappers.film_landing_page)
                     sleep(randint(1, 3))
                     print ('%s visiting films landing page ...' % webscrappers.name)
+
                 # Searched Page
                 web_url = webscrappers._build_show_request(quality=quality, title=title, season=season, episode=episode)
                 response = self.websearch(url=web_url)
@@ -169,9 +156,9 @@ class ScrapperEngine():
             cmmn_dataframe['leech'] = np.select(conditions, leech_choices, default=np.nan)
             cmmn_dataframe['magnet'] = np.select(conditions, magnet_choices, default=np.nan)
 
-            print 'cmmn_dataframe'
-            print cmmn_dataframe
-            print '------------------' * 5
+            # print 'cmmn_dataframe'
+            # print cmmn_dataframe
+            # print '------------------' * 5
 
             # Reshape the table, there it's no longer need for the _x and _y entries
             tmp_result = cmmn_dataframe[['name', 'size', 'seed', 'leech', 'magnet']]
@@ -192,9 +179,9 @@ class ScrapperEngine():
             # Reset the index to avoid (0, 4, 7, ...) and Re-arrange the columns in a proper way
             ini_dataframe = ini_dataframe[['name', 'size', 'seed', 'leech', 'magnet']].reset_index(drop=True)
 
-            print 'dataframe ini'
-            print ini_dataframe
-            print '000000000' * 7
+            # print 'dataframe ini'
+            # print ini_dataframe
+            # print '000000000' * 7
 
         return ini_dataframe
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from bs4 import BeautifulSoup
-from torrentscrapper.utils.torcurl import TorPyCurl as tpc
 from torrentscrapper import TorrentInstance as ti
 
 class PirateBayScrapper():

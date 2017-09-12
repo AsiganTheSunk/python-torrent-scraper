@@ -1,15 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
-import os
-import sys
 from bs4 import BeautifulSoup
-from torrentscrapper.utils.torcurl import TorPyCurl as tpc
 from torrentscrapper import TorrentInstance as ti
-
-
-SHOW_FLAG = '6'
-FILM_FLAG = '14'
-ANIME_FLAG = '10'
 
 class RarbgScrapper():
 
