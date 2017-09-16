@@ -18,6 +18,7 @@ class TvCalendarScrapper():
         month_list = []
         day_month_list = []
         day_week_list = []
+        chapter_list = []
 
         soup = BeautifulSoup(content, 'html.parser')
         ttable = soup.findAll('div', {'class':'month_box'})
@@ -48,16 +49,19 @@ class TvCalendarScrapper():
                             title_list.append(str(a[0].text).strip())
                             season_list.append(season[1:])
                             episode_list.append(episode[1:])
+                            chapter_list.append(str(a[1].text))
 
 
             dict = {'name': title_list,
+                    'chapter': chapter_list,
                     'episode': episode_list,
                     'season': season_list,
                     'month' : month_list,
                     'day_month': day_month_list,
                     'day_week': day_week_list}
 
-            dataframe = DataFrame(dict, columns=['name', 'episode', 'season', 'month', 'day_month', 'day_week'])
+            dataframe = DataFrame(dict, columns=['name', 'episode', 'season', 'chapter', 'month', 'day_month', 'day_week'])
+            dataframe.to_csv('./montly_tvcalendar.csv', sep='\t', encoding='utf-8')
 
         else:
             print '%s seems to not be working at the moment, please try again later ...\n' % self.name

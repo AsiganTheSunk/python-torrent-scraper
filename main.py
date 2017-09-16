@@ -18,11 +18,12 @@ def main():
     rarbg_magnet = open('/home/asigan/python-torrent-scrapper/examples/ttlkrarbg.html')
     piratebay_magnet = open('/home/asigan/python-torrent-scrapper/examples/gotTPB.html')
 
+    '''
 
     raw_input('Press [ENTER] To Launch WebScrapping... \n')
     scrapper_engine = se.ScrapperEngine()
     print '[Film ]'
-    torrents = scrapper_engine.search(quality='1080p', title='Baywatch', year='2017', season=None, episode=None, subber=False)
+    torrents = scrapper_engine.search(quality='1080p', title='Rick and Morty', year=None, season='03', episode='06', subber=False)
     for torrent in torrents:
         torrent.list()
         print '\n'
@@ -30,9 +31,9 @@ def main():
     result = scrapper_engine.unifiy_torrent_table(torrents=torrents)
     scrapper_engine.calculate_top_spot(dataframe=result)
 
-    '''
-    content = websearch(url= 'https://www.pogdesign.co.uk/cat/')
-    tvcs.TvCalendarScrapper().webscrapper(content=content.text)
+    # content = websearch(url= 'https://www.pogdesign.co.uk/cat/')
+    # dataframe = tvcs.TvCalendarScrapper().webscrapper(content=content.text)
+    # dataframe.to_csv('./montly_tvcalendar.csv', sep='\t', encoding='utf-8')
     return
 
 def websearch (url):

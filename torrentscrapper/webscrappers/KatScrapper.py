@@ -19,7 +19,7 @@ class KatScrapper():
         return (self.search_url + (title.replace(" ", "%20") + '%20' + str(year) + '%20' + str(quality)) )#+ '%20' + self.film_categories)
 
     def _build_show_request(self, quality='',title='', season='', episode=''):
-        return (self.search_url + (title.replace(" ", "%20") + '%20S' + str(season) + 'E' + str(episode) + '%20' + str(quality)))
+        return (self.search_url + (title.replace(" ", "%20") + '%20S' + str(season) + 'E' + str(episode) + '%20' + str(quality)) + '/')
 
     def webscrapper (self, content=None):
         torrent_instance = ti.TorrentInstance(name=self.name)
@@ -32,9 +32,9 @@ class KatScrapper():
                 title = (items.findAll('a', {'class': 'cellMainLink'}))[0].text
                 size = (items.findAll('td', {'class': 'nobr center'}))[0].text
                 if 'GB' in size:
-                    size = float(size[:-2]) * 1000
+                    size = float(size[:-3]) * 1000
                 else:
-                    size = size.text[:-2]
+                    size = float(size[:-3].strip())
                 magnet = (items.findAll('a', {'title': 'Torrent magnet link'}))[0]['href']
 
                 torrent_instance.add_namelist(str(title).strip())

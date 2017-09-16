@@ -21,10 +21,12 @@ piratebay_file = open('/home/asigan/python-torrent-scrapper/examples/thepirateba
 rarbg_magnet = open('/home/asigan/python-torrent-scrapper/examples/ttlkrarbg.html')
 piratebay_magnet = open('/home/asigan/python-torrent-scrapper/examples/gotTPB.html')
 
+# TODO FALTAN CASOS BASICOS; SI DEVUELVE VACIO; O SI EL PROXY ESTA CAIDO; REINTENTARLO CON UN SEGUNDO
+
 class ScrapperEngine():
 
     def __init__(self):
-        self.webscrappers = [kats.KatScrapper(), rs.RarbgScrapper(), pbs.PirateBayScrapper()]
+        self.webscrappers = [kats.KatScrapper(), pbs.PirateBayScrapper()] #, rs.RarbgScrapper()
         return
 
     # it takes torrrent instances and takes de decisions!
@@ -39,7 +41,7 @@ class ScrapperEngine():
                 # Main Page
                 self.websearch(url = webscrappers.main_landing_page)
                 sleep(randint(2, 3))
-                print ('%s visiting main landing page ...' % webscrappers.name)
+                print ('%s visiting libtorrent landing page ...' % webscrappers.name)
 
                 # Shows Page
                 if webscrappers.film_landing_page != '':
@@ -68,7 +70,7 @@ class ScrapperEngine():
                 # Main Page
                 self.websearch(url = webscrappers.main_landing_page)
                 sleep(randint(2, 3))
-                print ('%s visiting main landing page ...' % webscrappers.name)
+                print ('%s visiting libtorrent landing page ...' % webscrappers.name)
 
                 # Shows Page
                 if webscrappers.film_landing_page != '':
@@ -78,6 +80,7 @@ class ScrapperEngine():
 
                 # Searched Page
                 web_url = webscrappers._build_show_request(quality=quality, title=title, season=season, episode=episode)
+                print 'WEBURLLLLLLLLLLLLLL',web_url
                 response = self.websearch(url=web_url)
                 torrent_instance = webscrappers.webscrapper(content=response.text)
                 torrent_list.append(torrent_instance)
