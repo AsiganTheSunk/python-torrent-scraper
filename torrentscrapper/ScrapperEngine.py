@@ -3,6 +3,7 @@
 from torrentscrapper.webscrappers import RarbgScrapper as rs
 from torrentscrapper.webscrappers import PirateBayScrapper as pbs
 from torrentscrapper.webscrappers import KatScrapper as kats
+from torrentscrapper import WebSearch as ws
 
 import requests
 import pandas as pd
@@ -26,80 +27,77 @@ piratebay_magnet = open('/home/asigan/python-torrent-scrapper/examples/gotTPB.ht
 class ScrapperEngine():
 
     def __init__(self):
-        self.webscrappers = [kats.KatScrapper(), pbs.PirateBayScrapper()] #, rs.RarbgScrapper()
+        self.webscrappers = [pbs.PirateBayScrapper()] #,rs.RarbgScrapper()kats.KatScrapper(), ]
+        self.websearch = ws.WebSearch()
+        
         return
 
-    # it takes torrrent instances and takes de decisions!
-    def multi_search(self, quality, title, season, subber):
-        return
+    def human_handshake(self, webscrapper, websearch):
+        print ('%s visiting landing page ...' % webscrapper.name)
+        self.web_search(webscrapper.main_landing_page, webscrapper, websearch)
+        sleep(randint(1, 2))
 
-    def search(self, quality, title, year, season, episode, subber):
+        # Shows Page
+        if webscrapper.film_landing_page != '':
+            print ('%s visiting films landing page ...' % webscrapper.name)
+            self.web_search(webscrapper.film_landing_page, webscrapper, websearch)
+            sleep(randint(1, 2))
+
+    def search(self, websearch):
         torrent_list = []
 
-        if (title and year) is not None:
-            for webscrappers in self.webscrappers:
-                # Main Page
-                self.websearch(url = webscrappers.main_landing_page)
-                sleep(randint(1, 2))
-                print ('%s visiting libtorrent landing page ...' % webscrappers.name)
-
-                # Shows Page
-                if webscrappers.film_landing_page != '':
-                    self.websearch(url = webscrappers.film_landing_page)
-                    sleep(randint(1, 2))
-                    print ('%s visiting films landing page ...' % webscrappers.name)
+        if (websearch.title and websearch.year) is not None:
+            for webscrapper in self.webscrappers:
+                #self.human_handshake(webscrapper, websearch)
 
                 # Searched Page
-                web_url = webscrappers._build_film_request(quality=quality, title=title, year=year)
-                print ('%s building uri for the search: [ %s ]' % (webscrappers.name, web_url))
-                response = self.websearch(url=web_url)
+                web_url = webscrapper._build_film_request(quality=websearch.quality, title=websearch.title, year=websearch.year)
+                print ('%s building uri for the search: [ %s ]' % (webscrapper.name, web_url))
+                response = self.web_search(web_url, webscrapper)
 
                 if response is not None:
                     # TODO till cloudflare/bot detection solved we use dummy .html file for testing
-                    if webscrappers.name is 'RarbgScrapper':
-                        torrent_instance = webscrappers.webscrapper(content=rarbg_file)
+                    if webscrapper.name is 'RarbgScrapper':
+                        torrent_instance = webscrapper.webscrapper(content=rarbg_file, search_type='film', size_type=websearch.quality)
                     else:
-                        torrent_instance = webscrappers.webscrapper(content=response.text)
+                        torrent_instance = webscrapper.webscrapper(content=response.text, search_type='film', size_type=websearch.quality)
                     torrent_list.append(torrent_instance)
                     sleep(randint(1, 2))
 
             return torrent_list
 
-        elif ((title and episode) is not None) and subber is True:
+        elif ((websearch.title and websearch.episode) is not None) and websearch.subber is True:
             print 'This is a anime show'
             return
 
-        elif (title and season and episode) is not None:
-            for webscrappers in self.webscrappers:
-                # Main Page
-                self.websearch(url = webscrappers.main_landing_page)
-                sleep(randint(2, 3))
-                print ('%s visiting libtorrent landing page ...' % webscrappers.name)
-
-                # Shows Page
-                if webscrappers.film_landing_page != '':
-                    self.websearch(url = webscrappers.film_landing_page)
-                    sleep(randint(1, 3))
-                    print ('%s visiting films landing page ...' % webscrappers.name)
+        elif (websearch.title and websearch.season and websearch.episode) is not None:
+            for webscrapper in self.webscrappers:
+                #self.human_handshake(webscrapper)
 
                 # Searched Page
-                web_url = webscrappers._build_show_request(quality=quality, title=title, season=season, episode=episode)
-                print ('%s building uri for the search: [ %s ]' % (webscrappers.name, web_url))
-                response = self.websearch(url=web_url)
+                websearch.websearch_type = 'show'
+                web_url = webscrapper.build_weburl(websearch=websearch)
+                print ('%s building uri for the search: [ %s ]' % (webscrapper.name, web_url))
+
+                #TODO TENGO QUE HACER EL REBUILD DE LAS DIRECCIONES
+                response = self.web_search(web_url, webscrapper, websearch)
 
                 if response is not None:
-                    torrent_instance = webscrappers.webscrapper(content=response.text)
+                    torrent_instance = webscrapper.webscrapper(content=response.text, search_type='film', size_type=websearch.quality)
                     torrent_list.append(torrent_instance)
                     sleep(randint(1, 2))
+
             return torrent_list
 
-        elif (title and season) is not None:
+        elif (websearch.title and websearch.season) is not None:
             print 'This is a season of a show'
             return
 
         return
 
-    def websearch (self, url):
+    def web_search (self, url, webscrapper, websearch, counter = 0, proxy = 0):
+
+        print websearch.websearch_type
         response = None
         headers = {'UserAgent':str(UserAgent().random)}
         try:
@@ -107,8 +105,34 @@ class ScrapperEngine():
             # Control here when its empty based on the code recieved
             # error 300, 400 y 500
             return response
+
         except Exception as e:
-            print 'Unable to stablish connection'
+            print('%s connection failed, retrying in a few seconds' % webscrapper.name)
+            sleep(randint(2, 3))
+
+            if counter > 2:
+
+                print 'counter value', counter
+                proxy += 1
+                counter = 0
+
+                print('%s connection failed, trying a new proxy [ %s ]' % (webscrapper.name,  webscrapper.proxy_list[proxy]))
+                #if proxy > len(webscrapper.proxy_list):
+
+
+                webscrapper.set_main_landing_page(webscrapper.proxy_list[proxy])
+
+                print 'main', webscrapper.main_landing_page
+
+                new_url = webscrapper.build_weburl(websearch=websearch)
+                print 'new url: ', new_url
+                self.web_search(new_url, webscrapper, websearch, counter, proxy)
+
+            else:
+                print 'Retrying Connection ...'
+                counter += 1
+                self.web_search(url, webscrapper, websearch, counter, proxy)
+
             return None
 
     def create_data_frame(self, torrent=None):
@@ -123,8 +147,7 @@ class ScrapperEngine():
         dataframe = DataFrame(raw_data, columns=['name', 'size', 'seed', 'leech', 'magnet'])
         return dataframe
 
-
-    def filter_data_frame(self, dataframe):
+    def filter_data_frame(self, dataframe, size_limit=False):
 
         # df['health'] = (df['seed']*100)/(df['seed']+df['leech']+0.00000001)
         # df = df[df['health'] > 60]
@@ -136,16 +159,16 @@ class ScrapperEngine():
 
         # Size limitations
         # TODO read from .cfg so you can implement the range for 480p.Anime, 480p.Serie ...
-        dataframe = dataframe[dataframe['size'] > 300]
-        dataframe = dataframe[dataframe['size'] < 500]
+        if size_limit is True:
+
+            dataframe = dataframe[dataframe['size'] > 300]
+            dataframe = dataframe[dataframe['size'] < 500]
 
         # Reset the index to avoid (0, 4, 7, ...)
         dataframe = dataframe.reset_index(drop=True)
-        print 'added ratio'
-        print dataframe
         return dataframe
 
-    def unifiy_torrent_table(self, torrents):
+    def unifiy_torrent_table(self, torrents, size_limit=False):
         # Pre-calculating the ratio on the tables to use it on the filtering
         ini_dataframe = self.create_data_frame(torrents[0])
 

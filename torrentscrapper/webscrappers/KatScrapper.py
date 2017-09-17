@@ -7,11 +7,12 @@ class KatScrapper():
 
     def __init__(self):
         self.name = 'KatScrapper'
-        self.main_landing_page = 'https://kickass.cm/'
-        self.show_landing_page = 'https://kickass.cm/tv/'
-        self.film_landing_page = 'https://kickass.cm/movies/'
+        self.proxy_list = ['https://kickass.cm', 'https://kickass2.nz','https://thekat.se']
+        self.main_landing_page = self.proxy_list[0]
+        self.show_landing_page = self.main_landing_page + '/tv/'
+        self.film_landing_page = self.main_landing_page + '/movies/'
 
-        self.search_url = 'https://kickass.cm/usearch/'
+        self.search_url = self.main_landing_page + '/usearch/'
         self.serie_categories = '%20category:tv/'
         self.film_categories = '%20category:movies/'
 
@@ -21,8 +22,8 @@ class KatScrapper():
     def _build_show_request(self, quality='',title='', season='', episode=''):
         return (self.search_url + (title.replace(" ", "%20") + '%20S' + str(season) + 'E' + str(episode) + '%20' + str(quality)) + '/')
 
-    def webscrapper (self, content=None):
-        torrent_instance = ti.TorrentInstance(name=self.name)
+    def webscrapper (self, content=None, search_type=None, size_type=None):
+        torrent_instance = ti.TorrentInstance(name=self.name, search_type=search_type, size_type=size_type)
         soup = BeautifulSoup (content, 'html.parser')
         ttable = soup.findAll('tr', {"id": "torrent_latest_torrents"})
 

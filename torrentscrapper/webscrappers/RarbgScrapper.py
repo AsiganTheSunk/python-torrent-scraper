@@ -7,11 +7,12 @@ class RarbgScrapper():
 
     def __init__(self):
         self.name = 'RarbgScrapper'
-        self.main_landing_page = 'https://rarbg.unblockall.org/index8.php'
-        self.show_landing_page = 'https://rarbg.unblockall.org/torrents.php?category=1;18;41;49'
-        self.film_landing_page = 'https://rarbg.unblockall.org/torrents.php?category=movies'
+        self.proxy_list = ['https://rarbg.unblockall.org', 'https://rarbg.unblocked.re', 'https://www.rarbg.is']
+        self.main_landing_page = self.proxy_list[0]
+        self.show_landing_page = self.main_landing_page + '/torrents.php?category=1;18;41;49'
+        self.film_landing_page = self.main_landing_page + '/torrents.php?category=movies'
 
-        self.search_url = 'https://rarbg.unblockall.org/?search='
+        self.search_url = self.main_landing_page + '/?search='
         self.serie_categories = '&category%5B%5D=18&category%5B%5D=41&category%5B%5D=49'
         self.film_categories = '&category[]=14&category[]=48&category[]=17&category[]=44&category[]=45&category[]=47&category[]=50&category[]=51&category[]=52&category[]=42&category[]=46'
 
@@ -22,9 +23,8 @@ class RarbgScrapper():
         return (self.search_url + (title.replace(" ", "%20") + '%20S' + str(season) + 'E' + str(episode) + '%20' + str(quality)) + self.serie_categories)
 
 
-    def webscrapper (self, content=None):
-
-        torrent_instance = ti.TorrentInstance(name=self.name)
+    def webscrapper (self, content=None, search_type=None, size_type=None):
+        torrent_instance = ti.TorrentInstance(name=self.name, search_type=search_type, size_type=size_type)
         soup = BeautifulSoup (content, 'html.parser')
         ttable = soup.findAll('tr', {'class': 'lista2'})
 
