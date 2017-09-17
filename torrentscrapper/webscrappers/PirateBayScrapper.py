@@ -4,12 +4,14 @@ from bs4 import BeautifulSoup
 from torrentscrapper import TorrentInstance as ti
 from torrentscrapper import WebSearch as ws
 
-
+FILM_FLAG = 'FILM'
+SHOW_FLAG = 'SHOW'
+ANIME_FLAG = 'ANIME'
 
 class PirateBayScrapper():
     def __init__(self):
         self.name = 'PirateBayScrapper'
-        self.proxy_list = ['https://unblockedbay.inf', 'https://thehiddenbay.info', 'https://thepiratebay.work']
+        self.proxy_list = ['https://unblockedbay.inf', 'https://ukpirate.org', 'https://thehiddenbay.info']
         self.main_landing_page = self.proxy_list[0]
         self.show_landing_page = ''
         self.film_landing_page = ''
@@ -18,24 +20,23 @@ class PirateBayScrapper():
         self.default_category = '&category=0&page=0&orderby=99'
         return
 
-    def build_weburl(self, websearch):
-        print websearch.websearch_type
-
-        if websearch.websearch_type == 'film':
-            return self._build_film_request(quality=websearch.quality, title=websearch.title, year=websearch.year)
-        elif websearch.websearch_type == 'show':
-            return self._build_show_request(quality=websearch.quality, title=websearch.title, season=websearch.season, episode=websearch.episode)
+    def build_url(self, websearch):
+        print websearch.search_type
+        if websearch.search_type is FILM_FLAG:
+            return self._build_film_request(title=websearch.title, year=websearch.year, quality=websearch.quality)
+        elif websearch.search_type is SHOW_FLAG:
+            return self._build_show_request(title=websearch.title, season=websearch.season, episode=websearch.episode, quality=websearch.quality)
         else:
             print 'Anime?'
 
-    def set_main_landing_page(self, value):
+    def update_landing_page(self, value):
         self.main_landing_page = value
+        self.default_url = value + '/s/?q='
 
-
-    def _build_film_request(self, quality='', title='', year=''):
+    def _build_film_request(self, title='', year='',  quality=''):
         return (self.default_url + (title.replace(" ", "+") + '+' + str(year) + '+' + str(quality)) + self.default_category)
 
-    def _build_show_request(self, quality='', title='', season='', episode=''):
+    def _build_show_request(self,title='', season='', episode='',  quality=''):
         return (self.default_url + (title.replace(" ", "+") + '+S' + str(season) + 'E' + str(episode) + '+' + str(quality)) + self.default_category)
 
     def _build_anime_request(self):

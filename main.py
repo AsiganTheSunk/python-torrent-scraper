@@ -20,11 +20,9 @@ def main():
     '''
 
     raw_input('Press [ENTER] To Launch WebScrapping... \n')
-    websearch = ws.WebSearch(quality='1080p', title='Rick and Morty', year=None, season='03', episode='06', subber=False)
     scrapper_engine = se.ScrapperEngine()
-    print '[Film ]'
+    torrents = scrapper_engine.search(title='Rick and Morty', year=None, season='03', episode='06', quality='1080p', subber=False)
 
-    torrents = scrapper_engine.search(websearch=websearch)
     for torrent in torrents:
         torrent.list()
         print '\n'
