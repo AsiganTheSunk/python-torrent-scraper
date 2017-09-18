@@ -3,6 +3,10 @@
 from bs4 import BeautifulSoup
 from torrentscrapper import TorrentInstance as ti
 
+FILM_FLAG = 'FILM'
+SHOW_FLAG = 'SHOW'
+ANIME_FLAG = 'ANIME'
+
 class KatScrapper():
 
     def __init__(self):
@@ -15,6 +19,18 @@ class KatScrapper():
         self.search_url = self.main_landing_page + '/usearch/'
         self.serie_categories = '%20category:tv/'
         self.film_categories = '%20category:movies/'
+
+    def build_url(self, websearch):
+        if websearch.search_type is FILM_FLAG:
+            return self._build_film_request(title=websearch.title, year=websearch.year, quality=websearch.quality)
+        elif websearch.search_type is SHOW_FLAG:
+            return self._build_show_request(title=websearch.title, season=websearch.season, episode=websearch.episode, quality=websearch.quality)
+        else:
+            print 'Anime?'
+
+    def update_landing_page(self, value):
+        self.main_landing_page = value
+        self.default_url = value + '/usearch/'
 
     def _build_film_request(self, quality='',title='', year=''):
         return (self.search_url + (title.replace(" ", "%20") + '%20' + str(year) + '%20' + str(quality)) )#+ '%20' + self.film_categories)

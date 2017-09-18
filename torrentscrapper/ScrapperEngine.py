@@ -31,7 +31,8 @@ ANIME_FLAG = 'ANIME'
 class ScrapperEngine():
 
     def __init__(self):
-        self.webscrappers = [pbs.PirateBayScrapper()]#, rs.RarbgScrapper(), kats.KatScrapper()]
+        # TODO CLOUDFLARE PROBLEM!
+        self.webscrappers = [pbs.PirateBayScrapper(), kats.KatScrapper()] #, rs.RarbgScrapper()
         return
 
     def human_handshake(self, webscrapper, websearch):
@@ -48,24 +49,14 @@ class ScrapperEngine():
     def search(self, title=None, year=None, season=None, episode=None, quality=None, subber=None):
         torrent_list = []
 
-
         if (title and year) is not None:
             websearch = ws.WebSearch(title=title, year=year, season=season, episode=episode, quality=quality, subber=subber, search_type=FILM_FLAG)
             for webscrapper in self.webscrappers:
-                search_url = webscrapper.build_url(websearch = websearch)
-                print ('%s building uri for the search: [ %s ]' % (webscrapper.name, search_url))
+                # self.human_handshake(webscrapper)
                 response = self.web_search(websearch, webscrapper)
 
-                # TODO CLOUDFLARE PROBLEM!
-
                 if response is not None:
-                    if webscrapper.name is 'RarbgScrapper':
-
-                        torrent_instance = webscrapper.webscrapper(content=rarbg_file, search_type=FILM_FLAG, size_type=websearch.quality)
-
-                    else:
-                        torrent_instance = webscrapper.webscrapper(content=response.text, search_type=FILM_FLAG, size_type=websearch.quality)
-
+                    torrent_instance = webscrapper.webscrapper(content=response.text, search_type=FILM_FLAG, size_type=websearch.quality)
                     torrent_list.append(torrent_instance)
                     sleep(randint(1, 2))
 
@@ -76,8 +67,6 @@ class ScrapperEngine():
             return
 
         elif (title and season and episode) is not None:
-            print('Show search type detected')
-
             websearch = ws.WebSearch(title=title, year=year, season=season, episode=episode, quality=quality, subber=subber, search_type=SHOW_FLAG)
             for webscrapper in self.webscrappers:
                 #self.human_handshake(webscrapper)
@@ -85,7 +74,7 @@ class ScrapperEngine():
                 response = self.web_search(websearch, webscrapper)
 
                 if response is not None:
-                    torrent_instance = webscrapper.webscrapper(content=response.text, search_type='film', size_type=websearch.quality)
+                    torrent_instance = webscrapper.webscrapper(content=response.text, search_type=SHOW_FLAG, size_type=websearch.quality)
                     torrent_list.append(torrent_instance)
                     sleep(randint(1, 2))
 
@@ -94,45 +83,37 @@ class ScrapperEngine():
         elif (title and season) is not None:
             print 'This is a season of a show'
             return
-
         return
 
     def web_search (self, websearch, webscrapper, counter = 0, proxy = 0):
         response = None
         headers = {'UserAgent':str(UserAgent().random)}
+
         try:
             search_url = webscrapper.build_url(websearch=websearch)
-            print('%s building uri for the search: [ %s ]' % (webscrapper.name, search_url))
+            print('%s searching: [ %s ]' % (webscrapper.name, search_url))
             response = requests.get (search_url, verify=True, headers=headers)
-            print response.status_code
-            print response.text
             return response
 
         except Exception as e:
-            print('%s connection failed, retrying in a few seconds' % webscrapper.name)
-            sleep(randint(2, 3))
-
             if counter >= 2:
-                print 'Counter: [', counter, ']'
+                # print 'Counter: [', counter, ']'
                 proxy += 1
                 counter = 0
 
                 if len(webscrapper.proxy_list) >= proxy:
-                    print('%s connection failed, trying a new proxy [ %s ]' % (webscrapper.name,  webscrapper.proxy_list[proxy]))
+                    sleep(randint(2, 4))
+                    print('%s connection failed multiple times, trying a new proxy [ %s ]' % (webscrapper.name,  webscrapper.proxy_list[proxy]))
                     webscrapper.update_landing_page(webscrapper.proxy_list[proxy])
-                    #search_url = webscrapper.build_url(websearch=websearch)
-
-                    #print ('%s building uri for the search: [ %s ]' % (webscrapper.name, search_url))
-
-                    self.web_search(websearch, webscrapper, counter, proxy)
+                    return self.web_search(websearch, webscrapper, counter, proxy)
                 else:
                     return None
 
             else:
-                print 'Retrying Connection ...'
+                print('%s connection failed, retrying in a few seconds ...' % webscrapper.name)
                 counter += 1
-                self.web_search(websearch, webscrapper, counter, proxy)
-
+                sleep(randint(2, 4))
+                return self.web_search(websearch, webscrapper, counter, proxy)
 
     def create_data_frame(self, torrent=None):
 

@@ -11,17 +11,15 @@ ANIME_FLAG = 'ANIME'
 class PirateBayScrapper():
     def __init__(self):
         self.name = 'PirateBayScrapper'
-        self.proxy_list = ['https://unblockedbay.inf', 'https://ukpirate.org', 'https://thehiddenbay.info']
+        self.proxy_list = ['https://unblockedbay.info', 'https://ukpirate.org', 'https://thehiddenbay.info']
         self.main_landing_page = self.proxy_list[0]
         self.show_landing_page = ''
         self.film_landing_page = ''
 
         self.default_url = self.main_landing_page + '/s/?q='
         self.default_category = '&category=0&page=0&orderby=99'
-        return
 
     def build_url(self, websearch):
-        print websearch.search_type
         if websearch.search_type is FILM_FLAG:
             return self._build_film_request(title=websearch.title, year=websearch.year, quality=websearch.quality)
         elif websearch.search_type is SHOW_FLAG:
@@ -41,7 +39,6 @@ class PirateBayScrapper():
 
     def _build_anime_request(self):
         return
-
 
     def webscrapper (self, content=None, search_type=None, size_type=None):
         torrent_instance = ti.TorrentInstance(name=self.name, search_type=search_type, size_type=size_type)
