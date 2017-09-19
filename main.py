@@ -4,13 +4,17 @@ from torrentscrapper.webscrappers import RarbgScrapper as rs
 from torrentscrapper.webscrappers import PirateBayScrapper as pbs
 from torrentscrapper.webscrappers import KatScrapper as kats
 from torrentscrapper.webscrappers import TvCalendarScrapper as tvcs
-
 from torrentscrapper.utils.torcurl import TorPyCurl as tpc
+from torrentscrapper import WebSearch as ws
 from torrentscrapper import ScrapperEngine as se
-
-import requests
 from fake_useragent import UserAgent
+import requests
 
+
+def test():
+    ss = ['a', 'b']
+    if 'a' in ss:
+        print 'TRUE'
 def main():
     '''
     rarbg_file = open('/home/asigan/python-torrent-scrapper/examples/rarbgexample.html')
@@ -20,10 +24,10 @@ def main():
 
     '''
 
-    raw_input('Press [ENTER] To Launch WebScrapping... \n')
+    raw_input('Press [ENTER] To Launch WebScrapping ... \n')
     scrapper_engine = se.ScrapperEngine()
-    print '[Film ]'
-    torrents = scrapper_engine.search(quality='1080p', title='Rick and Morty', year=None, season='03', episode='06', subber=False)
+    torrents = scrapper_engine.search(title='Rick and Morty', year=None, season='01', episode='06', quality='', subber=False)
+
     for torrent in torrents:
         torrent.list()
         print '\n'
@@ -36,16 +40,6 @@ def main():
     # dataframe.to_csv('./montly_tvcalendar.csv', sep='\t', encoding='utf-8')
     return
 
-def websearch (url):
-    headers = {'UserAgent':str(UserAgent().random)}
-    try:
-        r = requests.get (url, verify=True, headers=headers)
-        return r
-    except Exception as e:
-        print 'Unable to stablish connection'
-    finally:
-        if r.status_code == 200:
-            print '200 OK'
 
 
 if __name__ == '__main__':
