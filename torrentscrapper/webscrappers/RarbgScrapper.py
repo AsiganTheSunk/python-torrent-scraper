@@ -12,11 +12,11 @@ class RarbgScrapper():
     def __init__(self):
         self.name = 'RarbgScrapper'
         self.proxy_list = ['https://rarbg.unblockall.org', 'https://rarbg.unblocked.re', 'https://www.rarbg.is']
-        self.main_landing_page = self.proxy_list[0]
-        self.show_landing_page = self.main_landing_page + '/torrents.php?category=1;18;41;49'
-        self.film_landing_page = self.main_landing_page + '/torrents.php?category=movies'
+        self.main_page = self.proxy_list[0]
+        self.show_page = self.main_page + '/torrents.php?category=1;18;41;49'
+        self.film_page = self.main_page + '/torrents.php?category=movies'
 
-        self.search_url = self.main_landing_page + '/?search='
+        self.search_url = self.main_page + '/?search='
         self.serie_categories = '&category%5B%5D=18&category%5B%5D=41&category%5B%5D=49'
         self.film_categories = '&category[]=14&category[]=48&category[]=17&category[]=44&category[]=45&category[]=47&category[]=50&category[]=51&category[]=52&category[]=42&category[]=46'
         self.supported_searchs = [FILM_FLAG, SHOW_FLAG]
@@ -30,7 +30,7 @@ class RarbgScrapper():
             print 'Anime?'
 
     def update_main_page(self, value):
-        self.main_landing_page = value
+        self.main_page = value
         self.default_url = value + '/?search='
 
     def build_film_request(self, quality='', title='', year=''):
@@ -73,7 +73,7 @@ class RarbgScrapper():
                 torrent_instance.add_sizelist(int(size))
                 torrent_instance.add_seedlist(int(seed))
                 torrent_instance.add_leechlist(int(leech))
-                torrent_instance.add_magnetlist(str(self.main_landing_page + magnet_link))
+                torrent_instance.add_magnetlist(str(self.main_page + magnet_link))
 
 
         else:
