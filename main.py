@@ -1,20 +1,29 @@
 #!/usr/bin/env python
 
-from torrentscrapper.webscrappers import RarbgScrapper as rs
-from torrentscrapper.webscrappers import PirateBayScrapper as pbs
-from torrentscrapper.webscrappers import KatScrapper as kats
-from torrentscrapper.webscrappers import TvCalendarScrapper as tvcs
-from torrentscrapper.utils.torcurl import TorPyCurl as tpc
-from torrentscrapper import WebSearch as ws
+from torrentscrapper.webscrappers.utils.UriBuilder import UriBuilder
+from torrentscrapper.struct import WebSearch as ws
 from torrentscrapper import ScrapperEngine as se
-from fake_useragent import UserAgent
-import requests
+from torrentscrapper.webscrappers import PirateBayScraper as pbs
+
+from ghost import Ghost
 
 
-def test():
-    ss = ['a', 'b']
-    if 'a' in ss:
-        print 'TRUE'
+# def test():
+#     webscraper = pbs.PirateBayScraper()
+#     websearch = ws.WebSearch(title='Rick & Morty',season='02',episode='01',quality='1080p', debug=True)
+#     uri_builder = UriBuilder()
+#     uri_builder.build_request_url(websearch, webscraper, verbose=True)
+#
+#     print(webscraper.main_page)
+#     webscraper.update_main_page()
+#     print(webscraper.main_page)
+#     webscraper.update_main_page()
+#     print(webscraper.main_page)
+#     webscraper.update_main_page()
+#     print(webscraper.main_page)
+#
+#     return
+
 def main():
     '''
     rarbg_file = open('/home/asigan/python-torrent-scrapper/examples/rarbgexample.html')
@@ -23,14 +32,15 @@ def main():
     piratebay_magnet = open('/home/asigan/python-torrent-scrapper/examples/gotTPB.html')
 
     '''
-
-    raw_input('Press [ENTER] To Launch WebScrapping ... \n')
+    print('******' * 11)
+    input('Press [ENTER] To Launch WebScrapping ...')
+    print('******' * 11)
     scrapper_engine = se.ScrapperEngine()
-    torrents = scrapper_engine.search(title='Rick and Morty', year=None, season='01', episode='06', quality='', subber=False)
+    torrents = scrapper_engine.search(title='Rick & Morty', year='', season='03', episode='01', quality='1080p', header='', search_type='SHOW')
 
-    for torrent in torrents:
-        torrent.list()
-        print '\n'
+    # for torrent in torrents:
+    #     torrent.list()
+    #     print('\n')
 
     result = scrapper_engine.unifiy_torrent_table(torrents=torrents)
     scrapper_engine.calculate_top_spot(dataframe=result)
@@ -43,4 +53,7 @@ def main():
 
 
 if __name__ == '__main__':
+    #test3()
     main()
+    #retrieve_cloudflare_cookie(uri='https://unblockedbay.info/s/?q=Rick++Morty++S02E01+1080p&category=205&page=0&orderby=99', debug=True)
+    #test()

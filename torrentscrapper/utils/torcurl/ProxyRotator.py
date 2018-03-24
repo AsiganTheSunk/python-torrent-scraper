@@ -4,7 +4,7 @@ import random
 
 import stem
 import sys
-from TorInstance import TorInstance
+from .TorInstance import TorInstance
 
 DEFAULT_ID = 0
 DEFAULT_PROXY_PORT = 9050
@@ -64,7 +64,7 @@ class ProxyRotator():
         try:
             control_port = stem.socket.ControlPort(port=cntrl_port)
         except stem.SocketError as exc:
-            print 'Unable to connect to port %s (%s)' % (cntrl_port, exc)
+            print ('Unable to connect to port %s (%s)' % (cntrl_port, exc))
             sys.exit(1)
         return
 
@@ -116,7 +116,7 @@ class ProxyRotator():
             Attributes:
             """
         if tor_instance.connection_count >= tor_instance.connection_reset_threshold:
-            print '[ %s ]: %s - %s TOR Circuit should reset shortly...' % (tor_instance.nickname, tor_instance.socks_port, tor_instance.cntrl_port)
+            print ('[ %s ]: %s - %s TOR Circuit should reset shortly...' % (tor_instance.nickname, tor_instance.socks_port, tor_instance.cntrl_port))
             tor_instance.reset()
             return False
         return True

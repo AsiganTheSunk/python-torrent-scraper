@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 
-from torrentscrapper.webscrappers import RarbgScrapper as rs
-from torrentscrapper.webscrappers import PirateBayScrapper as pbs
-from torrentscrapper.webscrappers import KatScrapper as kats
-from torrentscrapper import WebSearch as ws
+from torrentscrapper.webscrappers import PirateBayScraper as pbs
+from torrentscrapper.webscrappers import KatScraperTypeA as katsta
+from torrentscrapper.webscrappers import KatScraperTypeB as katstb
+from torrentscrapper.webscrappers import TorrentFunkScraper as tfs
+from torrentscrapper.webscrappers import RarbgScraper as rbgs
+from torrentscrapper.struct import WebSearch as ws
+from torrentscrapper.webscrappers.utils.UriBuilder import UriBuilder
+from torrentscrapper.webscrappers.utils.rarbg_bypass.ThreadDefenceBypass import ThreatDefenceBypass
 
 import requests
 import pandas as pd
@@ -12,131 +16,30 @@ from pandas import DataFrame
 from fake_useragent import UserAgent
 from time import sleep
 from random import randint
+import cfscrape
 
 pd.set_option('display.max_rows', 750)
 pd.set_option('display.max_columns',750)
 pd.set_option('display.width', 1400)
 
-rarbg_file = open('/home/asigan/python-torrent-scrapper/examples/Baywatch2017.html')
-piratebay_file = open('/home/asigan/python-torrent-scrapper/examples/thepiratebayexample.html')
-rarbg_magnet = open('/home/asigan/python-torrent-scrapper/examples/ttlkrarbg.html')
-piratebay_magnet = open('/home/asigan/python-torrent-scrapper/examples/gotTPB.html')
-
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
 
-# TODO FALTAN CASOS BASICOS; SI DEVUELVE VACIO; O SI EL PROXY ESTA CAIDO; REINTENTARLO CON UN SEGUNDO
-
 class ScrapperEngine():
-
     def __init__(self):
-        # TODO CLOUDFLARE PROBLEM!
-        self.webscrappers = [pbs.PirateBayScrapper(), kats.KatScrapper()] #, rs.RarbgScrapper()
-        return
+        self.name = self.__class__.__name__
+        self.webscrappers =  [rbgs.RarbgScrapper()] #[tfs.TorrentFunkScraper(), katsta.KatScrapperTypeA(), katstb.KatScrapperTypeB(), pbs.PirateBayScraper()]
 
-    def human_handshake(self, webscrapper, search_type):
-        headers = {'UserAgent': str(UserAgent().random)}
-        try:
-            print ('%s visiting main page ...' % webscrapper.name)
-            requests.get(url=str(webscrapper.main_page + '/'), verify=True, headers=headers)
-            sleep(randint(1, 2))
-
-            print ('%s visiting %s page ...' % ((webscrapper.name), str(search_type).lower()))
-            if search_type is FILM_FLAG and webscrapper.film_page != '':
-               requests.get(url=str(webscrapper.film_page + '/'), verify=True, headers=headers)
-               sleep(randint(1, 2))
-               return
-
-            elif search_type is SHOW_FLAG and webscrapper.show_page != '':
-                requests.get(url=str(webscrapper.show_page + '/'), verify=True, headers=headers)
-                sleep(randint(1, 2))
-                return
-
-            elif search_type is ANIME_FLAG:
-                return
-        except Exception as e:
-            print e
-            print ('%s unable to make human handshake, site may be down ...' % webscrapper.name)
-            return
-
-    def search(self, title=None, year=None, season=None, episode=None, quality=None, subber=None):
-        torrent_list = []
-
-        if (title and year) is not None:
-            websearch = ws.WebSearch(title=title, year=year, season=season, episode=episode, quality=quality, subber=subber, search_type=FILM_FLAG)
-            for webscrapper in self.webscrappers:
-                if FILM_FLAG in webscrapper.supported_searchs:
-                    print('%s selected proxy [ %s ]' % (webscrapper.name, webscrapper.main_page))
-                    # Human Handshake, visiting the main page first, then the subsection before we make the search
-                    self.human_handshake(webscrapper, FILM_FLAG)
-                    response = self.web_search(websearch, webscrapper)
-                    if response is not None:
-                        torrent_instance = webscrapper.webscrapper(content=response.text, search_type=FILM_FLAG, size_type=websearch.quality)
-                        torrent_list.append(self.retrieve_missing_magnets(torrent_instance, webscrapper))
-                        sleep(randint(1, 2))
-
-            return torrent_list
-
-        elif (title and season and episode) is not None:
-            websearch = ws.WebSearch(title=title, year=year, season=season, episode=episode, quality=quality, subber=subber, search_type=SHOW_FLAG)
-
-            for webscrapper in self.webscrappers:
-                print('%s selected proxy [ %s ]' % (webscrapper.name, webscrapper.main_page))
-                #Human Handshake, visiting the main page first, then the subsection before we make the search
-                self.human_handshake(webscrapper, SHOW_FLAG)
-                response = self.web_search(websearch, webscrapper)
-
-                if response is not None:
-                    torrent_instance = webscrapper.webscrapper(content=response.text, search_type=SHOW_FLAG, size_type=websearch.quality)
-                    torrent_list.append(self.retrieve_missing_magnets(torrent_instance, webscrapper))
-                    sleep(randint(1, 2))
-
-            return torrent_list
-
-        elif ((title and episode) is not None) and subber is True:
-            print 'This is a anime show'
-            return
-
-        elif (title and season) is not None:
-            print 'This is a season of a show'
-            return
-        return
-
-    def web_search (self, websearch, webscrapper, counter = 0, proxy = 0):
-        response = None
-        headers = {'UserAgent':str(UserAgent().random)}
-
-        try:
-
-            search_url = webscrapper.build_url(websearch=websearch)
-            print('%s searching: [ %s ]' % (webscrapper.name, search_url))
-            response = requests.get(search_url, verify=True, headers=headers)
-            return response
-
-        except Exception as e:
-            if counter >= 2:
-                proxy += 1
-                counter = 0
-
-                if len(webscrapper.proxy_list) > proxy:
-                    sleep(randint(1, 2))
-                    print('%s connection failed multiple times, trying a new proxy [ %s ]' % (webscrapper.name,  webscrapper.proxy_list[proxy]))
-                    webscrapper.update_main_page(webscrapper.proxy_list[proxy])
-                    return self.web_search(websearch, webscrapper, counter, proxy)
-                else:
-                    return None
-
-            else:
-                print('%s connection failed, retrying in a few seconds ...' % webscrapper.name)
-                counter += 1
-                sleep(randint(1, 2))
-                return self.web_search(websearch, webscrapper, counter, proxy)
+    def retrieve_cloudflare_cookie(self, uri, debug=False):
+        cloudflare_cookie, agent = cfscrape.get_tokens(uri, UserAgent().random)
+        if debug:
+            print('%s retrieving cloudflare cookie: \n %s' % (self.name, cloudflare_cookie))
+        return cloudflare_cookie, agent
 
     def retrieve_missing_magnets(self, torrent, webscrapper):
-        headers = {'UserAgent': str(UserAgent().random)}
-
-        if torrent.magnetlist is not [] and len(torrent.magnetlist) > 1:
+        headers = {'User-Agent': str(UserAgent().random)}
+        if torrent.magnetlist is not [] and len(torrent.magnetlist) >= 1:
             # Avoiding checking sites that don't need the second search to retrieve the data
             if 'magnet:' not in torrent.magnetlist[0] :
                 print ('%s retrieving magnet links ...\n' % webscrapper.name)
@@ -147,9 +50,73 @@ class ScrapperEngine():
                             magnet = webscrapper.magnet_link_scrapper(response.text)
                             torrent.magnetlist[index] = magnet
                         except:
-                            print ('%s unable to retrieve the magnets, try again later ...\n' % webscrapper.name)
+                            print ('%s unable to retrieve the magnets, try again later ...' % webscrapper.name)
                 return torrent
         return torrent
+
+    def search(self, title='', year='', season='', episode='', quality='', header='', search_type='', debug=False):
+        torrent_list = []
+        websearch = ws.WebSearch(title=title, year=year, season=season, episode=episode, quality=quality, header=header, search_type=search_type)
+        for webscrapper in self.webscrappers:
+            if search_type in webscrapper.supported_searchs:
+                print('%s selected proxy: [ %s ]' % (webscrapper.name, webscrapper.main_page))
+                response = self.dynamic_search(websearch, webscrapper, debug=debug)
+                if response is not None:
+                    torrent_instance = webscrapper.webscrapper(content=response.text, search_type=search_type, size_type=websearch.quality, debug=debug)
+                    torrent_list.append(self.retrieve_missing_magnets(torrent_instance, webscrapper))
+                    sleep(randint(0, 1))
+        return torrent_list
+
+    def dynamic_search (self, websearch, webscraper, counter=0, max_counter=3, debug=True):
+        response = None
+        headers = {}
+        cloudflare_cookie = {}
+        user_agent = {'User-Agent':str(UserAgent().random)}
+        try:
+            uri_builder = UriBuilder()
+            search_uri = uri_builder.build_request_url(websearch=websearch, webscraper=webscraper, debug=debug)
+
+            try:
+                if webscraper.cloudflare_cookie:
+                    cloudflare_cookie, user_agent = self.retrieve_cloudflare_cookie(uri=search_uri, debug=debug)
+                    headers = {'User-Agent':user_agent}
+                else:
+                    headers = user_agent
+            except Exception as e:
+                # print(e)
+                if debug:
+                    print('Something went wrong with cloud flare cookie retrieval')
+
+            print('%s searching: [ %s ]' % (webscraper.name, search_uri))
+            response = requests.get(search_uri, verify=True, headers=headers, cookies=cloudflare_cookie)
+
+            if webscraper.thread_defense_bypass_cookie:
+                if response.history:
+                    print('Request was redirected')
+                    for resp in response.history:
+                        print(resp.status_code, resp.url)
+                    print('Final destination:')
+                    print(response.status_code, response.url)
+                    thread_defense_bypass = ThreatDefenceBypass()
+                    #thread_defense_bypass_cookie =  thread_defense_bypass(url=response.url)
+
+            return response
+
+        except Exception as e:
+            print('error:',e)
+            if counter >= max_counter:
+                try:
+                    sleep(randint(1, 2))
+                    print('%s connection failed multiple times, trying a new proxy: [ %s ]' % (webscraper.name,  webscraper.proxy_list[webscraper._proxy_list_pos]))
+                    updated_webscraper = webscraper.update_main_page()
+                    return self.dynamic_search(websearch, updated_webscraper, counter)
+                except Exception:
+                    return None
+            else:
+                print('%s connection failed, retrying in a few seconds ...\n [%s]' % (webscraper.name, webscraper.proxy_list[webscraper._proxy_list_pos]))
+                counter += 1
+                sleep(randint(1, 2))
+                return self.dynamic_search(websearch, webscraper, counter)
 
     '''
         
@@ -247,15 +214,15 @@ class ScrapperEngine():
 
     def calculate_top_spot(self, dataframe):
 
-        print '-----------------' * 8 + '\n'
-        print 'Full Search'
-        print dataframe
+        print ('-----------------' * 8 + '\n')
+        print ('Full Search')
+        print (dataframe)
         dataframe = self.filter_data_frame(dataframe)
         dataframe = dataframe.sort_values(by=['seed', 'ratio'], ascending=False)
-        print '\n'
-        print '-----------------' * 8 + '\n'
-        print 'Top Candidates selected from WebScrapping'
+        print ('\n')
+        print ('-----------------' * 8 + '\n')
+        print ('Top Candidates selected from WebScrapping')
         result_dataframe = dataframe[:1].reset_index(drop=True)
-        print result_dataframe
-        print '-----------------' * 8 + '\n'
+        print (result_dataframe)
+        print ('-----------------' * 8 + '\n')
         return result_dataframe

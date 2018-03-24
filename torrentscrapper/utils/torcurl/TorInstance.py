@@ -86,5 +86,5 @@ class TorInstance():
             print('TorPyCurl Status: Connection Reset ExitRelay')
             self.ctrl.signal(Signal.NEWNYM)
         except:
-            print 'An error occurred: '
+            print ('An error occurred: ')
 

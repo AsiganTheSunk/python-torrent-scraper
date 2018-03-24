@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 
 import pycurl
-from cStringIO import StringIO
-from urllib import urlencode
-
+from io import StringIO
+import urllib.parse
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from ProxyRotator import ProxyRotator
-
-from Response import Response
+from .ProxyRotator import ProxyRotator
+from .Response import Response
 
 # from torcurl2.listeners import ExitRelayListener as erl
 
@@ -71,7 +69,7 @@ class TorPyCurl():
         """
 
         if attrs:
-            url = "%s?%s" % (url, urlencode(attrs))
+            url = "%s?%s" % (url, urllib.parse.urlencode(attrs))
 
         self.handler.setopt(pycurl.URL, str(url))
 
@@ -80,6 +78,7 @@ class TorPyCurl():
 
         self.handler.setopt(pycurl.TIMEOUT, timeout)
         self.handler.setopt(pycurl.SSL_VERIFYPEER, ssl)
+
         self.handler.setopt(pycurl.FOLLOWLOCATION, 1)
         self.handler.setopt(pycurl.USERAGENT, self.user_agent.random)
 
@@ -132,9 +131,8 @@ class TorPyCurl():
         try:
             return self._curl_perform()
 
-        except pycurl.error, error:
-            errno, errstr = error
-            print 'An error occurred: ', errstr
+        except pycurl.error:
+            print ('An error occurred: ', pycurl.error)
 
     def post(self, url=None, headers={}, attrs={},  ssl=True, timeout=15):
         """Function post
@@ -152,7 +150,7 @@ class TorPyCurl():
 
         # Set request type: POST
         self.handler.setopt(pycurl.POST, True)
-        self.handler.setopt(pycurl.POSTFIELDS, urlencode(attrs))
+        self.handler.setopt(pycurl.POSTFIELDS, urllib.parse.urlencode(attrs))
 
         # Common
         self._proxy_setup()
@@ -162,9 +160,9 @@ class TorPyCurl():
         try:
             return self._curl_perform()
 
-        except pycurl.error, error:
-            errno, errstr = error
-            print 'An error occurred: ', errstr
+
+        except pycurl.error:
+            print('An error occurred: ', pycurl.error)
 
     def put(self, url, headers={}, attrs={}, ssl=True, timeout=15):
         """Function put
@@ -181,7 +179,7 @@ class TorPyCurl():
         self.reset_handler()
 
         # Set request type: PUT
-        encoded_attrs = urlencode(attrs)
+        encoded_attrs = urllib.parse.urlencode(attrs)
         request_buffer = StringIO(encoded_attrs)
 
         self.handler.setopt(pycurl.PUT, True)
@@ -195,9 +193,8 @@ class TorPyCurl():
         try:
             return self._curl_perform()
 
-        except pycurl.error, error:
-            errno, errstr = error
-            print 'An error ocurred: ', errstr
+        except pycurl.error:
+            print('An error occurred: ', pycurl.error)
 
     def delete(self, url, headers={}, attrs={}, ssl=True, timeout=15):
         """Function delete
@@ -223,9 +220,8 @@ class TorPyCurl():
         try:
             return self._curl_perform()
 
-        except pycurl.error, error:
-            errno, errstr = error
-            print 'An error ocurred: ', errstr
+        except pycurl.error:
+            print('An error occurred: ', pycurl.error)
 
     def validate(self):
         """Function validate
@@ -245,16 +241,15 @@ class TorPyCurl():
             status = soup.findAll('h1', {'class': 'not'})
             current_address = soup.findAll('p')[0]
 
-            print 'TorPyCurl Connection address: ' + str(current_address.strong.text)
+            print ('TorPyCurl Connection address: ' + str(current_address.strong.text))
 
             if 'Congratulations.' in str(status[0].text).strip():
-                print 'TorPyCurl Status: Connection PASS'
+                print ('TorPyCurl Status: Connection PASS')
             else:
-                print 'TorPyCurl Status: Connection FAIL'
+                print ('TorPyCurl Status: Connection FAIL')
 
-        except pycurl.error, error:
-            errno, errstr = error
-            print 'An error occurred: ', errstr
+        except pycurl.error:
+            print('An error occurred: ', pycurl.error)
 
 
 
@@ -283,9 +278,9 @@ class TorPyCurl():
             response = self.get(url=url + token, ssl=ssl, timeout=timeout)
             '''
             soup = BeautifulSoup(response.data, 'html.parser')
-            print soup
+            print (soup)
             info = soup.findAll('table')
-            print info
+            print (info)
 
             #print 'TorPyCurl Connection address: ' + str(current_address.strong.text)
 
@@ -294,9 +289,8 @@ class TorPyCurl():
             #else:
             #    print 'TorPyCurl Status: Connection FAIL'
 
-        except pycurl.error, error:
-            errno, errstr = error
-            print 'An error occurred: ', errstr
+        except pycurl.error:
+            print ('An error occurred: ', pycurl.error)
 
     '''
     def exits(self, url='https://check.torproject.org/exit-addresses'):
