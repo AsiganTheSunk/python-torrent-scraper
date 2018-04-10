@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from torrentscraper.webscrapers import rarbg_scraper as rbgs
-from old import WebSearch as ws
+import web_search as ws
 from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
 from torrentscraper.webscrapers.utils.rarbg_bypass.thread_defence_bypass import ThreatDefenceBypass
 
