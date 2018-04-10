@@ -1,47 +1,40 @@
 #!/usr/bin/env python
 
 from bs4 import BeautifulSoup
-from torrentscrapper import TorrentInstance as ti
-from torrentscrapper import WebSearch as ws
+from torrentscraper.datastruct import torrent_instance as ti
 
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
 
-class PirateBayScrapper():
+class PirateBayScraper():
     def __init__(self):
-        self.name = 'PirateBayScrapper'
-        self.proxy_list = ['https://unblockedbay.info', 'https://ukpirate.org', 'https://thehiddenbay.info']
-        self.main_page = self.proxy_list[0]
-        self.show_page = ''
-        self.film_page = ''
+        self.name = self.__class__.__name__
+        self.proxy_list = ['https://unblockedbay.info/', 'https://ukpirate.org/', 'https://thehiddenbay.info/']
+        self._proxy_list_length = len(self.proxy_list)
+        self._proxy_list_pos = 0
+        self.cloudflare_cookie = False
+        self.query_type = True
+        self.disable_quality = False
 
-        self.default_url = self.main_page + '/s/?q='
-        self.default_category = '&category=0&page=0&orderby=99'
+        self.main_page = self.proxy_list[self._proxy_list_pos]
+        self.default_search = 's/'
+        self.default_tail = ''
+        self.default_params = {'category':'0', 'page':'0', 'orderby':'99'}
         self.supported_searchs = [FILM_FLAG, SHOW_FLAG, ANIME_FLAG]
 
-    def build_url(self, websearch):
-        if websearch.search_type is FILM_FLAG:
-            return self.build_film_request(title=websearch.title, year=websearch.year, quality=websearch.quality)
-        elif websearch.search_type is SHOW_FLAG:
-            return self.build_show_request(title=websearch.title, season=websearch.season, episode=websearch.episode, quality=websearch.quality)
-        else:
-            print 'Anime?'
+    def update_main_page(self):
+        try:
+            value = self._proxy_list_pos
+            if self._proxy_list_length > self._proxy_list_pos:
+                value += 1
 
-    def update_main_page(self, value):
-        self.main_page = value
-        self.default_url = value + '/s/?q='
+            self._proxy_list_pos = value
+            self.main_page = self.proxy_list[self._proxy_list_pos]
+        except IndexError:
+            raise IndexError
 
-    def build_film_request(self, title='', year='', quality=''):
-        return (self.default_url + (title.replace(" ", "+") + '+' + str(year) + '+' + str(quality)) + self.default_category)
-
-    def build_show_request(self, title='', season='', episode='', quality=''):
-        return (self.default_url + (title.replace(" ", "+") + '+S' + str(season) + 'E' + str(episode) + '+' + str(quality)) + self.default_category)
-
-    def build_anime_request(self):
-        return
-
-    def webscrapper (self, content=None, search_type=None, size_type=None):
+    def webscrapper (self, content=None, search_type=None, size_type=None, debug=False):
         torrent_instance = ti.TorrentInstance(name=self.name, search_type=search_type, size_type=size_type)
         soup = BeautifulSoup(content, 'html.parser')
         ttable = soup.findAll('table', {'id':'searchResult'})
@@ -78,6 +71,9 @@ class PirateBayScrapper():
                         size = size.replace('GiB', 'GB')
                         size = float(size[:-2]) * 1000
 
+                    if debug:
+                        print('%s adding torrent entry ...\n title: [ %s ]\n size: [ %s ]\n seeds: [ %s ]\n leech: [ %s ]\n magnet: [ %s ]'
+                              % (self.name, str(title).strip(), str(size), str(seed), str(leech), magnet_link))
                     torrent_instance.add_namelist(str(title).strip())
                     torrent_instance.add_seedlist(int(seed))
                     torrent_instance.add_leechlist(int(leech))
@@ -92,5 +88,3 @@ class PirateBayScrapper():
         div = (soup.findAll('div',{'class':'download'}))
         magnet = div[0].findAll('a')[0]['href']
         return (magnet)
-
-

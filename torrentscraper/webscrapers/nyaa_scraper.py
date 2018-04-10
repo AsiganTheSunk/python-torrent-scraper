@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
+# future!
+
 from bs4 import BeautifulSoup
-from torrentscrapper.struct import TorrentInstance as ti
+from torrentscraper.datastruct import torrent_instance as ti
 
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'

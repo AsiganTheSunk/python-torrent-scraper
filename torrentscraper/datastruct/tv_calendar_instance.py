@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 class TVCalendar():
     def __init__(self, main_month_uri):
         self.main_month_uri = main_month_uri

@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 
-from torrentscrapper.webscrappers.utils.UriBuilder import UriBuilder
-from torrentscrapper.struct import WebSearch as ws
-from torrentscrapper import ScrapperEngine as se
-from torrentscrapper.webscrappers import PirateBayScraper as pbs
-
-from ghost import Ghost
+from torrentscraper import scraper_engine as se
 
 
 # def test():

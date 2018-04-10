@@ -1,13 +1,9 @@
 #!/usr/bin/env python
 
-from torrentscrapper.webscrappers import PirateBayScraper as pbs
-from torrentscrapper.webscrappers import KatScraperTypeA as katsta
-from torrentscrapper.webscrappers import KatScraperTypeB as katstb
-from torrentscrapper.webscrappers import TorrentFunkScraper as tfs
-from torrentscrapper.webscrappers import RarbgScraper as rbgs
-from torrentscrapper.struct import WebSearch as ws
-from torrentscrapper.webscrappers.utils.UriBuilder import UriBuilder
-from torrentscrapper.webscrappers.utils.rarbg_bypass.ThreadDefenceBypass import ThreatDefenceBypass
+from torrentscraper.webscrapers import rarbg_scraper as rbgs
+from old import WebSearch as ws
+from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
+from torrentscraper.webscrapers.utils.rarbg_bypass.thread_defence_bypass import ThreatDefenceBypass
 
 import requests
 import pandas as pd
@@ -213,7 +209,6 @@ class ScrapperEngine():
         return ini_dataframe
 
     def calculate_top_spot(self, dataframe):
-
         print ('-----------------' * 8 + '\n')
         print ('Full Search')
         print (dataframe)
