@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
 from bs4 import BeautifulSoup
-from torrentscraper.datastruct import torrent_instance as ti
+from torrentscraper.datastruct.websearch import RAWData
 
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
 
+# NO FUNCIONA CAMBIARON ALGUNA MIERDA DE JAVASCRIPT CON COOKIES
 class KatScrapperTypeB():
     def __init__(self):
         self.name = self.__class__.__name__
@@ -16,6 +17,7 @@ class KatScrapperTypeB():
         self.cloudflare_cookie = False
         self.query_type = False
         self.disable_quality = True
+        self.thread_defense_bypass_cookie = False
 
         self.main_page = self.proxy_list[self._proxy_list_pos]
         self.default_search = '/katsearch/page/1/'
@@ -34,17 +36,17 @@ class KatScrapperTypeB():
         except IndexError:
             raise IndexError
 
-    def webscrapper (self, content=None, search_type=None, size_type=None, debug=False):
-        torrent_instance = ti.TorrentInstance(name=self.name, search_type=search_type, size_type=size_type)
+    def get_raw_data(self, content=None):
+        raw_data = RAWData()
         soup = BeautifulSoup (content, 'html.parser')
-        #print(soup.prettify())
         ttable = soup.findAll('table', {'class': 'table table--bordered table--striped table--hover torrents_table'})
+
         # Retrieving individual values from the search result
         tbody = ttable[0].findAll('tbody')[0]
         if tbody != []:
             print ('%s retrieving individual values from the table \n' % self.name)
             for items in tbody:
-                title = (items.findAll('a', {'class': 'torrents_table__torrent_title'}))[0].text
+                # title = (items.findAll('a', {'class': 'torrents_table__torrent_title'}))[0].text
                 size = (items.findAll('td', {'data-title': 'Size'}))[0].text
 
                 # Converting GB to MB, to easily manage the pandas structure
@@ -52,8 +54,6 @@ class KatScrapperTypeB():
                     size = float(size[:-3])
                 elif 'GB' in size:
                     size = float(size[:-3]) * 1000
-
-                magnet_link = (items.findAll('a', {'title': 'Torrent magnet link'}))[0]['href']
 
                 # Changing 0 to 1 to avoid ratio problem
                 seed = (items.findAll('td', {'data-title': 'Seed'}))[0].text
@@ -65,19 +65,15 @@ class KatScrapperTypeB():
                 if leech == '0':
                     leech = '1'
 
-                if debug:
-                    print('%s adding torrent entry ...\n title: [ %s ]\n size: [ %s ]\n seeds: [ %s ]\n leech: [ %s ]\n magnet: [ %s ]'
-                          % (self.name, str(title).strip(), str(size), str(seed), str(leech), magnet_link))
-                torrent_instance.add_namelist(str(title).strip())
-                torrent_instance.add_seedlist(int(seed))
-                torrent_instance.add_leechlist(int(leech))
-                torrent_instance.add_magnetlist(str(magnet_link))
-                torrent_instance.add_sizelist(int(size))
+                magnet_link = (items.findAll('a', {'title': 'Torrent magnet link'}))[0]['href']
 
+                raw_data.add_magnet(str(magnet_link))
+                raw_data.add_size(size)
+                raw_data.add_seed(seed)
+                raw_data.add_leech(leech)
         else:
-            print ('%s unable to retrieve individual values from the table ...\n' % self.name)
-
-        return torrent_instance
+            print('{0}: Unable to Retrieve Raw Values from the Search Result'.format(self.name))
+        return raw_data
 
     def magnet_link_scrapper(self, content):
         return

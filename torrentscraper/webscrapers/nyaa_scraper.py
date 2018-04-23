@@ -3,7 +3,7 @@
 # future!
 
 from bs4 import BeautifulSoup
-from torrentscraper.datastruct import torrent_instance as ti
+from torrentscraper.datastruct import p2p_instance as ti
 
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'

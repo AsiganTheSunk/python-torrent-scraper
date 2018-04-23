@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 from bs4 import BeautifulSoup
-from torrentscraper.datastruct import torrent_instance as ti
+from torrentscraper.datastruct import p2p_instance as ti
+from torrentscraper.webscrapers.utils.magnet_builder import MagnetInstance
+from torrentscraper.datastruct.websearch import RAWData
 
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
@@ -16,6 +18,7 @@ class PirateBayScraper():
         self.cloudflare_cookie = False
         self.query_type = True
         self.disable_quality = False
+        self.thread_defense_bypass_cookie = False
 
         self.main_page = self.proxy_list[self._proxy_list_pos]
         self.default_search = 's/'
@@ -34,20 +37,18 @@ class PirateBayScraper():
         except IndexError:
             raise IndexError
 
-    def webscrapper (self, content=None, search_type=None, size_type=None, debug=False):
-        torrent_instance = ti.TorrentInstance(name=self.name, search_type=search_type, size_type=size_type)
+    def get_raw_data(self, content=None):
+        raw_data = RAWData()
+
         soup = BeautifulSoup(content, 'html.parser')
         ttable = soup.findAll('table', {'id':'searchResult'})
 
-        # Retrieving individual values from the search result
+        # Retrieving individual raw values from the search result
         if ttable != []:
-            print ('%s retrieving individual values from the table' % self.name)
-
+            print ('{0}: Retrieving Raw Values from the Search Result'.format(self.name))
             for items in ttable:
                 tbody = items.findAll('tr')
-
                 for tr in tbody[1:]:
-                    title = (tr.findAll('a'))[2].text
                     magnet_link = (tr.findAll('a'))[2]['href']
 
                     # Changing 0 to 1 to avoid ratio problem
@@ -71,20 +72,16 @@ class PirateBayScraper():
                         size = size.replace('GiB', 'GB')
                         size = float(size[:-2]) * 1000
 
-                    if debug:
-                        print('%s adding torrent entry ...\n title: [ %s ]\n size: [ %s ]\n seeds: [ %s ]\n leech: [ %s ]\n magnet: [ %s ]'
-                              % (self.name, str(title).strip(), str(size), str(seed), str(leech), magnet_link))
-                    torrent_instance.add_namelist(str(title).strip())
-                    torrent_instance.add_seedlist(int(seed))
-                    torrent_instance.add_leechlist(int(leech))
-                    torrent_instance.add_magnetlist(str(self.main_page + magnet_link))
-                    torrent_instance.add_sizelist(int(size))
+                    raw_data.add_magnet(str(self.main_page + magnet_link))
+                    raw_data.add_size(size)
+                    raw_data.add_seed(seed)
+                    raw_data.add_leech(leech)
         else:
-            print ('%s unable to retrieve individual values from the table ...' % self.name)
-        return torrent_instance
+            print('{0}: Unable to Retrieve Raw Values from the Search Result'.format(self.name))
+        return raw_data
 
-    def magnet_link_scrapper(self, content):
+    def get_magnet_link(self, content):
         soup = BeautifulSoup(content, 'html.parser')
         div = (soup.findAll('div',{'class':'download'}))
         magnet = div[0].findAll('a')[0]['href']
-        return (magnet)
+        return magnet

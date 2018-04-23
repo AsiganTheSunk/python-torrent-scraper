@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from bs4 import BeautifulSoup
-from torrentscraper.datastruct import torrent_instance as ti
+from torrentscraper.datastruct.websearch import RAWData
 
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
@@ -16,6 +16,7 @@ class TorrentFunkScraper():
         self.cloudflare_cookie = False
         self.query_type = False
         self.disable_quality = False
+        self.thread_defense_bypass_cookie = False
 
         self.default_params = {}
         self.main_page = self.proxy_list[self._proxy_list_pos]
@@ -34,8 +35,8 @@ class TorrentFunkScraper():
         except IndexError:
             raise IndexError
 
-    def webscrapper (self, content=None, search_type=None, size_type=None, debug=False):
-        torrent_instance = ti.TorrentInstance(name=self.name, search_type=search_type, size_type=size_type)
+    def get_raw_data(self, content=None):
+        raw_data = RAWData()
         soup = BeautifulSoup(content, 'html.parser')
         #print(soup.prettify())
         ttable = soup.findAll('table', {'class':'tmain'})
@@ -49,8 +50,7 @@ class TorrentFunkScraper():
                 tbody = items.findAll('tr')
 
                 for tr in tbody[1:]:
-                    title = (tr.findAll('a'))[0].text
-                    magnet_link = (tr.findAll('a'))[0]['href']
+                    #title = (tr.findAll('a'))[0].text
 
                     # Changing 0 to 1 to avoid ratio problem
                     seed = (tr.findAll('td'))[3].text
@@ -64,9 +64,9 @@ class TorrentFunkScraper():
 
                     # Converting GB to MB, to easily manage the pandas structure
                     size = (tr.findAll('td'))[2].text
-                    # Remove
-                    # White Space + GB or MB
                     size = float(size[:-3])
+
+                    magnet_link = (tr.findAll('a'))[0]['href']
 
                     # LookUp for false torrents 'Full Download', 'High Definition' ...
                     # if ('download') in magnet_link:
@@ -75,21 +75,15 @@ class TorrentFunkScraper():
                     #     print('%s adding magnet entry: [%s]' % (self.name, magnet_link))
 
                     if int(seed) < 1000:
-                        if debug:
-                            print(
-                                '%s adding torrent entry ...\n title: [ %s ]\n size: [ %s ]\n seeds: [ %s ]\n leech: [ %s ]\n magnet: [ %s ]'
-                                % (self.name, str(title).strip(), str(size), str(seed), str(leech), magnet_link))
-                        torrent_instance.add_namelist(str(title).strip())
-                        torrent_instance.add_seedlist(int(seed))
-                        torrent_instance.add_leechlist(int(leech))
-                        torrent_instance.add_magnetlist(str(self.main_page + magnet_link))
-                        torrent_instance.add_sizelist(int(size))
+                        raw_data.add_magnet(str(self.main_page + magnet_link))
+                        raw_data.add_seed(int(seed))
+                        raw_data.add_leech(int(leech))
+                        raw_data.add_size(int(size))
         else:
             print ('%s unable to retrieve individual values from the table ...' % self.name)
+        return raw_data
 
-        return torrent_instance
-
-    def magnet_link_scrapper(self, content):
+    def get_magnet_link(self, content):
         soup = BeautifulSoup(content, 'html.parser')
         content = (soup.findAll('div',{'class':'content'}))
         magnet = content[2].findAll('a')[1]['href']

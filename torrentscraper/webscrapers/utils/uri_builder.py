@@ -13,7 +13,7 @@ class UriBuilder():
         '''
         This function performs the construction of a custom uri, for the WebScraper that is being used in the call.
         :param websearch: this value, represents the items used in the construction of the custom uri
-        :type websearch: web_search
+        :type websearch: websearch
         :param webscraper: this value, represents the WebScraper you're using
         :type webscraper: WebScraper
         :param verbose: this value, sets the function in verbose mode, printing additional info about the operations

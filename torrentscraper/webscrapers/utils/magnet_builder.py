@@ -122,7 +122,7 @@ class MagnetBuilder:
             print('ErrorMagnetAnnounce: Unable to retrieve the value %s' % e)
         return _announce_list
 
-    def _get_hash(self, magnet_link, debug=False):
+    def _get_hash(self, magnet_link, debug=True):
         '''
         This function, uses re lib, to retrieve the value of a magnet hash, from a magnet_link
         :param magnet_link: this value, represents a magnet_link
@@ -203,7 +203,7 @@ class MagnetBuilder:
         magnet.set_announce_list(clean_announce_list)
         return magnet
 
-    def merge_announce_list(self, magnet0, magnet1, debug=False):
+    def merge_announce_list(self, magnet0, magnet1=None, debug=True):
         '''
         This function, merge one magnet instance into another removing duplicated results
         :param magnet0: this value, represents a magnet instance
@@ -215,21 +215,29 @@ class MagnetBuilder:
         :return: this function, returns a new magnet instance, with updated announce_list
         :rtype: MagnetInstance
         '''
+
+
         updated_announce_list = []
         try:
-            common = list(set(magnet1.announce_list).intersection(set(magnet0.announce_list)))
-            result = list(set(magnet1.announce_list).difference(set(common)))
+            # haz 3 veces la operacion, una para http, https y udp?
+            # para no tener que volver a convertir la estructura y evitar comparaciones inutiles en los sets
+            announce_list0 = magnet0.announce_list[0] + magnet0.announce_list[1] + magnet0.announce_list[2]
+            announce_list1 = magnet1.announce_list[0] + magnet1.announce_list[1] + magnet1.announce_list[2]
+
+            cmmn = list(set(announce_list1).intersection(set(announce_list0)))
+            diff = list(set(announce_list1).difference(set(cmmn)))
             if debug:
-                print('%s: Common\n\t\t- %s\n%s: Diference\n\t\t- %s' % (self.name, common, self.name, result))
-            if result is []:
+                print('%s: Common\n\t\t- %s\n%s: Diference\n\t\t- %s' % (self.name, cmmn, self.name, diff))
+            if diff is []:
                 updated_announce_list = magnet0.announce_list
             else:
-                updated_announce_list = magnet0.announce_list + result
+                updated_announce_list = magnet0._get_announce_list(announce_list0 + diff)
             if debug:
                 print('%s: Result\n\t\t- %s' % (self.name, updated_announce_list))
         except Exception as e:
             print('%s: ErrorMergeMagnet %s' % (self.name, e))
         return MagnetInstance(magnet0.hash, magnet0.display_name, updated_announce_list)
+
 
     def raw_parse_from_file(self, file):
         '''
@@ -246,7 +254,7 @@ class MagnetBuilder:
             print(e)
         return data
 
-    def parse_from_file(self, file, base='16', debug=False):
+    def parse_from_file(self, file, base='16', size=0, seed=1, leech=1, debug=False):
         '''
         This function, will parse the content of a *.torrent file, retrieving the fundamental values
         :param file: this value, represents the path to the *.torrent file
@@ -278,9 +286,9 @@ class MagnetBuilder:
 
         if debug:
             print('%s: Generated Uri\n\t\t- Hash [ %s ]: %s\n\t\t- DisplayName: %s\n\t\t- Trackers: %s' % (self.name, base, _hash, display_name, announce_list))
-        return MagnetInstance(_hash, display_name, announce_list)
+        return MagnetInstance(_hash, display_name, announce_list, size, seed, leech)
 
-    def parse_from_magnet(self, magnet_link, debug=False):
+    def parse_from_magnet(self, magnet_link, size=0, seed=1, leech=1, debug=False):
         '''
         This function, will parse the content present in a magnet link
         :param magnet_link: this value, represents a magnet_link
@@ -292,26 +300,41 @@ class MagnetBuilder:
         '''
         return MagnetInstance(self._get_hash(magnet_link, debug),
                               self._get_display_name(magnet_link, debug),
-                              self._get_announce_list(magnet_link, debug))
+                              self._get_announce_list(magnet_link, debug), size, seed, leech)
 
+    def parse_magnet_list(self, magnet_link_list):
+        l = []
+        for magnet_link in magnet_link_list:
+            l.append(magnet_link)
+        return l
 
 class MagnetInstance(Mapping):
-    def __init__(self, _hash, display_name, announce_list):
+    def __init__(self, _hash, display_name, announce_list, size=0, seed=1, leech=1):
         self.name = self.__class__.__name__
         self.hash = _hash
         self.display_name = display_name
+        self.size = size
+        self.seed = seed
+        self.leech = leech
         self.announce_list = self._get_announce_list(announce_list)
+        self.activity = {'seed': self.seed, 'leech': self.leech}
         self._storage = {'hash': self.hash,
                  'display_name': self.display_name,
-                 'announce_list':{'https':self.announce_list[0],
-                                  'http':self.announce_list[1],
-                                  'udp':self.announce_list[2]}}
+                         'size': self.size,
+                         'seed': self.seed,
+                         'leech': self.leech,
+                         'ratio': int(self.seed)/int(leech),
+                         'announce_list':{'https':self.announce_list[0],
+                                          'http':self.announce_list[1],
+                                          'udp':self.announce_list[2]}}
 
     def __getitem__(self, key):
         if key == 'magnet':
             return self._get_magnet()
-        if key == 'stats':
-            return self._get_stats()
+        if key == 'status':
+            return self._get_status()
+        if key == 'activity':
+            return self.activity
         return self._storage[key]
 
     def __iter__(self):
@@ -353,7 +376,7 @@ class MagnetInstance(Mapping):
             print('%s: Unable to Add Announce %s' % (self.name, e))
         return True
 
-    def _get_stats(self):
+    def _get_status(self):
         '''
         This function, returns each announce_list on a list[ of lists]
         :return: this function, returns a list [ of list ]containing the number of https, http or udp announcers from
@@ -392,7 +415,7 @@ class MagnetInstance(Mapping):
     def _get_magnet(self):
         '''
         This function, returns a magnet_link based on the values that the magnet instance was able to retrieve.
-        :return: this function, returns a string, with the magnet_linj
+        :return: this function, returns a string, with the magnet_link
         :rtype: str
         '''
         # [['&tr='+ str(announce) for announce in announce_subtype] for announce_subtype in self.announce_list]
@@ -401,10 +424,11 @@ class MagnetInstance(Mapping):
         try:
             for announce_subtype in self.announce_list:
                 for announce in announce_subtype:
-                    announce_list += '&tr=' + announce
-            magnet_uri += 'magnet:?xt=urn:btih:' + self.hash + '&dn='\
-                          + (urllib.parse.quote(self.display_name)
-                             + (urllib.parse.quote(announce_list)))
+                    announce_list += '&tr=' + urllib.parse.quote(announce)
+
+            magnet_uri += 'magnet:?xt=urn:btih:' + self.hash \
+                          + '&dn=' + urllib.parse.quote(self.display_name)\
+                          + announce_list
         except Exception as e:
             print('%s: ErrorGeneratingMagnetUri %s' % (self.name, e))
         return magnet_uri
@@ -442,5 +466,6 @@ def main():
         print(minstance1['magnet'])
 
         minstance1['stats']
+
 if __name__ == '__main__':
     main()

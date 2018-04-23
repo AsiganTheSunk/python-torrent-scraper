@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 from bs4 import BeautifulSoup
-from torrentscraper.datastruct import torrent_instance as ti
-
+from torrentscraper.datastruct import p2p_instance as ti
+from torrentscraper.datastruct.websearch import RAWData
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
@@ -16,6 +16,7 @@ class KatScrapperTypeA():
         self.cloudflare_cookie = False
         self.query_type = True
         self.disable_quality = False
+        self.thread_defense_bypass_cookie = False
 
         self.main_page = self.proxy_list[self._proxy_list_pos]
         self.default_search = '/search.php'
@@ -34,17 +35,18 @@ class KatScrapperTypeA():
         except IndexError:
             raise IndexError
 
-    def webscrapper (self, content=None, search_type=None, size_type=None, debug=False):
-        torrent_instance = ti.TorrentInstance(name=self.name, search_type=search_type, size_type=size_type)
+    def get_raw_data(self, content=None):
+        raw_data = RAWData()
+
         soup = BeautifulSoup (content, 'html.parser')
         ttable = soup.findAll('tr', {'class':'odd'})
 
-        # Retrieving individual values from the search result
+        # Retrieving individual raw values from the search result
         if ttable != []:
-            print ('%s retrieving individual values from the table:\n' % self.name)
+            print('{0}: Retrieving Raw Values from the Search Result'.format(self.name))
             for items in ttable:
-                _torrent_pos = len(torrent_instance.magnetlist)
-                title = (items.findAll('a', {'class': 'cellMainLink'}))[0].text
+                _pos = len(raw_data.magnet_list)
+                #title = (items.findAll('a', {'class': 'cellMainLink'}))[0].text
                 size = (items.findAll('td', {'class': 'nobr center'}))[0].text
 
                 # Converting GB to MB, to easily manage the pandas structure
@@ -55,35 +57,27 @@ class KatScrapperTypeA():
                     size = size.replace('GiB', 'GB')
                     size = float(size[:-3]) * 1000
 
-                magnet_link = (items.findAll('a', {'title': 'Torrent magnet link'}))[0]['href']
 
                 # Bandage to the problem of getting the seeds and the leechs using _torrent_pos
                 # Changing 0 to 1 to avoid ratio problem
-                seed = (soup.findAll('td', {'class': 'green center'}))[ _torrent_pos].text
+                seed = (soup.findAll('td', {'class': 'green center'}))[ _pos].text
                 if seed == '0':
                     seed = '1'
 
                 # Changing 0 to 1 to avoid ratio problem
-                leech = (soup.findAll('td', {'class': 'red lasttd center'}))[ _torrent_pos].text
+                leech = (soup.findAll('td', {'class': 'red lasttd center'}))[ _pos].text
                 if leech == '0':
                     leech = '1'
 
+                magnet_link = (items.findAll('a', {'title': 'Torrent magnet link'}))[0]['href']
 
-
-                if debug:
-                    print('%s adding torrent entry ...\n title: [ %s ]\n size: [ %s ]\n seeds: [ %s ]\n leech: [ %s ]\n magnet: [ %s ]'
-                          % (self.name, str(title).strip(), str(size), str(seed), str(leech), magnet_link))
-
-
-                torrent_instance.add_namelist(str(title).strip())
-                torrent_instance.add_seedlist(int(seed))
-                torrent_instance.add_leechlist(int(leech))
-                torrent_instance.add_magnetlist(str(magnet_link))
-                torrent_instance.add_sizelist(int(size))
+                raw_data.add_magnet(magnet_link)
+                raw_data.add_size(size)
+                raw_data.add_seed(seed)
+                raw_data.add_leech(leech)
         else:
-            print ('%s unable to retrieve individual values from the table ...\n' % self.name)
-
-        return torrent_instance
+            print('{0}: Unable to Retrieve Raw Values from the Search Result'.format(self.name))
+        return raw_data
 
     def magnet_link_scrapper(self, content):
         return

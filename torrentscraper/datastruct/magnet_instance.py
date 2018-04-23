@@ -3,8 +3,6 @@
 from collections.abc import Mapping
 import urllib.parse
 
-
-
 class MagnetInstance(Mapping):
     def __init__(self, _hash, display_name, announce_list):
         self.name = self.__class__.__name__

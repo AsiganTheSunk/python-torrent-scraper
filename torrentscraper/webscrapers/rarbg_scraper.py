@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from bs4 import BeautifulSoup
-from torrentscraper.datastruct import torrent_instance as ti
+from torrentscraper.datastruct import p2p_instance as ti
 
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
@@ -67,10 +67,10 @@ class RarbgScrapper():
                     size = float(size[:-2])
 
                 torrent_instance.add_namelist(str(title).strip())
-                torrent_instance.add_sizelist(int(size))
-                torrent_instance.add_seedlist(int(seed))
-                torrent_instance.add_leechlist(int(leech))
-                torrent_instance.add_magnetlist(str(self.main_page + magnet_link))
+                torrent_instance.add_size(int(size))
+                torrent_instance.add_seed(int(seed))
+                torrent_instance.add_leech(int(leech))
+                torrent_instance.add_magnet(str(self.main_page + magnet_link))
 
 
         else:
