@@ -1,16 +1,29 @@
 #!/usr/bin/env python
 
+# Import System Libraries
+import traceback
+import logging
+
+# Import External Libraries
 from bs4 import BeautifulSoup
+
+# Import Custom Data Structure
 from torrentscraper.datastruct.websearch import RAWData
 
+# Import Custom Exceptions
+from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperProxyListError
+from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperParseError
+
+# Constants
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
 
-class TorrentFunkScraper():
+
+class TorrentFunkScraper(object):
     def __init__(self):
         self.name = self.__class__.__name__
-        self.proxy_list = ['https://www.torrentfunk.com', 'https://torrentfunk.unblocked.mx', 'http://www.btdigg.in/torrentfunk']
+        self.proxy_list = ['https://torrentfunk.unblocked.mx','https://www.torrentfunk.com']
         self._proxy_list_length = len(self.proxy_list)
         self._proxy_list_pos = 0
         self.cloudflare_cookie = False
@@ -32,55 +45,52 @@ class TorrentFunkScraper():
 
             self._proxy_list_pos = value
             self.main_page = self.proxy_list[self._proxy_list_pos]
-        except IndexError:
-            raise IndexError
+        except IndexError as err:
+            raise WebScraperProxyListError(self.name, err, traceback.format_exc())
 
-    def get_raw_data(self, content=None):
+    def get_raw_data(self, content=None, debug=False):
         raw_data = RAWData()
         soup = BeautifulSoup(content, 'html.parser')
-        #print(soup.prettify())
-        ttable = soup.findAll('table', {'class':'tmain'})
 
-        # Retrieving individual values from the search result
-        if ttable != []:
-            print ('%s retrieving individual values from the table' % self.name)
+        try:
+            # Retrieving individual values from the search result
+            ttable = soup.findAll('table', {'class':'tmain'})
+            if ttable != []:
+                if debug:
+                    print('[DEBUG]: {0} Retrieving Raw Values from Search Result Response'.format(self.name))
+                for items in ttable:
+                    tbody = items.findAll('tr')
+                    for tr in tbody[1:]:
+                        seed = (tr.findAll('td'))[3].text
+                        if seed == '0':
+                            seed = '1'
 
-            for items in ttable:
-                #print('%s' % items)
-                tbody = items.findAll('tr')
+                        leech = (tr.findAll('td'))[4].text
+                        if leech == '0':
+                            leech = '1'
 
-                for tr in tbody[1:]:
-                    #title = (tr.findAll('a'))[0].text
+                        # Converting GB to MB, to Easily Manage The Pandas Structure
+                        size = (tr.findAll('td'))[2].text
+                        size = float(size[:-3])
 
-                    # Changing 0 to 1 to avoid ratio problem
-                    seed = (tr.findAll('td'))[3].text
-                    if seed == '0':
-                        seed = '1'
+                        magnet_link = (tr.findAll('a'))[0]['href']
 
-                    # Changing 0 to 1 to avoid ratio problem
-                    leech = (tr.findAll('td'))[4].text
-                    if leech == '0':
-                        leech = '1'
-
-                    # Converting GB to MB, to easily manage the pandas structure
-                    size = (tr.findAll('td'))[2].text
-                    size = float(size[:-3])
-
-                    magnet_link = (tr.findAll('a'))[0]['href']
-
-                    # LookUp for false torrents 'Full Download', 'High Definition' ...
-                    # if ('download') in magnet_link:
-                    #     print('%s skipping false magnet entry: [%s]' % (self.name, magnet_link))
-                    # else:
-                    #     print('%s adding magnet entry: [%s]' % (self.name, magnet_link))
-
-                    if int(seed) < 1000:
-                        raw_data.add_magnet(str(self.main_page + magnet_link))
-                        raw_data.add_seed(int(seed))
-                        raw_data.add_leech(int(leech))
-                        raw_data.add_size(int(size))
-        else:
-            print ('%s unable to retrieve individual values from the table ...' % self.name)
+                        # Patch to Avoid Getting False Torrents
+                        if int(seed) < 1000:
+                            raw_data.add_magnet(str(self.main_page + magnet_link))
+                            raw_data.add_seed(int(seed))
+                            raw_data.add_leech(int(leech))
+                            raw_data.add_size(int(size))
+                            if debug:
+                                print('[DEBUG]: {0} New Entry Raw Values:\n{1:7} {2:>4}/{3:4} {4}'.format(self.name,
+                                                                                                          str(size),
+                                                                                                          str(seed),
+                                                                                                          str(leech),
+                                                                                                          magnet_link))
+            else:
+                raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
+        except Exception as err:
+            raise WebScraperParseError(self.name, err, traceback.format_exc())
         return raw_data
 
     def get_magnet_link(self, content):

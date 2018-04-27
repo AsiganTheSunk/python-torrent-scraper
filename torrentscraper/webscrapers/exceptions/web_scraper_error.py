@@ -1,28 +1,32 @@
 #!/usr/bin/env python
 
-class WebScraperError(Exception):
-    # """Basic exception for errors raised by webscrapers"""
-    # def __init__(self, message):
-    #     self.message = message
-    #     super(WebScraperError, self).__init__(message)
-    pass
+class WebScraperProxyListError(IndexError):
+    '''Raise when a there is no more proxy entries in the proxy_list of a webscraper'''
+    def __init__(self, webscraper_name, err, trace,*args):
+        self.name = self.__class__.__name__
+        self.trace = trace
+        self.webscraper_name = webscraper_name
+        self.err = err
+        self.message = '{0}, in {1} Proxy List is Empty: [ {2} ]'.format(self.name, webscraper_name, err)
+        super(WebScraperProxyListError, self).__init__(self.message, err, webscraper_name, *args)
 
-class WebScraperCategoryError(WebScraperError):
-    """When you drive too fast"""
-    def __init__(self, message):
-        super(WebScraperError, self).__init__(('_%s_: \n %s' % (self.__class__.__name__, message)))
+class WebScraperParseError(Exception):
+    '''Raise when a webscraper is unable to parse raw values from current search'''
+    def __init__(self, webscraper_name, err, trace, *args):
+        self.name = self.__class__.__name__
+        self.trace = trace
+        self.webscraper_name = webscraper_name
+        self.err = err
+        self.message = '{0}, in {1} Unable to Parse Raw Values from Search Result Response: [ {2} ]'.format(self.name, webscraper_name, err)
+        super(WebScraperParseError, self).__init__(self.message, err, webscraper_name, *args)
 
-class WebScraperNetworkError(WebScraperError):
-    """When you drive too fast"""
-    def __init__(self, message):
-        super(WebScraperError, self).__init__('_%s_' % (self.__class__.__name__), message)
 
-class WebScraperParseError(WebScraperError):
-    """When you drive too fast"""
-    def __init__(self, webscraper_name, message):
-        super(WebScraperError, self).__init__('%s _%s_' % (webscraper_name, self.__class__.__name__), message)
-
-class WebScraperProxyListError(WebScraperError):
-    """When you drive too fast"""
-    def __init__(self, webscraper_name, message):
-        super(WebScraperError, self).__init__('_%s_' % (self.__class__.__name__), message)
+class ScraperEngineNetworkError(Exception):
+    '''Raise when a webscraper is unable to connect to a source'''
+    def __init__(self, webscraper_name, err, trace, *args):
+        self.name = self.__class__.__name__
+        self.trace = trace
+        self.webscraper_name = webscraper_name
+        self.err = err
+        self.message = '{0}, in  {1} Unable to Connect to the Source: [ {2} ]'.format(self.name, webscraper_name, err)
+        super(ScraperEngineNetworkError, self).__init__(self.message, err, webscraper_name, *args)

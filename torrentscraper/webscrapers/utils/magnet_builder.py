@@ -1,15 +1,23 @@
 #!/usr/bin/env python
 
+# Import System Libraries
 from collections.abc import Mapping
-import re
 import urllib.parse
-import requests
-import torrent_parser as tp
-import base64
+import traceback
 import hashlib
-import bencodepy
-# from torrentscraper.webscrapers.utils.magnet_instance import MagnetInstance
+import base64
+import re
 
+# Import External Libraries
+import torrent_parser as tp
+import bencodepy
+import requests
+
+# Import Custom Exceptions
+from torrentscraper.webscrapers.utils.exceptions.magnet_builder_error import MagnetBuilderMagnetKeyError
+from torrentscraper.webscrapers.utils.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyError
+
+# Constants
 HTTPS_ANNOUNCE_LIST = 'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_https.txt'
 HTTP_ANNOUNCE_LIST = 'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_http.txt'
 UDP_ANNOUNCE_LIST = 'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_udp.txt'
@@ -17,7 +25,8 @@ IP_ANNOUNCE_LIST = 'https://raw.githubusercontent.com/ngosang/trackerslist/maste
 ALL_ANNOUNCE_LIST = 'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt'
 BLACKLIST_ANNOUNCE_LIST = 'https://raw.githubusercontent.com/ngosang/trackerslist/master/blacklist.txt'
 
-class MagnetBuilder:
+
+class MagnetBuilder(object):
     def __init__(self):
         self.name = self.__class__.__name__
 
@@ -34,8 +43,9 @@ class MagnetBuilder:
             if value[b'announce-list'] != b'announce-list':
                 for items in value[b'announce-list']:
                     _result.append(str(items[0].decode('utf-8')))
-        except Exception as e:
-            print('%s Unable to Retrieve Announce List Value: %s' % (self.name, e))
+        except Exception as err:
+            raise MagnetBuilderTorrentKeyError(self.name, str(err))
+            #print('[WARNING]: {0} Unable to Retrieve Announce List Value: {1}'.format(self.name, str(e)))
         return _result
 
     def _eval_announce(self, value):
@@ -51,8 +61,8 @@ class MagnetBuilder:
             if value[b'announce'].decode() != b'announce':
                 _result = value[b'announce'].decode()
             _result += '&'
-        except Exception as e:
-            print('%s Unable to Retrieve Announce Value: %s' % (self.name, e))
+        except Exception as err:
+            raise MagnetBuilderTorrentKeyError(self.name, str(err))
         return _result
 
     def _eval_display_name(self, value):
@@ -67,8 +77,8 @@ class MagnetBuilder:
         try:
             if value[b'info'][b'name'].decode() != b'name':
                 _result = value[b'info'][b'name'].decode()
-        except Exception as e:
-            print('%s Unable to Retrieve Display Name Value: %s' % (self.name, e))
+        except Exception as err:
+            raise MagnetBuilderTorrentKeyError(self.name, str(err))
         return _result
 
 
@@ -117,9 +127,9 @@ class MagnetBuilder:
                         line = line.decode('utf-8')
                     _announce_list.append(line)
                     if debug:
-                        print('%s: Announce Fetched [ %s ]' % (self.name, line))
+                        print('{0} Announce Fetched: [ {1} ]'.format(self.name, line))
         except Exception as e:
-            print('ErrorMagnetAnnounce: Unable to retrieve the value %s' % e)
+            print('{0} ErrorMagnetDisplayName Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
         return _announce_list
 
     def _get_hash(self, magnet_link, debug=True):
@@ -136,10 +146,9 @@ class MagnetBuilder:
         try:
             _hash = re.search('(?<=(magnet:\?xt=urn:btih:)).*?(?=(&dn=))', magnet_link, re.IGNORECASE).group(0)
             if debug:
-                print('%s: Hash [ %s ]' % (self.name , hash))
+                print('{0} Hash [ {1} ]'.format(self.name , _hash))
         except Exception as e:
-            print('ErrorMagnetHash: Unable to retrieve the value %s' % e)
-
+            print('{0} ErrorMagnetHash Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
         return _hash
 
     def _get_display_name(self, magnet_link, debug=False):
@@ -156,9 +165,9 @@ class MagnetBuilder:
         try:
             display_name = re.search('(?<=(&dn=)).*?(?=(&tr))', magnet_link, re.IGNORECASE).group(0)
             if debug:
-                print('%s: Display Name [ %s ]' % (self.name, display_name))
+                print('{0} Display Name: [ {1} ]'.format(self.name, display_name))
         except Exception as e:
-            print('ErrorMagnetDisplayName: Unable to retrieve the value %s' % e)
+            print('{0} ErrorMagnetDisplayName Unable to Retrieve the Value {1}'.format(self.name, str(e)))
         return display_name
 
     def _get_announce_list(self, magnet_link, debug=False):
@@ -177,9 +186,9 @@ class MagnetBuilder:
             for chunk in chunks[1:]:
                 announce_list.append(urllib.parse.unquote(chunk.rstrip('\&')))
                 if debug:
-                    print('MagnetBuilder: Announce List [', urllib.parse.unquote(chunk.rstrip('\&')),' ]')
+                    print('{0} Announce List: [ {1} ]'.format(self.name, urllib.parse.unquote(chunk.rstrip('\&'))))
         except Exception as e:
-            print('ErrorMagnetAnnounce: Unable to retrieve the value %s' % e)
+            print('{0} ErrorMagnetAnnounce Unable to Retrieve the Value {1}'.format(self.name, str(e)))
         return announce_list
 
     def clean_announce_list(self, magnet, debug=False):
@@ -203,7 +212,7 @@ class MagnetBuilder:
         magnet.set_announce_list(clean_announce_list)
         return magnet
 
-    def merge_announce_list(self, magnet0, magnet1=None, debug=True):
+    def merge_announce_list(self, magnet0, magnet1=None, debug=False):
         '''
         This function, merge one magnet instance into another removing duplicated results
         :param magnet0: this value, represents a magnet instance
@@ -215,29 +224,49 @@ class MagnetBuilder:
         :return: this function, returns a new magnet instance, with updated announce_list
         :rtype: MagnetInstance
         '''
-
-
         updated_announce_list = []
-        try:
-            # haz 3 veces la operacion, una para http, https y udp?
-            # para no tener que volver a convertir la estructura y evitar comparaciones inutiles en los sets
-            announce_list0 = magnet0.announce_list[0] + magnet0.announce_list[1] + magnet0.announce_list[2]
-            announce_list1 = magnet1.announce_list[0] + magnet1.announce_list[1] + magnet1.announce_list[2]
+        seed = ''
+        leech = ''
+        size = ''
+        if magnet1 is not None:
 
-            cmmn = list(set(announce_list1).intersection(set(announce_list0)))
-            diff = list(set(announce_list1).difference(set(cmmn)))
-            if debug:
-                print('%s: Common\n\t\t- %s\n%s: Diference\n\t\t- %s' % (self.name, cmmn, self.name, diff))
-            if diff is []:
-                updated_announce_list = magnet0.announce_list
-            else:
-                updated_announce_list = magnet0._get_announce_list(announce_list0 + diff)
-            if debug:
-                print('%s: Result\n\t\t- %s' % (self.name, updated_announce_list))
-        except Exception as e:
-            print('%s: ErrorMergeMagnet %s' % (self.name, e))
-        return MagnetInstance(magnet0.hash, magnet0.display_name, updated_announce_list)
+            try:
+                # haz 3 veces la operacion, una para http, https y udp?
+                # para no tener que volver a convertir la estructura y evitar comparaciones inutiles en los sets
+                announce_list0 = magnet0.announce_list[0] + magnet0.announce_list[1] + magnet0.announce_list[2]
+                announce_list1 = magnet1.announce_list[0] + magnet1.announce_list[1] + magnet1.announce_list[2]
 
+                cmmn = list(set(announce_list1).intersection(set(announce_list0)))
+                diff = list(set(announce_list1).difference(set(cmmn)))
+                if debug:
+                    print('%s: Common\n\t\t- %s\n%s: Diference\n\t\t- %s' % (self.name, cmmn, self.name, diff))
+                if diff is []:
+                    updated_announce_list =  announce_list0
+                else:
+                    updated_announce_list = announce_list0 + diff
+                if debug:
+                    print('%s: Result\n\t\t- %s' % (self.name, updated_announce_list))
+
+                if magnet0['size'] >= magnet1['size']:
+                    size = magnet0['size']
+                else:
+                    size = magnet1['size']
+
+                if magnet0['seed'] > magnet1['seed']:
+                    seed = magnet0['seed']
+                else:
+                    seed = magnet1['seed']
+                if magnet0['leech'] > magnet1['leech']:
+                    leech = magnet0['leech']
+                else:
+                    leech = magnet1['leech']
+
+            except Exception as e:
+                print('{0} ErrorMergeMagnet Unable to Retrieve the Value {1}'.format(self.name, str(e)))
+            return MagnetInstance(magnet0.hash, magnet0.display_name, updated_announce_list, size, seed, leech)
+
+        else:
+            return magnet0
 
     def raw_parse_from_file(self, file):
         '''
@@ -265,6 +294,8 @@ class MagnetBuilder:
         :rtype: MagnetInstance
         '''
         _hash = ''
+        announce = ''
+        display_name = ''
         announce_list = ''
 
         metadata = bencodepy.decode_from_file(file)     # Read from the file
@@ -278,9 +309,19 @@ class MagnetBuilder:
         else:
             _hash = base64.b32encode(digest).decode().lower()
 
-        display_name = self._eval_display_name(metadata)    # Gather display_name from the file
-        announce = self._eval_announce(metadata)            # Gather announce from the file
-        announce_list = self._eval_announce_list(metadata)  # Gather announce_list from the file
+        try:
+            display_name = self._eval_display_name(metadata)    # Gather display_name from the file
+        except MagnetBuilderTorrentKeyError as err:
+            print(err.message)
+        try:
+            announce = self._eval_announce(metadata)            # Gather announce from the file
+        except MagnetBuilderTorrentKeyError as err:
+            print(err.message)
+        try:
+            announce_list = self._eval_announce_list(metadata)  # Gather announce_list from the file
+        except MagnetBuilderTorrentKeyError as err:
+            print(err.message)
+
         if announce_list is '':
             announce_list = announce
 
@@ -314,8 +355,8 @@ class MagnetInstance(Mapping):
         self.hash = _hash
         self.display_name = display_name
         self.size = size
-        self.seed = seed
-        self.leech = leech
+        self.seed = int(seed)
+        self.leech = int(leech)
         self.announce_list = self._get_announce_list(announce_list)
         self.activity = {'seed': self.seed, 'leech': self.leech}
         self._storage = {'hash': self.hash,
@@ -323,7 +364,7 @@ class MagnetInstance(Mapping):
                          'size': self.size,
                          'seed': self.seed,
                          'leech': self.leech,
-                         'ratio': int(self.seed)/int(leech),
+                         'ratio': self.seed/self.leech,
                          'announce_list':{'https':self.announce_list[0],
                                           'http':self.announce_list[1],
                                           'udp':self.announce_list[2]}}
@@ -427,7 +468,7 @@ class MagnetInstance(Mapping):
                     announce_list += '&tr=' + urllib.parse.quote(announce)
 
             magnet_uri += 'magnet:?xt=urn:btih:' + self.hash \
-                          + '&dn=' + urllib.parse.quote(self.display_name)\
+                          + '&dn=' + self.display_name\
                           + announce_list
         except Exception as e:
             print('%s: ErrorGeneratingMagnetUri %s' % (self.name, e))

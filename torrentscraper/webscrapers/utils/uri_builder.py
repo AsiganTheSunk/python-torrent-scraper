@@ -42,17 +42,17 @@ class UriBuilder():
             search_params = search_query
 
         if debug:
-            print('%s:' % (self.name))
+            print('{0}:'.format(self.name))
             for item in search_params:
-                print((' [ %s : %s ]') % (item, search_params[item] ))
+                print((' [ {0} : {1} ]').format(item, search_params[item] ))
 
         if webscraper.query_type:
-            search_uri = '%s%s?%s' % (webscraper.main_page, webscraper.default_search, (urllib.parse.urlencode(search_params)))
+            search_uri = '{0}{1}?{2}'.format(webscraper.main_page, webscraper.default_search, (urllib.parse.urlencode(search_params)))
         else:
-            search_uri = '%s%s%s%s' % (webscraper.main_page, webscraper.default_search, (search_params['q']).replace(' ','%20').replace('&','and'), webscraper.default_tail)
+            search_uri = '{0}{1}{2}{3}'.format(webscraper.main_page, webscraper.default_search, (search_params['q']).replace(' ','%20').replace('&','and'), webscraper.default_tail)
 
         if (verbose or debug):
-            print('%s:\n [ %s ]' % (self.name, search_uri))
+            print('{0}:\n [ {1} ]'.format(self.name, search_uri))
         return search_uri
 
     def eval_wrapped_key(self, value, wrap_type, category=None):

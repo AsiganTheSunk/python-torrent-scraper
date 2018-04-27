@@ -1,6 +1,6 @@
-import os
+#!/usr/bin/env python
 
-class RAWData():
+class RAWData(object):
     def __init__(self):
         self.size_list = []
         self.seed_list = []
@@ -27,8 +27,8 @@ class RAWData():
         return
 
 
-class WebSearch():
-    def __init__(self, title='', year='', season='', episode='', quality='', header='', search_type='', size_limit=''):
+class WebSearch:
+    def __init__(self, title='', year='', season='', episode='', quality='', header='', search_type='', lower_size_limit=-1, upper_size_limit=-1 ,ratio_limit=-1):
         self.search_type = search_type
         self.quality = quality
         self.title = title
@@ -36,7 +36,9 @@ class WebSearch():
         self.season = season
         self.episode = episode
         self.header = header
-        self.size_limit = size_limit
+        self.lower_size_limit = lower_size_limit
+        self.upper_size_limit = upper_size_limit
+        self.ratio_limit = ratio_limit
 
     def set_search_type(self, value):
         self.search_type = value

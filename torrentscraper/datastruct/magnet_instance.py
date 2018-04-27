@@ -113,8 +113,7 @@ class MagnetInstance(Mapping):
                 for announce in announce_subtype:
                     announce_list += '&tr=' + announce
             magnet_uri += 'magnet:?xt=urn:btih:' + self.hash + '&dn='\
-                          + (urllib.parse.quote(self.display_name)
-                             + (urllib.parse.quote(announce_list)))
+                          + self.display_name + (urllib.parse.quote(announce_list))
         except Exception as e:
             print('%s: ErrorGeneratingMagnetUri %s' % (self.name, e))
         return magnet_uri

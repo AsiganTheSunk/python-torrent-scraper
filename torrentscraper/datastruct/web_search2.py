@@ -5,9 +5,10 @@ import os
 from collections.abc import Mapping
 
 class WebSearch(Mapping):
-    def __init__(self, title='', year='', season='', episode='', quality='', header='', search_type='', size_limit=''):
+    def __init__(self, title='', year='', season='', episode='', quality='', header='', search_type='', size_limit='', ratio_limit=''):
         self.search_type = search_type
         self.size_limit = size_limit
+        self.ratio_limit = ratio_limit
         self.quality = quality
         self.title = title
         self.year = year
