@@ -127,7 +127,7 @@ class MagnetBuilder(object):
                     _announce_list.append(line)
                     self.logger.debug('{0} Announce List Item Fetched: [ {1} ]'.format(self.name, line))
         except Exception as e:
-            print('{0} ErrorMagnetDisplayName Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
+            print('{0} ErrorMagnetNetworkAnnounceList Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
         return _announce_list
 
     def _get_hash(self, magnet_link):

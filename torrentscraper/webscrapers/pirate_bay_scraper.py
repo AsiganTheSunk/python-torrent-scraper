@@ -30,6 +30,8 @@ class PirateBayScraper():
         self.query_type = True
         self.disable_quality = False
         self.thread_defense_bypass_cookie = False
+        self.torrent_file = False
+        self.magnet_link = True
 
         self.main_page = self.proxy_list[self._proxy_list_pos]
         self.default_search = '/s/'
@@ -80,7 +82,7 @@ class PirateBayScraper():
 
                         magnet_link = (tr.findAll('a'))[2]['href']
 
-                        raw_data.add_magnet(str(self.main_page + magnet_link))
+                        raw_data.add_magnet(str(magnet_link))
                         raw_data.add_size(size)
                         raw_data.add_seed(seed)
                         raw_data.add_leech(leech)

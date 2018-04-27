@@ -27,6 +27,7 @@ from torrentscraper.webscrapers import torrent_funk_scraper as funk
 
 # Import Custom Exceptions
 from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperProxyListError
+from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperContentError
 from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperParseError
 
 # Import Custom Utils
@@ -43,7 +44,7 @@ line = '-----------------------' * 8
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
-TRACE = 15
+DEBUG0 = 15
 VERBOSE = 5
 
 # TODO Resolver problema de webdrivers. rbg.RarbgScrapper()
@@ -52,23 +53,20 @@ class ScrapperEngine(object):
         self.name = self.__class__.__name__
 
         # Create & Config CustomLogger
-        self.logger = CustomLogger(name=__name__, level=TRACE)
+        self.logger = CustomLogger(name=__name__, level=DEBUG0)
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
         file_handler = logging.FileHandler('scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(level=TRACE)
+        file_handler.setLevel(level=DEBUG0)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(TRACE)
+        console_handler.setLevel(DEBUG0)
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
-
-        self.webscrapers = [kata.KatScrapperTypeA(self.logger),
-                            tpb.PirateBayScraper(self.logger),
-                            funk.TorrentFunkScraper(self.logger)]
+        self.webscrapers = [kata.KatScrapperTypeA(self.logger), tpb.PirateBayScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
 
     def retrieve_cloudflare_cookie(self, uri):
         '''
@@ -82,7 +80,7 @@ class ScrapperEngine(object):
         self.logger.info('{0} Retrieving Cloudflare Cookie: \n{1}'.format(self.name, cloudflare_cookie))
         return cloudflare_cookie, user_agent
 
-    def _normalize_magnet_entries(self, raw_data, webscraper):
+    def _normalize_magnet_entries(self, raw_data, websearch, webscraper):
         '''
         This function, will retrieve the missing magnet on a parsed source, if it's unable to retrieve a conventional
         magnet
@@ -96,41 +94,50 @@ class ScrapperEngine(object):
         magnet_instance_list = []
         mbuilder = MagnetBuilder(self.logger)
         headers = {'User-Agent': str(UserAgent().random)}
-
+        torrent = ''
         # TODO Buscar una manera mejor de hacerlo, mover el retrieval y luego ver que es y hacer la accion pertinente.
-        if 'torrentfunk' in raw_data.magnet_list[0]:
+        if webscraper.torrent_file and '/torrent/' in raw_data.magnet_list[0]:
             self.logger.info('{0} Retrieving Torrent File from Proxy [ {1} ]'.format(webscraper.name, webscraper.main_page))
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
                     # TODO Move to dynamic search, so it can call it self again,
                     temp_torrent = './temp_torrent.torrent'
-                    response = requests.get(raw_data.magnet_list[index], verify=True, headers=headers)
+
+                    response = self.dynamic_search(websearch, webscraper, raw_data.magnet_list[index])
+                    #response = requests.get(raw_data.magnet_list[index], verify=True, headers=headers)
                     torrent = webscraper.get_magnet_link(response.text)
                     raw_data.magnet_list[index] = torrent
                     torrent_response = requests.get(torrent, verify=True, headers=headers)
                     with open(temp_torrent, 'wb', encoding=torrent_response.encoding) as file:
                         file.write(torrent_response.content)
-
                     magnet_instance_list.append(mbuilder.parse_from_file(temp_torrent, size=raw_data.size_list[index],
                                                                          seed=raw_data.seed_list[index],
                                                                          leech=raw_data.leech_list[index]))
-                except Exception as e:
-                    self.logger.error('{0} Unable to Retrieve Torrent File from Search Result, Try Again Later\n Error: {1}'.format(webscraper.name, str(e)))
+                except Exception as err:
+                    self.logger.error('{0} Unable to Retrieve Torrent File [{1}]\n Error: {2}'.format(webscraper.name, torrent, str(err)))
 
-        elif 'magnet:' not in raw_data.magnet_list[0]:
+        elif webscraper.magnet_link and '/torrent/' in raw_data.magnet_list[0]:
             self.logger.info('{0} Retrieving Magnet from Proxy [ {1} ]'.format(webscraper.name, webscraper.main_page))
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
-                    response = requests.get(raw_data.magnet_list[index], verify=True, headers=headers)
+                    response = self.dynamic_search(websearch, webscraper, raw_data.magnet_list[index])
+                    #response = requests.get(raw_data.magnet_list[index], verify=True, headers=headers)
                     magnet = webscraper.get_magnet_link(response.text)
                     raw_data.magnet_list[index] = magnet
                     magnet_instance_list.append(mbuilder.parse_from_magnet(raw_data.magnet_list[index],
                                                                            raw_data.size_list[index],
                                                                            raw_data.seed_list[index],
                                                                            raw_data.leech_list[index]))
-                except Exception as e:
-                    print('{0} Unable to Retrieve Magnets from Search Result, Try Again Later 1\n Error: {1}'.format(webscraper.name, str(e)))
-                    #self.logger.error('{0} Unable to Retrieve Magnets from Search Result, Try Again Later\n Error: {1}'.format(webscraper.name, str(e)))
+                except WebScraperContentError as err:
+                    self.logger.error(
+                        '{0} Unable to Retrieve Magnets from Search Result, Try Again Later:\n Error: {1}'.format(
+                            webscraper.name, str(err.message)))
+                except WebScraperParseError as err:
+                    self.logger.error(
+                        '{0} Unable to Retrieve Magnets from Search Result, Try Again Later:\n Error: {1}'.format(
+                            webscraper.name, str(err.message)))
+                except Exception as err:
+                    self.logger.error('{0} Unable to Retrieve Magnets from Search Result, Try Again Later:\n Error: {1}'.format(webscraper.name, str(err)))
         else:
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
@@ -139,11 +146,13 @@ class ScrapperEngine(object):
                                                                            raw_data.seed_list[index],
                                                                            raw_data.leech_list[index]))
                 except Exception as e:
-                    print('{0} Unable to Retrieve Magnets from Search Result, Try Again Later 2\n Error: {1}'.format(webscraper.name, str(e)))
+                    print('{0} Unable to Retrieve Values from Search Result\n Error: {1}'.format(webscraper.name, str(e)))
                     #self.logger.error('{0} Unable to Retrieve Magnets from Search Result, Try Again Later\n Error: {1}'.format(webscraper.name, str(e)))
         return magnet_instance_list
 
-    def search(self, title='', year='', season='', episode='', quality='', header='', search_type='', lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
+    # def search(self, title='', year='', season='', episode='', quality='', header='', search_type='',
+    #            lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
+    def search(self, websearch):
         '''
         This functions, will run a search process, retrieving info from internet sources
         :param title: this value, represents the title of multimedia file
@@ -169,33 +178,32 @@ class ScrapperEngine(object):
         :return: this function returns, a list with a bunch of TorrentInstances
         :rtype: list
         '''
-        websearch = WebSearch(title, year, season, episode, quality, header, search_type, lower_size_limit, upper_size_limit, ratio_limit)
+        #websearch = WebSearch(title, year, season, episode, quality, header, search_type, lower_size_limit, upper_size_limit, ratio_limit)
         p2p_instance_list = []
         for webscraper in self.webscrapers:
             magnet_instance_list = []
             raw_data = None
             response = None
-            if search_type in webscraper.supported_searchs:
+            if websearch['search_type'] in webscraper.supported_searchs:
                 self.logger.info('{0} Selected Proxy from Proxy List [ {1} ]'.format(webscraper.name, webscraper.main_page))
                 response = self.dynamic_search(websearch, webscraper)
                 if response is not None:
                     try:
-
                         raw_data = webscraper.get_raw_data(response.text)
-
                         # Random Sleep to Avoid Flooding
                         sleep(randint(1, 3))
-                        magnet_instance_list = self._normalize_magnet_entries(raw_data, webscraper)
-                        p2p_instance_list.append(P2PInstance(webscraper.name, websearch.search_type,
-                                                             websearch.lower_size_limit, websearch.upper_size_limit,
-                                                             websearch.ratio_limit, magnet_instance_list))
+                        magnet_instance_list = self._normalize_magnet_entries(raw_data, websearch, webscraper)
+                        p2p_instance_list.append(P2PInstance(webscraper.name, websearch['search_type'],
+                                                             websearch['lower_size_limit'], websearch['upper_size_limit'],
+                                                             websearch['ratio_limit'], magnet_instance_list))
                     except WebScraperParseError as err:
-                        print(err.message)
+                        self.logger.error(err.message)
+                    except WebScraperContentError as err:
                         self.logger.error(err.message)
 
         return p2p_instance_list
 
-    def dynamic_search (self, websearch, webscraper, counter=0, max_counter=3):
+    def dynamic_search (self, websearch, webscraper, append_uri=None, counter=0, max_counter=3):
         '''
         This function, executes the core process of each search, using all avaliable scrapers in the system
         :param websearch:
@@ -214,9 +222,11 @@ class ScrapperEngine(object):
         cloudflare_cookie = {}
         user_agent = {'User-Agent':str(UserAgent().random)}
         try:
-            uri_builder = UriBuilder(self.logger)
-            search_uri = uri_builder.build_request_url(websearch, webscraper)
-
+            if append_uri is None:
+                uri_builder = UriBuilder(self.logger)
+                search_uri = uri_builder.build_request_url(websearch, webscraper)
+            else:
+                search_uri = webscraper.proxy_list[webscraper._proxy_list_pos] + append_uri
             try:
                 if webscraper.cloudflare_cookie:
                     cloudflare_cookie, user_agent = self.retrieve_cloudflare_cookie(search_uri)
@@ -227,7 +237,7 @@ class ScrapperEngine(object):
             except Exception as e:
                 self.logger.error('{0} Error, Something Went Wrong with Cloudflare Cookie Retrieval:\n{1}'.format(webscraper.name, str(e)))
 
-            self.logger.info('{0} Searching on Proxy [ {1} ]'.format(webscraper.name, search_uri))
+            self.logger.debug0('{0} Searching on Proxy [ {1} ]'.format(webscraper.name, search_uri))
             response = requests.get(search_uri, verify=True, headers=headers, cookies=cloudflare_cookie)
 
             # if webscraper.thread_defense_bypass_cookie:
@@ -249,7 +259,7 @@ class ScrapperEngine(object):
                     webscraper.update_main_page()
                     self.logger.info('{0} Connection Failed Multiple Times, Trying a New Proxy from Proxy List: [ {1} ]'.format(
                         webscraper.name, webscraper.proxy_list[webscraper._proxy_list_pos]))
-                    return self.dynamic_search(websearch, webscraper, counter)
+                    return self.dynamic_search(websearch, webscraper, append_uri, counter)
                 except WebScraperProxyListError as error:
                     self.logger.error(error.message)
                     return None
@@ -262,7 +272,7 @@ class ScrapperEngine(object):
 
                 counter += 1
                 sleep(randint(1, 3))
-                return self.dynamic_search(websearch, webscraper, counter)
+                return self.dynamic_search(websearch, webscraper, append_uri, counter)
 
     def create_magnet_dataframe(self, p2p_instance_list):
         '''

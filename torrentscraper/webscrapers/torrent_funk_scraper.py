@@ -32,6 +32,8 @@ class TorrentFunkScraper(object):
         self.query_type = False
         self.disable_quality = False
         self.thread_defense_bypass_cookie = False
+        self.torrent_file = True
+        self.magnet_link = False
 
         self.default_params = {}
         self.main_page = self.proxy_list[self._proxy_list_pos]
@@ -78,7 +80,7 @@ class TorrentFunkScraper(object):
 
                         # Patch to Avoid Getting False Torrents
                         if int(seed) < 1000:
-                            raw_data.add_magnet(str(self.main_page + magnet_link))
+                            raw_data.add_magnet(str(magnet_link))
                             raw_data.add_seed(int(seed))
                             raw_data.add_leech(int(leech))
                             raw_data.add_size(int(size))

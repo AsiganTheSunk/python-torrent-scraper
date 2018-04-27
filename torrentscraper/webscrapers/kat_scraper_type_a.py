@@ -30,6 +30,8 @@ class KatScrapperTypeA():
         self.query_type = True
         self.disable_quality = False
         self.thread_defense_bypass_cookie = False
+        self.torrent_file = False
+        self.magnet_link = False
 
         self.main_page = self.proxy_list[self._proxy_list_pos]
         self.default_search = '/search.php'
