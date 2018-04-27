@@ -16,7 +16,7 @@ def main():
     p2p_instance_list = scraper_engine.search(title='Rick & Morty', year='', season='03', episode='01', quality='1080p', header='', search_type='SHOW')
     dataframe = scraper_engine.create_magnet_dataframe(p2p_instance_list)
     dataframe = scraper_engine.unique_magnet_dataframe(dataframe)
-    dataframe = scraper_engine.get_dataframe(dataframe, 5, True)
+    dataframe = scraper_engine.get_dataframe(dataframe, 5)
 
 if __name__ == '__main__':
     main()

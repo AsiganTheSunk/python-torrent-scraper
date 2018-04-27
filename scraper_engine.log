@@ -1,8 +1,65 @@
-04/27/2018 03:52:02 AM -  [INFO]: KatScrapperTypeA Selected Proxy from List [ https://kickass.cd ]
-04/27/2018 03:52:02 AM -  [INFO]: KatScrapperTypeA Searching on Proxy [ https://kickass.cd/search.php?q=Rick+%26+Morty++S03E01+1080p ]
-04/27/2018 03:52:23 AM -  [INFO]: PirateBayScraper Selected Proxy from List [ https://unblockedbay.info ]
-04/27/2018 03:52:23 AM -  [INFO]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Rick+%26+Morty++S03E01+1080p&category=0&page=0&orderby=99 ]
-04/27/2018 03:52:24 AM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
-04/27/2018 03:52:31 AM -  [INFO]: TorrentFunkScraper Selected Proxy from List [ https://torrentfunk.unblocked.mx ]
-04/27/2018 03:52:31 AM -  [INFO]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/all/torrents/Rick%20and%20Morty%20%20S03E01%201080p.html ]
-04/27/2018 03:52:34 AM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
+04/27/2018 10:08:36 PM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
+04/27/2018 10:08:36 PM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://kickass.cd/search.php?q=Rick+%26+Morty++S03E01+1080p ]
+04/27/2018 10:08:36 PM -  [INFO]: KatScrapperTypeA Searching on Proxy [ https://kickass.cd/search.php?q=Rick+%26+Morty++S03E01+1080p ]
+04/27/2018 10:08:38 PM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
+04/27/2018 10:08:40 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E01.1080p.WEBRip.6CH.x265.HEVC-PSA with Hash [ 2e052cdcd3b174afd52e9a6df77bf01f556d68ed ]
+04/27/2018 10:08:40 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE with Hash [ fe98ddf2fabb2e4eae1bc838d8cd0a427ba778e5 ]
+04/27/2018 10:08:40 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick+and+Morty+S03E01+1080p+PT-BR+Subs+Tocatoon with Hash [ e46cff4374f948c3ffb927fcb96bf8c22e973184 ]
+04/27/2018 10:08:40 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E01.1080p.HEVC.x265-MeGusta with Hash [ 2ba1a0158c576e4faa71ed57c75d2c0a8c375638 ]
+04/27/2018 10:08:40 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE with Hash [ c08b8c58f89c265a23eadd3c0bbe9331d9654047 ]
+04/27/2018 10:08:40 PM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
+04/27/2018 10:08:40 PM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://unblockedbay.info/s/?q=Rick+%26+Morty++S03E01+1080p&category=0&page=0&orderby=99 ]
+04/27/2018 10:08:40 PM -  [INFO]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Rick+%26+Morty++S03E01+1080p&category=0&page=0&orderby=99 ]
+04/27/2018 10:08:40 PM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
+04/27/2018 10:08:43 PM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
+04/27/2018 10:08:44 PM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
+04/27/2018 10:08:44 PM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://torrentfunk.unblocked.mx/all/torrents/Rick%20and%20Morty%20%20S03E01%201080p.html ]
+04/27/2018 10:08:44 PM -  [INFO]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/all/torrents/Rick%20and%20Morty%20%20S03E01%201080p.html ]
+04/27/2018 10:08:44 PM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
+04/27/2018 10:08:45 PM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
+04/27/2018 10:08:47 PM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce' ]
+04/27/2018 10:08:47 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: www.Torrenting.com - Rick.and.Morty.S03E01.1080p.HEVC.x265-MeGusta with Hash [ 2ba1a0158c576e4faa71ed57c75d2c0a8c375638 ]
+04/27/2018 10:08:51 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE[rarbg] with Hash [ fe98ddf2fabb2e4eae1bc838d8cd0a427ba778e5 ]
+04/27/2018 10:08:56 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Rick and Morty - S03E01 - The Rickshank Rickdemption [UNCENSORED] [1080p] [WEB-RIP] [HEVC] [x265] [pseudo].mkv with Hash [ 8cbe893abfeceefae4879054044f3aeae0afec7a ]
+04/27/2018 10:08:57 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Rick.and.Morty.S03E01.The.Rickshank.Rickdemption.1080p.AMZN.WEBRip.DDP5.1.x264-QOQ[rarbg] with Hash [ 4c2725c75217839bd4f213da0caf56b26ed8e490 ]
+04/27/2018 10:08:57 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Rick and Morty S03E01 (1080p WEB-DL x265 HEVC 10bit EAC3 5.1 RZeroX) with Hash [ e6b0c12b5f89de04d768339858c70c5f2afb523d ]
+04/27/2018 10:08:58 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Rick.and.Morty.S03E01.The.Rickshank.Rickdemption.1080p.WEB-DL.DD5.1.H264-iT00NZ[rarbg] with Hash [ 421e9ba7f79f6231706702ffec4bcf600b005dc5 ]
+04/27/2018 10:08:59 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Rick.and.Morty.S03E01.The.Rickshank.Rickdemption.1080p.10bit.AMZN.WEBRip.x265.HEVC.6CH-MRN.mkv with Hash [ 57155cad86e47fee643ecb633da7f86880d002f8 ]
+04/27/2018 10:08:59 PM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce' ]
+04/27/2018 10:08:59 PM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce-list' ]
+04/27/2018 10:08:59 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Rick.and.Morty.S03E01.1080p.AMZN.WEBRip.x265-StackHD with Hash [ fee3755be96700ba80ea854a1b24feb4bcd9fffd ]
+04/27/2018 10:08:59 PM -  [INFO]: ScrapperEngine Creating Unique Magnet DataFrame:
+04/27/2018 10:08:59 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E01.1080p.HEVC.x265-MeGusta with Hash [ 2ba1a0158c576e4faa71ed57c75d2c0a8c375638 ]
+04/27/2018 10:08:59 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: www.Torrenting.com - Rick.and.Morty.S03E01.1080p.HEVC.x265-MeGusta with Hash [ 2ba1a0158c576e4faa71ed57c75d2c0a8c375638 ]
+04/27/2018 10:08:59 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE with Hash [ fe98ddf2fabb2e4eae1bc838d8cd0a427ba778e5 ]
+04/27/2018 10:08:59 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE[rarbg] with Hash [ fe98ddf2fabb2e4eae1bc838d8cd0a427ba778e5 ]
+04/27/2018 10:08:59 PM -  [DEBUG0]: ScrapperEngine New DataFrame Rows:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                             name                                      hash    size  seed  leech  ratio                                             magnet
+0   Rick.and.Morty.S03E01.1080p.HEVC.x265-MeGusta  2ba1a0158c576e4faa71ed57c75d2c0a8c375638  381.54     3      3    1.0  magnet:?xt=urn:btih:2ba1a0158c576e4faa71ed57c7...
+1  Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE  fe98ddf2fabb2e4eae1bc838d8cd0a427ba778e5  589.82     8      4    2.0  magnet:?xt=urn:btih:fe98ddf2fabb2e4eae1bc838d8...
+
+04/27/2018 10:08:59 PM -  [DEBUG0]: ScrapperEngine Adding Merged New DataFrame to Main DataFrame:
+04/27/2018 10:08:59 PM -  [DEBUG0]: ScrapperEngine Magnet WebScraping Search:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                 name                                      hash    size  seed  leech  ratio                                             magnet
+0   Rick.and.Morty.S03E01.1080p.WEBRip.6CH.x265.HE...  2e052cdcd3b174afd52e9a6df77bf01f556d68ed  218.13    41      5    8.2  magnet:?xt=urn:btih:2e052cdcd3b174afd52e9a6df7...
+1     Rick+and+Morty+S03E01+1080p+PT-BR+Subs+Tocatoon  e46cff4374f948c3ffb927fcb96bf8c22e973184  507.28     3      3    1.0  magnet:?xt=urn:btih:e46cff4374f948c3ffb927fcb9...
+2      Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE  c08b8c58f89c265a23eadd3c0bbe9331d9654047  594.02     1      2    0.5  magnet:?xt=urn:btih:c08b8c58f89c265a23eadd3c0b...
+3   Rick and Morty - S03E01 - The Rickshank Rickde...  8cbe893abfeceefae4879054044f3aeae0afec7a  283.00     1      1    1.0  magnet:?xt=urn:btih:8cbe893abfeceefae487905404...
+4   Rick.and.Morty.S03E01.The.Rickshank.Rickdempti...  4c2725c75217839bd4f213da0caf56b26ed8e490  570.00     1      1    1.0  magnet:?xt=urn:btih:4c2725c75217839bd4f213da0c...
+5   Rick and Morty S03E01 (1080p WEB-DL x265 HEVC ...  e6b0c12b5f89de04d768339858c70c5f2afb523d  423.00     1      1    1.0  magnet:?xt=urn:btih:e6b0c12b5f89de04d768339858...
+6   Rick.and.Morty.S03E01.The.Rickshank.Rickdempti...  421e9ba7f79f6231706702ffec4bcf600b005dc5  911.00     1      1    1.0  magnet:?xt=urn:btih:421e9ba7f79f6231706702ffec...
+7   Rick.and.Morty.S03E01.The.Rickshank.Rickdempti...  57155cad86e47fee643ecb633da7f86880d002f8  264.00     1      1    1.0  magnet:?xt=urn:btih:57155cad86e47fee643ecb633d...
+8   Rick.and.Morty.S03E01.1080p.AMZN.WEBRip.x265-S...  fee3755be96700ba80ea854a1b24feb4bcd9fffd  187.00     1      1    1.0  magnet:?xt=urn:btih:fee3755be96700ba80ea854a1b...
+9       Rick.and.Morty.S03E01.1080p.HEVC.x265-MeGusta  2ba1a0158c576e4faa71ed57c75d2c0a8c375638  381.54     3      3    1.0  magnet:?xt=urn:btih:2ba1a0158c576e4faa71ed57c7...
+10     Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE  fe98ddf2fabb2e4eae1bc838d8cd0a427ba778e5  589.82     8      4    2.0  magnet:?xt=urn:btih:fe98ddf2fabb2e4eae1bc838d8...
+
+04/27/2018 10:08:59 PM -  [INFO]: ScrapperEngine Magnet Candidates from WebScraping:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                name                                      hash    size  seed  leech  ratio                                             magnet
+0  Rick.and.Morty.S03E01.1080p.WEBRip.6CH.x265.HE...  2e052cdcd3b174afd52e9a6df77bf01f556d68ed  218.13    41      5    8.2  magnet:?xt=urn:btih:2e052cdcd3b174afd52e9a6df7...
+1     Rick.and.Morty.S03E01.1080p.WEBRip.x264-STRiFE  fe98ddf2fabb2e4eae1bc838d8cd0a427ba778e5  589.82     8      4    2.0  magnet:?xt=urn:btih:fe98ddf2fabb2e4eae1bc838d8...
+2    Rick+and+Morty+S03E01+1080p+PT-BR+Subs+Tocatoon  e46cff4374f948c3ffb927fcb96bf8c22e973184  507.28     3      3    1.0  magnet:?xt=urn:btih:e46cff4374f948c3ffb927fcb9...
+3      Rick.and.Morty.S03E01.1080p.HEVC.x265-MeGusta  2ba1a0158c576e4faa71ed57c75d2c0a8c375638  381.54     3      3    1.0  magnet:?xt=urn:btih:2ba1a0158c576e4faa71ed57c7...
+4  Rick and Morty - S03E01 - The Rickshank Rickde...  8cbe893abfeceefae4879054044f3aeae0afec7a  283.00     1      1    1.0  magnet:?xt=urn:btih:8cbe893abfeceefae487905404...

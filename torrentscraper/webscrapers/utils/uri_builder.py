@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import urllib.parse
+import logging
+from logging import DEBUG, INFO, WARNING
 
 SEASON_WRAP = -1
 EPISODE_WRAP = 0
@@ -10,17 +12,13 @@ class UriBuilder():
         self.name = self.__class__.__name__
         self.logger = logger
 
-    def build_request_url(self, websearch, webscraper, verbose=False, debug=False):
+    def build_request_url(self, websearch, webscraper):
         '''
         This function performs the construction of a custom uri, for the WebScraper that is being used in the call.
         :param websearch: this value, represents the items used in the construction of the custom uri
         :type websearch: websearch
         :param webscraper: this value, represents the WebScraper you're using
         :type webscraper: WebScraper
-        :param verbose: this value, sets the function in verbose mode, printing additional info about the operations
-        :type verbose: bool
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns the custom uri created for the request
         :rtype: str
         '''
@@ -42,7 +40,7 @@ class UriBuilder():
         else:
             search_params = search_query
 
-        self.logger.debug('{0} Params:'.format(self.name))
+        self.logger.debug('{0} Query Params:'.format(self.name))
         for item in search_params:
             self.logger.debug('[ {0} : {1} ]'.format(item, search_params[item]))
 
@@ -51,7 +49,7 @@ class UriBuilder():
         else:
             search_uri = '{0}{1}{2}{3}'.format(webscraper.main_page, webscraper.default_search, (search_params['q']).replace(' ','%20').replace('&','and'), webscraper.default_tail)
 
-        self.logger.debug('{0} Generated Uri: [ {1} ]'.format(self.name, search_uri))
+        self.logger.debug0('{0} Generated Uri from Query Params: [ {1} ]'.format(self.name, search_uri))
         return search_uri
 
     def eval_wrapped_key(self, value, wrap_type, category=None):

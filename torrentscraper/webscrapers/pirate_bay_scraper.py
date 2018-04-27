@@ -12,6 +12,7 @@ from torrentscraper.datastruct.websearch import RAWData
 # Import Custom Exceptions
 from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperProxyListError
 from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperParseError
+from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperContentError
 
 # Constants
 FILM_FLAG = 'FILM'
@@ -47,7 +48,7 @@ class PirateBayScraper():
         except IndexError as err:
             raise WebScraperProxyListError(self.name, err, traceback.format_exc())
 
-    def get_raw_data(self, content=None, debug=False):
+    def get_raw_data(self, content=None):
         raw_data = RAWData()
         soup = BeautifulSoup(content, 'html.parser')
 
@@ -55,7 +56,7 @@ class PirateBayScraper():
             # Retrieving individual raw values from the search result
             ttable = soup.findAll('table', {'id': 'searchResult'})
             if ttable != []:
-                self.logger.info('{0} Retrieving Raw Values from Search Result Response'.format(self.name))
+                self.logger.info('{0} Retrieving Raw Values from Search Result Response:'.format(self.name))
                 for items in ttable:
                     tbody = items.findAll('tr')
                     for tr in tbody[1:]:
@@ -89,7 +90,7 @@ class PirateBayScraper():
                                                                                                       str(leech),
                                                                                                       magnet_link))
             else:
-                raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
+                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values', traceback.format_exc())
         except Exception as e:
             raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
         return raw_data
@@ -97,6 +98,12 @@ class PirateBayScraper():
     # TODO MECANICA DE RECONEXION POR FALLO EN RECUPERACION DE MAGNET
     def get_magnet_link(self, content):
         soup = BeautifulSoup(content, 'html.parser')
-        div = (soup.findAll('div',{'class':'download'}))
-        magnet = div[0].findAll('a')[0]['href']
+        try:
+            content = (soup.findAll('div',{'class':'download'}))
+            if content != []:
+                magnet = content[0].findAll('a')[0]['href']
+            else:
+                raise WebScraperContentError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
+        except Exception as e:
+            raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
         return magnet

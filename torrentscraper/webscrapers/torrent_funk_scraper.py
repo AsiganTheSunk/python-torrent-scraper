@@ -13,6 +13,7 @@ from torrentscraper.datastruct.websearch import RAWData
 # Import Custom Exceptions
 from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperProxyListError
 from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperParseError
+from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperContentError
 
 # Constants
 FILM_FLAG = 'FILM'
@@ -49,7 +50,7 @@ class TorrentFunkScraper(object):
         except IndexError as err:
             raise WebScraperProxyListError(self.name, err, traceback.format_exc())
 
-    def get_raw_data(self, content=None, debug=False):
+    def get_raw_data(self, content=None,):
         raw_data = RAWData()
         soup = BeautifulSoup(content, 'html.parser')
 
@@ -57,7 +58,7 @@ class TorrentFunkScraper(object):
             # Retrieving individual values from the search result
             ttable = soup.findAll('table', {'class':'tmain'})
             if ttable != []:
-                self.logger.info('{0} Retrieving Raw Values from Search Result Response'.format(self.name))
+                self.logger.info('{0} Retrieving Raw Values from Search Result Response:'.format(self.name))
                 for items in ttable:
                     tbody = items.findAll('tr')
                     for tr in tbody[1:]:
@@ -87,15 +88,23 @@ class TorrentFunkScraper(object):
                                                                                                           str(leech),
                                                                                                           magnet_link))
             else:
-                raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
+                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values',
+                                             traceback.format_exc())
         except Exception as err:
             raise WebScraperParseError(self.name, err, traceback.format_exc())
         return raw_data
 
     def get_magnet_link(self, content):
         soup = BeautifulSoup(content, 'html.parser')
-        content = (soup.findAll('div',{'class':'content'}))
-        magnet = content[2].findAll('a')[1]['href']
-        return (self.main_page + magnet)
+        try:
+            content = (soup.findAll('div',{'class':'content'}))
+            if content != []:
+                magnet = content[2].findAll('a')[1]['href']
+
+            else:
+                raise WebScraperContentError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
+        except Exception as e:
+            raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
+        return self.main_page + magnet
 
 

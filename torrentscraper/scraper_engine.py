@@ -3,7 +3,7 @@
 # Import System Libraries
 from time import sleep
 from random import randint
-from logging import setLoggerClass
+from logging import DEBUG, INFO, WARNING
 import logging
 
 # Import External Libraries
@@ -43,7 +43,8 @@ line = '-----------------------' * 8
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
-
+TRACE = 15
+VERBOSE = 5
 
 # TODO Resolver problema de webdrivers. rbg.RarbgScrapper()
 class ScrapperEngine(object):
@@ -51,16 +52,16 @@ class ScrapperEngine(object):
         self.name = self.__class__.__name__
 
         # Create & Config CustomLogger
-        self.logger = CustomLogger(name=__name__, level=logging.DEBUG)
+        self.logger = CustomLogger(name=__name__, level=TRACE)
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
         file_handler = logging.FileHandler('scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(level=logging.DEBUG)
+        file_handler.setLevel(level=TRACE)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(logging.DEBUG)
+        console_handler.setLevel(TRACE)
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
@@ -69,19 +70,16 @@ class ScrapperEngine(object):
                             tpb.PirateBayScraper(self.logger),
                             funk.TorrentFunkScraper(self.logger)]
 
-    def retrieve_cloudflare_cookie(self, uri, debug=False):
+    def retrieve_cloudflare_cookie(self, uri):
         '''
         This function, retrieves the cloudflare_cookie using the cfscrape library
         :param uri: this value, represents the http, https request
         :type uri: str
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: the function, returns the cookie, and the user_agent associated with the request
         :rtype: cloudflare_cookie, user_agent
         '''
         cloudflare_cookie, user_agent = cfscrape.get_tokens(uri, UserAgent().random)
-        if debug:
-            print('{0} Retrieving Cloudflare Cookie: \n{1}'.format(self.name, cloudflare_cookie))
+        self.logger.info('{0} Retrieving Cloudflare Cookie: \n{1}'.format(self.name, cloudflare_cookie))
         return cloudflare_cookie, user_agent
 
     def _normalize_magnet_entries(self, raw_data, webscraper):
@@ -104,6 +102,7 @@ class ScrapperEngine(object):
             self.logger.info('{0} Retrieving Torrent File from Proxy [ {1} ]'.format(webscraper.name, webscraper.main_page))
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
+                    # TODO Move to dynamic search, so it can call it self again,
                     temp_torrent = './temp_torrent.torrent'
                     response = requests.get(raw_data.magnet_list[index], verify=True, headers=headers)
                     torrent = webscraper.get_magnet_link(response.text)
@@ -112,7 +111,6 @@ class ScrapperEngine(object):
                     with open(temp_torrent, 'wb', encoding=torrent_response.encoding) as file:
                         file.write(torrent_response.content)
 
-                    mbuilder.parse_from_file(temp_torrent)
                     magnet_instance_list.append(mbuilder.parse_from_file(temp_torrent, size=raw_data.size_list[index],
                                                                          seed=raw_data.seed_list[index],
                                                                          leech=raw_data.leech_list[index]))
@@ -145,7 +143,7 @@ class ScrapperEngine(object):
                     #self.logger.error('{0} Unable to Retrieve Magnets from Search Result, Try Again Later\n Error: {1}'.format(webscraper.name, str(e)))
         return magnet_instance_list
 
-    def search(self, title='', year='', season='', episode='', quality='', header='', search_type='', lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1, debug=False):
+    def search(self, title='', year='', season='', episode='', quality='', header='', search_type='', lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
         '''
         This functions, will run a search process, retrieving info from internet sources
         :param title: this value, represents the title of multimedia file
@@ -168,8 +166,6 @@ class ScrapperEngine(object):
         :type upper_size_limit: int
         :param ratio_limit: this value, represents the ratio limit of a multimedia file
         :type ratio_limit: int
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function returns, a list with a bunch of TorrentInstances
         :rtype: list
         '''
@@ -180,12 +176,12 @@ class ScrapperEngine(object):
             raw_data = None
             response = None
             if search_type in webscraper.supported_searchs:
-                self.logger.info('{0} Selected Proxy from List [ {1} ]'.format(webscraper.name, webscraper.main_page))
-                response = self.dynamic_search(websearch, webscraper, debug)
+                self.logger.info('{0} Selected Proxy from Proxy List [ {1} ]'.format(webscraper.name, webscraper.main_page))
+                response = self.dynamic_search(websearch, webscraper)
                 if response is not None:
                     try:
 
-                        raw_data = webscraper.get_raw_data(response.text, debug)
+                        raw_data = webscraper.get_raw_data(response.text)
 
                         # Random Sleep to Avoid Flooding
                         sleep(randint(1, 3))
@@ -199,7 +195,7 @@ class ScrapperEngine(object):
 
         return p2p_instance_list
 
-    def dynamic_search (self, websearch, webscraper, counter=0, max_counter=3, debug=False):
+    def dynamic_search (self, websearch, webscraper, counter=0, max_counter=3):
         '''
         This function, executes the core process of each search, using all avaliable scrapers in the system
         :param websearch:
@@ -210,8 +206,6 @@ class ScrapperEngine(object):
         :type counter: int
         :param max_counter:
         :type max_counter: int
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return:
         :rtype: Response
         '''
@@ -225,18 +219,18 @@ class ScrapperEngine(object):
 
             try:
                 if webscraper.cloudflare_cookie:
-                    cloudflare_cookie, user_agent = self.retrieve_cloudflare_cookie(search_uri, debug)
+                    cloudflare_cookie, user_agent = self.retrieve_cloudflare_cookie(search_uri)
                     headers = {'User-Agent': user_agent}
                 else:
                     headers = user_agent
 
             except Exception as e:
-                print('[ERROR]: {0} Error, Something Went Wrong with Cloudflare Cookie Retrieval:\n{1}'.format(webscraper.name, str(e)))
+                self.logger.error('{0} Error, Something Went Wrong with Cloudflare Cookie Retrieval:\n{1}'.format(webscraper.name, str(e)))
 
             self.logger.info('{0} Searching on Proxy [ {1} ]'.format(webscraper.name, search_uri))
             response = requests.get(search_uri, verify=True, headers=headers, cookies=cloudflare_cookie)
 
-            # if debug and webscraper.thread_defense_bypass_cookie:
+            # if webscraper.thread_defense_bypass_cookie:
             #     if response.history:
             #         print('[INFO]: {0} Request Was Redirected:'.format(self.name))
             #         for resp in response.history:
@@ -253,7 +247,7 @@ class ScrapperEngine(object):
                 try:
                     sleep(randint(1, 2))
                     webscraper.update_main_page()
-                    self.logger.info('{0} Connection Failed Multiple Times, Trying a New Proxy: [ {1} ]'.format(
+                    self.logger.info('{0} Connection Failed Multiple Times, Trying a New Proxy from Proxy List: [ {1} ]'.format(
                         webscraper.name, webscraper.proxy_list[webscraper._proxy_list_pos]))
                     return self.dynamic_search(websearch, webscraper, counter)
                 except WebScraperProxyListError as error:
@@ -263,7 +257,7 @@ class ScrapperEngine(object):
                     self.logger.error('WebScraperUnkownError, in {0}:\n{1}'.format(self.name, e))
                     return None
             else:
-                self.logger.info('{0} [{1:d}/{2:d}] Connection Failed, Retrying in a Few Seconds [ {3} ]'.format(
+                self.logger.info('{0} [{1:d}/{2:d}] Connection Failed, Retrying in a Few Seconds wiht Proxy: [ {3} ]'.format(
                     webscraper.name, counter + 1, max_counter, webscraper.proxy_list[webscraper._proxy_list_pos]))
 
                 counter += 1
@@ -293,13 +287,11 @@ class ScrapperEngine(object):
                 dataframe = dataframe.append(new_row_df, ignore_index=True)
         return dataframe
 
-    def unique_magnet_dataframe(self, dataframe, debug=False):
+    def unique_magnet_dataframe(self, dataframe):
         '''
         This function returns unique hash values from a list of p2p instances
         :param dataframe: this value, represents the dataframe of p2p instances
         :type dataframe: DataFrame
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns a DataFrame with unique hash values
         :rtype: DataFrame
         '''
@@ -309,7 +301,7 @@ class ScrapperEngine(object):
             new_dataframe = DataFrame()
             modified_hash = []
 
-
+            self.logger.info('{0} Creating Unique Magnet DataFrame:'.format(self.name))
             for item_hash in cmmn_hash.groups:
                 if len(cmmn_hash.get_group(item_hash)) > 1:
                     modified_hash.append(item_hash)
@@ -321,7 +313,7 @@ class ScrapperEngine(object):
                     tmp_size = dataframe.iloc[int(aux_index)]['size']
                     tmp_seed = dataframe.iloc[int(aux_index)]['seed']
                     tmp_leech = dataframe.iloc[int(aux_index)]['leech']
-                    self.logger.debug('{0} Magnet0 Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
+                    self.logger.debug('{0} Magnet Master Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
                     aux_magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
 
                     self.logger.debug('{0} Index: {1}\n[DEBUG]: {0} Common DataFrame: {2}\n'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
@@ -332,16 +324,16 @@ class ScrapperEngine(object):
                         tmp_size = dataframe.iloc[int(index)]['size']
                         tmp_seed = dataframe.iloc[int(index)]['seed']
                         tmp_leech = dataframe.iloc[int(index)]['leech']
-                        self.logger.debug('{0} MagnetAux Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
+                        self.logger.debug('{0} Magnet Slave Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
 
                         magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
                         aux_magnet_instance = mbuilder.merge_announce_list(aux_magnet_instance, magnet_instance)
-                    self.logger.debug('{0} Result MagnetAux Values: {1} {2} {3} {4} {5}'.format(self.name,
-                                                                                    aux_magnet_instance['display_name'],
-                                                                                    aux_magnet_instance['hash'],
-                                                                                    aux_magnet_instance['size'],
-                                                                                    aux_magnet_instance['seed'],
-                                                                                    aux_magnet_instance['leech']))
+                    self.logger.debug('{0} Final Magnet Values: {1} {2} {3} {4} {5}'.format(self.name,
+                                                                                             aux_magnet_instance['display_name'],
+                                                                                             aux_magnet_instance['hash'],
+                                                                                             aux_magnet_instance['size'],
+                                                                                             aux_magnet_instance['seed'],
+                                                                                             aux_magnet_instance['leech']))
 
                     new_row = {'name': [aux_magnet_instance['display_name']],
                                'hash': [aux_magnet_instance['hash']],
@@ -355,12 +347,12 @@ class ScrapperEngine(object):
                     self.logger.debug('{0} Adding Merged GroupHash to Temp DataFrame: [ {1} ]\n'.format(self.name, item_hash))
                     new_dataframe = new_dataframe.append(new_row_df, ignore_index=True)
 
-            self.logger.debug('{0} New DataFrame Rows:{1}\n'.format(self.name, new_dataframe))
+            self.logger.debug0('{0} New DataFrame Rows:\n{1}\n{2}\n'.format(self.name, line, new_dataframe))
             for item_hash in modified_hash:
-                self.logger.debug('{0} Filtering GroupHash from Main DataFrame: [ {1} ]'.format(self.name, item_hash))
+                self.logger.debug('{0} Filtering GroupHash from Main DataFrame with Hash: [ {1} ]'.format(self.name, item_hash))
                 dataframe = dataframe[dataframe['hash'] != item_hash]
 
-            self.logger.debug('{0} Adding Merged GroupHash to Main DataFrame\n'.format(self.name))
+            self.logger.debug0('{0} Adding Merged New DataFrame to Main DataFrame:'.format(self.name))
             dataframe = dataframe.append(new_dataframe, ignore_index=True)
             return dataframe
 
@@ -405,26 +397,25 @@ class ScrapperEngine(object):
             return dataframe
 
 
-    def get_dataframe(self, dataframe, top=3, debug=False):
+    def get_dataframe(self, dataframe, top=3):
         '''
         This function, will output the top results from the Webscraping Search
         :param dataframe: this value, represents the dataframe with the magnet values
         :type dataframe: DataFrame
         :param top: this value, represents the number of top magnets from the dataframe
         :type top: int
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns a DataFrame with the top values
         :rtype: DataFrame
         '''
         try:
+
             tmp_dataframe = dataframe
             dataframe = self.filter_magnet_dataframe(dataframe)
             dataframe = dataframe.sort_values(by=['seed', 'ratio'], ascending=False)
             result_dataframe = dataframe[:top].reset_index(drop=True)
 
-            self.logger.debug('\n{0} Magnet WebScraping Search:\n {1}\n {2}'.format(self.name, line, tmp_dataframe))
-            self.logger.debug('\n {0} \n{1} Magnet Candidates from WebScraping:\n{2}\n{3}'.format(line, self.name, result_dataframe, line))
+            self.logger.debug0('{0} Magnet WebScraping Search:\n{1}\n{2}\n'.format(self.name, line, tmp_dataframe))
+            self.logger.info('{0} Magnet Candidates from WebScraping:\n{1}\n{2}'.format(self.name, line, result_dataframe))
             return result_dataframe
         except KeyError:
             self.logger.warning('{0} Unable to Filter Magnet DataFrame: Empty'.format(self.name))

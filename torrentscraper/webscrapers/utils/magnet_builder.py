@@ -107,14 +107,12 @@ class MagnetBuilder(object):
         elif announce_type == 'ALL':
             return requests.get(ALL_ANNOUNCE_LIST, stream=True)
 
-    def _get_online_announce_list(self, announce_type, debug=False):
+    def _get_online_announce_list(self, announce_type):
         '''
         This function, will retrieve all the announce_list items from the bytearray
         :param announce_type: this value, represents the announce_type, that you're going to try to retrieve
         from internet resources
         :type announce_type: bytearray
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns a clean announce_list
         :rtype: list
         '''
@@ -127,18 +125,16 @@ class MagnetBuilder(object):
                     else:
                         line = line.decode('utf-8')
                     _announce_list.append(line)
-                    self.logger.debug('{0} Announce Fetched: [ {1} ]'.format(self.name, line))
+                    self.logger.debug('{0} Announce List Item Fetched: [ {1} ]'.format(self.name, line))
         except Exception as e:
             print('{0} ErrorMagnetDisplayName Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
         return _announce_list
 
-    def _get_hash(self, magnet_link, debug=True):
+    def _get_hash(self, magnet_link):
         '''
         This function, uses re lib, to retrieve the value of a magnet hash, from a magnet_link
         :param magnet_link: this value, represents a magnet_link
         :type magnet_link: str
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns the hash of a magnet_link
         :rtype: str
         '''
@@ -150,13 +146,11 @@ class MagnetBuilder(object):
             print('{0} ErrorMagnetHash Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
         return _hash
 
-    def _get_display_name(self, magnet_link, debug=False):
+    def _get_display_name(self, magnet_link):
         '''
         This function, uses re lib, to retrieve the value of display name, from a magnet_link
         :param magnet_link: this value, represents a magnet_link
         :type magnet_link: str
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this, function, returns the display name of a magnet_link
         :rtype: str
         '''
@@ -165,16 +159,14 @@ class MagnetBuilder(object):
             display_name = re.search('(?<=(&dn=)).*?(?=(&tr))', magnet_link, re.IGNORECASE).group(0)
             self.logger.debug('{0} Display Name: [ {1} ]'.format(self.name, display_name))
         except Exception as e:
-            print('{0} ErrorMagnetDisplayName Unable to Retrieve the Value {1}'.format(self.name, str(e)))
+            self.logger.error('{0} ErrorMagnetDisplayName Unable to Retrieve the Value {1}'.format(self.name, str(e)))
         return display_name
 
-    def _get_announce_list(self, magnet_link, debug=False):
+    def _get_announce_list(self, magnet_link):
         '''
         This function, uses re lib, to retrieve the value of announce_list, from a magnet
         :param magnet_link: this value, represents a magnet_link
         :type magnet_link: str
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns the announce_list of a magnet_link
         :rtype: list
         '''
@@ -185,21 +177,19 @@ class MagnetBuilder(object):
                 announce_list.append(urllib.parse.unquote(chunk.rstrip('\&')))
                 self.logger.debug('{0} Announce List Item: [ {1} ]'.format(self.name, urllib.parse.unquote(chunk.rstrip('\&'))))
         except Exception as e:
-            print('{0} ErrorMagnetAnnounce Unable to Retrieve the Value {1}'.format(self.name, str(e)))
+            self.logger.error('ErrorMagnetAnnounce Unable to Retrieve the Value {1}'.format(self.name, str(e)))
         return announce_list
 
-    def clean_announce_list(self, magnet, debug=False):
+    def clean_announce_list(self, magnet):
         '''
         This function, uses internal functions to retrieve a blacklist announce_list and clean the actual
         annouce_list, removing invalid announcers
         :param magnet: this value, represents a magnet instance
         :type magnet: MagnetInstance
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns a magnet with the announce_list cleaned from invalid announcers
         :rtype: MagnetsIntance
         '''
-        blacklist = self._get_online_announce_list('BLACKLIST', debug)
+        blacklist = self._get_online_announce_list('BLACKLIST')
 
         # Unpack the sorted list[ of list ] of announce
         announce_list = magnet.announce_list[0] + \
@@ -209,15 +199,13 @@ class MagnetBuilder(object):
         magnet.set_announce_list(clean_announce_list)
         return magnet
 
-    def merge_announce_list(self, magnet0, magnet1=None, debug=False):
+    def merge_announce_list(self, magnet0, magnet1=None):
         '''
         This function, merge one magnet instance into another removing duplicated results
         :param magnet0: this value, represents a magnet instance
         :type magnet0: MagnetInstance
         :param magnet1: this value, represents a magnet instance
         :type magnet1: MagnetInstance
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns a new magnet instance, with updated announce_list
         :rtype: MagnetInstance
         '''
@@ -257,7 +245,7 @@ class MagnetBuilder(object):
                     leech = magnet1['leech']
 
             except Exception as e:
-                print('{0} ErrorMergeMagnet Unable to Retrieve the Value {1}'.format(self.name, str(e)))
+                self.logger.error('{0} ErrorMergeMagnet Unable to Retrieve the Value {1}'.format(self.name, str(e)))
             return MagnetInstance(magnet0.hash, magnet0.display_name, updated_announce_list, size, seed, leech)
 
         else:
@@ -278,13 +266,11 @@ class MagnetBuilder(object):
             print(e)
         return data
 
-    def parse_from_file(self, file, base='16', size=0, seed=1, leech=1, debug=False):
+    def parse_from_file(self, file, base='16', size=0, seed=1, leech=1):
         '''
         This function, will parse the content of a *.torrent file, retrieving the fundamental values
         :param file: this value, represents the path to the *.torrent file
         :param base: this value, represents the base of hash you're gonna use to encode, by default 16
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns a magnet instace with the fundamental values from the *.torrent file
         :rtype: MagnetInstance
         '''
@@ -323,26 +309,27 @@ class MagnetBuilder(object):
         if announce_list is '':
             announce_list = announce
 
-        self.logger.debug('%s Generated Uri from Torrent File:\n\t\t- Hash [ %s ]: %s\n\t\t- DisplayName: %s\n\t\t- Trackers: %s' % (self.name, base, _hash, display_name, announce_list))
+        self.logger.debug0('{0} Generated Uri from Torrent File: {1} with Hash [ {2} ]'.format(
+            self.name, display_name,  _hash))
+        self.logger.debug('* Announce List {0}'.format(announce_list))
         return MagnetInstance(_hash, display_name, announce_list, size, seed, leech)
 
-    def parse_from_magnet(self, magnet_link, size=0, seed=1, leech=1, debug=False):
+    def parse_from_magnet(self, magnet_link, size=0, seed=1, leech=1):
         '''
         This function, will parse the content present in a magnet link
         :param magnet_link: this value, represents a magnet_link
         :type magnet_link: str
-        :param debug: this value, sets the function in debug mode, printing some additional info about the operations
-        :type debug: bool
         :return: this function, returns a magnet instance based on the magnet values that had been retrieved
         :rtype: MagnetInstance
         '''
 
-        display_name = self._get_display_name(magnet_link, debug)
-        _hash = self._get_hash(magnet_link, debug)
-        announce_list = self._get_announce_list(magnet_link, debug)
-        self.logger.debug('%s Generated Uri from Magnet L:\n\t\t- Hash [ %s ]: %s'
-                          '\n\t\t- DisplayName: %s\n\t\t- Trackers: %s' % (
-            self.name, '16', _hash, display_name, announce_list))
+        display_name = self._get_display_name(magnet_link)
+        _hash = self._get_hash(magnet_link)
+        announce_list = self._get_announce_list(magnet_link)
+
+        self.logger.debug0('{0} Generated Uri from Magnet Link: {1} with Hash [ {2} ]'.format(
+            self.name, display_name, _hash))
+        self.logger.debug('* Announce List {0}'.format(announce_list))
         return MagnetInstance(_hash, display_name, announce_list, size, seed, leech)
 
     def parse_magnet_list(self, magnet_link_list):
