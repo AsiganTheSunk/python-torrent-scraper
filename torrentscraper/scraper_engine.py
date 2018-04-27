@@ -49,22 +49,25 @@ ANIME_FLAG = 'ANIME'
 class ScrapperEngine(object):
     def __init__(self):
         self.name = self.__class__.__name__
-        self.webscrapers = [kata.KatScrapperTypeA(), tpb.PirateBayScraper(), funk.TorrentFunkScraper()]
 
         # Create & Config CustomLogger
-        self.logger = CustomLogger(name=__name__, level=logging.INFO)
+        self.logger = CustomLogger(name=__name__, level=logging.DEBUG)
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
         file_handler = logging.FileHandler('scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(level=logging.INFO)
+        file_handler.setLevel(level=logging.DEBUG)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(logging.INFO)
+        console_handler.setLevel(logging.DEBUG)
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
+
+        self.webscrapers = [kata.KatScrapperTypeA(self.logger),
+                            tpb.PirateBayScraper(self.logger),
+                            funk.TorrentFunkScraper(self.logger)]
 
     def retrieve_cloudflare_cookie(self, uri, debug=False):
         '''
@@ -93,7 +96,7 @@ class ScrapperEngine(object):
         :rtype: *.torrent or magnet
         '''
         magnet_instance_list = []
-        mbuilder = MagnetBuilder()
+        mbuilder = MagnetBuilder(self.logger)
         headers = {'User-Agent': str(UserAgent().random)}
 
         # TODO Buscar una manera mejor de hacerlo, mover el retrieval y luego ver que es y hacer la accion pertinente.
@@ -181,6 +184,7 @@ class ScrapperEngine(object):
                 response = self.dynamic_search(websearch, webscraper, debug)
                 if response is not None:
                     try:
+
                         raw_data = webscraper.get_raw_data(response.text, debug)
 
                         # Random Sleep to Avoid Flooding
@@ -216,8 +220,8 @@ class ScrapperEngine(object):
         cloudflare_cookie = {}
         user_agent = {'User-Agent':str(UserAgent().random)}
         try:
-            uri_builder = UriBuilder()
-            search_uri = uri_builder.build_request_url(websearch, webscraper, debug)
+            uri_builder = UriBuilder(self.logger)
+            search_uri = uri_builder.build_request_url(websearch, webscraper)
 
             try:
                 if webscraper.cloudflare_cookie:
@@ -300,7 +304,7 @@ class ScrapperEngine(object):
         :rtype: DataFrame
         '''
         try:
-            mbuilder = MagnetBuilder()
+            mbuilder = MagnetBuilder(self.logger)
             cmmn_hash = dataframe.groupby(['hash'])
             new_dataframe = DataFrame()
             modified_hash = []
@@ -309,7 +313,7 @@ class ScrapperEngine(object):
             for item_hash in cmmn_hash.groups:
                 if len(cmmn_hash.get_group(item_hash)) > 1:
                     modified_hash.append(item_hash)
-                    print('[DEBUG]: {0} GroupHash: {1} GroupLen: {2}'.format(self.name, item_hash, len(cmmn_hash.get_group(item_hash))))
+                    self.logger.debug('{0} GroupHash: {1} GroupLen: {2}'.format(self.name, item_hash, len(cmmn_hash.get_group(item_hash))))
                     aux_index = cmmn_hash.get_group(item_hash).index.tolist()[0]
                     tmp_dn = dataframe.iloc[int(aux_index)]['name']
                     tmp_hash = dataframe.iloc[int(aux_index)]['hash']
@@ -317,10 +321,10 @@ class ScrapperEngine(object):
                     tmp_size = dataframe.iloc[int(aux_index)]['size']
                     tmp_seed = dataframe.iloc[int(aux_index)]['seed']
                     tmp_leech = dataframe.iloc[int(aux_index)]['leech']
-                    print('[DEBUG]: {0} Magnet0 Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
+                    self.logger.debug('{0} Magnet0 Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
                     aux_magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
 
-                    print('[DEBUG]: {0} Index: {1}\n[DEBUG]: {0} Common DataFrame: {2}\n'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
+                    self.logger.debug('{0} Index: {1}\n[DEBUG]: {0} Common DataFrame: {2}\n'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
                     for index in cmmn_hash.get_group(item_hash).index.tolist()[1:]:
                         tmp_dn = dataframe.iloc[int(index)]['name']
                         tmp_hash = dataframe.iloc[int(index)]['hash']
@@ -328,11 +332,11 @@ class ScrapperEngine(object):
                         tmp_size = dataframe.iloc[int(index)]['size']
                         tmp_seed = dataframe.iloc[int(index)]['seed']
                         tmp_leech = dataframe.iloc[int(index)]['leech']
-                        print('[DEBUG]: {0} MagnetAux Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
+                        self.logger.debug('{0} MagnetAux Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
 
                         magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
                         aux_magnet_instance = mbuilder.merge_announce_list(aux_magnet_instance, magnet_instance)
-                    print('[DEBUG]: {0} Result MagnetAux Values: {1} {2} {3} {4} {5}'.format(self.name,
+                    self.logger.debug('{0} Result MagnetAux Values: {1} {2} {3} {4} {5}'.format(self.name,
                                                                                     aux_magnet_instance['display_name'],
                                                                                     aux_magnet_instance['hash'],
                                                                                     aux_magnet_instance['size'],
@@ -348,20 +352,20 @@ class ScrapperEngine(object):
                                'magnet': [aux_magnet_instance['magnet']]}
 
                     new_row_df = DataFrame(new_row, columns=['name', 'hash', 'size', 'seed', 'leech', 'ratio', 'magnet'])
-                    print('[DEBUG]: {0} Adding Merged GroupHash to Temp DataFrame: [ {1} ]\n'.format(self.name, item_hash))
+                    self.logger.debug('{0} Adding Merged GroupHash to Temp DataFrame: [ {1} ]\n'.format(self.name, item_hash))
                     new_dataframe = new_dataframe.append(new_row_df, ignore_index=True)
 
-            print('[DEBUG]: {0} New DataFrame Rows:{1}\n'.format(self.name, new_dataframe))
+            self.logger.debug('{0} New DataFrame Rows:{1}\n'.format(self.name, new_dataframe))
             for item_hash in modified_hash:
-                print('[DEBUG]: {0} Filtering GroupHash from Main DataFrame: [ {1} ]'.format(self.name, item_hash))
+                self.logger.debug('{0} Filtering GroupHash from Main DataFrame: [ {1} ]'.format(self.name, item_hash))
                 dataframe = dataframe[dataframe['hash'] != item_hash]
 
-            print('[DEBUG]: {0} Adding Merged GroupHash to Main DataFrame\n'.format(self.name))
+            self.logger.debug('{0} Adding Merged GroupHash to Main DataFrame\n'.format(self.name))
             dataframe = dataframe.append(new_dataframe, ignore_index=True)
             return dataframe
 
         except KeyError:
-            print('[WARNING]: {0} Unable to Create a Unique Magnet DataFrame: Empty'.format(self.name))
+            self.logger.warning('{0} Unable to Create a Unique Magnet DataFrame: Empty'.format(self.name))
             return dataframe
 
     def filter_magnet_dataframe(self, dataframe, lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
@@ -397,7 +401,7 @@ class ScrapperEngine(object):
             dataframe = dataframe.reset_index(drop=True)
             return dataframe
         except KeyError:
-            print('[WARNING]: {0} Unable to Filter Magnet DataFrame: Empty'.format(self.name))
+            self.logger.warning('{0} Unable to Filter Magnet DataFrame: Empty'.format(self.name))
             return dataframe
 
 

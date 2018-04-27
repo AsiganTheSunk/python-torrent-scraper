@@ -17,5 +17,5 @@ class MagnetBuilderTorrentKeyError(Exception):
         # self.trace = trace
         self.class_name = class_name
         self.err = err
-        self.message = '[WARNING]: {0}, in {1} Unable to Retrieve Value from Torrent: [ {2} ]'.format(self.name, class_name, err)
+        self.message = '{0}, in {1} Unable to Retrieve Value from Torrent: [ {2} ]'.format(self.name, class_name, err)
         super(MagnetBuilderTorrentKeyError, self).__init__(self.message, err, class_name, *args)

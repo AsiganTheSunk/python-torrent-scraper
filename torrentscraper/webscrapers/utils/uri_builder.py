@@ -6,8 +6,9 @@ SEASON_WRAP = -1
 EPISODE_WRAP = 0
 
 class UriBuilder():
-    def __init__(self):
+    def __init__(self, logger):
         self.name = self.__class__.__name__
+        self.logger = logger
 
     def build_request_url(self, websearch, webscraper, verbose=False, debug=False):
         '''
@@ -41,18 +42,16 @@ class UriBuilder():
         else:
             search_params = search_query
 
-        if debug:
-            print('{0}:'.format(self.name))
-            for item in search_params:
-                print((' [ {0} : {1} ]').format(item, search_params[item] ))
+        self.logger.debug('{0} Params:'.format(self.name))
+        for item in search_params:
+            self.logger.debug('[ {0} : {1} ]'.format(item, search_params[item]))
 
         if webscraper.query_type:
             search_uri = '{0}{1}?{2}'.format(webscraper.main_page, webscraper.default_search, (urllib.parse.urlencode(search_params)))
         else:
             search_uri = '{0}{1}{2}{3}'.format(webscraper.main_page, webscraper.default_search, (search_params['q']).replace(' ','%20').replace('&','and'), webscraper.default_tail)
 
-        if (verbose or debug):
-            print('{0}:\n [ {1} ]'.format(self.name, search_uri))
+        self.logger.debug('{0} Generated Uri: [ {1} ]'.format(self.name, search_uri))
         return search_uri
 
     def eval_wrapped_key(self, value, wrap_type, category=None):

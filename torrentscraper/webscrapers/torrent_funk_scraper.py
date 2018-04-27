@@ -21,8 +21,9 @@ ANIME_FLAG = 'ANIME'
 
 
 class TorrentFunkScraper(object):
-    def __init__(self):
+    def __init__(self, logger):
         self.name = self.__class__.__name__
+        self.logger = logger
         self.proxy_list = ['https://torrentfunk.unblocked.mx','https://www.torrentfunk.com']
         self._proxy_list_length = len(self.proxy_list)
         self._proxy_list_pos = 0
@@ -56,8 +57,7 @@ class TorrentFunkScraper(object):
             # Retrieving individual values from the search result
             ttable = soup.findAll('table', {'class':'tmain'})
             if ttable != []:
-                if debug:
-                    print('[DEBUG]: {0} Retrieving Raw Values from Search Result Response'.format(self.name))
+                self.logger.info('{0} Retrieving Raw Values from Search Result Response'.format(self.name))
                 for items in ttable:
                     tbody = items.findAll('tr')
                     for tr in tbody[1:]:
@@ -81,8 +81,7 @@ class TorrentFunkScraper(object):
                             raw_data.add_seed(int(seed))
                             raw_data.add_leech(int(leech))
                             raw_data.add_size(int(size))
-                            if debug:
-                                print('[DEBUG]: {0} New Entry Raw Values:\n{1:7} {2:>4}/{3:4} {4}'.format(self.name,
+                            self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(self.name,
                                                                                                           str(size),
                                                                                                           str(seed),
                                                                                                           str(leech),

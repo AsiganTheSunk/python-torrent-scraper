@@ -27,8 +27,9 @@ BLACKLIST_ANNOUNCE_LIST = 'https://raw.githubusercontent.com/ngosang/trackerslis
 
 
 class MagnetBuilder(object):
-    def __init__(self):
+    def __init__(self, logger):
         self.name = self.__class__.__name__
+        self.logger = logger
 
     def _eval_announce_list(self, value):
         '''
@@ -126,8 +127,7 @@ class MagnetBuilder(object):
                     else:
                         line = line.decode('utf-8')
                     _announce_list.append(line)
-                    if debug:
-                        print('{0} Announce Fetched: [ {1} ]'.format(self.name, line))
+                    self.logger.debug('{0} Announce Fetched: [ {1} ]'.format(self.name, line))
         except Exception as e:
             print('{0} ErrorMagnetDisplayName Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
         return _announce_list
@@ -145,8 +145,7 @@ class MagnetBuilder(object):
         _hash = ''
         try:
             _hash = re.search('(?<=(magnet:\?xt=urn:btih:)).*?(?=(&dn=))', magnet_link, re.IGNORECASE).group(0)
-            if debug:
-                print('{0} Hash [ {1} ]'.format(self.name , _hash))
+            self.logger.debug('{0} Hash [ {1} ]'.format(self.name , _hash))
         except Exception as e:
             print('{0} ErrorMagnetHash Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
         return _hash
@@ -164,8 +163,7 @@ class MagnetBuilder(object):
         display_name = ''
         try:
             display_name = re.search('(?<=(&dn=)).*?(?=(&tr))', magnet_link, re.IGNORECASE).group(0)
-            if debug:
-                print('{0} Display Name: [ {1} ]'.format(self.name, display_name))
+            self.logger.debug('{0} Display Name: [ {1} ]'.format(self.name, display_name))
         except Exception as e:
             print('{0} ErrorMagnetDisplayName Unable to Retrieve the Value {1}'.format(self.name, str(e)))
         return display_name
@@ -185,8 +183,7 @@ class MagnetBuilder(object):
             chunks = magnet_link.split('tr=')
             for chunk in chunks[1:]:
                 announce_list.append(urllib.parse.unquote(chunk.rstrip('\&')))
-                if debug:
-                    print('{0} Announce List: [ {1} ]'.format(self.name, urllib.parse.unquote(chunk.rstrip('\&'))))
+                self.logger.debug('{0} Announce List Item: [ {1} ]'.format(self.name, urllib.parse.unquote(chunk.rstrip('\&'))))
         except Exception as e:
             print('{0} ErrorMagnetAnnounce Unable to Retrieve the Value {1}'.format(self.name, str(e)))
         return announce_list
@@ -238,14 +235,12 @@ class MagnetBuilder(object):
 
                 cmmn = list(set(announce_list1).intersection(set(announce_list0)))
                 diff = list(set(announce_list1).difference(set(cmmn)))
-                if debug:
-                    print('%s: Common\n\t\t- %s\n%s: Diference\n\t\t- %s' % (self.name, cmmn, self.name, diff))
+                self.logger.debug('%s: Common\n\t\t- %s\n%s: Diference\n\t\t- %s' % (self.name, cmmn, self.name, diff))
                 if diff is []:
                     updated_announce_list =  announce_list0
                 else:
                     updated_announce_list = announce_list0 + diff
-                if debug:
-                    print('%s: Result\n\t\t- %s' % (self.name, updated_announce_list))
+                self.logger.debug('%s: Result\n\t\t- %s' % (self.name, updated_announce_list))
 
                 if magnet0['size'] >= magnet1['size']:
                     size = magnet0['size']
@@ -312,21 +307,23 @@ class MagnetBuilder(object):
         try:
             display_name = self._eval_display_name(metadata)    # Gather display_name from the file
         except MagnetBuilderTorrentKeyError as err:
-            print(err.message)
+            # print(err.message)
+            self.logger.warning(err.message)
         try:
             announce = self._eval_announce(metadata)            # Gather announce from the file
         except MagnetBuilderTorrentKeyError as err:
-            print(err.message)
+            # print(err.message)
+            self.logger.warning(err.message)
         try:
             announce_list = self._eval_announce_list(metadata)  # Gather announce_list from the file
         except MagnetBuilderTorrentKeyError as err:
-            print(err.message)
+            # print(err.message)
+            self.logger.warning(err.message)
 
         if announce_list is '':
             announce_list = announce
 
-        if debug:
-            print('%s: Generated Uri\n\t\t- Hash [ %s ]: %s\n\t\t- DisplayName: %s\n\t\t- Trackers: %s' % (self.name, base, _hash, display_name, announce_list))
+        self.logger.debug('%s Generated Uri from Torrent File:\n\t\t- Hash [ %s ]: %s\n\t\t- DisplayName: %s\n\t\t- Trackers: %s' % (self.name, base, _hash, display_name, announce_list))
         return MagnetInstance(_hash, display_name, announce_list, size, seed, leech)
 
     def parse_from_magnet(self, magnet_link, size=0, seed=1, leech=1, debug=False):
@@ -339,9 +336,14 @@ class MagnetBuilder(object):
         :return: this function, returns a magnet instance based on the magnet values that had been retrieved
         :rtype: MagnetInstance
         '''
-        return MagnetInstance(self._get_hash(magnet_link, debug),
-                              self._get_display_name(magnet_link, debug),
-                              self._get_announce_list(magnet_link, debug), size, seed, leech)
+
+        display_name = self._get_display_name(magnet_link, debug)
+        _hash = self._get_hash(magnet_link, debug)
+        announce_list = self._get_announce_list(magnet_link, debug)
+        self.logger.debug('%s Generated Uri from Magnet L:\n\t\t- Hash [ %s ]: %s'
+                          '\n\t\t- DisplayName: %s\n\t\t- Trackers: %s' % (
+            self.name, '16', _hash, display_name, announce_list))
+        return MagnetInstance(_hash, display_name, announce_list, size, seed, leech)
 
     def parse_magnet_list(self, magnet_link_list):
         l = []

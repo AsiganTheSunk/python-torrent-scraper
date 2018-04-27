@@ -19,8 +19,9 @@ SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
 
 class PirateBayScraper():
-    def __init__(self):
+    def __init__(self, logger):
         self.name = self.__class__.__name__
+        self.logger = logger
         self.proxy_list = ['https://unblockedbay.info', 'https://ukpirate.org', 'https://thehiddenbay.info']
         self._proxy_list_length = len(self.proxy_list)
         self._proxy_list_pos = 0
@@ -54,8 +55,7 @@ class PirateBayScraper():
             # Retrieving individual raw values from the search result
             ttable = soup.findAll('table', {'id': 'searchResult'})
             if ttable != []:
-                if debug:
-                    print('[DEBUG]: {0} Retrieving Raw Values from Search Result Response'.format(self.name))
+                self.logger.info('{0} Retrieving Raw Values from Search Result Response'.format(self.name))
                 for items in ttable:
                     tbody = items.findAll('tr')
                     for tr in tbody[1:]:
@@ -83,8 +83,7 @@ class PirateBayScraper():
                         raw_data.add_size(size)
                         raw_data.add_seed(seed)
                         raw_data.add_leech(leech)
-                        if debug:
-                            print('[DEBUG]: {0} New Entry Raw Values:\n{1:7} {2:>4}/{3:4} {4}'.format(self.name,
+                        self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(self.name,
                                                                                                       str(size),
                                                                                                       str(seed),
                                                                                                       str(leech),
@@ -95,6 +94,7 @@ class PirateBayScraper():
             raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
         return raw_data
 
+    # TODO MECANICA DE RECONEXION POR FALLO EN RECUPERACION DE MAGNET
     def get_magnet_link(self, content):
         soup = BeautifulSoup(content, 'html.parser')
         div = (soup.findAll('div',{'class':'download'}))

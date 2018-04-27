@@ -19,8 +19,9 @@ SHOW_FLAG = 'SHOW'
 ANIME_FLAG = 'ANIME'
 
 class KatScrapperTypeA():
-    def __init__(self):
+    def __init__(self, logger):
         self.name = self.__class__.__name__
+        self.logger = logger
         self.proxy_list = ['https://kickass.cd']
         self._proxy_list_length = len(self.proxy_list)
         self._proxy_list_pos = 0
@@ -54,8 +55,7 @@ class KatScrapperTypeA():
             ttable = soup.findAll('tr', {'class':'odd'})
             # Retrieving Individual Raw Values From Search Result
             if ttable != []:
-                if debug:
-                    print('[DEBUG]: {0} Retrieving Raw Values from Search Result Response'.format(self.name))
+                self.logger.info('{0} Retrieving Raw Values from Search Result Response'.format(self.name))
                 for items in ttable:
                     _pos = len(raw_data.magnet_list)
 
@@ -83,8 +83,7 @@ class KatScrapperTypeA():
                     raw_data.add_seed(seed)
                     raw_data.add_leech(leech)
 
-                    if debug:
-                        print('[DEBUG]: {0} New Entry Raw Values:\n{1:7} {2:>4}/{3:4} {4}'.format(self.name,
+                    self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(self.name,
                                                                                                   str(size),
                                                                                                   str(seed),
                                                                                                   str(leech),
