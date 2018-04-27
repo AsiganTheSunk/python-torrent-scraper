@@ -12,8 +12,6 @@ import logging
 # piratebay_magnet = open('/home/asigan/python-torrent-scrapper/examples/gotTPB.html')
 
 def main():
-
-
     scraper_engine = se.ScrapperEngine()
     p2p_instance_list = scraper_engine.search(title='Rick & Morty', year='', season='03', episode='01', quality='1080p', header='', search_type='SHOW')
     dataframe = scraper_engine.create_magnet_dataframe(p2p_instance_list)

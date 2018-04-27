@@ -52,13 +52,19 @@ class ScrapperEngine(object):
         self.webscrapers = [kata.KatScrapperTypeA(), tpb.PirateBayScraper(), funk.TorrentFunkScraper()]
 
         # Create & Config CustomLogger
-        self.logger = CustomLogger(__name__, logging.INFO)
-        formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: - %(message)s',
+        self.logger = CustomLogger(name=__name__, level=logging.INFO)
+        formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
         file_handler = logging.FileHandler('scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(logging.INFO)
+        file_handler.setLevel(level=logging.INFO)
+
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(formatter)
+        console_handler.setLevel(logging.INFO)
+
         self.logger.addHandler(file_handler)
+        self.logger.addHandler(console_handler)
 
     def retrieve_cloudflare_cookie(self, uri, debug=False):
         '''
@@ -92,7 +98,6 @@ class ScrapperEngine(object):
 
         # TODO Buscar una manera mejor de hacerlo, mover el retrieval y luego ver que es y hacer la accion pertinente.
         if 'torrentfunk' in raw_data.magnet_list[0]:
-            print('[INFO]: {0} Retrieving Torrent File from Proxy [ {1} ]'.format(webscraper.name, webscraper.main_page))
             self.logger.info('{0} Retrieving Torrent File from Proxy [ {1} ]'.format(webscraper.name, webscraper.main_page))
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
@@ -109,11 +114,9 @@ class ScrapperEngine(object):
                                                                          seed=raw_data.seed_list[index],
                                                                          leech=raw_data.leech_list[index]))
                 except Exception as e:
-                    print('{0} Unable to Retrieve Torrent File from Search Result, Try Again Later\n Error: {1}'.format(webscraper.name, str(e)))
                     self.logger.error('{0} Unable to Retrieve Torrent File from Search Result, Try Again Later\n Error: {1}'.format(webscraper.name, str(e)))
 
         elif 'magnet:' not in raw_data.magnet_list[0]:
-            print('[INFO]: {0} Retrieving Magnet from Proxy [ {1} ]'.format(webscraper.name, webscraper.main_page))
             self.logger.info('{0} Retrieving Magnet from Proxy [ {1} ]'.format(webscraper.name, webscraper.main_page))
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
@@ -174,7 +177,7 @@ class ScrapperEngine(object):
             raw_data = None
             response = None
             if search_type in webscraper.supported_searchs:
-                print('[INFO]: {0} Selected Proxy from List [ {1} ]'.format(webscraper.name, webscraper.main_page))
+                self.logger.info('{0} Selected Proxy from List [ {1} ]'.format(webscraper.name, webscraper.main_page))
                 response = self.dynamic_search(websearch, webscraper, debug)
                 if response is not None:
                     try:
@@ -224,9 +227,8 @@ class ScrapperEngine(object):
                     headers = user_agent
 
             except Exception as e:
-                print('[INFO]: {0} Error, Something Went Wrong with Cloudflare Cookie Retrieval:\n{1}'.format(webscraper.name, str(e)))
+                print('[ERROR]: {0} Error, Something Went Wrong with Cloudflare Cookie Retrieval:\n{1}'.format(webscraper.name, str(e)))
 
-            print('[INFO]: {0} Searching on Proxy [ {1} ]'.format(webscraper.name, search_uri))
             self.logger.info('{0} Searching on Proxy [ {1} ]'.format(webscraper.name, search_uri))
             response = requests.get(search_uri, verify=True, headers=headers, cookies=cloudflare_cookie)
 
@@ -247,8 +249,6 @@ class ScrapperEngine(object):
                 try:
                     sleep(randint(1, 2))
                     webscraper.update_main_page()
-                    print('[INFO]: {0} Connection Failed Multiple Times, Trying a New Proxy: [ {1} ]'.format(
-                        webscraper.name, webscraper.proxy_list[webscraper._proxy_list_pos]))
                     self.logger.info('{0} Connection Failed Multiple Times, Trying a New Proxy: [ {1} ]'.format(
                         webscraper.name, webscraper.proxy_list[webscraper._proxy_list_pos]))
                     return self.dynamic_search(websearch, webscraper, counter)
@@ -259,8 +259,6 @@ class ScrapperEngine(object):
                     self.logger.error('WebScraperUnkownError, in {0}:\n{1}'.format(self.name, e))
                     return None
             else:
-                print('[INFO]: {0} [{1:d}/{2:d}] Connection Failed, Retrying in a Few Seconds [ {3} ]'.format(
-                    webscraper.name, counter + 1, max_counter, webscraper.proxy_list[webscraper._proxy_list_pos]))
                 self.logger.info('{0} [{1:d}/{2:d}] Connection Failed, Retrying in a Few Seconds [ {3} ]'.format(
                     webscraper.name, counter + 1, max_counter, webscraper.proxy_list[webscraper._proxy_list_pos]))
 
@@ -421,12 +419,11 @@ class ScrapperEngine(object):
             dataframe = dataframe.sort_values(by=['seed', 'ratio'], ascending=False)
             result_dataframe = dataframe[:top].reset_index(drop=True)
 
-            if debug:
-                print('\n{0} Magnet WebScraping Search:\n {1}\n {2}'.format(self.name, line, tmp_dataframe))
-                print('\n {0} \n{1} Magnet Candidates from WebScraping:\n{2}\n{3}'.format(line, self.name, result_dataframe, line))
+            self.logger.debug('\n{0} Magnet WebScraping Search:\n {1}\n {2}'.format(self.name, line, tmp_dataframe))
+            self.logger.debug('\n {0} \n{1} Magnet Candidates from WebScraping:\n{2}\n{3}'.format(line, self.name, result_dataframe, line))
             return result_dataframe
         except KeyError:
-            print('[WARNING]: {0} Unable to Filter Magnet DataFrame: Empty'.format(self.name))
+            self.logger.warning('{0} Unable to Filter Magnet DataFrame: Empty'.format(self.name))
             return tmp_dataframe
     # TODO ---------------------
     # for index in range(0, len(aux_names.index), 1):
