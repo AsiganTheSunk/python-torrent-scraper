@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-class TVCalendar():
+class TVCalendarInstance():
     def __init__(self, main_month_uri):
         self.main_month_uri = main_month_uri
         self.next_month_uri = ''

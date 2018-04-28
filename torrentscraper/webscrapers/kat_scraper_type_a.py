@@ -7,12 +7,12 @@ import traceback
 from bs4 import BeautifulSoup
 
 # Import Custom Data Structure
-from torrentscraper.datastruct.websearch import RAWData
+from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
 
 # Import Custom Exceptions
-from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperProxyListError
-from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperParseError
-from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperContentError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperParseError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
 
 # Constants
 FILM_FLAG = 'FILM'
@@ -51,7 +51,7 @@ class KatScrapperTypeA():
             raise WebScraperProxyListError(self.name, err, traceback.format_exc())
 
     def get_raw_data(self, content=None):
-        raw_data = RAWData()
+        raw_data = RAWDataInstance()
         soup = BeautifulSoup (content, 'html.parser')
 
         try:
@@ -92,8 +92,10 @@ class KatScrapperTypeA():
                                                                                                   str(leech),
                                                                                                   magnet_link))
             else:
-                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values',
-                                             traceback.format_exc())
+                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values', traceback.format_exc())
+        # TODO corregir esto para que no capture
+        except WebScraperContentError as err:
+            raise WebScraperContentError(err.name, err.err, err.trace)
         except Exception as err:
             raise WebScraperParseError(self.name, err, traceback.format_exc())
         return raw_data

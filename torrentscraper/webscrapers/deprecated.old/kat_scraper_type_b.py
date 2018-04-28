@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from bs4 import BeautifulSoup
-from torrentscraper.datastruct.websearch import RAWData
+from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
 
 FILM_FLAG = 'FILM'
 SHOW_FLAG = 'SHOW'
@@ -37,7 +37,7 @@ class KatScrapperTypeB():
             raise IndexError
 
     def get_raw_data(self, content=None):
-        raw_data = RAWData()
+        raw_data = RAWDataInstance()
         soup = BeautifulSoup (content, 'html.parser')
         ttable = soup.findAll('table', {'class': 'table table--bordered table--striped table--hover torrents_table'})
 

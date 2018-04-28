@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-class RAWData(object):
+class RAWDataInstance(object):
     def __init__(self):
         self.size_list = []
         self.seed_list = []

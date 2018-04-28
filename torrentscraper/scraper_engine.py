@@ -14,7 +14,6 @@ from pandas import DataFrame
 from fake_useragent import UserAgent
 
 # Import Custom Data Structure
-from torrentscraper.datastruct.websearch import WebSearch
 from torrentscraper.datastruct.p2p_instance import P2PInstance
 
 # Import Custom Logger
@@ -26,9 +25,9 @@ from torrentscraper.webscrapers import pirate_bay_scraper as tpb
 from torrentscraper.webscrapers import torrent_funk_scraper as funk
 
 # Import Custom Exceptions
-from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperProxyListError
-from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperContentError
-from torrentscraper.webscrapers.exceptions.web_scraper_error import WebScraperParseError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperParseError
 
 # Import Custom Utils
 from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
@@ -129,15 +128,12 @@ class ScrapperEngine(object):
                                                                            raw_data.seed_list[index],
                                                                            raw_data.leech_list[index]))
                 except WebScraperContentError as err:
-                    self.logger.error(
-                        '{0} Unable to Retrieve Magnets from Search Result, Try Again Later:\n Error: {1}'.format(
-                            webscraper.name, str(err.message)))
+                    self.logger.error(err.message)
                 except WebScraperParseError as err:
-                    self.logger.error(
-                        '{0} Unable to Retrieve Magnets from Search Result, Try Again Later:\n Error: {1}'.format(
-                            webscraper.name, str(err.message)))
+                    self.logger.error(err.message)
                 except Exception as err:
-                    self.logger.error('{0} Unable to Retrieve Magnets from Search Result, Try Again Later:\n Error: {1}'.format(webscraper.name, str(err)))
+                    self.logger.error('{0} Unable to Retrieve Magnets from Search Result: {1}'.format(
+                        webscraper.name, str(err)))
         else:
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:

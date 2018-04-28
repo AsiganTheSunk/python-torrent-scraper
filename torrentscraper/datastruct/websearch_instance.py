@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
-from colorama import Fore, Style
-import os
+# Import System Libraries
 from collections.abc import Mapping
+import os
 
-class WebSearch(Mapping):
+# Import External Libraries
+from colorama import Fore, Style
+
+class WebSearchInstance(Mapping):
     def __init__(self, title='', year='', season='', episode='', quality='', header='', search_type='', lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
         self.search_type = search_type
         self.lower_size_limit = lower_size_limit

@@ -1,29 +1,40 @@
 #!/usr/bin/env python
 
+# Import System Libraries
 from collections.abc import Mapping
 import urllib.parse
 
 class MagnetInstance(Mapping):
-    def __init__(self, _hash, display_name, announce_list):
+    def __init__(self, _hash, display_name, announce_list, size=0, seed=1, leech=1):
         self.name = self.__class__.__name__
         self.hash = _hash
         self.display_name = display_name
+        self.size = size
+        self.seed = int(seed)
+        self.leech = int(leech)
         self.announce_list = self._get_announce_list(announce_list)
+        self.activity = {'seed': self.seed, 'leech': self.leech}
         self._storage = {'hash': self.hash,
                  'display_name': self.display_name,
-                 'announce_list':{'https':self.announce_list[0],
-                                  'http':self.announce_list[1],
-                                  'udp':self.announce_list[2]}}
+                         'size': self.size,
+                         'seed': self.seed,
+                         'leech': self.leech,
+                         'ratio': self.seed/self.leech,
+                         'announce_list':{'https':self.announce_list[0],
+                                          'http':self.announce_list[1],
+                                          'udp':self.announce_list[2]}}
 
     def __getitem__(self, key):
         if key == 'magnet':
             return self._get_magnet()
-        if key == 'stats':
-            return self._get_stats()
+        if key == 'status':
+            return self._get_status()
+        if key == 'activity':
+            return self.activity
         return self._storage[key]
 
     def __iter__(self):
-        return iter(self._storage)
+        return iter(self._storage)    # ``ghost`` is invisible
 
     def __len__(self):
         return len(self._storage)
@@ -32,7 +43,7 @@ class MagnetInstance(Mapping):
         '''
         This function, overrides the default function method.
         :return: this function, returns every component in the magnet instance
-        :rtype: str
+        :rtype:
         '''
         return
 
@@ -40,8 +51,7 @@ class MagnetInstance(Mapping):
         '''
         This function, sets the announce_list to the magnet instance
         :param announce_list:
-        :return: -
-        :rtype: -
+        :return: None
         '''
         self._update_announce_list(self._get_announce_list(announce_list))
 
@@ -62,7 +72,7 @@ class MagnetInstance(Mapping):
             print('%s: Unable to Add Announce %s' % (self.name, e))
         return True
 
-    def _get_stats(self):
+    def _get_status(self):
         '''
         This function, returns each announce_list on a list[ of lists]
         :return: this function, returns a list [ of list ]containing the number of https, http or udp announcers from
@@ -79,7 +89,6 @@ class MagnetInstance(Mapping):
         '''
         This function, helps to prevent the data on the announce_list from being discarted, updating the information
         :param announce_list: this value, represents a announce_list
-        :type announce_list: list
         :return: this function, returns a list [of list], with all the announcers sorted
         :rtype: list
         '''
@@ -102,7 +111,7 @@ class MagnetInstance(Mapping):
     def _get_magnet(self):
         '''
         This function, returns a magnet_link based on the values that the magnet instance was able to retrieve.
-        :return: this function, returns a string, with the magnet_linj
+        :return: this function, returns a string, with the magnet_link
         :rtype: str
         '''
         # [['&tr='+ str(announce) for announce in announce_subtype] for announce_subtype in self.announce_list]
@@ -111,9 +120,11 @@ class MagnetInstance(Mapping):
         try:
             for announce_subtype in self.announce_list:
                 for announce in announce_subtype:
-                    announce_list += '&tr=' + announce
-            magnet_uri += 'magnet:?xt=urn:btih:' + self.hash + '&dn='\
-                          + self.display_name + (urllib.parse.quote(announce_list))
+                    announce_list += '&tr=' + urllib.parse.quote(announce)
+
+            magnet_uri += 'magnet:?xt=urn:btih:' + self.hash \
+                          + '&dn=' + self.display_name\
+                          + announce_list
         except Exception as e:
             print('%s: ErrorGeneratingMagnetUri %s' % (self.name, e))
         return magnet_uri
