@@ -1,2 +1,2 @@
-# python-torrent-scrapper
-Torrent Web Scrapper
+# python-torrent-scrapper v0.3
+
