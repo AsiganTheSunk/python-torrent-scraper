@@ -74,18 +74,21 @@ class TorrentFunkScraper(object):
 
                         # Converting GB to MB, to Easily Manage The Pandas Structure
                         size = (tr.findAll('td'))[2].text
-                        size = float(size[:-3])
+                        if 'MB' in size:
+                            size = float(size[:-2])
+                        elif 'GB' in size:
+                            size = float(size[:-2]) * 1000
 
                         magnet_link = (tr.findAll('a'))[0]['href']
 
                         # Patch to Avoid Getting False Torrents
-                        if int(seed) < 1000:
+                        if int(seed) < 1500:
                             raw_data.add_magnet(str(magnet_link))
                             raw_data.add_seed(int(seed))
                             raw_data.add_leech(int(leech))
                             raw_data.add_size(int(size))
                             self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(self.name,
-                                                                                                          str(size),
+                                                                                                          str(int(size)),
                                                                                                           str(seed),
                                                                                                           str(leech),
                                                                                                           magnet_link))
@@ -111,6 +114,6 @@ class TorrentFunkScraper(object):
             raise WebScraperContentError(err.name, err.err, err.trace)
         except Exception as err:
             raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
-        return self.main_page + magnet
+        return magnet
 
 

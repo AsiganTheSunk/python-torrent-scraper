@@ -82,12 +82,12 @@ class KatScrapperTypeA():
                     magnet_link = (items.findAll('a', {'title': 'Torrent magnet link'}))[0]['href']
 
                     raw_data.add_magnet(magnet_link)
-                    raw_data.add_size(size)
-                    raw_data.add_seed(seed)
-                    raw_data.add_leech(leech)
+                    raw_data.add_size(int(size))
+                    raw_data.add_seed(int(seed))
+                    raw_data.add_leech(int(leech))
 
                     self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(self.name,
-                                                                                                  str(size),
+                                                                                                  str(int(size)),
                                                                                                   str(seed),
                                                                                                   str(leech),
                                                                                                   magnet_link))

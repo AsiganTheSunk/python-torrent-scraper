@@ -24,10 +24,26 @@ from torrentscraper.webscrapers import kat_scraper_type_a as kata
 from torrentscraper.webscrapers import pirate_bay_scraper as tpb
 from torrentscraper.webscrapers import torrent_funk_scraper as funk
 
-# Import Custom Exceptions
+# Import Custom Exceptions: WebScraper Exceptions
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperParseError
+
+# Import Custom Exceptions: MagnetBuilder Torrent KeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyHashError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyDisplayNameError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentAnnounceListKeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentAnnounceKeyError
+
+# Import Custom Exceptions: MagnetBuilder Magnet KeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderMagnetKeyDisplayNameError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderMagnetKeyAnnounceListError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderMagnetKeyHashError
+
+
+# Import Custom Exceptions: MagnetBuilder Torrent NetworkError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderNetworkAnnounceListKeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderNetworkError
 
 # Import Custom Utils
 from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
@@ -47,25 +63,25 @@ DEBUG0 = 15
 VERBOSE = 5
 
 # TODO Resolver problema de webdrivers. rbg.RarbgScrapper()
-class ScrapperEngine(object):
+class ScraperEngine(object):
     def __init__(self):
         self.name = self.__class__.__name__
 
         # Create & Config CustomLogger
-        self.logger = CustomLogger(name=__name__, level=DEBUG0)
+        self.logger = CustomLogger(name=__name__, level=DEBUG)
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
         file_handler = logging.FileHandler('scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(level=DEBUG0)
+        file_handler.setLevel(level=DEBUG)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(DEBUG0)
+        console_handler.setLevel(DEBUG)
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
-        self.webscrapers = [kata.KatScrapperTypeA(self.logger), tpb.PirateBayScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
+        self.webscrapers = [kata.KatScrapperTypeA(self.logger), tpb.PirateBayScraper(self.logger)]#, funk.TorrentFunkScraper(self.logger)]
 
     def retrieve_cloudflare_cookie(self, uri):
         '''
@@ -103,10 +119,12 @@ class ScrapperEngine(object):
                     temp_torrent = './temp_torrent.torrent'
 
                     response = self.dynamic_search(websearch, webscraper, raw_data.magnet_list[index])
-                    #response = requests.get(raw_data.magnet_list[index], verify=True, headers=headers)
                     torrent = webscraper.get_magnet_link(response.text)
                     raw_data.magnet_list[index] = torrent
-                    torrent_response = requests.get(torrent, verify=True, headers=headers)
+
+                    # Downloading Temp Torrent File
+                    torrent_response = self.dynamic_search(websearch, webscraper, raw_data.magnet_list[index])
+                    #torrent_response = requests.get(torrent, verify=True, headers=headers)
                     with open(temp_torrent, 'wb', encoding=torrent_response.encoding) as file:
                         file.write(torrent_response.content)
                     magnet_instance_list.append(mbuilder.parse_from_file(temp_torrent, size=raw_data.size_list[index],
@@ -322,7 +340,8 @@ class ScrapperEngine(object):
                     self.logger.debug('{0} Magnet Master Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
                     aux_magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
 
-                    self.logger.debug('{0} Index: {1}\n[DEBUG]: {0} Common DataFrame: {2}\n'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
+                    self.logger.debug('{0} Index: {1}'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
+                    self.logger.debug('{0} Common DataFrame: {1}\n'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
                     for index in cmmn_hash.get_group(item_hash).index.tolist()[1:]:
                         tmp_dn = dataframe.iloc[int(index)]['name']
                         tmp_hash = dataframe.iloc[int(index)]['hash']

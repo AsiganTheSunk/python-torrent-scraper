@@ -14,8 +14,21 @@ import requests
 # Import Custom DataStructures
 from torrentscraper.datastruct.magnet_instance import MagnetInstance
 
-# Import Custom Exceptions
-from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyError
+# Import Custom Exceptions: MagnetBuilder Torrent KeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyHashError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyDisplayNameError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentAnnounceListKeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentAnnounceKeyError
+
+# Import Custom Exceptions: MagnetBuilder Magnet KeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderMagnetKeyDisplayNameError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderMagnetKeyAnnounceListError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderMagnetKeyHashError
+
+
+# Import Custom Exceptions: MagnetBuilder Torrent NetworkError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderNetworkAnnounceListKeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderNetworkError
 
 # Import Utils Libraries
 from torrentscraper.webscrapers.utils.chinese_filter import chinese_filter
@@ -33,6 +46,18 @@ class MagnetBuilder(object):
     def __init__(self, logger):
         self.name = self.__class__.__name__
         self.logger = logger
+        #self.logger_lvl = self.logger.getLevelName(self.logger.getEffectiveLevel())
+
+    # def __str__(self):
+    #     return('{0} Id: {1}\n Logger Id:{2}, Logger Lvl:{3}\n'.format(
+    #         self.name, id(self),
+    #         self.logger.getLevelName(self.logger.getEffectiveLevel()),
+    #         self.logger.getEffectiveLevel()))
+
+    def is_empty(self, magnet):
+        if magnet.hash and magnet.display_name != '':
+            return True
+        return False
 
     def _eval_announce_list(self, value):
         '''
@@ -48,8 +73,7 @@ class MagnetBuilder(object):
                 for items in value[b'announce-list']:
                     _result.append(str(items[0].decode('utf-8')))
         except Exception as err:
-            raise MagnetBuilderTorrentKeyError(self.name, str(err))
-            #print('[WARNING]: {0} Unable to Retrieve Announce List Value: {1}'.format(self.name, str(e)))
+            raise MagnetBuilderTorrentAnnounceListKeyError(self.name, str(err))
         return _result
 
     def _eval_announce(self, value):
@@ -66,7 +90,7 @@ class MagnetBuilder(object):
                 _result = value[b'announce'].decode()
             _result += '&'
         except Exception as err:
-            raise MagnetBuilderTorrentKeyError(self.name, str(err))
+            raise MagnetBuilderTorrentAnnounceKeyError(self.name, str(err))
         return _result
 
     def _eval_display_name(self, value):
@@ -82,11 +106,10 @@ class MagnetBuilder(object):
             if value[b'info'][b'name'].decode() != b'name':
                 _result = value[b'info'][b'name'].decode()
         except Exception as err:
-            raise MagnetBuilderTorrentKeyError(self.name, str(err))
+            raise MagnetBuilderTorrentKeyDisplayNameError(self.name, str(err))
         return _result
 
-
-    def _select_announce_type(self, announce_type='ALL'):
+    def retrieve_announce(self, announce_type='ALL'):
         '''
         This function, will connect to an online resource and retrieve a bytearray, containing the announce_list, based
         on the announce_type, that has been selected, by default using, ALL.
@@ -97,31 +120,34 @@ class MagnetBuilder(object):
         :rtype: bytearray
         '''
         # Create a loader
-        if announce_type == 'HTTPS':
-            return requests.get(HTTPS_ANNOUNCE_LIST, stream=True)
-        elif announce_type == 'HTTP':
-            return requests.get(HTTP_ANNOUNCE_LIST, stream=True)
-        elif announce_type == 'UDP':
-            return requests.get(UDP_ANNOUNCE_LIST, stream=True)
-        elif announce_type == 'IP':
-            return requests.get(IP_ANNOUNCE_LIST, stream=True)
-        elif announce_type == 'BLACKLIST':
-            return requests.get(BLACKLIST_ANNOUNCE_LIST, stream=True)
-        elif announce_type == 'ALL':
-            return requests.get(ALL_ANNOUNCE_LIST, stream=True)
+        try:
+            if announce_type == 'HTTPS':
+                return requests.get(HTTPS_ANNOUNCE_LIST, stream=True)
+            elif announce_type == 'HTTP':
+                return requests.get(HTTP_ANNOUNCE_LIST, stream=True)
+            elif announce_type == 'UDP':
+                return requests.get(UDP_ANNOUNCE_LIST, stream=True)
+            elif announce_type == 'IP':
+                return requests.get(IP_ANNOUNCE_LIST, stream=True)
+            elif announce_type == 'BLACKLIST':
+                return requests.get(BLACKLIST_ANNOUNCE_LIST, stream=True)
+            elif announce_type == 'ALL':
+                return requests.get(ALL_ANNOUNCE_LIST, stream=True)
+        except Exception as err:
+            raise MagnetBuilderNetworkError(self.name, err)
 
-    def _get_online_announce_list(self, announce_type):
+    def get_online_announce_list(self, announce_type='ALL'):
         '''
         This function, will retrieve all the announce_list items from the bytearray
         :param announce_type: this value, represents the announce_type, that you're going to try to retrieve
         from internet resources
-        :type announce_type: bytearray
+        :type announce_type: str
         :return: this function, returns a clean announce_list
         :rtype: list
         '''
         _announce_list = []
         try:
-            for line in self._select_announce_type(announce_type=announce_type).iter_lines():
+            for line in self.retrieve_announce(announce_type).iter_lines():
                 if line:
                     if announce_type == 'BLACKLIST':
                         line = (line.decode('utf-8').split('#')[0]).rstrip()    # Remove the comments from the line
@@ -129,8 +155,8 @@ class MagnetBuilder(object):
                         line = line.decode('utf-8')
                     _announce_list.append(line)
                     self.logger.debug('{0} Announce List Item Fetched: [ {1} ]'.format(self.name, line))
-        except Exception as e:
-            print('{0} ErrorMagnetNetworkAnnounceList Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
+        except Exception as err:
+            raise MagnetBuilderNetworkAnnounceListKeyError(self.name, err)
         return _announce_list
 
     def _get_hash(self, magnet_link):
@@ -145,8 +171,8 @@ class MagnetBuilder(object):
         try:
             _hash = re.search('(?<=(magnet:\?xt=urn:btih:)).*?(?=(&dn=))', magnet_link, re.IGNORECASE).group(0)
             self.logger.debug('{0} Hash [ {1} ]'.format(self.name , _hash))
-        except Exception as e:
-            print('{0} ErrorMagnetHash Unable to Retrieve the Value: {1}'.format(self.name, str(e)))
+        except Exception as err:
+            raise MagnetBuilderMagnetKeyHashError(self.name, err)
         return _hash
 
     def _get_display_name(self, magnet_link):
@@ -165,9 +191,9 @@ class MagnetBuilder(object):
             try:
                 display_name = re.search('(?<=(\&dn=)).*', magnet_link, re.IGNORECASE).group(0)
                 self.logger.debug('{0} Display Name: [ {1} ]'.format(self.name, display_name))
-            except Exception as e:
-                self.logger.error('MagnetLink: {0}'.format(magnet_link))
-                self.logger.error('{0} ErrorMagnetDisplayName Unable to Retrieve the Value {1}'.format(self.name, str(e)))
+            except Exception as err:
+                self.logger.error('[MagnetLink Error Source]: {0}'.format(magnet_link))
+                raise MagnetBuilderMagnetKeyHashError(self.name, err)
         return display_name
 
     def _get_announce_list(self, magnet_link):
@@ -197,14 +223,19 @@ class MagnetBuilder(object):
         :return: this function, returns a magnet with the announce_list cleaned from invalid announcers
         :rtype: MagnetsIntance
         '''
-        blacklist = self._get_online_announce_list('BLACKLIST')
+        try:
+            blacklist = self.get_online_announce_list('BLACKLIST')
 
-        # Unpack the sorted list[ of list ] of announce
-        announce_list = magnet.announce_list[0] + \
-                        magnet.announce_list[1] + \
-                        magnet.announce_list[2]
-        clean_announce_list = list(set(announce_list).difference(set(blacklist)))   # Apply Logic difference
-        magnet.set_announce_list(clean_announce_list)
+            # Unpack the sorted list[ of list ] of announce
+            announce_list = magnet.announce_list[0] + \
+                            magnet.announce_list[1] + \
+                            magnet.announce_list[2]
+            clean_announce_list = list(set(announce_list).difference(set(blacklist)))   # Apply Logic difference
+            magnet.set_announce_list(clean_announce_list)
+        except MagnetBuilderNetworkError as err:
+            raise MagnetBuilderNetworkError(err.class_name, err.message)
+        except MagnetBuilderNetworkAnnounceListKeyError as err:
+            raise MagnetBuilderMagnetKeyAnnounceListError( err.class_name, err.message)
         return magnet
 
     def merge_announce_list(self, magnet0, magnet1=None):
@@ -270,8 +301,8 @@ class MagnetBuilder(object):
         data = {}
         try:
             data = tp.parse_torrent_file(file)
-        except Exception as e:
-            print(e)
+        except Exception as err:
+            print(err)
         return data
 
     def parse_from_file(self, file, base='16', size=0, seed=1, leech=1):
@@ -287,42 +318,46 @@ class MagnetBuilder(object):
         display_name = ''
         announce_list = ''
 
-        metadata = bencodepy.decode_from_file(file)     # Read from the file
-        subj = metadata[b'info']
-
-        # Calculating hash
-        hashcontents = bencodepy.encode(subj)
-        digest = hashlib.sha1(hashcontents).digest()    # Calculating the magnet hash 16, based on the metadata[b'info]
-        if base == '16':
-            _hash = base64.b16encode(digest).decode().lower()
-        else:
-            _hash = base64.b32encode(digest).decode().lower()
-
         try:
-            display_name = self._eval_display_name(metadata)    # Gather display_name from the file
-        except MagnetBuilderTorrentKeyError as err:
-            # print(err.message)
-            self.logger.warning(err.message)
-        try:
-            announce = self._eval_announce(metadata)            # Gather announce from the file
-        except MagnetBuilderTorrentKeyError as err:
-            # print(err.message)
-            self.logger.warning(err.message)
-        try:
-            announce_list = self._eval_announce_list(metadata)  # Gather announce_list from the file
-        except MagnetBuilderTorrentKeyError as err:
-            # print(err.message)
-            self.logger.warning(err.message)
+            metadata = bencodepy.decode_from_file(file)     # Read from the file
+            subj = metadata[b'info']
 
-        if announce_list is '':
-            announce_list = announce
+            # Calculating hash
+            try:
+                hashcontents = bencodepy.encode(subj)
+                digest = hashlib.sha1(hashcontents).digest()    # Calculating the magnet hash 16, based on the metadata[b'info]
+                if base == '16':
+                    _hash = base64.b16encode(digest).decode().lower()
+                else:
+                    _hash = base64.b32encode(digest).decode().lower()
+            except Exception as err:
+                self.logger.error(err)
 
+            try:
+                display_name = self._eval_display_name(metadata)    # Gather display_name from the file
+            except MagnetBuilderTorrentKeyDisplayNameError as err:
+                self.logger.warning(err.message)
 
-        ch_filter = chinese_filter()
-        display_name = ch_filter.sub('', str(display_name))
-        self.logger.debug0('{0} Generated Uri from Torrent File: {1} with Hash [ {2} ]'.format(self.name, display_name,  _hash))
-        self.logger.debug('* Announce List {0}'.format(announce_list))
-        return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech)
+            try:
+                announce = self._eval_announce(metadata)            # Gather announce from the file
+            except MagnetBuilderTorrentAnnounceKeyError as err:
+                self.logger.warning(err.message)
+
+            try:
+                announce_list = self._eval_announce_list(metadata)  # Gather announce_list from the file
+            except MagnetBuilderTorrentAnnounceListKeyError as err:
+                self.logger.warning(err.message)
+
+            if announce_list is '':
+                announce_list = announce
+
+            ch_filter = chinese_filter()
+            display_name = ch_filter.sub('', str(display_name))
+            self.logger.debug0('{0} Generated Uri from Torrent File: {1} with Hash [ {2} ]'.format(self.name, display_name,  _hash))
+            self.logger.debug('* Announce List {0}'.format(announce_list))
+            return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech)
+        except Exception as err:
+            return MagnetInstance
 
     def parse_from_magnet(self, magnet_link, size=0, seed=1, leech=1):
         '''
@@ -332,58 +367,42 @@ class MagnetBuilder(object):
         :return: this function, returns a magnet instance based on the magnet values that had been retrieved
         :rtype: MagnetInstance
         '''
-        display_name = self._get_display_name(magnet_link)
-        _hash = self._get_hash(magnet_link)
-        announce_list = self._get_announce_list(magnet_link)
+        try:
+            announce_list = ''
+            display_name = ''
+            _hash = ''
 
-        ch_filter = chinese_filter()
-        display_name = ch_filter.sub('', str(display_name))
-        self.logger.debug0('{0} Generated Uri from Magnet Link: {1} with Hash [ {2} ]'.format(
-            self.name, display_name, _hash))
-        self.logger.debug('* Announce List {0}'.format(announce_list))
-        return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech)
+            try:
+                display_name = self._get_display_name(magnet_link)
+            except MagnetBuilderMagnetKeyDisplayNameError as err:
+                self.logger.error(err.message)
 
-    def parse_magnet_list(self, magnet_link_list):
-        l = []
-        for magnet_link in magnet_link_list:
-            l.append(magnet_link)
-        return l
+            try:
+                _hash = self._get_hash(magnet_link)
+            except MagnetBuilderMagnetKeyHashError as err:
+                self.logger.error(err.message)
 
+            try:
+                announce_list = self._get_announce_list(magnet_link)
+            except MagnetBuilderMagnetKeyAnnounceListError as err:
+                self.logger.error(err.message)
 
+            ch_filter = chinese_filter()
+            display_name = ch_filter.sub('', str(display_name))
 
+            self.logger.debug0('{0} Generated Uri from Magnet Link: {1} with Hash [ {2} ]'.format(self.name, display_name, _hash))
+            self.logger.debug('* Announce List {0}'.format(announce_list))
+            return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech)
+        except Exception as err:
+            return MagnetInstance
 
-def main():
-    torrent_file = 'C:/Users/Asigan/Documents/GitHub/python-torrent-scraper/torrentscraper/Rick.and.Morty.S03E08.2017.HDTV.x264.-.SPARKS.torrent'
-    torrent_file1 = 'C:/Users/Asigan/Documents/GitHub/python-torrent-scraper/torrentscraper/The.Hurricane.Heist.2018.1080p.KORSUB.HDRip.x264.AAC2.0-STUTTERSHIT-[rarbg.to].torrent'
-    torrent_file2 = 'C:/Users/Asigan/Documents/GitHub/python-torrent-scraper/torrentscraper/[HorribleSubs].Overlord.II.-.13.[720p].torrent'
-    Magnet2 = 'magnet:?xt=urn:btih:b105818432fcef1628a1024bd761206eb0f66f9a&dn=Lady.Bird.2017.1080p.BluRay.H264.AAC&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969'
-    Magnet1 = 'magnet:?xt=urn:btih:224472e05e3b1087348ea1be58febb73b5456cfc&dn=Future.Man.S01E01.Pilot.1080p.AMZN.WEBRip.DDP5.1.x264-NTb%5Brartv%5D&tr=http%3A%2F%2Ftracker.trackerfix.com%3A80%2Fannounce&tr=udp%3A%2F%2F9.rarbg.me%3A2710&tr=udp%3A%2F%2F9.rarbg.to%3A2710'
-    test=True
-    if test:
-        mbuilder = MagnetBuilder()
-        minstance0 = mbuilder.parse_from_file(torrent_file1)
-        minstance1 = mbuilder.parse_from_magnet(Magnet1)
+    def optimize_magnet(self, magnet, announce_type='ALL'):
+        tmp_magnet = magnet
+        try:
+            announce_list = self.get_online_announce_list(announce_type=announce_type)
+            magnet = self.clean_announce_list(magnet)
+            magnet.add_announce_list(announce_list)
 
-        print(minstance0['hash'])
-        print(minstance0['display_name'])
-        print(minstance0['announce_list'])
-
-        print(minstance1['hash'])
-        print(minstance1['display_name'])
-        print(minstance1['announce_list'])
-
-        minstance1.add_announce_list(mbuilder._get_online_announce_list(announce_type='HTTPS'))
-        minstance1.add_announce_list(['http://henbt.com:2710/announce'])
-
-        print(minstance1['announce_list'])
-        print(minstance1['magnet'])
-
-        mbuilder.clean_announce_list(minstance1)
-
-        print(minstance1['announce_list'])
-        print(minstance1['magnet'])
-
-        minstance1['stats']
-
-if __name__ == '__main__':
-    main()
+        except MagnetBuilderNetworkAnnounceListKeyError or MagnetBuilderNetworkError:
+            return tmp_magnet
+        return magnet

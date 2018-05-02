@@ -68,8 +68,8 @@ class MagnetInstance(Mapping):
                                         self.announce_list[1] +
                                         self.announce_list[2] +
                                         announce_list))
-        except Exception as e:
-            print('%s: Unable to Add Announce %s' % (self.name, e))
+        except Exception as err:
+            return False
         return True
 
     def _get_status(self):

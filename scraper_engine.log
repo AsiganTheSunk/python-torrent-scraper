@@ -1,120 +1,390 @@
-04/28/2018 04:38:30 AM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
-04/28/2018 04:38:30 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://kickass.cd/search.php?q=Westworld++S02E01+1080p ]
-04/28/2018 04:38:30 AM -  [DEBUG0]: KatScrapperTypeA Searching on Proxy [ https://kickass.cd/search.php?q=Westworld++S02E01+1080p ]
-04/28/2018 04:38:32 AM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
-04/28/2018 04:38:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA with Hash [ 2292b3aa895d89b64f2341c44d6e397c06374b58 ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB with Hash [ 151e77a987fd1517e4c09807b0f1630172673d01 ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.HEVC.x265-MeGusta with Hash [ 63dc9660b9a4db9ea48af17d62880692dbf6ecb9 ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3GB%5D.%5BMP4%5D with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-HDMAN with Hash [ 0d56c614dca01b60defbe322b58b8d46eeaff103 ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 29e72cf3001103d9efb29be7edce2da4fce51d94 ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
-04/28/2018 04:38:34 AM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://unblockedbay.info/s/?q=Westworld++S02E01+1080p&category=0&page=0&orderby=99 ]
-04/28/2018 04:38:34 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Westworld++S02E01+1080p&category=0&page=0&orderby=99 ]
-04/28/2018 04:38:37 AM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
-04/28/2018 04:38:40 AM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
-04/28/2018 04:38:40 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21172026/Westworld.S02E01.1080p.WEB.H264-DEFLATE ]
-04/28/2018 04:38:41 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
-04/28/2018 04:38:41 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21178141/Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA ]
-04/28/2018 04:38:43 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA with Hash [ 2292b3aa895d89b64f2341c44d6e397c06374b58 ]
-04/28/2018 04:38:43 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21180126/Westworld_S02E01_1080p_AMZN_WEB-DL_6CH_1.1GB ]
-04/28/2018 04:38:45 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB with Hash [ 151e77a987fd1517e4c09807b0f1630172673d01 ]
-04/28/2018 04:38:45 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21174367/Westworld.S02E01.1080p.HEVC.x265-MeGusta ]
-04/28/2018 04:38:45 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.HEVC.x265-MeGusta with Hash [ 63dc9660b9a4db9ea48af17d62880692dbf6ecb9 ]
-04/28/2018 04:38:45 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21264135/Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3GB%5D.%5BMP4%5D ]
-04/28/2018 04:38:47 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3GB%5D.%5BMP4%5D with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
-04/28/2018 04:38:47 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21180442/Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-HDMAN ]
-04/28/2018 04:38:50 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-HDMAN with Hash [ 0d56c614dca01b60defbe322b58b8d46eeaff103 ]
-04/28/2018 04:38:50 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21173187/Westworld.S02E01.1080p.WEB.H264-DEFLATE ]
-04/28/2018 04:38:50 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 29e72cf3001103d9efb29be7edce2da4fce51d94 ]
-04/28/2018 04:38:50 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21189235/Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS ]
-04/28/2018 04:38:52 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
-04/28/2018 04:38:52 AM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
-04/28/2018 04:38:52 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://torrentfunk.unblocked.mx/all/torrents/Westworld%20%20S02E01%201080p.html ]
-04/28/2018 04:38:52 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/all/torrents/Westworld%20%20S02E01%201080p.html ]
-04/28/2018 04:38:53 AM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
-04/28/2018 04:38:55 AM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
-04/28/2018 04:38:55 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15925700/westworld-s02e01-journey-into-night-1080p-x265-10bit-fs86-joy.html ]
-04/28/2018 04:38:56 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld S02E01 Journey Into Night  (1080p x265 10bit FS86 Joy).mkv with Hash [ 475c208ba8586aa641e695fb8384753aeb89c846 ]
-04/28/2018 04:38:56 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15925698/%E8%A5%BF%E9%83%A8%E4%B8%96%E7%95%8C-westworld-s02e01-1080p-%E5%A4%A9%E5%A4%A9%E7%BE%8E%E5%89%A7%E5%AD%97%E5%B9%95%E7%BB%84.html ]
-04/28/2018 04:38:56 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: .Westworld.S02E01.1080p-.mp4 with Hash [ bed17261a2b0d93d5badc1f7f8ca2ab142ee0fba ]
-04/28/2018 04:38:56 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15919807/torrentcouch-westworld-s02e01-1080p-amzn-webrip-1-3gb-mp4.html ]
-04/28/2018 04:38:57 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: [TorrentCouch.com].Westworld.S02E01.1080p.AMZN.WEBRip.x264.[1.3GB].[MP4] with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
-04/28/2018 04:38:57 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15886790/westworld-s02e01-journey-into-night-1080p-amzn-hevc-10bit.html ]
-04/28/2018 04:38:58 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld.S02E01.Journey.Into.Night.1080p.AMZN.HEVC.10bit.mkv with Hash [ 7315d1a1a4406ae3070c862b3629107274cdad6c ]
-04/28/2018 04:38:58 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15866412/westworld-s02e01-1080p-amzn-web-dl-x265-hevc-10bit-aac-5-1-vyndros.html ]
-04/28/2018 04:38:59 AM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce' ]
-04/28/2018 04:38:59 AM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce-list' ]
-04/28/2018 04:38:59 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld (2016) S02E01 (1080p AMZN WEB-DL x265 HEVC 10bit AAC 5.1 Vyndros) with Hash [ b1cb29de0efe788c6165931904bcadc73f1eaf3d ]
-04/28/2018 04:38:59 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15865915/westworld-s02e01-1080p-amzn-web-dl-5-1-hevc-x265-girays.html ]
-04/28/2018 04:38:59 AM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce' ]
-04/28/2018 04:38:59 AM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce-list' ]
-04/28/2018 04:38:59 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS.mkv with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
-04/28/2018 04:38:59 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15865685/westworld-s02e01-1080p-amzn-web-dl-x265-hevc-10bit-e-6-0-qman-utr.html ]
-04/28/2018 04:39:00 AM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce' ]
-04/28/2018 04:39:00 AM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce-list' ]
-04/28/2018 04:39:00 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld S02E01 (1080p AMZN WEB-DL x265 HEVC 10bit EAC3 6.0 Qman) [UTR] with Hash [ f3587eb780d14996cd9a0e84049fc57614fb1736 ]
-04/28/2018 04:39:00 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15858990/westworld-s02e01-1080p-web-h264-deflaterarbg.html ]
-04/28/2018 04:39:01 AM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce' ]
-04/28/2018 04:39:01 AM -  [WARNING]: MagnetBuilderTorrentKeyError, in MagnetBuilder Unable to Retrieve Value from Torrent: [ b'announce-list' ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld.S02E01.1080p.WEB.H264-DEFLATE[rarbg] with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
-04/28/2018 04:39:01 AM -  [INFO]: ScrapperEngine Creating Unique Magnet DataFrame:
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-HDMAN with Hash [ 0d56c614dca01b60defbe322b58b8d46eeaff103 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-HDMAN with Hash [ 0d56c614dca01b60defbe322b58b8d46eeaff103 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB with Hash [ 151e77a987fd1517e4c09807b0f1630172673d01 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB with Hash [ 151e77a987fd1517e4c09807b0f1630172673d01 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA with Hash [ 2292b3aa895d89b64f2341c44d6e397c06374b58 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA with Hash [ 2292b3aa895d89b64f2341c44d6e397c06374b58 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 29e72cf3001103d9efb29be7edce2da4fce51d94 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 29e72cf3001103d9efb29be7edce2da4fce51d94 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS.mkv with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3GB%5D.%5BMP4%5D with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3GB%5D.%5BMP4%5D with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: [TorrentCouch.com].Westworld.S02E01.1080p.AMZN.WEBRip.x264.[1.3GB].[MP4] with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.HEVC.x265-MeGusta with Hash [ 63dc9660b9a4db9ea48af17d62880692dbf6ecb9 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.HEVC.x265-MeGusta with Hash [ 63dc9660b9a4db9ea48af17d62880692dbf6ecb9 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE[rarbg] with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
-04/28/2018 04:39:01 AM -  [DEBUG0]: ScrapperEngine New DataFrame Rows:
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash    size  seed  leech      ratio                                             magnet
-0  Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-H...  0d56c614dca01b60defbe322b58b8d46eeaff103  5730.0    13      9   1.444444  magnet:?xt=urn:btih:0d56c614dca01b60defbe322b5...
-1       Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB  151e77a987fd1517e4c09807b0f1630172673d01  1200.0    81     13   6.230769  magnet:?xt=urn:btih:151e77a987fd1517e4c09807b0...
-2  Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.H...  2292b3aa895d89b64f2341c44d6e397c06374b58  1030.0   318     29  10.965517  magnet:?xt=urn:btih:2292b3aa895d89b64f2341c44d...
-3            Westworld.S02E01.1080p.WEB.H264-DEFLATE  29e72cf3001103d9efb29be7edce2da4fce51d94  5640.0     1      1   1.000000  magnet:?xt=urn:btih:29e72cf3001103d9efb29be7ed...
-4  Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x2...  2c09b79a11a830002328cf413b29fe287b05df46  1160.0     1      1   1.000000  magnet:?xt=urn:btih:2c09b79a11a830002328cf413b...
-5  Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3...  5925928425e0a890b62a87a2a25ed3236493f242  1340.0    44     10   4.400000  magnet:?xt=urn:btih:5925928425e0a890b62a87a2a2...
-6           Westworld.S02E01.1080p.HEVC.x265-MeGusta  63dc9660b9a4db9ea48af17d62880692dbf6ecb9  1160.0    50     17   2.941176  magnet:?xt=urn:btih:63dc9660b9a4db9ea48af17d62...
-7            Westworld.S02E01.1080p.WEB.H264-DEFLATE  7e895324ef8912ce4d92933a9b9f5f357c267a03  5630.0  1269    145   8.751724  magnet:?xt=urn:btih:7e895324ef8912ce4d92933a9b...
+05/01/2018 10:22:12 PM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
+05/01/2018 10:22:12 PM -  [DEBUG]: UriBuilder Query Params:
+05/01/2018 10:22:12 PM -  [DEBUG]: [ q : Rick & Morty  S03E08 HDTV ]
+05/01/2018 10:22:12 PM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://kickass.cd/search.php?q=Rick+%26+Morty++S03E08+HDTV ]
+05/01/2018 10:22:12 PM -  [DEBUG0]: KatScrapperTypeA Searching on Proxy [ https://kickass.cd/search.php?q=Rick+%26+Morty++S03E08+HDTV ]
+05/01/2018 10:22:15 PM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
+05/01/2018 10:22:15 PM -  [DEBUG]: KatScrapperTypeA New Entry Raw Values: 486      967/14   magnet:?xt=urn:btih:5f804186abe124f9d5883556eaf8e2ca73da4720&dn=Rick.and.Morty.S03E08.720p.HDTV.x264-BATV&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969
+05/01/2018 10:22:15 PM -  [DEBUG]: KatScrapperTypeA New Entry Raw Values: 137      148/4    magnet:?xt=urn:btih:85cbbceb0a8ed0feefe5f2c997b721929606c263&dn=Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969
+05/01/2018 10:22:15 PM -  [DEBUG]: KatScrapperTypeA New Entry Raw Values: 137       37/4    magnet:?xt=urn:btih:54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1&dn=Rick.and.Morty.S03E08.HDTV.x264-BATV&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969
+05/01/2018 10:22:15 PM -  [DEBUG]: KatScrapperTypeA New Entry Raw Values: 486       34/5    magnet:?xt=urn:btih:e345b94bd4697b3024222aa56f23be96aa5e019d&dn=Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969
+05/01/2018 10:22:15 PM -  [DEBUG]: KatScrapperTypeA New Entry Raw Values: 105       13/4    magnet:?xt=urn:btih:fd2757071c250db6811b5e56d6d612e3975b94f0&dn=Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969
+05/01/2018 10:22:15 PM -  [DEBUG]: KatScrapperTypeA New Entry Raw Values: 486        3/3    magnet:?xt=urn:btih:41028505cf2872d7c7f79d3c4cf8ef4dc2da82a2&dn=Rick.and.Morty.S03E08.720p.HDTV.x264-BATV&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969
+05/01/2018 10:22:15 PM -  [DEBUG]: KatScrapperTypeA New Entry Raw Values: 138        1/4    magnet:?xt=urn:btih:a58f3064b2d293b18dbe72f272f2a20f363ccc46&dn=Rick.and.Morty.S03E08.HDTV.x264-BATV&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Hash [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV with Hash [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Hash [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D with Hash [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Hash [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV with Hash [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Hash [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D with Hash [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:17 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Hash [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv with Hash [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Hash [ 41028505cf2872d7c7f79d3c4cf8ef4dc2da82a2 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV with Hash [ 41028505cf2872d7c7f79d3c4cf8ef4dc2da82a2 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Hash [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV with Hash [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:17 PM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
+05/01/2018 10:22:17 PM -  [DEBUG]: UriBuilder Query Params:
+05/01/2018 10:22:17 PM -  [DEBUG]: [ q : Rick & Morty  S03E08 HDTV ]
+05/01/2018 10:22:17 PM -  [DEBUG]: [ category : 0 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: [ page : 0 ]
+05/01/2018 10:22:17 PM -  [DEBUG]: [ orderby : 99 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://unblockedbay.info/s/?q=Rick+%26+Morty++S03E08+HDTV&category=0&page=0&orderby=99 ]
+05/01/2018 10:22:17 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Rick+%26+Morty++S03E08+HDTV&category=0&page=0&orderby=99 ]
+05/01/2018 10:22:21 PM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
+05/01/2018 10:22:21 PM -  [DEBUG]: PirateBayScraper New Entry Raw Values: 486      967/14   /torrent/18611713/Rick.and.Morty.S03E08.720p.HDTV.x264-BATV
+05/01/2018 10:22:21 PM -  [DEBUG]: PirateBayScraper New Entry Raw Values: 137      148/4    /torrent/18611679/Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D
+05/01/2018 10:22:21 PM -  [DEBUG]: PirateBayScraper New Entry Raw Values: 137       37/4    /torrent/18611706/Rick.and.Morty.S03E08.HDTV.x264-BATV
+05/01/2018 10:22:21 PM -  [DEBUG]: PirateBayScraper New Entry Raw Values: 486       34/5    /torrent/18611704/Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D
+05/01/2018 10:22:21 PM -  [DEBUG]: PirateBayScraper New Entry Raw Values: 105       13/4    /torrent/18615074/Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv
+05/01/2018 10:22:21 PM -  [DEBUG]: PirateBayScraper New Entry Raw Values: 486        3/3    /torrent/18611793/Rick.and.Morty.S03E08.720p.HDTV.x264-BATV
+05/01/2018 10:22:21 PM -  [DEBUG]: PirateBayScraper New Entry Raw Values: 138        1/4    /torrent/18611692/Rick.and.Morty.S03E08.HDTV.x264-BATV
+05/01/2018 10:22:22 PM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
+05/01/2018 10:22:22 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18611713/Rick.and.Morty.S03E08.720p.HDTV.x264-BATV ]
+05/01/2018 10:22:25 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV ]
+05/01/2018 10:22:25 PM -  [DEBUG]: MagnetBuilder Hash [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:25 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:25 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:25 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:25 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:25 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:25 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV with Hash [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:25 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:25 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18611679/Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:27 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:27 PM -  [DEBUG]: MagnetBuilder Hash [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:27 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:27 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:27 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:27 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:27 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:27 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D with Hash [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:27 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:27 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18611706/Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Hash [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV with Hash [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:28 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18611704/Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Hash [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D with Hash [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:28 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:28 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18615074/Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Hash [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:28 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv with Hash [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:28 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:28 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18611793/Rick.and.Morty.S03E08.720p.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [ERROR]: WebScraperContentError, in WebScraperContentError Content Error in Search Result Response: [ ParseError: unable to retrieve values ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18611692/Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV with Hash [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine GroupHash: 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 GroupLen: 2
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Master Values: Rick.and.Morty.S03E08.HDTV.x264-BATV 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 137 37 4
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV with Hash [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Index: [2, 9]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Common DataFrame: [2, 9]
 
-04/28/2018 04:39:01 AM -  [DEBUG0]: ScrapperEngine Adding Merged New DataFrame to Main DataFrame:
-04/28/2018 04:39:01 AM -  [DEBUG0]: ScrapperEngine Magnet WebScraping Search:
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                 name                                      hash    size  seed  leech      ratio                                             magnet
-0   Westworld S02E01 Journey Into Night  (1080p x2...  475c208ba8586aa641e695fb8384753aeb89c846   758.0     1      1   1.000000  magnet:?xt=urn:btih:475c208ba8586aa641e695fb83...
-1                        .Westworld.S02E01.1080p-.mp4  bed17261a2b0d93d5badc1f7f8ca2ab142ee0fba     2.0     1      1   1.000000  magnet:?xt=urn:btih:bed17261a2b0d93d5badc1f7f8...
-2   Westworld.S02E01.Journey.Into.Night.1080p.AMZN...  7315d1a1a4406ae3070c862b3629107274cdad6c     1.0     1      1   1.000000  magnet:?xt=urn:btih:7315d1a1a4406ae3070c862b36...
-3   Westworld (2016) S02E01 (1080p AMZN WEB-DL x26...  b1cb29de0efe788c6165931904bcadc73f1eaf3d     1.0     1      1   1.000000  magnet:?xt=urn:btih:b1cb29de0efe788c6165931904...
-4   Westworld S02E01 (1080p AMZN WEB-DL x265 HEVC ...  f3587eb780d14996cd9a0e84049fc57614fb1736     2.0     1      1   1.000000  magnet:?xt=urn:btih:f3587eb780d14996cd9a0e8404...
-5   Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-H...  0d56c614dca01b60defbe322b58b8d46eeaff103  5730.0    13      9   1.444444  magnet:?xt=urn:btih:0d56c614dca01b60defbe322b5...
-6        Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB  151e77a987fd1517e4c09807b0f1630172673d01  1200.0    81     13   6.230769  magnet:?xt=urn:btih:151e77a987fd1517e4c09807b0...
-7   Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.H...  2292b3aa895d89b64f2341c44d6e397c06374b58  1030.0   318     29  10.965517  magnet:?xt=urn:btih:2292b3aa895d89b64f2341c44d...
-8             Westworld.S02E01.1080p.WEB.H264-DEFLATE  29e72cf3001103d9efb29be7edce2da4fce51d94  5640.0     1      1   1.000000  magnet:?xt=urn:btih:29e72cf3001103d9efb29be7ed...
-9   Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x2...  2c09b79a11a830002328cf413b29fe287b05df46  1160.0     1      1   1.000000  magnet:?xt=urn:btih:2c09b79a11a830002328cf413b...
-10  Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3...  5925928425e0a890b62a87a2a25ed3236493f242  1340.0    44     10   4.400000  magnet:?xt=urn:btih:5925928425e0a890b62a87a2a2...
-11           Westworld.S02E01.1080p.HEVC.x265-MeGusta  63dc9660b9a4db9ea48af17d62880692dbf6ecb9  1160.0    50     17   2.941176  magnet:?xt=urn:btih:63dc9660b9a4db9ea48af17d62...
-12            Westworld.S02E01.1080p.WEB.H264-DEFLATE  7e895324ef8912ce4d92933a9b9f5f357c267a03  5630.0  1269    145   8.751724  magnet:?xt=urn:btih:7e895324ef8912ce4d92933a9b...
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Slave Values: Rick.and.Morty.S03E08.HDTV.x264-BATV 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 137 37 4
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV with Hash [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Common
+		- ['udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.leechers-paradise.org:6969', 'udp://exodus.desync.com:6969', 'udp://tracker.coppersurfer.tk:6969']
+MagnetBuilder: Diference
+		- []
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Result
+		- ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Final Magnet Values: Rick.and.Morty.S03E08.HDTV.x264-BATV 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 137 37 4
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Adding Merged GroupHash to Temp DataFrame: [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
 
-04/28/2018 04:39:01 AM -  [INFO]: ScrapperEngine Magnet Candidates from WebScraping:
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine GroupHash: 5f804186abe124f9d5883556eaf8e2ca73da4720 GroupLen: 2
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Master Values: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV 5f804186abe124f9d5883556eaf8e2ca73da4720 486 967 14
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV with Hash [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Index: [0, 7]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Common DataFrame: [0, 7]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Slave Values: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV 5f804186abe124f9d5883556eaf8e2ca73da4720 486 967 14
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV with Hash [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Common
+		- ['udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.leechers-paradise.org:6969', 'udp://exodus.desync.com:6969', 'udp://tracker.coppersurfer.tk:6969']
+MagnetBuilder: Diference
+		- []
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Result
+		- ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Final Magnet Values: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV 5f804186abe124f9d5883556eaf8e2ca73da4720 486 967 14
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Adding Merged GroupHash to Temp DataFrame: [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine GroupHash: 85cbbceb0a8ed0feefe5f2c997b721929606c263 GroupLen: 2
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Master Values: Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D 85cbbceb0a8ed0feefe5f2c997b721929606c263 137 148 4
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D with Hash [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Index: [1, 8]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Common DataFrame: [1, 8]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Slave Values: Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D 85cbbceb0a8ed0feefe5f2c997b721929606c263 137 148 4
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D with Hash [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Common
+		- ['udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.leechers-paradise.org:6969', 'udp://exodus.desync.com:6969', 'udp://tracker.coppersurfer.tk:6969']
+MagnetBuilder: Diference
+		- []
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Result
+		- ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Final Magnet Values: Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D 85cbbceb0a8ed0feefe5f2c997b721929606c263 137 148 4
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Adding Merged GroupHash to Temp DataFrame: [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine GroupHash: a58f3064b2d293b18dbe72f272f2a20f363ccc46 GroupLen: 2
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Master Values: Rick.and.Morty.S03E08.HDTV.x264-BATV a58f3064b2d293b18dbe72f272f2a20f363ccc46 138 1 4
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV with Hash [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Index: [6, 12]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Common DataFrame: [6, 12]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Slave Values: Rick.and.Morty.S03E08.HDTV.x264-BATV a58f3064b2d293b18dbe72f272f2a20f363ccc46 138 1 4
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.HDTV.x264-BATV ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.HDTV.x264-BATV with Hash [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Common
+		- ['udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.leechers-paradise.org:6969', 'udp://exodus.desync.com:6969', 'udp://tracker.coppersurfer.tk:6969']
+MagnetBuilder: Diference
+		- []
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Result
+		- ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Final Magnet Values: Rick.and.Morty.S03E08.HDTV.x264-BATV a58f3064b2d293b18dbe72f272f2a20f363ccc46 138 1 4
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Adding Merged GroupHash to Temp DataFrame: [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine GroupHash: e345b94bd4697b3024222aa56f23be96aa5e019d GroupLen: 2
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Master Values: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D e345b94bd4697b3024222aa56f23be96aa5e019d 486 34 5
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D with Hash [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Index: [3, 10]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Common DataFrame: [3, 10]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Slave Values: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D e345b94bd4697b3024222aa56f23be96aa5e019d 486 34 5
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D with Hash [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Common
+		- ['udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.leechers-paradise.org:6969', 'udp://exodus.desync.com:6969', 'udp://tracker.coppersurfer.tk:6969']
+MagnetBuilder: Diference
+		- []
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Result
+		- ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Final Magnet Values: Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bettv%5D e345b94bd4697b3024222aa56f23be96aa5e019d 486 34 5
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Adding Merged GroupHash to Temp DataFrame: [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine GroupHash: fd2757071c250db6811b5e56d6d612e3975b94f0 GroupLen: 2
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Master Values: Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv fd2757071c250db6811b5e56d6d612e3975b94f0 105 13 4
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv with Hash [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Index: [4, 11]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Common DataFrame: [4, 11]
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Magnet Slave Values: Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv fd2757071c250db6811b5e56d6d612e3975b94f0 105 13 4
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Display Name: [ Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Hash [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://zer0day.ch:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv with Hash [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Common
+		- ['udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.leechers-paradise.org:6969', 'udp://exodus.desync.com:6969', 'udp://tracker.coppersurfer.tk:6969']
+MagnetBuilder: Diference
+		- []
+05/01/2018 10:22:29 PM -  [DEBUG]: MagnetBuilder: Result
+		- ['udp://tracker.leechers-paradise.org:6969', 'udp://zer0day.ch:1337', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Final Magnet Values: Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-PSA.mkv fd2757071c250db6811b5e56d6d612e3975b94f0 105 13 4
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Adding Merged GroupHash to Temp DataFrame: [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+
+05/01/2018 10:22:29 PM -  [DEBUG0]: ScraperEngine New DataFrame Rows:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash    size  seed  leech      ratio                                             magnet
-0            Westworld.S02E01.1080p.WEB.H264-DEFLATE  7e895324ef8912ce4d92933a9b9f5f357c267a03  5630.0  1269    145   8.751724  magnet:?xt=urn:btih:7e895324ef8912ce4d92933a9b...
-1  Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.H...  2292b3aa895d89b64f2341c44d6e397c06374b58  1030.0   318     29  10.965517  magnet:?xt=urn:btih:2292b3aa895d89b64f2341c44d...
-2       Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB  151e77a987fd1517e4c09807b0f1630172673d01  1200.0    81     13   6.230769  magnet:?xt=urn:btih:151e77a987fd1517e4c09807b0...
-3           Westworld.S02E01.1080p.HEVC.x265-MeGusta  63dc9660b9a4db9ea48af17d62880692dbf6ecb9  1160.0    50     17   2.941176  magnet:?xt=urn:btih:63dc9660b9a4db9ea48af17d62...
-4  Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3...  5925928425e0a890b62a87a2a25ed3236493f242  1340.0    44     10   4.400000  magnet:?xt=urn:btih:5925928425e0a890b62a87a2a2...
+                                                name                                      hash  size  seed  leech      ratio                                             magnet
+0               Rick.and.Morty.S03E08.HDTV.x264-BATV  54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1   137    37      4   9.250000  magnet:?xt=urn:btih:54f4fdc62e6edac6f0353a1b35...
+1          Rick.and.Morty.S03E08.720p.HDTV.x264-BATV  5f804186abe124f9d5883556eaf8e2ca73da4720   486   967     14  69.071429  magnet:?xt=urn:btih:5f804186abe124f9d5883556ea...
+2     Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D  85cbbceb0a8ed0feefe5f2c997b721929606c263   137   148      4  37.000000  magnet:?xt=urn:btih:85cbbceb0a8ed0feefe5f2c997...
+3               Rick.and.Morty.S03E08.HDTV.x264-BATV  a58f3064b2d293b18dbe72f272f2a20f363ccc46   138     1      4   0.250000  magnet:?xt=urn:btih:a58f3064b2d293b18dbe72f272...
+4  Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bet...  e345b94bd4697b3024222aa56f23be96aa5e019d   486    34      5   6.800000  magnet:?xt=urn:btih:e345b94bd4697b3024222aa56f...
+5  Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-...  fd2757071c250db6811b5e56d6d612e3975b94f0   105    13      4   3.250000  magnet:?xt=urn:btih:fd2757071c250db6811b5e56d6...
+
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Filtering GroupHash from Main DataFrame with Hash: [ 54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Filtering GroupHash from Main DataFrame with Hash: [ 5f804186abe124f9d5883556eaf8e2ca73da4720 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Filtering GroupHash from Main DataFrame with Hash: [ 85cbbceb0a8ed0feefe5f2c997b721929606c263 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Filtering GroupHash from Main DataFrame with Hash: [ a58f3064b2d293b18dbe72f272f2a20f363ccc46 ]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Filtering GroupHash from Main DataFrame with Hash: [ e345b94bd4697b3024222aa56f23be96aa5e019d ]
+05/01/2018 10:22:29 PM -  [DEBUG]: ScraperEngine Filtering GroupHash from Main DataFrame with Hash: [ fd2757071c250db6811b5e56d6d612e3975b94f0 ]
+05/01/2018 10:22:29 PM -  [DEBUG0]: ScraperEngine Adding Merged New DataFrame to Main DataFrame:
+05/01/2018 10:22:29 PM -  [DEBUG0]: ScraperEngine Magnet WebScraping Search:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                name                                      hash  size  seed  leech      ratio                                             magnet
+0          Rick.and.Morty.S03E08.720p.HDTV.x264-BATV  41028505cf2872d7c7f79d3c4cf8ef4dc2da82a2   486     3      3   1.000000  magnet:?xt=urn:btih:41028505cf2872d7c7f79d3c4c...
+1               Rick.and.Morty.S03E08.HDTV.x264-BATV  54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1   137    37      4   9.250000  magnet:?xt=urn:btih:54f4fdc62e6edac6f0353a1b35...
+2          Rick.and.Morty.S03E08.720p.HDTV.x264-BATV  5f804186abe124f9d5883556eaf8e2ca73da4720   486   967     14  69.071429  magnet:?xt=urn:btih:5f804186abe124f9d5883556ea...
+3     Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D  85cbbceb0a8ed0feefe5f2c997b721929606c263   137   148      4  37.000000  magnet:?xt=urn:btih:85cbbceb0a8ed0feefe5f2c997...
+4               Rick.and.Morty.S03E08.HDTV.x264-BATV  a58f3064b2d293b18dbe72f272f2a20f363ccc46   138     1      4   0.250000  magnet:?xt=urn:btih:a58f3064b2d293b18dbe72f272...
+5  Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bet...  e345b94bd4697b3024222aa56f23be96aa5e019d   486    34      5   6.800000  magnet:?xt=urn:btih:e345b94bd4697b3024222aa56f...
+6  Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-...  fd2757071c250db6811b5e56d6d612e3975b94f0   105    13      4   3.250000  magnet:?xt=urn:btih:fd2757071c250db6811b5e56d6...
+
+05/01/2018 10:22:29 PM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                name                                      hash  size  seed  leech      ratio                                             magnet
+0          Rick.and.Morty.S03E08.720p.HDTV.x264-BATV  5f804186abe124f9d5883556eaf8e2ca73da4720   486   967     14  69.071429  magnet:?xt=urn:btih:5f804186abe124f9d5883556ea...
+1     Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D  85cbbceb0a8ed0feefe5f2c997b721929606c263   137   148      4  37.000000  magnet:?xt=urn:btih:85cbbceb0a8ed0feefe5f2c997...
+2               Rick.and.Morty.S03E08.HDTV.x264-BATV  54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1   137    37      4   9.250000  magnet:?xt=urn:btih:54f4fdc62e6edac6f0353a1b35...
+3  Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bet...  e345b94bd4697b3024222aa56f23be96aa5e019d   486    34      5   6.800000  magnet:?xt=urn:btih:e345b94bd4697b3024222aa56f...
+4  Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-...  fd2757071c250db6811b5e56d6d612e3975b94f0   105    13      4   3.250000  magnet:?xt=urn:btih:fd2757071c250db6811b5e56d6...
