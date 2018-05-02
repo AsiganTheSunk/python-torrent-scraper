@@ -16,7 +16,6 @@ dev==0.4.0
 dlib==19.10.0
 entrypoints==0.2.3
 fake-useragent==0.1.10
-Ghost.py==0.2.3
 hyperlink==18.0.0
 idna==2.6
 imutils==0.4.5
