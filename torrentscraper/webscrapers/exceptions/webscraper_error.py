@@ -14,7 +14,7 @@ class WebScraperProxyListError(IndexError):
 
 class WebScraperParseError(Exception):
     '''Raise when a webscraper is unable to parse raw values from current search'''
-    def __init__(self, webscraper_name, err, trace, *args):
+    def __init__(self, webscraper_name, err, trace='', *args):
         self.name = self.__class__.__name__
         self.trace = trace
         self.webscraper_name = webscraper_name
@@ -25,7 +25,7 @@ class WebScraperParseError(Exception):
 
 class WebScraperContentError(Exception):
     '''Raise when a webscraper is unable to parse raw values from current search'''
-    def __init__(self, webscraper_name, err, trace, *args):
+    def __init__(self, webscraper_name, err, trace='', *args):
         self.name = self.__class__.__name__
         self.trace = trace
         self.webscraper_name = webscraper_name
