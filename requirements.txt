@@ -14,7 +14,6 @@ Pillow == 5.1.0
 # external_lib\RARBG-scraper\rarbg\spiders\rarbg_spider.py: 1
 Scrapy == 1.5.0
 
-# torrentscraper\utils\torcurl\TorPyCurl.py: 6
 # torrentscraper\webscrapers\deprecated.old\kat_scraper_type_b.py: 3
 # torrentscraper\webscrapers\deprecated.old\nyaa_scraper.py: 5
 # torrentscraper\webscrapers\deprecated.old\tv_calendar_scraper.py: 3
@@ -33,20 +32,47 @@ cfscrape == 1.9.4
 # torrentscraper\datastruct\websearch_instance.py: 8
 colorama == 0.3.9
 
+# interface\mainframe.py: 6
+# interface\widget\splashscreen.py: 6
+django-cenvars == 0.0.1.2
+
+# interface\mainframe.py: 6
+# interface\widget\splashscreen.py: 6
+django-g11n == 1.1.0.1
+
+# interface\mainframe.py: 6
+# interface\widget\splashscreen.py: 6
+django-linked-items == 1.0.0.4
+
+# interface\mainframe.py: 6
+# interface\widget\splashscreen.py: 6
+django-memdb == 0.0.6
+
+# interface\mainframe.py: 6
+# interface\widget\splashscreen.py: 6
+django-org-associations == 0.1.4
+
+# interface\mainframe.py: 6
+# interface\widget\splashscreen.py: 6
+django-query-signals == 0.0.2
+
 # torrentscraper\scraper_engine.py: 15
-# torrentscraper\utils\torcurl\TorPyCurl.py: 7
 fake_useragent == 0.1.10
 
 # torrentscraper\scraper_engine.py: 13,14
 # torrentscraper\webscrapers\deprecated.old\tv_calendar_scraper.py: 4
 pandas == 0.22.0
 
-# torrentscraper\utils\torcurl\TorPyCurl.py: 3
-pycurl == 7.43.0.1
-
 # external_lib\RARBG-scraper\rarbg\captcha_handler.py: 2
 # torrentscraper\webscrapers\utils\rarbg_bypass\captcha_handler.py: 2
 pytesseract == 0.2.0
+
+# interface\mainframe.py: 6
+# interface\widget\splashscreen.py: 6
+python-interface == 1.4.0
+
+# torrentscraper\qclient_manager.py: 6
+qbittorrent == 0.1.6
 
 # external_lib\RARBG-scraper\rarbg\captcha_handler.py: 3
 # external_lib\cloudflare-scrape\cfscrape\__init__.py: 8
@@ -55,6 +81,9 @@ pytesseract == 0.2.0
 # torrentscraper\webscrapers\utils\rarbg_bypass\captcha_handler.py: 3
 requests == 2.18.4
 
+# torrentscraper\webscrapers\utils\job_scheduler.py: 5
+schedule == 0.5.0
+
 # external_lib\RARBG-scraper\rarbg\middlewares.py: 4,5,6
 # external_lib\RARBG-scraper\rarbg\middlewaresv2.py: 2,3,4
 # torrentscraper\webscrapers\utils\rarbg_bypass\thread_defence_bypass.py: 2,3,4,5
@@ -62,10 +91,6 @@ selenium == 3.11.0
 
 # external_lib\cloudflare-scrape\setup.py: 3
 setuptools == 39.0.1
-
-# torrentscraper\utils\torcurl\ProxyRotator.py: 5
-# torrentscraper\utils\torcurl\TorInstance.py: 3
-stem == 1.6.0
 
 # torrentscraper\webscrapers\utils\magnet_builder.py: 10
 torrent_parser == 0.1.4
