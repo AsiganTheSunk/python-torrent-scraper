@@ -1,30 +1,30 @@
-05/02/2018 09:50:07 PM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
-05/02/2018 09:50:10 PM -  [INFO]: PirateBayScraper Corrupted Content, Trying a New Proxy from Proxy List: [ https://ukpirate.org ]
-05/02/2018 09:50:13 PM -  [ERROR]: WebScraperContentError, in WebScraperContentError Content Error in Search Result Response: [ ContentError: unable to retrieve values ]
-05/02/2018 09:50:13 PM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
-05/02/2018 09:50:15 PM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
-05/02/2018 09:50:15 PM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
-05/02/2018 09:50:16 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/02/2018 09:50:16 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/02/2018 09:50:18 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/02/2018 09:50:18 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/02/2018 09:50:19 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/02/2018 09:50:19 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/02/2018 09:50:28 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/02/2018 09:50:28 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/02/2018 09:50:30 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/02/2018 09:50:30 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/02/2018 09:50:33 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/02/2018 09:50:33 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/02/2018 09:50:34 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/02/2018 09:50:34 PM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
-05/02/2018 09:50:36 PM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
-05/02/2018 09:50:36 PM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
-05/02/2018 09:50:36 PM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
+05/02/2018 10:09:53 PM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
+05/02/2018 10:09:56 PM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
+05/02/2018 10:09:56 PM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
+05/02/2018 10:10:12 PM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
+05/02/2018 10:10:14 PM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
+05/02/2018 10:10:14 PM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
+05/02/2018 10:10:14 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/02/2018 10:10:14 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/02/2018 10:10:15 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/02/2018 10:10:15 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/02/2018 10:10:16 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/02/2018 10:10:16 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/02/2018 10:10:19 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/02/2018 10:10:19 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/02/2018 10:10:21 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/02/2018 10:10:21 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/02/2018 10:11:18 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/02/2018 10:11:18 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/02/2018 10:11:22 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/02/2018 10:11:22 PM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
+05/02/2018 10:11:25 PM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
+05/02/2018 10:11:25 PM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
+05/02/2018 10:11:25 PM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash  size  seed  leech  ratio                                             magnet
-0   Rick.and.Morty.S03E08.720p.HDTV.x264-BATV[rarbg]  5f804186abe124f9d5883556eaf8e2ca73da4720   486   477     10  47.70  magnet:?xt=urn:btih:5f804186abe124f9d5883556ea...
-1         Rick.and.Morty.S03E08.HDTV.x264-BATV[ettv]  85cbbceb0a8ed0feefe5f2c997b721929606c263   137    84      5  16.80  magnet:?xt=urn:btih:85cbbceb0a8ed0feefe5f2c997...
-2    Rick.and.Morty.S03E08.720p.HDTV.x264-BATV[ettv]  e345b94bd4697b3024222aa56f23be96aa5e019d   486    22      4   5.50  magnet:?xt=urn:btih:e345b94bd4697b3024222aa56f...
-3        Rick.and.Morty.S03E08.HDTV.x264-BATV[rarbg]  54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1   137    21      5   4.20  magnet:?xt=urn:btih:54f4fdc62e6edac6f0353a1b35...
-4  Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-...  fd2757071c250db6811b5e56d6d612e3975b94f0   105     7      4   1.75  magnet:?xt=urn:btih:fd2757071c250db6811b5e56d6...
+                                                name                                      hash  size  seed  leech      ratio                                             magnet
+0          Rick.and.Morty.S03E08.720p.HDTV.x264-BATV  5f804186abe124f9d5883556eaf8e2ca73da4720   486   482     11  43.818182  magnet:?xt=urn:btih:5f804186abe124f9d5883556ea...
+1     Rick.and.Morty.S03E08.HDTV.x264-BATV%5Bettv%5D  85cbbceb0a8ed0feefe5f2c997b721929606c263   137    84      5  16.800000  magnet:?xt=urn:btih:85cbbceb0a8ed0feefe5f2c997...
+2  Rick.and.Morty.S03E08.720p.HDTV.x264-BATV%5Bet...  e345b94bd4697b3024222aa56f23be96aa5e019d   486    22      4   5.500000  magnet:?xt=urn:btih:e345b94bd4697b3024222aa56f...
+3               Rick.and.Morty.S03E08.HDTV.x264-BATV  54f4fdc62e6edac6f0353a1b3509cbcdab6e2df1   137    21      5   4.200000  magnet:?xt=urn:btih:54f4fdc62e6edac6f0353a1b35...
+4  Rick.and.Morty.S03E08.720p.HDTV.2CH.x265.HEVC-...  fd2757071c250db6811b5e56d6d612e3975b94f0   105     7      4   1.750000  magnet:?xt=urn:btih:fd2757071c250db6811b5e56d6...
