@@ -178,7 +178,7 @@ class ScraperEngine(object):
                                                          websearch['lower_size_limit'], websearch['upper_size_limit'],
                                                          websearch['ratio_limit'], magnet_instance_list))
                 except WebScraperContentError as err:
-                    self.logger.error(err.message)
+                    self.logger.error(err.message + 'sssssssssssssssssssssss')
                 except WebScraperParseError as err:
                     self.logger.error(err.message)
         return p2p_instance_list
@@ -197,9 +197,7 @@ class ScraperEngine(object):
             try:
                 raw_data = webscraper.get_raw_data(response.text)  # Retrieving RawData from Source
                 return raw_data
-            except WebScraperParseError as err:
-                raise WebScraperParseError(err.name, err.err)
-            except WebScraperContentError as err:
+            except WebScraperContentError or WebScraperParseError as err:
                 try:
                     response = self._retry_connection(websearch, webscraper, forced=True)
                     raw_data = webscraper.get_raw_data(response.text)  # Retrieving RawData from Source

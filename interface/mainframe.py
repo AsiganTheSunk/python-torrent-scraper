@@ -3,8 +3,7 @@ import sys
 sys.path.insert(0, '/interface/widget')
 
 import tkinter as tk
-from interface.widget.combobox import SimpleComboBox
-
+from .interface.widget.combobox import SimpleComboBox
 class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
