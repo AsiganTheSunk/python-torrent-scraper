@@ -8,7 +8,6 @@ from simple_option_menu import SimpleOptionMenu
 from simple_list_box import SimpleListBox
 from imdbfilmextension import IMDbExtension
 
-
 class SimplePosterBox(Frame):
     def __init__(self, master, row, column, width=200, height=275, background='grey'):
         Frame.__init__(self, master, width=width, height=height, background=background)
@@ -27,7 +26,7 @@ class SimplePosterBox(Frame):
         poster_image = ImageTk.PhotoImage(aux)
         self.poster_image = poster_image
 
-        poster_container = Label(self, width=198, height=270, relief='solid')
+        poster_container = Label(self, width=198, height=269, relief='solid')
         poster_container.configure(borderwidth=0, highlightbackground='#848482', image=poster_image)
         poster_container.grid(row=0, column=1, padx=2, pady=2)
 
