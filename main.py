@@ -17,8 +17,11 @@ def main():
     root.iconbitmap('./cat-grumpy.ico')
     root.title("python-torrent-scraper-v0.3.2")
 
-    info_panel = InfoPanel(root, 0, 0)
-
+    upper_border_frame = Frame(root, width=865, height=5, background='#ADD8E6')
+    upper_border_frame.grid(row=0, column=0)
+    info_panel = InfoPanel(root, 1, 0)
+    middle_border_frame = Frame(root, width=865, height=5, background='#ADD8E6')
+    middle_border_frame.grid(row=2, column=0)
 
     root.mainloop()
 

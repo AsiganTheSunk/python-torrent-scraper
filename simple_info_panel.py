@@ -27,5 +27,6 @@ class InfoPanel(Frame):
         right_border_frame.grid(row=0, column=3)
 
 
+
     def on_load(self):
         pass
