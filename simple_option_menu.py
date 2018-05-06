@@ -9,7 +9,7 @@ class SimpleOptionMenu(OptionMenu):
         self.selection = ''
         self.var.trace('w', self.get)
         OptionMenu.__init__(self, master, self.var, *options)
-        self.config(font=('calibri', (10)), width=22)
+        self.config(font=('calibri', (10)), width=12, relief='groove')
         self['menu'].config(font=('calibri', (10)), bg='white')
 
     def get(self, *args):

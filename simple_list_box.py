@@ -4,7 +4,7 @@ from tkinter import Tk, BOTH, Scale, LEFT, Listbox, StringVar, END, font
 
 class SimpleListBox(Listbox):
     def __init__(self, master, item_list):
-        Listbox.__init__(self, master, height=20, width=95)
+        Listbox.__init__(self, master, height=18, width=95)
         self.item_list = item_list
         self.selection = StringVar()
         self.on_create()

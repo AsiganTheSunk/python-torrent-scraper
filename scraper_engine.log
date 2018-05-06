@@ -1,22 +1,6 @@
-05/03/2018 09:34:24 PM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
-05/03/2018 09:34:26 PM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
-05/03/2018 09:34:26 PM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
-05/03/2018 09:34:36 PM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
-05/03/2018 09:34:39 PM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
-05/03/2018 09:34:39 PM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
-05/03/2018 09:34:40 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/03/2018 09:34:41 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/03/2018 09:34:41 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/03/2018 09:35:18 PM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/03/2018 09:35:18 PM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/03/2018 09:35:19 PM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
-05/03/2018 09:35:23 PM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
-05/03/2018 09:35:23 PM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
-05/03/2018 09:35:23 PM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash  size  seed  leech  ratio                                             magnet
-0        Rick.and.Morty.S03E08.1080p.WEB.x264-STRiFE  b15958d074c51f22ac02b96904fc27bab94f7cd1   701    11      2   5.50  magnet:?xt=urn:btih:b15958d074c51f22ac02b96904...
-1        Rick.and.Morty.S03E08.1080p.WEB.x264-STRiFE  a84abee52e3042407c3bc942442b1dd84aae0a85   709     3      3   1.00  magnet:?xt=urn:btih:a84abee52e3042407c3bc94244...
-2    Rick+and+Morty+S03E08+1080p+PT-BR+Subs+Tocatoon  824a4d042da663b79c20ae61ce4f1f308176d725   387     3      4   0.75  magnet:?xt=urn:btih:824a4d042da663b79c20ae61ce...
-3  Rick.and.Morty.S03E08.Uncensored.1080p.WEB-DL....  a9cc9c350e2603e191b25bb6ed4b5a26cf95bfd8   941     1      1   1.00  magnet:?xt=urn:btih:a9cc9c350e2603e191b25bb6ed...
-4  Rick and Morty - S03E08 - Mortys Mind Blowers ...  1526b099c10f319fbe7450d453f042b4cd1c9073   237     1      1   1.00  magnet:?xt=urn:btih:1526b099c10f319fbe7450d453...
+05/06/2018 12:04:36 AM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
+05/06/2018 12:04:42 AM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
+05/06/2018 12:04:42 AM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
+05/06/2018 12:04:54 AM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
+05/06/2018 12:04:58 AM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
+05/06/2018 12:04:58 AM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
