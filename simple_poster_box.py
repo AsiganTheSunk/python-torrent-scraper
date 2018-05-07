@@ -15,9 +15,6 @@ class SimplePosterBox(Frame):
         self.on_create()
 
     def on_create(self):
-        left_border_frame = Frame(self, width=5, height=275, background='#ADD8E6')
-        left_border_frame.grid(row=0, column=0)
-
         # right_border_frame = Frame(self, width=5, height=275, background='#ADD8E6')
         # right_border_frame.grid(row=0, column=2)
 

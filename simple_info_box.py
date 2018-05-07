@@ -15,7 +15,7 @@ class SimpleInfoBox(Frame):
         self.on_create()
 
     def on_create(self):
-        left_border_frame = Frame(self, width=3, height=262, background='#ADD8E6')
+        left_border_frame = Frame(self, width=2, height=262, background='#ADD8E6')
         left_border_frame.grid(row=0, column=0)
 
         info_box = Frame(self, width=590, height=275, background='#F0F8FF')
