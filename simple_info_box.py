@@ -12,6 +12,8 @@ class SimpleInfoBox(Frame):
     def __init__(self, master, row, column, width=275, height=590, background='#ADD8E6'):
         Frame.__init__(self, master, width=width, height=height, background=background)
         self.grid(row=row, column=column)
+        self.info = 'Loading Information'
+        self.info_text = None
         self.on_create()
 
     def on_create(self):
@@ -42,22 +44,28 @@ class SimpleInfoBox(Frame):
         scroll_bar.config(command=info_text.yview)
         info_text.config(yscrollcommand=scroll_bar.set)
 
-        quote = 'INFO - LOADING'
-        info_text.insert(END, quote)
+        info_text.insert(END, self.info)
         info_text.config(state=DISABLED)
+        self.info_text = info_text
 
         lower_border_info_box = Frame(info_box, width=640, height=5, background='#ADD8E6')
         lower_border_info_box.grid(row=3, column=0)
 
+    def set_info_text(self, info):
+        self.info_text.config(state=NORMAL)
+        self.info_text.delete('1.0', END)
+        self.info_text.insert(END, info)
+        self.info_text.config(state=DISABLED)
+
 
     def on_load(self):
-       imdb_extension = IMDbExtension()
-       movie_index = imdb_extension.get_movie_index('Rick & Morty')
-       year = imdb_extension.get_year(movie_index)
-       runtime = imdb_extension.get_runtime(movie_index)
-       actors = imdb_extension.get_actors(movie_index)
-       director = imdb_extension.get_director(movie_index)
-       plot_summary = imdb_extension.get_plot_summary(movie_index)
+        imdb_extension = IMDbExtension()
+        movie_index = imdb_extension.get_movie_index('Rick & Morty')
+        year = imdb_extension.get_year(movie_index)
+        runtime = imdb_extension.get_runtime(movie_index)
+        actors = imdb_extension.get_actors(movie_index)
+        director = imdb_extension.get_director(movie_index)
+        plot_summary = imdb_extension.get_plot_summary(movie_index)
 
-       info = '[Title]: {0}\n[Year]: {1}\n[Runtime]: {2}\n[Director]: {3}\n[Actors]: {4}\n[Plot Summary]:\n{5}'.format(
+        info = '[Title]: {0}\n[Year]: {1}\n[Runtime]: {2}\n[Director]: {3}\n[Actors]:\n\n{4}\n[Plot Summary]:\n{5}\n'.format(
            'Rick & Morty', year, runtime, director, actors, plot_summary)

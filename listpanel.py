@@ -11,13 +11,19 @@ from simple_poster_box import SimplePosterBox
 from simple_info_box import SimpleInfoBox
 from list_box import ListBox
 class ListPanel(Frame):
-    def __init__(self, master, row, column, width=275, height=590, background='#ADD8E6'):
+    def __init__(self, master, databox, displaybox, row, column, width=275, height=590, background='#ADD8E6'):
         Frame.__init__(self, master, width=width, height=height, background=background)
         self.grid(row=row, column=column)
+        self.list_box = None
+        self.databox = databox
+        self.displaybox = displaybox
         self.on_create()
 
+
     def on_create(self):
-        list_box = ListBox(self, 0, 0)
+        list_box = ListBox(self, self.databox, self.displaybox, 0, 0)
+        self.list_box = list_box
+
         lowerbordera = Frame(self, width=490, height=5, background='#ADD8E6')
         lowerbordera.grid(row=1, column=0)
 

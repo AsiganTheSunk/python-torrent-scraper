@@ -1,5 +1,5 @@
 import imdb
-
+import textwrap
 
 class IMDbExtension():
     def __init__(self):
@@ -19,6 +19,17 @@ class IMDbExtension():
         else:
             print(self.name,  movie_index, name)
             return movie_index
+
+
+    def get_poster_movie(self, movie_index):
+        try:
+            movie = self.imdb.get_movie(str(movie_index))
+            print(self.imdb.helpers.fullSizeCoverURL(movie_index))
+        except Exception as err:
+            poster = ''
+            return poster
+        else:
+            return movie
 
     def get_genre(self, movie_index, index=0, debug=False):
         try:
@@ -44,19 +55,20 @@ class IMDbExtension():
 
 
     def get_actors(self, movie_index):
-        actor_list = []
+        actor_str = ''
         try:
-            actor_list = []
             actors = self.imdb.get_movie(str(movie_index))['actors']
             for item in actors[:15]:
-                actor_list.append(item['name'])
-
+                # actor_list.append(item['name'])
+                actor_str = actor_str + ', '  + item['name']
         except Exception as err:
-            actors_list = []
-            return actor_list
+            return ''
         else:
             # print(self.name, movie_index, actor_list[:15])
-            return actor_list[:15]
+
+            dedented_text = textwrap.dedent(actor_str[2:]).strip()
+            formated_actors = textwrap.fill(dedented_text, width=88)
+            return formated_actors
 
     def get_year(self, movie_index):
         try:
@@ -69,14 +81,24 @@ class IMDbExtension():
             return year
 
     def get_plot_summary (self, movie_index):
+        dedented_text = ''
         try:
             plot_summary = self.imdb.get_movie(str(movie_index))['plot summary'][0]
+
+            dedented_text = textwrap.dedent(plot_summary).strip()
+            formated_plot = textwrap.fill(dedented_text, width=88)
+
         except Exception as err:
             plot_summary = ''
             return plot_summary
         else:
             # print(self.name, movie_index, plot_summary)
-            return plot_summary
+            return formated_plot
+
+
+
+
+
 
     def get_runtime (self, movie_index):
         try:

@@ -21,21 +21,21 @@ class DisplayBox(Frame):
         flag_data_frame.grid(row=0, column=0)
 
         # loading the image for the poster
-        aux0 = Image.open('./48x/1080.png')
+        aux0 = Image.open('./48px/1080.png')
         # aux0 = aux0.resize((48, 48), Image.ANTIALIAS)
         quality = ImageTk.PhotoImage(aux0)
         flag_data_frame.quality = quality
 
-        aux1 = Image.open('./48x/2.png')
+        aux1 = Image.open('./48px/2.png')
         acodec = ImageTk.PhotoImage(aux1)
         flag_data_frame.acodec = acodec
 
-        aux2 = Image.open('./48x/Aac.png')
+        aux2 = Image.open('./48px/Aac.png')
         # aux2 = aux2.resize((48, 48), Image.ANTIALIAS)
         acodec0 = ImageTk.PhotoImage(aux2)
         flag_data_frame.acodec0 = acodec0
 
-        aux3 = Image.open('./48x/16-9.png')
+        aux3 = Image.open('./48px/16-9.png')
         # aux2 = aux2.resize((48, 48), Image.ANTIALIAS)
         vcodec = ImageTk.PhotoImage(aux3)
         flag_data_frame.vcodec = vcodec
@@ -46,7 +46,7 @@ class DisplayBox(Frame):
         rightborder = Frame(flag_data_frame, width=3, height=48, background='#F0F8FF')
         rightborder.grid(row=0, column=1)
 
-        qlabel = Label(flag_data_frame, width=60, height=48)
+        qlabel = Label(flag_data_frame, width=60, height=48, background='#ADD8E6')
         qlabel.configure(borderwidth=0, image=quality)
         qlabel.grid(row=0, column=2)
 

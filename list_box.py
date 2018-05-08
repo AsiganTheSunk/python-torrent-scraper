@@ -11,9 +11,12 @@ from simple_poster_box import SimplePosterBox
 from simple_info_box import SimpleInfoBox
 
 class ListBox(Frame):
-    def __init__(self, master, row, column, width=275, height=590, background='#ADD8E6'):
+    def __init__(self, master, databox, displaybox, row, column, width=275, height=590, background='#ADD8E6'):
         Frame.__init__(self, master, width=width, height=height, background=background)
         self.grid(row=row, column=column)
+        self.result_box = None
+        self.databox = databox
+        self.displaybox = displaybox
         self.on_create()
 
     def on_create(self):
@@ -26,10 +29,11 @@ class ListBox(Frame):
         left_border = Frame(list_box, width=1, height=275, background='#F0F8FF')
         left_border.grid(row=0, column=1)
 
-        lista = ['[HorribleSubs] Megalobox Episode - 01 1080p.mkv','[HorribleSubs] Megalobox Episode - 01 720.mkv','[HorribleSubs] Megalobox Episode - 01 480p.mkv']
-        result_box = SimpleListBox(list_box, lista)
+        #lista = ['[HorribleSubs] Megalobox Episode - 01 1080p.mkv','[HorribleSubs] Megalobox Episode - 01 720.mkv','[HorribleSubs] Megalobox Episode - 01 480p.mkv']
+        result_box = SimpleListBox(list_box, [], self.databox, self.displaybox)
         result_box.configure(borderwidth=1, highlightbackground='white', bg='#DCDCDC', relief='groove')
         result_box.grid(row=0, column=2)
+        self.result_box = result_box
 
         right_border = Frame(list_box, width=3, height=275, background='#F0F8FF')
         right_border.grid(row=0, column=3)
