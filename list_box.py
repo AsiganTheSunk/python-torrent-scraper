@@ -17,6 +17,7 @@ class ListBox(Frame):
         self.result_box = None
         self.databox = databox
         self.displaybox = displaybox
+        self.master = master
         self.on_create()
 
     def on_create(self):
@@ -26,7 +27,7 @@ class ListBox(Frame):
         left_border = Frame(list_box, width=2, height=275, background='#ADD8E6')
         left_border.grid(row=0, column=0)
 
-        left_border = Frame(list_box, width=1, height=275, background='#F0F8FF')
+        left_border = Frame(list_box, width=2, height=275, background='#F0F8FF')
         left_border.grid(row=0, column=1)
 
         #lista = ['[HorribleSubs] Megalobox Episode - 01 1080p.mkv','[HorribleSubs] Megalobox Episode - 01 720.mkv','[HorribleSubs] Megalobox Episode - 01 480p.mkv']
@@ -35,5 +36,5 @@ class ListBox(Frame):
         result_box.grid(row=0, column=2)
         self.result_box = result_box
 
-        right_border = Frame(list_box, width=3, height=275, background='#F0F8FF')
+        right_border = Frame(list_box, width=2, height=275, background='#F0F8FF')
         right_border.grid(row=0, column=3)

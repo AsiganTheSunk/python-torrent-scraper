@@ -21,6 +21,7 @@ class ResultPanel(Frame):
         self.grid(row=row, column=column)
         self.list_panel = None
         self.data_panel = None
+        self.master = master
 
         self.on_create()
 

@@ -1,30 +1,118 @@
-05/08/2018 05:47:01 AM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
-05/08/2018 05:47:07 AM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
-05/08/2018 05:47:07 AM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
-05/08/2018 05:47:14 AM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
-05/08/2018 05:47:17 AM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
-05/08/2018 05:47:17 AM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
-05/08/2018 05:47:19 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/08/2018 05:47:19 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/08/2018 05:47:20 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/08/2018 05:47:20 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/08/2018 05:47:22 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/08/2018 05:47:22 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/08/2018 05:47:23 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/08/2018 05:47:23 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
-05/08/2018 05:47:24 AM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
-05/08/2018 05:47:26 AM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
-05/08/2018 05:47:26 AM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
-05/08/2018 05:47:26 AM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
+05/10/2018 02:56:21 AM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
+05/10/2018 02:56:21 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://unblockedbay.info/s/?q=Westworld++S02E01+1080p&category=0&page=0&orderby=99 ]
+05/10/2018 02:56:21 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Westworld++S02E01+1080p&category=0&page=0&orderby=99 ]
+05/10/2018 02:56:29 AM -  [INFO]: PirateBayScraper Corrupted Content, Trying a New Proxy from Proxy List: [ https://ukpirate.org ]
+05/10/2018 02:56:29 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://ukpirate.org/s/?q=Westworld++S02E01+1080p&category=0&page=0&orderby=99 ]
+05/10/2018 02:56:29 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://ukpirate.org/s/?q=Westworld++S02E01+1080p&category=0&page=0&orderby=99 ]
+05/10/2018 02:56:30 AM -  [ERROR]: WebScraperContentError, in WebScraperContentError Content Error in Search Result Response: [ ContentError: unable to retrieve values ]sssssssssssssssssssssss
+05/10/2018 02:56:30 AM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
+05/10/2018 02:56:30 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://torrentfunk.unblocked.mx/all/torrents/Westworld%20%20S02E01%201080p.html ]
+05/10/2018 02:56:30 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/all/torrents/Westworld%20%20S02E01%201080p.html ]
+05/10/2018 02:56:32 AM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
+05/10/2018 02:56:32 AM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
+05/10/2018 02:56:32 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15919807/torrentcouch-westworld-s02e01-1080p-amzn-webrip-1-3gb-mp4.html ]
+05/10/2018 02:56:33 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15919807.torrent ]
+05/10/2018 02:56:33 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: [TorrentCouch.com].Westworld.S02E01.1080p.AMZN.WEBRip.x264.[1.3GB].[MP4] with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
+05/10/2018 02:56:33 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15979159/westworld-s02e01-journey-into-night-1080p-amzn-webrip-ddp5-1-ntbrarbg.html ]
+05/10/2018 02:56:33 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15979159.torrent ]
+05/10/2018 02:56:34 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/10/2018 02:56:34 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/10/2018 02:56:34 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld.S02E01.Journey.Into.Night.1080p.AMZN.WEBRip.DDP5.1.x264-NTb[rarbg] with Hash [ 4a6e06e13e892346ea76c35711356b4ab1e9f5a4 ]
+05/10/2018 02:56:34 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15982557/westworld-s02e01-journey-into-night-1080p-amzn-web-dl-ddp5-1-h-264.html ]
+05/10/2018 02:56:34 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15982557.torrent ]
+05/10/2018 02:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld.S02E01.Journey.Into.Night.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.mkv with Hash [ bccd147460737db06936560d75edeb17b1a85704 ]
+05/10/2018 02:56:35 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15925700/westworld-s02e01-journey-into-night-1080p-x265-10bit-fs86-joy.html ]
+05/10/2018 02:56:35 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15925700.torrent ]
+05/10/2018 02:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld S02E01 Journey Into Night  (1080p x265 10bit FS86 Joy).mkv with Hash [ 475c208ba8586aa641e695fb8384753aeb89c846 ]
+05/10/2018 02:56:35 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15925698/%E8%A5%BF%E9%83%A8%E4%B8%96%E7%95%8C-westworld-s02e01-1080p-%E5%A4%A9%E5%A4%A9%E7%BE%8E%E5%89%A7%E5%AD%97%E5%B9%95%E7%BB%84.html ]
+05/10/2018 02:56:36 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15925698.torrent ]
+05/10/2018 02:56:36 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: .Westworld.S02E01.1080p-.mp4 with Hash [ bed17261a2b0d93d5badc1f7f8ca2ab142ee0fba ]
+05/10/2018 02:56:36 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15886790/westworld-s02e01-journey-into-night-1080p-amzn-hevc-10bit.html ]
+05/10/2018 02:56:36 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15886790.torrent ]
+05/10/2018 02:56:37 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld.S02E01.Journey.Into.Night.1080p.AMZN.HEVC.10bit.mkv with Hash [ 7315d1a1a4406ae3070c862b3629107274cdad6c ]
+05/10/2018 02:56:37 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15866412/westworld-s02e01-1080p-amzn-web-dl-x265-hevc-10bit-aac-5-1-vyndros.html ]
+05/10/2018 02:56:37 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15866412.torrent ]
+05/10/2018 02:56:37 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/10/2018 02:56:37 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/10/2018 02:56:37 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld (2016) S02E01 (1080p AMZN WEB-DL x265 HEVC 10bit AAC 5.1 Vyndros) with Hash [ b1cb29de0efe788c6165931904bcadc73f1eaf3d ]
+05/10/2018 02:56:37 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15865915/westworld-s02e01-1080p-amzn-web-dl-5-1-hevc-x265-girays.html ]
+05/10/2018 02:56:38 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15865915.torrent ]
+05/10/2018 02:56:38 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/10/2018 02:56:38 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/10/2018 02:56:38 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS.mkv with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
+05/10/2018 02:56:38 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15865685/westworld-s02e01-1080p-amzn-web-dl-x265-hevc-10bit-e-6-0-qman-utr.html ]
+05/10/2018 02:56:39 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15865685.torrent ]
+05/10/2018 02:56:39 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/10/2018 02:56:39 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/10/2018 02:56:39 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld S02E01 (1080p AMZN WEB-DL x265 HEVC 10bit EAC3 6.0 Qman) [UTR] with Hash [ f3587eb780d14996cd9a0e84049fc57614fb1736 ]
+05/10/2018 02:56:39 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15858990/westworld-s02e01-1080p-web-h264-deflaterarbg.html ]
+05/10/2018 02:56:39 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15858990.torrent ]
+05/10/2018 02:56:40 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
+05/10/2018 02:56:40 AM -  [WARNING]: MagnetBuilderTorrentAnnounceListKeyError, in MagnetBuilder Unable to Retrieve AnnounceListKey Value from Torrent: [ b'announce-list' ]
+05/10/2018 02:56:40 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Westworld.S02E01.1080p.WEB.H264-DEFLATE[rarbg] with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
+05/10/2018 02:56:40 AM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
+05/10/2018 02:56:40 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://kickass.cd/search.php?q=Westworld++S02E01+1080p ]
+05/10/2018 02:56:40 AM -  [DEBUG0]: KatScrapperTypeA Searching on Proxy [ https://kickass.cd/search.php?q=Westworld++S02E01+1080p ]
+05/10/2018 02:56:44 AM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA with Hash [ 2292b3aa895d89b64f2341c44d6e397c06374b58 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB with Hash [ 151e77a987fd1517e4c09807b0f1630172673d01 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.HEVC.x265-MeGusta with Hash [ 63dc9660b9a4db9ea48af17d62880692dbf6ecb9 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3GB%5D.%5BMP4%5D with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld+S02E01+1080p+10bit+AMZN+WEB-DL+6CH+x265+HEVC-samz2 with Hash [ 734a7f314f7f7a113335cc4e4e2613a2281e98aa ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-HDMAN with Hash [ 0d56c614dca01b60defbe322b58b8d46eeaff103 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 29e72cf3001103d9efb29be7edce2da4fce51d94 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
+05/10/2018 02:56:44 AM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS.mkv with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x265-GIRAYS with Hash [ 2c09b79a11a830002328cf413b29fe287b05df46 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: [TorrentCouch.com].Westworld.S02E01.1080p.AMZN.WEBRip.x264.[1.3GB].[MP4] with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.AMZN.WEBRip.x264.%5B1.3GB%5D.%5BMP4%5D with Hash [ 5925928425e0a890b62a87a2a25ed3236493f242 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE[rarbg] with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Westworld.S02E01.1080p.WEB.H264-DEFLATE with Hash [ 7e895324ef8912ce4d92933a9b9f5f357c267a03 ]
+05/10/2018 02:56:44 AM -  [DEBUG0]: ScraperEngine New DataFrame Rows:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash  size  seed  leech     ratio                                             magnet
-0  Westworld.S02E03.Virtu.e.Fortuna.1080p.AMZN.WE...  c66dc16cd4ef3750bc54d923f60589b5d0ba45b6  5100   809    514  1.573930  magnet:?xt=urn:btih:c66dc16cd4ef3750bc54d923f6...
-1     Westworld.S02E03.1080p.WEB.H264-DEFLATE[rarbg]  906ccb230aa722148e0dff82c2863413dafcf2a6  5000   639   1130  0.565487  magnet:?xt=urn:btih:906ccb230aa722148e0dff82c2...
-2  Westworld.S02E03.1080p.10bit.WEBRip.6CH.x265.H...  6db29b80fff33b94ff2dc81e3c22ab4e7dbf0441   985   504    144  3.500000  magnet:?xt=urn:btih:6db29b80fff33b94ff2dc81e3c...
-3  Westworld.S02E03.1080p.AMZN.WEB-DL.5.1.HEVC.x2...  f6f4c2e85902345ea3b8f91866d31dd37916fae9  1010   483    100  4.830000  magnet:?xt=urn:btih:f6f4c2e85902345ea3b8f91866...
-4            Westworld.S02E03.1080p.WEB.H264-DEFLATE  6b783648956392277e4ad0d2d025693cd785719a  5040   241    145  1.662069  magnet:?xt=urn:btih:6b783648956392277e4ad0d2d0...
-5           Westworld.S02E03.1080p.HEVC.x265-MeGusta  0861326b831bc4d35d295375bad02b63fd19822f  1040    79     74  1.067568  magnet:?xt=urn:btih:0861326b831bc4d35d295375ba...
-6       Westworld+S02E03+1080p+AMZN+WEB-DL+6CH+980MB  efc5ad9d90eac25506bb457240b783dae5082e60   979    56     18  3.111111  magnet:?xt=urn:btih:efc5ad9d90eac25506bb457240...
-7  Westworld (2016) - S02E03 (1080p AMZN WEB-DL x...  eaddf6f3d6f874429eb962daf35a8b90c7926a91  1300    45     23  1.956522  magnet:?xt=urn:btih:eaddf6f3d6f874429eb962daf3...
-8  Westworld.S02E03.Virtu.e.Fortuna.1080p.AMZN.WE...  84711786180c4ec132673a8eb0324529d9424476   806    33      5  6.600000  magnet:?xt=urn:btih:84711786180c4ec132673a8eb0...
-9  Westworld S02E03 (1080p AMZN WEB-DL x265 HEVC ...  41f77d31f06b2cf7c1b1c1e9b9ecb67b632918b0  2600    18     39  0.461538  magnet:?xt=urn:btih:41f77d31f06b2cf7c1b1c1e9b9...
+                                                name                                      hash  size  seed  leech      ratio                                             magnet
+0  Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x2...  2c09b79a11a830002328cf413b29fe287b05df46  1200     1      1   1.000000  magnet:?xt=urn:btih:2c09b79a11a830002328cf413b...
+1  [TorrentCouch.com].Westworld.S02E01.1080p.AMZN...  5925928425e0a890b62a87a2a25ed3236493f242  1340    32      6   5.333333  magnet:?xt=urn:btih:5925928425e0a890b62a87a2a2...
+2     Westworld.S02E01.1080p.WEB.H264-DEFLATE[rarbg]  7e895324ef8912ce4d92933a9b9f5f357c267a03  5630   817     73  11.191781  magnet:?xt=urn:btih:7e895324ef8912ce4d92933a9b...
+
+05/10/2018 02:56:44 AM -  [DEBUG0]: ScraperEngine Adding Merged New DataFrame to Main DataFrame:
+05/10/2018 02:56:44 AM -  [DEBUG0]: ScraperEngine Magnet WebScraping Search:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                 name                                      hash  size  seed  leech      ratio                                             magnet
+0   Westworld.S02E01.Journey.Into.Night.1080p.AMZN...  4a6e06e13e892346ea76c35711356b4ab1e9f5a4  5700    23     15   1.533333  magnet:?xt=urn:btih:4a6e06e13e892346ea76c35711...
+1   Westworld.S02E01.Journey.Into.Night.1080p.AMZN...  bccd147460737db06936560d75edeb17b1a85704  5700     9      3   3.000000  magnet:?xt=urn:btih:bccd147460737db06936560d75...
+2   Westworld S02E01 Journey Into Night  (1080p x2...  475c208ba8586aa641e695fb8384753aeb89c846   758     9      5   1.800000  magnet:?xt=urn:btih:475c208ba8586aa641e695fb83...
+3                        .Westworld.S02E01.1080p-.mp4  bed17261a2b0d93d5badc1f7f8ca2ab142ee0fba  2800     8      4   2.000000  magnet:?xt=urn:btih:bed17261a2b0d93d5badc1f7f8...
+4   Westworld.S02E01.Journey.Into.Night.1080p.AMZN...  7315d1a1a4406ae3070c862b3629107274cdad6c  1400     6      8   0.750000  magnet:?xt=urn:btih:7315d1a1a4406ae3070c862b36...
+5   Westworld (2016) S02E01 (1080p AMZN WEB-DL x26...  b1cb29de0efe788c6165931904bcadc73f1eaf3d  1300     1      1   1.000000  magnet:?xt=urn:btih:b1cb29de0efe788c6165931904...
+6   Westworld S02E01 (1080p AMZN WEB-DL x265 HEVC ...  f3587eb780d14996cd9a0e84049fc57614fb1736  2900     1      1   1.000000  magnet:?xt=urn:btih:f3587eb780d14996cd9a0e8404...
+7   Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.H...  2292b3aa895d89b64f2341c44d6e397c06374b58  1030   260     14  18.571429  magnet:?xt=urn:btih:2292b3aa895d89b64f2341c44d...
+8        Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB  151e77a987fd1517e4c09807b0f1630172673d01  1200    60      9   6.666667  magnet:?xt=urn:btih:151e77a987fd1517e4c09807b0...
+9            Westworld.S02E01.1080p.HEVC.x265-MeGusta  63dc9660b9a4db9ea48af17d62880692dbf6ecb9  1160    45     11   4.090909  magnet:?xt=urn:btih:63dc9660b9a4db9ea48af17d62...
+10  Westworld+S02E01+1080p+10bit+AMZN+WEB-DL+6CH+x...  734a7f314f7f7a113335cc4e4e2613a2281e98aa  1170    14      3   4.666667  magnet:?xt=urn:btih:734a7f314f7f7a113335cc4e4e...
+11  Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-H...  0d56c614dca01b60defbe322b58b8d46eeaff103  5730     9      4   2.250000  magnet:?xt=urn:btih:0d56c614dca01b60defbe322b5...
+12            Westworld.S02E01.1080p.WEB.H264-DEFLATE  29e72cf3001103d9efb29be7edce2da4fce51d94  5640     1      1   1.000000  magnet:?xt=urn:btih:29e72cf3001103d9efb29be7ed...
+13  Westworld.S02E01.1080p.AMZN.WEB-DL.5.1.HEVC.x2...  2c09b79a11a830002328cf413b29fe287b05df46  1200     1      1   1.000000  magnet:?xt=urn:btih:2c09b79a11a830002328cf413b...
+14  [TorrentCouch.com].Westworld.S02E01.1080p.AMZN...  5925928425e0a890b62a87a2a25ed3236493f242  1340    32      6   5.333333  magnet:?xt=urn:btih:5925928425e0a890b62a87a2a2...
+15     Westworld.S02E01.1080p.WEB.H264-DEFLATE[rarbg]  7e895324ef8912ce4d92933a9b9f5f357c267a03  5630   817     73  11.191781  magnet:?xt=urn:btih:7e895324ef8912ce4d92933a9b...
+
+05/10/2018 02:56:44 AM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                 name                                      hash  size  seed  leech      ratio                                             magnet
+0      Westworld.S02E01.1080p.WEB.H264-DEFLATE[rarbg]  7e895324ef8912ce4d92933a9b9f5f357c267a03  5630   817     73  11.191781  magnet:?xt=urn:btih:7e895324ef8912ce4d92933a9b...
+1   Westworld.S02E01.1080p.10bit.WEBRip.6CH.x265.H...  2292b3aa895d89b64f2341c44d6e397c06374b58  1030   260     14  18.571429  magnet:?xt=urn:btih:2292b3aa895d89b64f2341c44d...
+2        Westworld+S02E01+1080p+AMZN+WEB-DL+6CH+1.1GB  151e77a987fd1517e4c09807b0f1630172673d01  1200    60      9   6.666667  magnet:?xt=urn:btih:151e77a987fd1517e4c09807b0...
+3            Westworld.S02E01.1080p.HEVC.x265-MeGusta  63dc9660b9a4db9ea48af17d62880692dbf6ecb9  1160    45     11   4.090909  magnet:?xt=urn:btih:63dc9660b9a4db9ea48af17d62...
+4   [TorrentCouch.com].Westworld.S02E01.1080p.AMZN...  5925928425e0a890b62a87a2a25ed3236493f242  1340    32      6   5.333333  magnet:?xt=urn:btih:5925928425e0a890b62a87a2a2...
+5   Westworld.S02E01.Journey.Into.Night.1080p.AMZN...  4a6e06e13e892346ea76c35711356b4ab1e9f5a4  5700    23     15   1.533333  magnet:?xt=urn:btih:4a6e06e13e892346ea76c35711...
+6   Westworld+S02E01+1080p+10bit+AMZN+WEB-DL+6CH+x...  734a7f314f7f7a113335cc4e4e2613a2281e98aa  1170    14      3   4.666667  magnet:?xt=urn:btih:734a7f314f7f7a113335cc4e4e...
+7   Westworld.S02E01.Journey.Into.Night.1080p.AMZN...  bccd147460737db06936560d75edeb17b1a85704  5700     9      3   3.000000  magnet:?xt=urn:btih:bccd147460737db06936560d75...
+8   Westworld.S02E01.1080p.WEB.H264-DEFLATE-DUAL-H...  0d56c614dca01b60defbe322b58b8d46eeaff103  5730     9      4   2.250000  magnet:?xt=urn:btih:0d56c614dca01b60defbe322b5...
+9   Westworld S02E01 Journey Into Night  (1080p x2...  475c208ba8586aa641e695fb8384753aeb89c846   758     9      5   1.800000  magnet:?xt=urn:btih:475c208ba8586aa641e695fb83...
+10                       .Westworld.S02E01.1080p-.mp4  bed17261a2b0d93d5badc1f7f8ca2ab142ee0fba  2800     8      4   2.000000  magnet:?xt=urn:btih:bed17261a2b0d93d5badc1f7f8...
+11  Westworld.S02E01.Journey.Into.Night.1080p.AMZN...  7315d1a1a4406ae3070c862b3629107274cdad6c  1400     6      8   0.750000  magnet:?xt=urn:btih:7315d1a1a4406ae3070c862b36...
+12  Westworld (2016) S02E01 (1080p AMZN WEB-DL x26...  b1cb29de0efe788c6165931904bcadc73f1eaf3d  1300     1      1   1.000000  magnet:?xt=urn:btih:b1cb29de0efe788c6165931904...
+13  Westworld S02E01 (1080p AMZN WEB-DL x265 HEVC ...  f3587eb780d14996cd9a0e84049fc57614fb1736  2900     1      1   1.000000  magnet:?xt=urn:btih:f3587eb780d14996cd9a0e8404...
+14            Westworld.S02E01.1080p.WEB.H264-DEFLATE  29e72cf3001103d9efb29be7edce2da4fce51d94  5640     1      1   1.000000  magnet:?xt=urn:btih:29e72cf3001103d9efb29be7ed...

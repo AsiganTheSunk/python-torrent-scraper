@@ -77,16 +77,16 @@ class ScraperEngine(object):
         self.name = self.__class__.__name__
 
         # Create & Config CustomLogger
-        self.logger = CustomLogger(name=__name__, level=INFO)
+        self.logger = CustomLogger(name=__name__, level=DEBUG0)
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
         file_handler = logging.FileHandler('scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(level=INFO)
+        file_handler.setLevel(level=DEBUG0)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(INFO)
+        console_handler.setLevel(DEBUG0)
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)

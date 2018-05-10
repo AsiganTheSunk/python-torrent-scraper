@@ -43,3 +43,6 @@ class ButtonBox(Frame):
 
         right_border_frame = Frame(self, width=2, height=40, background='#F0F8FF')
         right_border_frame.grid(row=0, column=2)
+
+    def quit(self):
+        self.master.destroy()

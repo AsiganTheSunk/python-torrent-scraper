@@ -20,6 +20,7 @@ class DataPanel(Frame):
         self.display_box = None
         self.data_box = None
         self.button_box = None
+        self.master = master
         self.on_create()
 
     def on_create(self):
