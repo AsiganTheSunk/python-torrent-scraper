@@ -5,7 +5,7 @@
 ZetCode Tkinter tutorial
 
 In this script, we show how to
-use the Listbox widget.
+use the Listbox widget.old.
 
 Author: Jan Bodnar
 Last modified: July 2017

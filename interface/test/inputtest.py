@@ -18,7 +18,7 @@ class Example(tk.Frame):
         # %v = the type of validation that is currently set
         # %V = the type of validation that triggered the callback
         #      (key, focusin, focusout, forced)
-        # %W = the tk name of the widget
+        # %W = the tk name of the widget.old
 
         vcmd = (self.register(self.onValidate),
                 '%d', '%i', '%P', '%s', '%S', '%v', '%V', '%W')
