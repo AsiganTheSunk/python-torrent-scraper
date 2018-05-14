@@ -20,24 +20,18 @@ console_handler.setFormatter(formatter)
 console_handler.setLevel(INFO)
 logger.addHandler(console_handler)
 
-def update_poster(poster_thread, info_panel):
-    poster_thread.join()
-
-    image_path = poster_thread.image_path[1]
-    aux = Image.open(image_path)
+def update_poster(image_poster, info_panel):
+    aux = Image.open(image_poster)
     poster_image = ImageTk.PhotoImage(aux)
     info_panel.poster_box.poster_image = poster_image
     info_panel.poster_box.poster_container.configure(borderwidth=0, highlightbackground='#848482', image=poster_image)
 
-def update_description(description_thread, info_panel):
-    description_thread.join()
-    info = description_thread.info
+def update_description(info, info_panel):
     info_panel.info_box.set_info_text(info)
 
-def update_data_box(search_result_thread, result_panel):
+def update_data_box(dataframe, result_panel):
     index_selection = result_panel.list_panel.list_box.result_box.get_selection()
     if index_selection != 'empty':
-        dataframe = search_result_thread.dataframe
         index_selection = result_panel.list_panel.list_box.result_box.get_selection()
         print('INDEX:', str(index_selection))
         magnet = dataframe[['name'] == index_selection]['magnet']
@@ -65,24 +59,15 @@ def update_data_box(search_result_thread, result_panel):
                                                                        magnet_instance['announce_list']['https'],
                                                                        magnet_instance['announce_list']['http'],
                                                                        magnet_instance['announce_list']['udp'])
-        print(quote)
         result_panel.data_panel.data_box.data_box.set_data(quote)
 
 
 
-def update_result_search(search_result_thread, result_panel):
-    search_result_thread.join()
-    dataframe =  search_result_thread.dataframe
+def update_result_search(dataframe, result_panel):
     result_panel.list_panel.list_box.result_box.dataframe = dataframe
     lista = []
     for index in dataframe.index.tolist():
         dn = dataframe.iloc[int(index)]['name']
-        _hash = dataframe.iloc[int(index)]['hash']
-        magnet = dataframe.iloc[int(index)]['magnet']
-        size = dataframe.iloc[int(index)]['size']
-        seed = dataframe.iloc[int(index)]['seed']
-        leech = dataframe.iloc[int(index)]['leech']
-        ratio = dataframe.iloc[int(index)]['ratio']
         formato = '[ {0} ]'.format(dn)
         lista.append(formato)
 
@@ -90,23 +75,14 @@ def update_result_search(search_result_thread, result_panel):
 
 
 class ResultMainFrame(Frame):
-    def __init__(self, master, row, column,background='#ADD8E6'):
+    def __init__(self, master, row, column, dataframe, info, image_poster, background='#ADD8E6'):
         Frame.__init__(self, master, background=background)
         self.grid(row=row, column=column)
         self.name = self.__class__.__name__
-        self.on_create()
+        self.master = master
+        self.on_create(dataframe, info, image_poster)
 
-    def on_create(self):
-        # poster_thread = PosterThreadImage(1, 'Poster Thread', 'Westworld Season 2')
-        # poster_thread.start()
-        #
-        # description_thread = DescriptionThreadInfo(2, 'Description Thread', 'Westworld')
-        # description_thread.start()
-        #
-        # websearch = WebSearchInstance('Westworld', '', '02', '01', '1080p', '', 'SHOW')
-        # search_result_thread = SearchResultThreadInfo(3, 'Search Result Thread', websearch)
-        # search_result_thread.start()
-
+    def on_create(self, dataframe, info, image_poster):
         upper_border_frame = Frame(self, width=864, height=11, background='#ADD8E6')
         upper_border_frame.grid(row=0, column=0)
 
@@ -120,10 +96,7 @@ class ResultMainFrame(Frame):
         lower_border_frame = Frame(self, width=864, height=14, background='#ADD8E6')
         lower_border_frame.grid(row=4, column=0)
 
-        # info_panel.update_idletasks()  # Actualizate FRAME!
-        # info_panel.after(500, update_poster(poster_thread, info_panel)) # Se pone la actualizacion 200ms despues de pintar el frame por defecto?
-        # info_panel.after(500, update_description(description_thread, info_panel)) # Se pone la actualizacion 200ms despues de pintar el frame por defecto?
-        # result_panel.update_idletasks()  # Actualizate FRAME!
-        # result_panel.after(500, update_result_search(search_result_thread, result_panel)) # Se pone la actualizacion 200ms despues de pintar el frame por defecto?
-        # result_panel.after(500, update_data_box(search_result_thread, result_panel)) # Se pone la actualizacion 200ms despues de pintar el frame por defecto?
-        #
+        update_poster(image_poster, info_panel)
+        update_description(info, info_panel)
+        update_result_search(dataframe, result_panel)
+        update_data_box(dataframe, result_panel)

@@ -9,6 +9,7 @@ from tkinter import *
 import tkinter
 import threading
 import queue
+from pandas import DataFrame
 
 
 from torrent_scraper import TorrentScraper
@@ -21,6 +22,7 @@ class InputMainFrame(Frame):
         self.name = self.__class__.__name__
         # Setting Up the InputMainFrame
         Frame.__init__(self, master)
+
         self.configure(background='#ADD8E6')
         self.grid(row=row, column=column)
 
@@ -127,7 +129,7 @@ class InputMainFrame(Frame):
         space_block6 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block6.grid(row=0, column=15)
 
-        search_button = Button(input_block, text='Search', command= lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482')
+        search_button = Button(input_block, text='Search', command=lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482')
         search_button.grid(row=0, column=16, sticky="w", pady=4, padx=3)
 
     def get_input(self):
@@ -143,11 +145,23 @@ class InputMainFrame(Frame):
         while self.queue.qsize():
             try:
                 msg = self.queue.get(0)
-                print('result: ', msg)
+                if self.dataframe is None:
+                    self.dataframe = msg
 
+                elif self.image_poster is None:
+                    self.image_poster = msg
 
+                elif self.info is None:
+                    self.info = msg
+                #
+                # print('*********************' * 4)
+                # print('Dataframe: \n', self.dataframe)
+                # print('Info: \n', self.info)
+                # print('ImagePoster: ', self.image_poster)
+                # print('*********************' * 4)
             except queue.Empty:
                 pass
+
 
 class ThreadedClient:
     def __init__(self, master):
@@ -157,11 +171,11 @@ class ThreadedClient:
         self.queue = queue.Queue()
 
         # Set up the GUI part
-        self.gui =  InputMainFrame(master, 0, 0, self.retrieveData, self.queue)#, self.reset)
+        self.gui =  InputMainFrame(master, 0, 0, self.retrieveData, self.queue)
 
         # Set up the thread to do asynchronous I/O
         # More threads can also be created and used, if necessary
-        self.running = 1
+        self.active_search = 1
 
         # Start the periodic call in the GUI to check if the queue contains
         # anything
@@ -169,20 +183,20 @@ class ThreadedClient:
 
     def periodicCall(self):
         self.gui.processIncoming()
-        if not self.running:
-            # sys.exit(1)
+        if not self.active_search:
             print('BackgroundThread: ENDED')
             top = Toplevel()
             top.geometry("865x625")
             # top.iconbitmap('./interface/placerholder/grumpy-cat.ico')
             # top.title("python-torrent-scraper-v0.3.2")
             top.resizable(width=False, height=False)
-            ResultMainFrame(top, 0, 0)
+            ResultMainFrame(top, 0, 0, self.gui.dataframe, self.gui.info, self.gui.image_poster)
+            # self.reset_active_search()
         else:
-            self.master.after(500, self.periodicCall)
+            self.master.after(400, self.periodicCall)
 
     def BackgroundThread(self, websearch):
-        if self.running:
+        if not self.active_search:
             # Asynchronous I/O of Scraper Engine
             torrent_scraper = TorrentScraper()
             dataframe = torrent_scraper.scrap(websearch)
@@ -196,17 +210,17 @@ class ThreadedClient:
             info = imdb_extension.get_movie_info(websearch.title)
             self.queue.put(info)
 
-            self.running = 0
+            self.active_search = 0
 
     def retrieveData(self, websearch):
-        print('Scrap!, Status: ', self.running)
+        print('Scrap!, Status: ', self.active_search)
         self.thread1 = threading.Thread(target=self.BackgroundThread, args=(websearch,))
         self.thread1.start()
 
-    def reset(self):
-        self.running = 1
-        print('Click', self.running)
 
-root = tkinter.Tk()
-client = ThreadedClient(root)
-root.mainloop()
+    def reset_active_search(self, child_window):
+        self.active_search = 1
+        # self.gui.image_poster = None
+        # self.gui.dataframe = None
+        # self.gui.info = None
+        # print('Click', self.active_search)

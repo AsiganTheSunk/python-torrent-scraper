@@ -86,8 +86,6 @@ class SimpleListBox(Listbox):
             metadata = regex_engine.map(name, fflag.SHOW_DIRECTORY_FLAG)
 
             self.dislaybox.set_image(metadata.quality, metadata.vcodec, metadata.bit, metadata.acodec, metadata.channels)
-            #self.databox.update_idletasks()  # Actualizate FRAME!
-            #self.master.result_panel.data_panel.data_box.data_box.set_data(quote)
 
     def set_item_list(self, aux_list):
         self.item_list = aux_list

@@ -19,16 +19,16 @@ class DataBox(Frame):
         self.data = T2
         T2.grid(row=0, column=0)
         T2.configure(relief='flat')
-        quote = '[Hash]: 33e9fe44da218113258d5d2748a3378f18cfe0bb' \
+        quote = '[Hash]: ---' \
                 '\n-------------------------------------------------' \
-                '\n[Size]: 881 MB' \
-                '\n[Seed]: 15' \
-                '\n[Leech]: 18' \
+                '\n[Size]: ---' \
+                '\n[Seed]: ---' \
+                '\n[Leech]: ---' \
                 '\n-------------------------------------------------' \
-                '\n[Language]:(EN)' \
+                '\n[Language]:(-)' \
                 '\n-------------------------------------------------' \
                 '\n[AnnounceList]:' \
-                '\n\t[HTTPS]: 12\n\t[HTTP]: 5\n\t[UDP]: 0'
+                '\n\t[HTTPS]: --\n\t[HTTP]: --\n\t[UDP]: --'
 
         T2.insert(END, quote)
         T2.config(state=DISABLED)
