@@ -8,7 +8,6 @@ class IMDbExtension():
         # self.supported_fflags = [fflags.FILM_FLAG]
         self.supported_season_fflags = []
         self.supported_subtitle_fflags = []
-        return
 
     def get_movie_index(self, name):
         try:

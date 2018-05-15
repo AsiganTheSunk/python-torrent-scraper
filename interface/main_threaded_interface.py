@@ -5,17 +5,13 @@
 from torrentscraper.datastruct.websearch_instance import WebSearchInstance
 from lib.imdbfilmextension import IMDbExtension
 from interface.widget.simple_option_menu import SimpleOptionMenu
-from tkinter import *
-import tkinter
 import threading
 import queue
-from pandas import DataFrame
-
-
+from tkinter import *
+from tkinter.ttk import Progressbar
 from torrent_scraper import TorrentScraper
 from lib.cover_downloader import CoverDownloader
 from interface.widget.result_main_frame import ResultMainFrame
-
 
 class InputMainFrame(Frame):
     def __init__(self, master, row, column, retrieveData, queue):
@@ -44,6 +40,9 @@ class InputMainFrame(Frame):
         self.dataframe = None
         self.info = None
 
+        self.progressbar = None
+        self.progressbar_status = None
+
         # # Setting up the Custom Logger of the InputMainFrame()
         # self.logger = CustomLogger(name=__name__, level=INFO)
         # formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
@@ -66,9 +65,21 @@ class InputMainFrame(Frame):
         input_block_space1 = Frame(self, width=803, height=2, background='#F0F8FF')
         input_block_space1.grid(row=3, column=0)
 
-        input_block_space1 = Frame(self, width=865, height=45, background='#ADD8E6')
-        input_block_space1.grid(row=4, column=0)
+        input_block_space2 = Frame(self, width=865, height=20, background='#ADD8E6')
+        input_block_space2.grid(row=4, column=0)
 
+        label_status = Label(input_block_space2, background='#ADD8E6')
+        label_status.grid(row=0,column=0)
+        self.progressbar_status = label_status
+
+        progressbar_block = Progressbar(self, orient=HORIZONTAL, length=855, mode='determinate')
+        progressbar_block.grid(row=5, column=0)
+        self.progressbar = progressbar_block
+
+        input_block_space3 = Frame(self, width=865, height=5, background='#ADD8E6')
+        input_block_space3.grid(row=6, column=0)
+
+        ##########################################################################################
         # Entries, PopUp Block
         space_block = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block.grid(row=0, column=0)
@@ -154,11 +165,11 @@ class InputMainFrame(Frame):
                 elif self.info is None:
                     self.info = msg
                 #
-                # print('*********************' * 4)
-                # print('Dataframe: \n', self.dataframe)
-                # print('Info: \n', self.info)
-                # print('ImagePoster: ', self.image_poster)
-                # print('*********************' * 4)
+                print('*********************' * 4)
+                print('Dataframe: \n', self.dataframe)
+                print('Info: \n', self.info)
+                print('ImagePoster: ', self.image_poster)
+                print('*********************' * 4)
             except queue.Empty:
                 pass
 
@@ -175,7 +186,7 @@ class ThreadedClient:
 
         # Set up the thread to do asynchronous I/O
         # More threads can also be created and used, if necessary
-        self.active_search = 1
+        self.active_search = 0
 
         # Start the periodic call in the GUI to check if the queue contains
         # anything
@@ -183,7 +194,7 @@ class ThreadedClient:
 
     def periodicCall(self):
         self.gui.processIncoming()
-        if not self.active_search:
+        if self.active_search:
             print('BackgroundThread: ENDED')
             top = Toplevel()
             top.geometry("865x625")
@@ -198,19 +209,28 @@ class ThreadedClient:
     def BackgroundThread(self, websearch):
         if not self.active_search:
             # Asynchronous I/O of Scraper Engine
+            self.gui.progressbar_status['text'] = 'Scraping Magnets from Trackers ...'
             torrent_scraper = TorrentScraper()
             dataframe = torrent_scraper.scrap(websearch)
             self.queue.put(dataframe)
+            self.gui.progressbar['value'] = 60
+            self.gui.update_idletasks()
 
+            self.gui.progressbar_status['text'] = 'Retrieving Poster Image ...'
             cover_downloader = CoverDownloader()
             cover = cover_downloader.download(websearch)
             self.queue.put(cover)
+            self.gui.progressbar['value'] = 80
+            self.gui.update_idletasks()
 
+            self.gui.progressbar_status['text'] = 'Retrieving General Information ...'
             imdb_extension = IMDbExtension()
             info = imdb_extension.get_movie_info(websearch.title)
             self.queue.put(info)
-
-            self.active_search = 0
+            self.gui.progressbar['value'] = 100
+            self.gui.progressbar_status['text'] = 'Done !'
+            self.gui.update_idletasks()
+            self.active_search = 1
 
     def retrieveData(self, websearch):
         print('Scrap!, Status: ', self.active_search)
@@ -218,8 +238,8 @@ class ThreadedClient:
         self.thread1.start()
 
 
-    def reset_active_search(self, child_window):
-        self.active_search = 1
+    def reset_active_search(self):
+        self.active_search = 0
         # self.gui.image_poster = None
         # self.gui.dataframe = None
         # self.gui.info = None
