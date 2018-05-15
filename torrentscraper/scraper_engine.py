@@ -70,7 +70,7 @@ DEBUG0 = 15
 VERBOSE = 5
 
 # TODO Terminar de Prograpagar Excepciones!!!
-# TODO Hacer los test para las mismas
+# TODO Hacer los examples para las mismas
 # TODO Resolver problema de webdrivers. rbg.RarbgScrapper()
 class ScraperEngine(object):
     def __init__(self):

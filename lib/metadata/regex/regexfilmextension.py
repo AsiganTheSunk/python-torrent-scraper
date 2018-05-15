@@ -1,8 +1,7 @@
 # from filemapper.metadata.regex.RegexEngine import compile_pattern
 import re
 
-from lib.sbuilder.stringutils import StringUtils
-from torrentscraper.fileflags import FileFlags as fflags
+from lib.fileflags import FileFlags as fflags
 
 
 def compile_pattern(patterns):

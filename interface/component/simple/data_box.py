@@ -1,6 +1,7 @@
+# Import Interface Libraries
 from tkinter import *
 
-class DataBox(Frame):
+class SimpleDataBox(Frame):
     def __init__(self, master, row, column, width=275, height=300, background='#F0F8FF'):
         Frame.__init__(self, master, width=width, height=height, background=background)
         self.grid(row=row, column=column)

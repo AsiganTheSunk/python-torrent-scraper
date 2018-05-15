@@ -1,6 +1,8 @@
+# Import Interface Libraries
 from tkinter import *
-from interface.widget.simple_list_box import SimpleListBox
 
+# Import Custom Interface Components
+from interface.component.simple.list_box import SimpleListBox
 
 class ListBox(Frame):
     def __init__(self, master, databox, displaybox, row, column, width=275, height=590, background='#ADD8E6'):

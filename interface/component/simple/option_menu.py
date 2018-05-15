@@ -1,6 +1,4 @@
-from tkinter import *
-
-#global quality_selection
+from tkinter import OptionMenu, StringVar
 
 class SimpleOptionMenu(OptionMenu):
     def __init__(self, master, status, *options):
@@ -13,5 +11,4 @@ class SimpleOptionMenu(OptionMenu):
         self['menu'].config(font=('calibri', (10)), bg='white')
 
     def get(self, *args):
-        #print(self.var.get())
         self.selection =  self.var.get()

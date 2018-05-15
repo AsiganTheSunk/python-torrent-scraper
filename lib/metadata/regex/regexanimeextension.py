@@ -2,7 +2,7 @@ import re
 
 #from config import TRUSTED_UPLOADERS
 from lib.sbuilder.stringbuilder import StringBuilder
-from torrentscraper.fileflags import FileFlags as fflags
+from lib.fileflags import FileFlags as fflags
 
 
 class RegexAnimeExtension():

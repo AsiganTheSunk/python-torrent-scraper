@@ -7,7 +7,7 @@ from qbittorrent import Client
 from time import sleep
 
 class QClientManager(object):
-    def __init__(self, url='http://127.0.0.1:8080/', user='admin', paswd='test'):
+    def __init__(self, url='http://127.0.0.1:8080/', user='admin', paswd='examples'):
         self.name = self.__class__.__name__
         self.url = url
         self.user = user

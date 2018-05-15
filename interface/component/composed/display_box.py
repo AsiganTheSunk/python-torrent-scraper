@@ -1,6 +1,8 @@
 from tkinter import *
 from PIL import ImageTk, Image
 
+display_placeholder = './interface/resources/placeholders/display_placeholder.png'
+
 class DisplayBox(Frame):
     def __init__(self, master, row, column, width=275, height=300, background='red'):
         Frame.__init__(self, master, width=width, height=height, background=background)
@@ -14,13 +16,12 @@ class DisplayBox(Frame):
         self.on_create()
 
     def on_create(self):
-        # Future : frame.resize((48, 48), Image.ANTIALIAS)
         flag_box = Frame(self, width=200, height=50)
         flag_box.grid(row=0, column=0)
         self.flag_box = flag_box
 
         # Generating the Spots for the Images
-        tmp_img = Image.open('./interface/60x48px/placeholder.png')
+        tmp_img = Image.open(display_placeholder)
 
         # Setting up image loading
         placeholder = ImageTk.PhotoImage(tmp_img)
@@ -89,11 +90,11 @@ class DisplayBox(Frame):
 
         aux = []
         for i in range(0, 5, 1):
-            if aux_list[i] != './interface/60x48px/placeholder.png':
+            if aux_list[i] != display_placeholder :
                 aux.append(aux_list[i])
 
         for i in range(len(aux),5,1):
-            aux.append('./interface/60x48px/placeholder.png')
+            aux.append(display_placeholder )
 
         img0 = Image.open(aux[0])
         img1 = Image.open(aux[1])
@@ -125,56 +126,56 @@ class DisplayBox(Frame):
 
     def get_bit_img(self, stream):
         if '10bit' == stream:
-            return './interface/60x48px/10_bit.png'
-        return './interface/60x48px/placeholder.png'
+            return './interface/resources/60x48px/10_bit.png'
+        return display_placeholder
 
     def get_quality_img(self, stream):
         if '4K' == stream:
-            return './interface/60x48px/4K.png'
+            return './interface/resources/60x48px/4K.png'
         if '1080p' == stream:
-            return './interface/60x48px/1080.png'
+            return './interface/resources/60x48px/1080.png'
         if '720p' == stream:
-            return './interface/60x48px/720.png'
+            return './interface/resources/60x48px/720.png'
         if '480p' in stream:
-            return './interface/60x48px/480.png'
-        return './interface/60x48px/placeholder.png'
+            return './interface/resources/60x48px/480.png'
+        return display_placeholder
 
     def get_vcodec_img(self, stream):
         if 'x265' == stream:
             print(stream)
-            return './interface/60x48px/h265.png'
+            return './interface/resources/60x48px/h265.png'
         elif 'H265' == stream:
-            return './interface/60x48px/h265.png'
+            return './interface/resources/60x48px/h265.png'
         elif 'x264' == stream:
             print(stream)
-            return './interface/60x48px/x264.png'
+            return './interface/resources/60x48px/x264.png'
         elif 'H264' == stream:
             print(stream)
-            return './interface/60x48px/x264.png'
+            return './interface/resources/60x48px/x264.png'
         elif 'divx' is stream:
-            return './interface/60x48px/divx.png'
-        return './interface/60x48px/placeholder.png'
+            return './interface/resources/60x48px/divx.png'
+        return display_placeholder
 
     def get_channels_img(self, stream):
         if '5.1'  == stream:
-            return './interface/60x48px/6.png'
+            return './interface/resources/60x48px/6.png'
         elif '6.0'  == stream:
-            return './interface/60x48px/6.png'
+            return './interface/resources/60x48px/6.png'
         elif '6.1' == stream:
-            return './interface/60x48px/6.png'
+            return './interface/resources/60x48px/6.png'
         elif'6CH' == stream:
-            return './interface/60x48px/6.png'
+            return './interface/resources/60x48px/6.png'
         elif '7.1' == stream:
-            return './interface/60x48px/8.png'
-        return './interface/60x48px/2.png'
+            return './interface/resources/60x48px/8.png'
+        return display_placeholder
 
     def get_acodec_img(self, stream):
         if 'mp3' in stream:
-            return './interface/60x48px/mp3.png'
+            return './interface/resources/60x48px/mp3.png'
         if 'aac' == stream:
-            return './interface/60x48px/aac.png'
+            return './interface/resources/60x48px/aac.png'
         elif 'ac3' == stream:
-            return './interface/60x48px/dolby.png'
+            return './interface/resources/60x48px/dolby.png'
         elif 'dts' in stream:
-            return './interface/60x48px/dts.png'
-        return './interface/60x48px/placeholder.png'
+            return './interface/resources/60x48px/dts.png'
+        return display_placeholder

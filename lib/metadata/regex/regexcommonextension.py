@@ -1,6 +1,6 @@
 import re
 
-from torrentscraper.fileflags import FileFlags as fflags
+from lib.fileflags import FileFlags as fflags
 
 class RegexCommonExtension():
     def __init__(self):

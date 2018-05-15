@@ -1,8 +1,7 @@
 import re
 
 from lib.sbuilder.stringbuilder import StringBuilder
-from lib.sbuilder.stringutils import StringUtils
-from torrentscraper.fileflags import FileFlags as fflags
+from lib.fileflags import FileFlags as fflags
 
 
 def compile_pattern(patterns):

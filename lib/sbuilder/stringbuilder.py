@@ -2,7 +2,7 @@ from lib.metadata.metadata import Metadata
 from lib.sbuilder.stringanimeextension import StringAnimeExtension
 from lib.sbuilder.stringfilmextension import StringFilmExtension
 from lib.sbuilder.stringshowextension import StringShowExtension
-from torrentscraper.fileflags import FileFlags as fflags
+from lib.fileflags import FileFlags as fflags
 
 EMPTY_WRAP = -1
 BRACKET_WRAP = 0

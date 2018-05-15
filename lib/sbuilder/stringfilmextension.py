@@ -1,5 +1,5 @@
 from lib.sbuilder.stringutils import StringUtils
-from torrentscraper.fileflags import FileFlags as fflags
+from lib.fileflags import FileFlags as fflags
 
 EMPTY_WRAP = -1
 BRACKET_WRAP = 0

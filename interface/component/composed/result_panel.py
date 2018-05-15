@@ -1,7 +1,6 @@
 from tkinter import *
-from interface.widget.data_panel import DataPanel
-
-from interface.widget.listpanel import ListPanel
+from .data_panel import DataPanel
+from .list_panel import ListPanel
 
 class ResultPanel(Frame):
     def __init__(self, master, row, column, width=275, height=590, background='#ADD8E6'):

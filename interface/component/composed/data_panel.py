@@ -1,7 +1,7 @@
 from tkinter import *
-from interface.widget.data_box import DataBox
-from interface.widget.display_box import DisplayBox
-from interface.widget.button_box import ButtonBox
+from interface.component.simple.data_box import SimpleDataBox
+from interface.component.composed.display_box import DisplayBox
+from interface.component.composed.button_box import ButtonBox
 
 class DataPanel(Frame):
     def __init__(self, master, row, column, width=275, height=300, background='#ADD8E6'):
@@ -23,7 +23,7 @@ class DataPanel(Frame):
         inner_border_frame2 = Frame(self, width=275, height=18, background='#ADD8E6')
         inner_border_frame2.grid(row=2, column=0)
 
-        data_box = DataBox(self, 3, 0)
+        data_box = SimpleDataBox(self, 3, 0)
         self.data_box = data_box
 
         inner_border_frame1 = Frame(self, width=275, height=17, background='#ADD8E6')

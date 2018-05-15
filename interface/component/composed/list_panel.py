@@ -1,5 +1,6 @@
 from tkinter import *
-from interface.widget.list_box import ListBox
+from .list_box import ListBox
+
 class ListPanel(Frame):
     def __init__(self, master, databox, displaybox, row, column, width=275, height=590, background='#ADD8E6'):
         Frame.__init__(self, master, width=width, height=height, background=background)

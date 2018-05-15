@@ -1,6 +1,6 @@
 from tkinter import *
-from interface.widget.simple_poster_box import SimplePosterBox
-from interface.widget.simple_info_box import SimpleInfoBox
+from interface.component.simple.poster_box import SimplePosterBox
+from interface.component.simple.info_box import SimpleInfoBox
 
 
 class InfoPanel(Frame):

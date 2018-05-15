@@ -6,7 +6,7 @@ from lib.metadata.regex.regexcommonextension import RegexCommonExtension
 from lib.metadata.regex.regexfilmextension import RegexFilmExtension
 from lib.metadata.regex.regexshowextension import RegexShowExtension
 from lib.metadata.regex.regexsubtitleextension import RegexSubtitleExtension
-from torrentscraper.fileflags import FileFlags as fflags
+from lib.fileflags import FileFlags as fflags
 
 
 def compile_pattern(patterns):

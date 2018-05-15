@@ -1,14 +1,12 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from logging import DEBUG, INFO, WARNING
+from logging import INFO
 import logging
-import traceback
-from tkinter import Tk, BOTH, Scale, LEFT, Listbox, StringVar, END, font
-from torrentscraper.fileflags import FileFlags as fflag
+from tkinter import Listbox, StringVar, END, font
+from lib.fileflags import FileFlags as fflag
 from torrentscraper.webscrapers.utils.magnet_builder import MagnetBuilder
-from torrentscraper import scraper_engine as se
-from torrentscraper.datastruct.websearch_instance import WebSearchInstance
+
 # Import Custom Logger
 from torrentscraper.utils.custom_logger import CustomLogger
 from lib.metadata.regex.regexengine import RegexEngine
@@ -47,8 +45,6 @@ class SimpleListBox(Listbox):
         value = sender.get(index)
 
         self.index_selection.set(value)
-        print(self.index_selection.get())
-        # self.selection.set(value)
 
         if self.index_selection.get() != 'empty':
             print('INDEX:', str( self.index_selection.get()[2:-2]))
