@@ -40,6 +40,7 @@ class InputMainFrame(Frame):
 
         self.progressbar = None
         self.progressbar_status = None
+        self.search_button = None
 
         self.on_create(retrieveData)
 
@@ -48,13 +49,13 @@ class InputMainFrame(Frame):
         input_block_space0 = Frame(self, width=865, height=30, background='#ADD8E6')
         input_block_space0.grid(row=0, column=0)
 
-        input_block_space1 = Frame(self, width=803, height=2, background='#F0F8FF')
+        input_block_space1 = Frame(self, width=837, height=2, background='#F0F8FF')
         input_block_space1.grid(row=1, column=0)
 
         input_block = Frame(self, width=865, height=25, background='#F0F8FF')
         input_block.grid(row=2, column=0)
 
-        input_block_space1 = Frame(self, width=803, height=2, background='#F0F8FF')
+        input_block_space1 = Frame(self, width=837, height=2, background='#F0F8FF')
         input_block_space1.grid(row=3, column=0)
 
         input_block_space2 = Frame(self, width=865, height=20, background='#ADD8E6')
@@ -124,7 +125,7 @@ class InputMainFrame(Frame):
         space_block5 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block5.grid(row=0, column=13)
 
-        search_type = {'SHOW': 'SHOW', 'MOVIE': 'MOVIE', 'ANIME': 'ANIME'}
+        search_type = {'SHOW': 'SHOW', 'FILM': 'FILM', 'ANIME': 'ANIME'}
         search_type_popup = SimpleOptionMenu(input_block, '[ Search Type ]', *search_type)
         search_type_popup.grid(row=0, column=14, columnspan=1, sticky='W')
         self.search_type_popup = search_type_popup
@@ -134,6 +135,12 @@ class InputMainFrame(Frame):
 
         search_button = Button(input_block, text='Search', command=lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482')
         search_button.grid(row=0, column=16, sticky="w", pady=4, padx=3)
+        self.search_button = search_button
+
+        config_img = PhotoImage(file='./interface/resources/config.png')
+        self.config_img = config_img
+        config_button = Button(input_block, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482', image=config_img)
+        config_button.grid(row=0, column=18, sticky="w", pady=4, padx=2)
 
     def get_input(self):
         return WebSearchInstance(title=self.title_entry.get(),
@@ -143,6 +150,24 @@ class InputMainFrame(Frame):
                                                     quality=self.quality_popup.selection,
                                                     search_type=self.search_type_popup.selection,
                                                     year=self.year_entry.get()[:4])
+
+    def validate_entries(self):
+        if self.search_type_popup.selection == 'SHOW':
+            if len(self.title_entry.get()) and len(self.season_entry.get()) and len(self.episode_entry.get()) > 0:
+                print(self.title_entry.get())
+                print(self.episode_entry.get())
+                print(self.season_entry.get())
+                return True
+        elif self.search_type_popup.selection == 'FILM':
+            if len(self.title_entry.get()) > 0:
+                print(self.title_entry.get())
+                return True
+        elif self.search_type_popup.selection == 'ANIME':
+            if len(self.title_entry.get()) and len(self.episode_entry.get()) > 0:
+                print(self.title_entry.get())
+                print(self.episode_entry.get())
+                return True
+        return False
 
     def processIncoming(self):
         while self.queue.qsize():
@@ -156,7 +181,7 @@ class InputMainFrame(Frame):
 
                 elif self.info is None:
                     self.info = msg
-                #
+
                 print('*********************' * 4)
                 print('Dataframe: \n', self.dataframe)
                 print('Info: \n', self.info)

@@ -35,7 +35,7 @@ class RegexEngine():
         self.subtitle_extension = RegexSubtitleExtension()
         return
 
-    def map(self, stream, fflag, verbose=False, debug=True):
+    def map(self, stream, fflag, verbose=False, debug=False):
         '''
         This function maps the file or directory based on the premapping done by filemapper
         :param stream: It represents the input string you're mapping

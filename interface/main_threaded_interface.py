@@ -25,15 +25,70 @@ class ThreadedClient:
         self.queue = queue.Queue()
 
         # Set up the GUI part
-        self.gui =  InputMainFrame(master, 0, 0, self.retrieveData, self.queue)
-
+        self.gui = InputMainFrame(master, 0, 0, self.retrieveData, self.queue)
+        self.result_gui = None
         # Set up the thread to do asynchronous I/O
         # More threads can also be created and used, if necessary
         self.active_search = 0
-
         # Start the periodic call in the GUI to check if the queue contains
         # anything
         self.periodicCall()
+        self.periodicCallCategory()
+
+
+    def periodicCallCategory(self):
+        if self.gui.search_type_popup.selection == 'SHOW':
+
+            self.gui.header_popup['textvariable'] = '[ Header ]'
+            self.gui.year_entry.delete(0, 'end')
+
+            self.gui.header_popup['state'] = 'disable'
+            self.gui.header_popup['textvariable'] = ''
+            self.gui.title_entry['state'] = 'normal'
+            self.gui.year_entry['state'] = 'disable'
+            self.gui.year_entry['textvariable'] = ''
+            self.gui.season_entry['state'] = 'normal'
+            self.gui.episode_entry['state'] = 'normal'
+            self.gui.quality_popup['state'] = 'normal'
+            self.gui.search_button['state'] = 'normal'
+        elif self.gui.search_type_popup.selection == 'FILM':
+
+            self.gui.header_popup['textvariable'] = ''
+            self.gui.episode_entry.delete(0, 'end')
+            self.gui.season_entry.delete(0, 'end')
+
+            self.gui.header_popup['state'] = 'disable'
+            self.gui.title_entry['state'] = 'normal'
+            self.gui.year_entry['state'] = 'normal'
+            self.gui.season_entry['state'] = 'disable'
+            self.gui.episode_entry['state'] = 'disable'
+            self.gui.quality_popup['state'] = 'normal'
+            self.gui.search_button['state'] = 'normal'
+        elif self.gui.search_type_popup.selection == 'ANIME':
+
+            self.gui.year_entry.delete(0, 'end')
+            self.gui.season_entry.delete(0, 'end')
+
+            self.gui.header_popup['state'] = 'normal'
+            self.gui.title_entry['state'] = 'normal'
+            self.gui.year_entry['state'] = 'disable'
+            self.gui.season_entry['state'] = 'disable'
+
+            self.gui.episode_entry['state'] = 'normal'
+            self.gui.quality_popup['state'] = 'normal'
+            self.gui.search_button['state'] = 'normal'
+
+
+        else:
+            self.gui.header_popup['state'] = 'disable'
+            self.gui.title_entry['state'] = 'disable'
+            self.gui.year_entry['state'] = 'disable'
+            self.gui.season_entry['state'] = 'disable'
+            self.gui.episode_entry['state'] = 'disable'
+            self.gui.quality_popup['state'] = 'disable'
+            self.gui.search_button['state'] = 'disable'
+
+        self.master.after(100, self.periodicCallCategory)
 
     def periodicCall(self):
         '''
@@ -41,19 +96,19 @@ class ThreadedClient:
         :return:
         '''
         self.gui.processIncoming()
-        if self.active_search:
+        while self.active_search:
             print('BackgroundThread: ENDED')
             top = Toplevel()
             top.geometry("865x625")
-            # top.iconbitmap('./interface/placerholder/grumpy-cat.ico')
-            # top.title("python-torrent-scraper-v0.3.2")
+            top.iconbitmap('./interface/resources/grumpy-cat.ico')
             top.resizable(width=False, height=False)
-            ResultMainFrame(top, 0, 0, self.gui.dataframe, self.gui.info, self.gui.image_poster)
 
-            # Reset the Search, variables
-            # self.reset_active_search()
+            self.result_gui = ResultMainFrame(top, 0, 0, self.gui.dataframe, self.gui.info, self.gui.image_poster)
+
+            self.gui.search_button['state'] = 'normal'
+            self.reset_active_search()
         else:
-            self.master.after(400, self.periodicCall)
+            self.master.after(100, self.periodicCall)
 
     def BackgroundThread(self, websearch):
         '''
@@ -87,6 +142,7 @@ class ThreadedClient:
             self.gui.progressbar_status['text'] = 'Done !'
             self.gui.update_idletasks()
             self.active_search = 1
+            print('Status: ', self.active_search)
 
     def retrieveData(self, websearch):
         '''
@@ -94,17 +150,21 @@ class ThreadedClient:
         :param websearch:
         :return:
         '''
-        print('Scrap!, Status: ', self.active_search)
-        self.thread1 = threading.Thread(target=self.BackgroundThread, args=(websearch,))
-        self.thread1.start()
+        if self.gui.validate_entries():
+            print('Scrap!, Status: ', self.active_search)
+            thread = threading.Thread(target=self.BackgroundThread, args=(websearch,))
+            thread.start()
+            self.gui.search_button['state'] = 'disable'
 
     def reset_active_search(self):
         '''
 
         :return:
         '''
-        # self.active_search = 0
-        # self.gui.image_poster = None
-        # self.gui.dataframe = None
-        # self.gui.info = None
-        pass
+        self.active_search = 0
+        self.gui.progressbar['value'] = 0
+        self.gui.progressbar_status['text'] = ''
+        self.gui.update_idletasks()
+        self.gui.image_poster = None
+        self.gui.dataframe = None
+        self.gui.info = None

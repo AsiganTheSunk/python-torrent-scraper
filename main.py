@@ -1,9 +1,16 @@
 #!/usr/bin/env python
 
 from torrent_scraper_interface import run_interface
+from lib.cover_downloader import CoverDownloader
+from torrentscraper.datastruct.websearch_instance import WebSearchInstance
 
 def main():
+    # cv = CoverDownloader()
+    # ws = WebSearchInstance(title='Marvel Avengers', year='2012', quality='1080p', search_type='FILM')
+    # cv.download(ws)
+
     run_interface()
+
     # ws = WebSearchInstance(title='Avengers', year='2012', quality='1080p', search_type='FILM')
     # ts = TorrentScraper()
     # ts.scrap(ws)

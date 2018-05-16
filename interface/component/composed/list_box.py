@@ -5,12 +5,13 @@ from tkinter import *
 from interface.component.simple.list_box import SimpleListBox
 
 class ListBox(Frame):
-    def __init__(self, master, databox, displaybox, row, column, width=275, height=590, background='#ADD8E6'):
+    def __init__(self, master,  row, column, databox, displaybox, buttonbox, width=275, height=590, background='#ADD8E6'):
         Frame.__init__(self, master, width=width, height=height, background=background)
         self.grid(row=row, column=column)
         self.result_box = None
         self.databox = databox
         self.displaybox = displaybox
+        self.buttonbox = buttonbox
         self.master = master
         self.on_create()
 
@@ -24,7 +25,7 @@ class ListBox(Frame):
         left_border = Frame(list_box, width=2, height=275, background='#F0F8FF')
         left_border.grid(row=0, column=1)
 
-        result_box = SimpleListBox(list_box, [], self.databox, self.displaybox)
+        result_box = SimpleListBox(list_box, [], self.databox, self.displaybox, self.buttonbox)
         result_box.configure(borderwidth=1, highlightbackground='white', bg='#DCDCDC', relief='groove')
         result_box.grid(row=0, column=2)
         self.result_box = result_box

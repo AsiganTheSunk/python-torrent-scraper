@@ -7,15 +7,15 @@ from qbittorrent import Client
 from time import sleep
 
 class QClientManager(object):
-    def __init__(self, url='http://127.0.0.1:8080/', user='admin', paswd='examples'):
+    def __init__(self, url='http://127.0.0.1:8080/'):  #, user='admin', paswd='examples'):
         self.name = self.__class__.__name__
         self.url = url
-        self.user = user
-        self.paswd = paswd
+        # self.user = user
+        # self.paswd = paswd
 
         # Launching Session to QClient
         self.session = Client(self.url)
-        self.session.login(self.user, self.paswd)
+        # self.session.login(self.user, self.paswd)
 
     def session_shutdown(self):
         try:
@@ -30,9 +30,9 @@ class QClientManager(object):
             print('%s: [%s] \n\t\t- %s' % (self.name, torrent_item['hash'], torrent_item['name']))
 
 
-    def load_magnet(self, magnet_uri, savepath, category):
+    def load_magnet(self, magnet_uri):
         try:
-            self.session.download_from_link(link=magnet_uri)#, savepath=savepath, category=category)
+            self.session.download_from_link(magnet_uri)
         except Exception as e:
             print (e)
         return True

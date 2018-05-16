@@ -50,15 +50,3 @@ class SimpleInfoBox(Frame):
         self.info_text.insert(END, info)
         self.info_text.config(state=DISABLED)
 
-
-    def on_load(self):
-        imdb_extension = IMDbExtension()
-        movie_index = imdb_extension.get_movie_index('Rick & Morty')
-        year = imdb_extension.get_year(movie_index)
-        runtime = imdb_extension.get_runtime(movie_index)
-        actors = imdb_extension.get_actors(movie_index)
-        director = imdb_extension.get_director(movie_index)
-        plot_summary = imdb_extension.get_plot_summary(movie_index)
-
-        info = '[Title]: {0}\n[Year]: {1}\n[Runtime]: {2}\n[Director]: {3}\n[Actors]:\n\n{4}\n[Plot Summary]:\n{5}\n'.format(
-           'Rick & Morty', year, runtime, director, actors, plot_summary)

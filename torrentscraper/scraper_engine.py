@@ -80,7 +80,7 @@ class ScraperEngine(object):
         self.logger = CustomLogger(name=__name__, level=DEBUG0)
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
-        file_handler = logging.FileHandler('scraper_engine.log', 'w')
+        file_handler = logging.FileHandler('log/scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
         file_handler.setLevel(level=DEBUG0)
 
@@ -90,7 +90,7 @@ class ScraperEngine(object):
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
-        self.webscrapers = [tpb.PirateBayScraper(self.logger), funk.TorrentFunkScraper(self.logger)]#, kata.KatScrapperTypeA(self.logger)]
+        self.webscrapers = [tpb.PirateBayScraper(self.logger)]#, funk.TorrentFunkScraper(self.logger)]#, kata.KatScrapperTypeA(self.logger)]
 
     def _normalize_magnet_entries(self, raw_data, websearch, webscraper):
         '''

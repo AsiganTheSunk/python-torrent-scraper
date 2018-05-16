@@ -23,12 +23,13 @@ logger.addHandler(console_handler)
 
 
 class SimpleListBox(Listbox):
-    def __init__(self, master, item_list, databox, displaybox ,dataframe=None):
+    def __init__(self, master, item_list, databox, displaybox, buttonbox, dataframe=None):
         Listbox.__init__(self, master, height=19, width=80)
         self.item_list = item_list
         self.master = master
         self.databox = databox
         self.dislaybox = displaybox
+        self.buttonbox = buttonbox
         self.dataframe = dataframe
         self.index_selection = StringVar()
         self.on_create()
@@ -76,11 +77,13 @@ class SimpleListBox(Listbox):
                                                                            len(magnet_instance['announce_list']['https']),
                                                                            len(magnet_instance['announce_list']['http']),
                                                                            len(magnet_instance['announce_list']['udp']))
-            print(quote)
+            #print(quote)
             self.databox.set_data(quote)
             regex_engine = RegexEngine()
             metadata = regex_engine.map(name, fflag.SHOW_DIRECTORY_FLAG)
 
+            self.buttonbox.tmp_magnet = magnet
+            self.buttonbox.tmp_hash = magnet_instance['hash']
             self.dislaybox.set_image(metadata.quality, metadata.vcodec, metadata.bit, metadata.acodec, metadata.channels)
 
     def set_item_list(self, aux_list):
