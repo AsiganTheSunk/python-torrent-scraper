@@ -1,2 +1,2 @@
-# python-torrent-scraper v0.3
+# python-torrent-scraper v0.4.2
 
