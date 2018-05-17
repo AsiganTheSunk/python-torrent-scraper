@@ -8,15 +8,14 @@ import logging
 from tkinter import *
 
 # Import Interface Custom Components
-from .composed.info_panel import InfoPanel
-from .composed.result_panel import ResultPanel
+from interface.component.result_frame.composed.info_panel import InfoPanel
+from interface.component.result_frame.composed.result_panel import ResultPanel
 
 # Import External Libraries
 from PIL import ImageTk, Image
 
 # Import Custom Utils
 from torrentscraper.utils.custom_logger import CustomLogger
-from torrentscraper.webscrapers.utils.magnet_builder import MagnetBuilder
 
 # Define Aux Logger to use on MagnetBuilder
 # TODO Add Logger to the whole interface

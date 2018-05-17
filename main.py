@@ -1,49 +1,25 @@
 #!/usr/bin/env python
 
 from torrent_scraper_interface import run_interface
-from lib.cover_downloader import CoverDownloader
-from torrentscraper.datastruct.websearch_instance import WebSearchInstance
-from tkinter import *
-from vertical_list_box import SimpleVerticalListBox
-
-from configparser import ConfigParser
-
-def ConfigSectionMap(section):
-    Config = ConfigParser()
-    Config.read('./scraperengine.ini')
-    dict1 = {}
-    options = Config.options(section)
-    for option in options:
-        try:
-            dict1[option] = Config.get(section, option)
-            if dict1[option] == -1:
-                print("skip: %s" % option)
-        except:
-            print("exception on %s!" % option)
-            dict1[option] = None
-
-    return dict1
 
 def main():
     run_interface()
+
+if __name__ == '__main__':
+    main()
+
+# TODO Añadir Internacionalizacion
+# TODO Corregir el bug, que genera WebscraperContentError y ErrorProxy al no permitir finalizar el proceoso.
+# TODO Añadir cache a la descripcion
+# TODO Añadir boton de clear cache en el config menu, en general
+# TODO Funcion de Save de QbitConfigDataPanel
+# TODO Propagar Theme por los objetos, añadirlo al menu de configuración general, y limpiar el codigo
 
     # cv = CoverDownloader()
     # ws = WebSearchInstance(title='Marvel Avengers', year='2012', quality='1080p', search_type='FILM')
     # cv.download(ws)
 
-    # root = Tk()
-    # vlb = SimpleVerticalListBox(root, [' [ ScraperEngine ]', ' [ Qbittorrent ]',  ' [ About ]'])
-    # vlb.configure(borderwidth=1, highlightbackground='white', bg='#DCDCDC', relief='groove')
-    # vlb.grid(row=0, column=0)
-    #
-    # root.mainloop()
-
-
-if __name__ == '__main__':
-    main()
-
-# TODO
-  # ws = WebSearchInstance(title='Avengers', year='2012', quality='1080p', search_type='FILM')
+    # ws = WebSearchInstance(title='Avengers', year='2012', quality='1080p', search_type='FILM')
     # ts = TorrentScraper()
     # ts.scrap(ws)
 

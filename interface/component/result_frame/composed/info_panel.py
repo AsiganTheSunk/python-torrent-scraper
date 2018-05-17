@@ -1,7 +1,6 @@
 from tkinter import *
-from interface.component.simple.poster_box import SimplePosterBox
-from interface.component.simple.info_box import SimpleInfoBox
-
+from interface.component.result_frame.simple.poster_box import SimplePosterBox
+from interface.component.result_frame.simple.info_box import SimpleInfoBox
 
 class InfoPanel(Frame):
     def __init__(self, master, row, column, width=275, height=590, background='#ADD8E6'):

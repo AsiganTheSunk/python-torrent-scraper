@@ -2,7 +2,7 @@
 from tkinter import *
 
 # Import Custom Interface Components
-from interface.component.simple.list_box import SimpleListBox
+from interface.component.result_frame.simple.list_box import SimpleListBox
 
 class ListBox(Frame):
     def __init__(self, master,  row, column, databox, displaybox, buttonbox, width=275, height=590, background='#ADD8E6'):

@@ -2,11 +2,10 @@
 import queue
 
 # Import Custom Interface Components
-from interface.component.simple.option_menu import SimpleOptionMenu
-from vertical_list_box import SimpleVerticalListBox
+from interface.component.input_frame.simple.option_menu import SimpleOptionMenu
 # Import Custom DataStructure
 from torrentscraper.datastruct.websearch_instance import WebSearchInstance
-
+from interface.component.config_frame.config_main_frame import ConfigMainFrame
 # Import Interface Libraries
 from tkinter import *
 from tkinter.ttk import Progressbar
@@ -144,9 +143,9 @@ class InputMainFrame(Frame):
 
     def configuration(self):
         top = Toplevel()
-        vlb = SimpleVerticalListBox(top, [' [ ScraperEngine ]', ' [ Qbittorrent ]', ' [ About ]'])
-        vlb.configure(borderwidth=1, highlightbackground='white', bg='#DCDCDC', relief='groove')
-        vlb.grid(row=0, column=0)
+        top.iconbitmap('./interface/resources/grumpy-cat.ico')
+        top.resizable(width=False, height=False)
+        config = ConfigMainFrame(top, 1, 0)
 
     def get_input(self):
         return WebSearchInstance(title=self.title_entry.get(),

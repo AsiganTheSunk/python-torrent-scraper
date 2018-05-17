@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 
 class CustomConfigParser():
-    def __init__(self, ini_file='./scraperengine.ini'):
+    def __init__(self, ini_file='./torrentscraper.ini'):
         self.ini_file = ini_file
         self.config_parser = ConfigParser()
         self.config_parser.read(self.ini_file)
@@ -29,7 +29,7 @@ class CustomConfigParser():
             with open(self.ini_file, 'w+') as configfile:
                 self.config_parser.write(configfile)
         except Exception as err:
-            print(err)
+            print('error:',err)
 
 
 

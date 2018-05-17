@@ -73,7 +73,7 @@ VERBOSE = 5
 # TODO Hacer los examples para las mismas
 # TODO Resolver problema de webdrivers. rbg.RarbgScrapper()
 class ScraperEngine(object):
-    def __init__(self):
+    def __init__(self, webscraper_dict=None):
         self.name = self.__class__.__name__
 
         # Create & Config CustomLogger
@@ -90,7 +90,22 @@ class ScraperEngine(object):
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
-        self.webscrapers = [tpb.PirateBayScraper(self.logger)]#, funk.TorrentFunkScraper(self.logger)]#, kata.KatScrapperTypeA(self.logger)]
+
+        if webscraper_dict is not None:
+            self.webscrapers = self.load_webscraper(webscraper_dict)
+        else:
+            self.webscrapers = [tpb.PirateBayScraper(self.logger), funk.TorrentFunkScraper(self.logger), kata.KatScrapperTypeA(self.logger)]
+
+    def load_webscraper(self, webscraper_dict):
+        aux_list = []
+        for item in webscraper_dict:
+            if item == 'thepiratebay' and webscraper_dict[item] == '1':
+                aux_list.append(tpb.PirateBayScraper(self.logger))
+            elif item == 'kickass'  and webscraper_dict[item] == '1':
+                aux_list.append(kata.KatScrapperTypeA(self.logger))
+            elif item == 'torrentfunk' and webscraper_dict[item] == '1':
+                aux_list.append(funk.TorrentFunkScraper(self.logger))
+        return aux_list
 
     def _normalize_magnet_entries(self, raw_data, websearch, webscraper):
         '''
@@ -112,7 +127,7 @@ class ScraperEngine(object):
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
                     # TODO Move to dynamic search, so it can call it self again,
-                    temp_torrent = './temp_torrent.torrent'
+                    temp_torrent = './cache/temporal_torrent/temp_torrent.torrent'
                     response = self.dynamic_search(websearch, webscraper, raw_data.magnet_list[index])
                     torrent = webscraper.get_magnet_link(response.text)
                     raw_data.magnet_list[index] = torrent

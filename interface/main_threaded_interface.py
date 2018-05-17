@@ -4,9 +4,9 @@
 from tkinter import *
 
 # Import Custom Frames
-from .component.result_main_frame import ResultMainFrame
-from .component.input_main_frame import InputMainFrame
-
+from interface.component.result_frame.result_main_frame import ResultMainFrame
+from interface.component.input_frame.input_main_frame import InputMainFrame
+from config_parser import CustomConfigParser
 # Import System Libraries
 import threading
 import queue
@@ -117,11 +117,12 @@ class ThreadedClient:
         :return:
         '''
         if not self.active_search:
-            # Block the Button Function
+            self.se_config = CustomConfigParser('./torrentscraper.ini')
+            self.scraper_config = self.se_config.get_section_map('ScraperEngine')
 
             # Asynchronous I/O of Scraper Engine
             self.gui.progressbar_status['text'] = 'Scraping Magnets from Trackers ...'
-            torrent_scraper = TorrentScraper()
+            torrent_scraper = TorrentScraper(self.scraper_config)
             dataframe = torrent_scraper.scrap(websearch)
             self.queue.put(dataframe)
             self.gui.progressbar['value'] = 60

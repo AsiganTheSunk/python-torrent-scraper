@@ -11,4 +11,5 @@ class SimpleOptionMenu(OptionMenu):
         self['menu'].config(font=('calibri', (10)), bg='white')
 
     def get(self, *args):
-        self.selection =  self.var.get()
+        self.selection = self.var.get()
+        print(self.selection)
