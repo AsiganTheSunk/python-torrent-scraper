@@ -3,7 +3,7 @@ import queue
 
 # Import Custom Interface Components
 from interface.component.simple.option_menu import SimpleOptionMenu
-
+from vertical_list_box import SimpleVerticalListBox
 # Import Custom DataStructure
 from torrentscraper.datastruct.websearch_instance import WebSearchInstance
 
@@ -139,8 +139,14 @@ class InputMainFrame(Frame):
 
         config_img = PhotoImage(file='./interface/resources/config.png')
         self.config_img = config_img
-        config_button = Button(input_block, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482', image=config_img)
+        config_button = Button(input_block, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482', image=config_img, command= lambda: self.configuration())
         config_button.grid(row=0, column=18, sticky="w", pady=4, padx=2)
+
+    def configuration(self):
+        top = Toplevel()
+        vlb = SimpleVerticalListBox(top, [' [ ScraperEngine ]', ' [ Qbittorrent ]', ' [ About ]'])
+        vlb.configure(borderwidth=1, highlightbackground='white', bg='#DCDCDC', relief='groove')
+        vlb.grid(row=0, column=0)
 
     def get_input(self):
         return WebSearchInstance(title=self.title_entry.get(),

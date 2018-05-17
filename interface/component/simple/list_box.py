@@ -94,15 +94,15 @@ class SimpleListBox(Listbox):
     def get_selection(self):
         return self.index_selection.get()
 
-    def autowidth(self, maxwidth):
-        f = font.Font(font=self.cget("font"))
-        pixels = 0
-        for item in self.get(0, "end"):
-            pixels = max(pixels, f.measure(item))
-        # bump listbox size until all entries fit
-        pixels = pixels + 10
-        width = int(self.cget("width"))
-        for w in range(0, maxwidth + 1, 5):
-            if self.winfo_reqwidth() > pixels:
-                break
-            self.config(font=('calibri', (11)), width=width + w)
+    # def autowidth(self, maxwidth):
+    #     f = font.Font(font=self.cget("font"))
+    #     pixels = 0
+    #     for item in self.get(0, "end"):
+    #         pixels = max(pixels, f.measure(item))
+    #     # bump listbox size until all entries fit
+    #     pixels = pixels + 10
+    #     width = int(self.cget("width"))
+    #     for w in range(0, maxwidth + 1, 5):
+    #         if self.winfo_reqwidth() > pixels:
+    #             break
+    #         self.config(font=('calibri', (11)), width=width + w)

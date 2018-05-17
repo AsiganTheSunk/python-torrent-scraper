@@ -3,15 +3,47 @@
 from torrent_scraper_interface import run_interface
 from lib.cover_downloader import CoverDownloader
 from torrentscraper.datastruct.websearch_instance import WebSearchInstance
+from tkinter import *
+from vertical_list_box import SimpleVerticalListBox
+
+from configparser import ConfigParser
+
+def ConfigSectionMap(section):
+    Config = ConfigParser()
+    Config.read('./scraperengine.ini')
+    dict1 = {}
+    options = Config.options(section)
+    for option in options:
+        try:
+            dict1[option] = Config.get(section, option)
+            if dict1[option] == -1:
+                print("skip: %s" % option)
+        except:
+            print("exception on %s!" % option)
+            dict1[option] = None
+
+    return dict1
 
 def main():
+    run_interface()
+
     # cv = CoverDownloader()
     # ws = WebSearchInstance(title='Marvel Avengers', year='2012', quality='1080p', search_type='FILM')
     # cv.download(ws)
 
-    run_interface()
+    # root = Tk()
+    # vlb = SimpleVerticalListBox(root, [' [ ScraperEngine ]', ' [ Qbittorrent ]',  ' [ About ]'])
+    # vlb.configure(borderwidth=1, highlightbackground='white', bg='#DCDCDC', relief='groove')
+    # vlb.grid(row=0, column=0)
+    #
+    # root.mainloop()
 
-    # ws = WebSearchInstance(title='Avengers', year='2012', quality='1080p', search_type='FILM')
+
+if __name__ == '__main__':
+    main()
+
+# TODO
+  # ws = WebSearchInstance(title='Avengers', year='2012', quality='1080p', search_type='FILM')
     # ts = TorrentScraper()
     # ts.scrap(ws)
 
@@ -47,8 +79,3 @@ def main():
     # print(data)
     # for character in data.characters:
     #     print(character.name, '---', data.characters[character]['role'])
-
-if __name__ == '__main__':
-    main()
-
-
