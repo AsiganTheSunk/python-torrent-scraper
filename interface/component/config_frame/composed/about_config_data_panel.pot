@@ -1,0 +1,37 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2018-05-19 01:11+Romance Daylight Time\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\about_config_data_panel.py:13
+msgid "About"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\about_config_data_panel.py:14
+msgid "Did it for the Lulz"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\about_config_data_panel.py:15
+msgid "ISSUE"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\about_config_data_panel.py:16
+msgid "EXIT"
+msgstr ""
+

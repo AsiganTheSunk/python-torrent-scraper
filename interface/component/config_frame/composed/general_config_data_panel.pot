@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-18 22:46+Romance Daylight Time\n"
+"POT-Creation-Date: 2018-05-18 22:50+Romance Daylight Time\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,47 +16,47 @@ msgstr ""
 
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:14
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:17
 msgid "Search Configuration"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:15
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:18
 msgid "Language Configuration"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:16
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:19
 msgid "English"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:16
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:19
 msgid "Spanish"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:17
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:20
 msgid "Custom"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:17
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:20
 msgid "Deep"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:17
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:20
 msgid "Standar"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:18
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:21
 msgid "SAVE"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:19
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\config_frame\composed\general_config_data_panel.py:22
 msgid "EXIT"
 msgstr ""
 

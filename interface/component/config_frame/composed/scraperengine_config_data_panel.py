@@ -5,13 +5,13 @@ from tkinter import *
 from interface.component.config_frame.simple.button_box import ButtonBox
 from config_parser import CustomConfigParser
 import gettext
-idiomas = []
-t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
-_ = t.gettext
-
-# es = gettext.translation('input_main_frame', localedir='./interface/locale', languages=['es'])
-# es.install()
-# _ = es.gettext
+# idiomas = []
+# t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
+# _ = t.gettext
+es = gettext.translation('scraperengine_config_data_panel', localedir='./interface/locale', languages=['es'])
+es.install()
+_ = es.gettext
+# _ = lambda s:s
 
 LABEL0_TEXT = _('Information Sources')
 BUTTON0_TEXT = _('SAVE')
@@ -44,7 +44,7 @@ class ScraperEngineConfigDataPanel(Frame):
         label_frame0 = Frame(self, width=275, height=18, background=self.main_theme)
         label_frame0.grid(row=1, column=0)
 
-        label = Label(label_frame0, text='Information Sources', background=self.main_theme)
+        label = Label(label_frame0, text=LABEL0_TEXT, background=self.main_theme)
         label.grid(row=0, column=0)
 
         inner_border_frame0 = Frame(label_frame0, width=250, height=2, background=self.highlight_theme)

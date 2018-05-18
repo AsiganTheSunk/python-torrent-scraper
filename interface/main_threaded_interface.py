@@ -13,7 +13,6 @@ import threading
 import queue
 
 # Import Custom Utils
-from lib.imdbfilmextension import IMDbExtension
 from torrent_scraper import TorrentScraper
 from lib.cover_downloader import CoverDownloader
 from description_downloader import DescriptionDownloader
@@ -53,7 +52,7 @@ class ThreadedClient:
             self.gui.search_button['state'] = 'normal'
 
         elif self.gui.search_type_popup.selection == 'FILM' or self.gui.search_type_popup.selection == 'CINE':
-            self.gui.header_popup['textvariable'] = ''
+            self.gui.header_popup['textvariable'] = '[ Header ]'
             self.gui.episode_entry.delete(0, 'end')
             self.gui.season_entry.delete(0, 'end')
 

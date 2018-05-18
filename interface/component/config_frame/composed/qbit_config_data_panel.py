@@ -1,10 +1,13 @@
 from tkinter import *
 from interface.component.config_frame.simple.button_box import ButtonBox
 import gettext
-idiomas = []
-t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
-_ = t.gettext
-
+# idiomas = []
+# t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
+# _ = t.gettext
+es = gettext.translation('qbit_config_data_panel', localedir='./interface/locale', languages=['es'])
+es.install()
+_ = es.gettext
+# _ = lambda s:s
 LABEL0_TEXT = _('Remote Qbittorrent Configuration')
 LABEL1_TEXT = _(': User')
 LABEL2_TEXT = _(': Password')
@@ -33,7 +36,7 @@ class QbitConfigDataPanel(Frame):
         label_frame1.grid(row=1, column=0)
 
         # Label Frame 1: Content
-        label = Label(label_frame1, text='Remote Qbittorrent Configuration', background=self.main_theme)
+        label = Label(label_frame1, text=LABEL0_TEXT, background=self.main_theme)
         label.grid(row=0, column=0)
 
         inner_border_frame1 = Frame(label_frame1, width=250, height=2, background=self.highlight_theme)
@@ -50,7 +53,7 @@ class QbitConfigDataPanel(Frame):
         self.user_entry.grid(row=0, column=0)
         self.user_entry['state'] = 'disable'
 
-        label = Label(entry_frame, text=': User', background=self.main_theme)
+        label = Label(entry_frame, text=LABEL1_TEXT, background=self.main_theme)
         label.grid(row=0, column=1)
 
         push_frame = Frame(entry_frame, width=70, height=19, background=self.main_theme)
@@ -67,7 +70,7 @@ class QbitConfigDataPanel(Frame):
         self.pass_entry.grid(row=0, column=0)
         self.pass_entry['state'] = 'disable'
 
-        label1 = Label(entry_frame0, text=': Password', background=self.main_theme)
+        label1 = Label(entry_frame0, text=LABEL2_TEXT, background=self.main_theme)
         label1.grid(row=0, column=1)
 
         push_frame0 = Frame(entry_frame0, width=47, height=18, background=self.main_theme)
@@ -80,7 +83,7 @@ class QbitConfigDataPanel(Frame):
         inner_border_frame3 = Frame(self, width=275, height=160, background=self.main_theme)
         inner_border_frame3.grid(row=7, column=0)
 
-        self.button_box = ButtonBox(self, 8, 0, self.cmmndCloseConfig, self.save_picks)
+        self.button_box = ButtonBox(self, 8, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)
 
         inner_border_frame4 = Frame(self, width=275, height=3, background=self.main_theme)
         inner_border_frame4.grid(row=9, column=0)

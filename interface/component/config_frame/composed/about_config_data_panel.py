@@ -3,8 +3,12 @@ from interface.component.config_frame.simple.button_box import ButtonBox
 
 import gettext
 idiomas = []
-t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
-_ = t.gettext
+# t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
+# _ = t.gettext
+es = gettext.translation('about_config_data_panel', localedir='./interface/locale', languages=['es'])
+es.install()
+_ = es.gettext
+# _ = lambda s:s
 
 LABEL0_TEXT = _('About')
 LABEL1_TEXT = _('Did it for the Lulz')

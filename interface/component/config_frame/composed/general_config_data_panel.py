@@ -12,7 +12,7 @@ import gettext
 es = gettext.translation('general_config_data_panel', localedir='./interface/locale', languages=['es'])
 es.install()
 _ = es.gettext
-
+# _ = lambda s:s
 
 LABEL0_TEXT = _('Search Configuration')
 LABEL1_TEXT = _('Language Configuration')
