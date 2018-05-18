@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 class TVCalendarInstance():
     def __init__(self, main_month_uri):

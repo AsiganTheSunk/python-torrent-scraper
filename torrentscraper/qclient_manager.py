@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # path to qClient config C:\Users\Asigan\AppData\Roaming\qBittorrent.ini
 # search values, to change and auto configurate. nº of conexions etc etc

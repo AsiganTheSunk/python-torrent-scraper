@@ -1,7 +1,25 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from tkinter import *
 from interface.component.config_frame.simple.button_box import ButtonBox
 from config_parser import CustomConfigParser
 from interface.component.input_frame.simple.option_menu import SimpleOptionMenu
+import gettext
+# idiomas = []
+# t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
+# _ = t.gettext
+es = gettext.translation('general_config_data_panel', localedir='./interface/locale', languages=['es'])
+es.install()
+_ = es.gettext
+
+
+LABEL0_TEXT = _('Search Configuration')
+LABEL1_TEXT = _('Language Configuration')
+LANGUAGE_POPUP_TEXT = [_('English'), _('Spanish')]
+SEARCH_POPUP_TEXT = [_('Standar'), _('Deep'), _('Custom')]
+BUTTON0_TEXT = _('SAVE')
+BUTTON1_TEXT = _('EXIT')
 
 class GeneralConfigDataPanel(Frame):
     def __init__(self, master, row, column, cmmndCloseConfig, width=275, height=274, background='#ADD8E6'):
@@ -34,7 +52,7 @@ class GeneralConfigDataPanel(Frame):
         label_frame1.grid(row=1, column=0)
 
         # Label Frame 1: Content
-        label = Label(label_frame1, text='Search Configuration', background=self.main_theme)
+        label = Label(label_frame1, text=LABEL0_TEXT, background=self.main_theme)
         label.grid(row=0, column=0)
 
         inner_border_frame1 = Frame(label_frame1, width=250, height=2, background=self.highlight_theme)
@@ -45,14 +63,14 @@ class GeneralConfigDataPanel(Frame):
         inner_border_frame2.grid(row=2, column=0)
 
         if  self.search_config['search_config'] == '0':
-            search_config_value = 'Standar'
+            search_config_value = SEARCH_POPUP_TEXT[0]
         elif self.search_config['search_config'] == '1':
-            search_config_value = 'Deep'
+            search_config_value = SEARCH_POPUP_TEXT[1]
         else:
-            search_config_value = 'Custom'
+            search_config_value = SEARCH_POPUP_TEXT[2]
 
-        search_configuration = {'Standar': '0', 'Deep': '1'}
-        self.search_popup = SimpleOptionMenu(self, search_config_value, *search_configuration)
+
+        self.search_popup = SimpleOptionMenu(self, search_config_value, *SEARCH_POPUP_TEXT)
         self.search_popup.grid(row=3, column=0, columnspan=1)
 
         inner_border_frame2 = Frame(self, width=275, height=3, background=self.main_theme)
@@ -63,7 +81,7 @@ class GeneralConfigDataPanel(Frame):
         label_frame2.grid(row=5, column=0)
 
         # Label Frame 2: Content
-        label = Label(label_frame2, text='Language Configuration', background=self.main_theme)
+        label = Label(label_frame2, text=LABEL1_TEXT, background=self.main_theme)
         label.grid(row=0, column=0)
 
         inner_border_frame4 = Frame(label_frame2, width=250, height=2, background=self.highlight_theme)
@@ -74,13 +92,12 @@ class GeneralConfigDataPanel(Frame):
         inner_border_frame2.grid(row=6, column=0)
 
         if self.language_config['language'] == '0':
-            language_value = 'English'
+            language_value = LANGUAGE_POPUP_TEXT[0]
         elif self.language_config['language'] == '1':
-            language_value = 'Spanish'
+            language_value = LANGUAGE_POPUP_TEXT[1]
         else:
-            language_value = 'English'
-        language_configuration = {'English': '0', 'Spanish': '1'}
-        self.language_popup = SimpleOptionMenu(self, language_value, *language_configuration)
+            language_value = LANGUAGE_POPUP_TEXT[0]
+        self.language_popup = SimpleOptionMenu(self, language_value, *LANGUAGE_POPUP_TEXT)
         self.language_popup.grid(row=7, column=0, columnspan=1)
 
         inner_border_frame2 = Frame(self, width=275, height=3, background=self.main_theme)
@@ -90,7 +107,7 @@ class GeneralConfigDataPanel(Frame):
         inner_border_frame6 = Frame(self, width=275, height=110, background=self.main_theme)
         inner_border_frame6.grid(row=9, column=0)
 
-        self.button_box = ButtonBox(self, 10, 0, self.cmmndCloseConfig, self.save_picks)
+        self.button_box = ButtonBox(self, 10, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)
 
         inner_border_frame7 = Frame(self, width=275, height=3, background=self.main_theme)
         inner_border_frame7.grid(row=11, column=0)
@@ -98,29 +115,29 @@ class GeneralConfigDataPanel(Frame):
     def save_picks(self):
         language = self.language_popup.selection
         search = self.search_popup.selection
+        search_value = -1
+        language_value = -1
 
-        if language == 'English':
+        if language == LANGUAGE_POPUP_TEXT[0]:
             language_value = 0
-        elif language == 'Spanish':
+        elif language == LANGUAGE_POPUP_TEXT[1]:
             language_value = 1
         else:
             language_value = 0
 
-        if search == 'Standar':
+        if search == SEARCH_POPUP_TEXT[0]:
             search_value = 0
             for item in self.scraper_config:
-                # print(item, self.standar_profile[item])
                 self.se_config.set_section_key('ScraperEngine', item, self.standar_profile[item])
-        elif search == 'Deep':
+        elif search == SEARCH_POPUP_TEXT[1]:
             search_value = 1
             for item in self.scraper_config:
-                # print(item, self.deep_profile[item])
                 self.se_config.set_section_key('ScraperEngine', item, self.deep_profile[item])
         else:
             search_value = 2
 
-        print(language, language_value)
-        print(search, search_value)
+        print('DEBUG: (Save_Picks()) - ', language, language_value)
+        print('DEBUG: (Save_Picks()) - ', search, search_value)
         self.se_config.set_section_key('Search', 'search_config', str(search_value))
         self.se_config.set_section_key('Language', 'language', str(language_value))
 

@@ -18,7 +18,8 @@ class CoverDownloader():
         :param path:
         :return:
         '''
-        keywords = '{0} Cover Poster'.format(websearch.title)
+        clean_title = websearch.title.replace(':', '')
+        keywords = '{0} Cover Poster'.format(clean_title)
         new_img = path + keywords + '/' + keywords + '.png'
 
         try:
@@ -44,7 +45,7 @@ class CoverDownloader():
                 remove(original_img)
                 return new_img
 
-            print('File Already Exist, Skipping this Step')
+            print('File Already Exist, Skipping this Step - CoverDownloader')
             return new_img
         except Exception as err:
             print(self.name, ' ', err)

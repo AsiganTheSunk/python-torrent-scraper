@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Import System Libraries
 from time import sleep
@@ -55,6 +55,7 @@ from torrentscraper.exceptions.scraper_engine_error import ScraperEngineCookieEr
 # Import Custom Utils
 from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
 from torrentscraper.webscrapers.utils.magnet_builder import MagnetBuilder
+from lib.fileflags import FileFlags as fflags
 
 # Pandas Terminal Configuration
 pd.set_option('display.max_rows', 750)
@@ -63,11 +64,13 @@ pd.set_option('display.width', 1400)
 
 # Constants
 line = '-----------------------' * 8
-FILM_FLAG = 'FILM'
-SHOW_FLAG = 'SHOW'
-ANIME_FLAG = 'ANIME'
+FILM_FLAG = fflags.FILM_DIRECTORY_FLAG
+SHOW_FLAG = fflags.SHOW_DIRECTORY_FLAG
+ANIME_FLAG = fflags.ANIME_DIRECTORY_FLAG
 DEBUG0 = 15
 VERBOSE = 5
+
+
 
 # TODO Terminar de Prograpagar Excepciones!!!
 # TODO Hacer los examples para las mismas

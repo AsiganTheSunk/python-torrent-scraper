@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #PROXY LIST FOR WEBSOURCES
 tpb_proxie_list = ['https://unblockedbay.info',

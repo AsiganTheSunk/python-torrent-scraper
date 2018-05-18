@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 class P2PInstance():
     def __init__(self, name, search_type, lower_size_limit, upper_size_limit, ratio_limit, magnet_instance_list):

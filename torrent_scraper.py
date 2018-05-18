@@ -1,5 +1,7 @@
-from torrentscraper.scraper_engine import ScraperEngine
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
+from torrentscraper.scraper_engine import ScraperEngine
 
 class TorrentScraper():
     def __init__(self, webscraper_dict=None):

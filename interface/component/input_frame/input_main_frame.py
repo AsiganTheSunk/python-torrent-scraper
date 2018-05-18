@@ -1,21 +1,44 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # Import System Libraries
 import queue
+import gettext
 
 # Import Custom Interface Components
 from interface.component.input_frame.simple.option_menu import SimpleOptionMenu
+
 # Import Custom DataStructure
 from torrentscraper.datastruct.websearch_instance import WebSearchInstance
 from interface.component.config_frame.config_main_frame import ConfigMainFrame
+
 # Import Interface Libraries
 from tkinter import *
 from tkinter.ttk import Progressbar
+from lib.fileflags import FileFlags as fflags
+
+# idiomas = []
+# t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
+# _ = t.gettext
+
+es = gettext.translation('input_main_frame', localedir='./interface/locale', languages=['es'])
+es.install()
+_ = es.gettext
+
+HEADER_TEXT = _('[ Header ]')
+QUALITY_TEXT = _('[ Quality ]')
+TITLE_TEXT = _('Title')
+SEASON_TEXT = _('S')
+EPISODE_TEXT = _('Ep')
+SEARCH_TYPE = _('[ Category ]')
+SEARCH_TYPE_LIST = [_('SHOW'), _('FILM'), _('ANIME')]
+SEARCH_TEXT = _('Search')
 
 class InputMainFrame(Frame):
     def __init__(self, master, row, column, retrieveData, queue):
         self.name = self.__class__.__name__
         # Setting Up the InputMainFrame
         Frame.__init__(self, master)
-
         self.configure(background='#ADD8E6')
         self.grid(row=row, column=column)
 
@@ -77,7 +100,7 @@ class InputMainFrame(Frame):
         space_block.grid(row=0, column=0)
 
         header = {'[HorribleSubs]': 'HorribleSubs'}
-        header_popup = SimpleOptionMenu(input_block, '[ Header ]', *header)
+        header_popup = SimpleOptionMenu(input_block, HEADER_TEXT, *header)
         header_popup.grid(row=0, column=1, columnspan=1, sticky='W')
         self.header_popup = header_popup
 
@@ -116,23 +139,22 @@ class InputMainFrame(Frame):
         space_block5 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block5.grid(row=0, column=11)
 
-        quality = {'1080p': '1080p', '720p': '720p', 'HDTV': 'HDTV', 'WEBRip': 'WEBRip'}
-        quality_popup = SimpleOptionMenu(input_block, '[ Quality ]', *quality)
+        quality = ['1080p', '720p','HDTV', 'WEBRip', '']
+        quality_popup = SimpleOptionMenu(input_block, QUALITY_TEXT, *quality)
         quality_popup.grid(row=0, column=12, columnspan=1, sticky='W')
         self.quality_popup = quality_popup
 
         space_block5 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block5.grid(row=0, column=13)
 
-        search_type = {'SHOW': 'SHOW', 'FILM': 'FILM', 'ANIME': 'ANIME'}
-        search_type_popup = SimpleOptionMenu(input_block, '[ Search Type ]', *search_type)
+        search_type_popup = SimpleOptionMenu(input_block, SEARCH_TYPE, *SEARCH_TYPE_LIST)
         search_type_popup.grid(row=0, column=14, columnspan=1, sticky='W')
         self.search_type_popup = search_type_popup
 
         space_block6 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block6.grid(row=0, column=15)
 
-        search_button = Button(input_block, text='Search', command=lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482')
+        search_button = Button(input_block, text=SEARCH_TEXT, command=lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482')
         search_button.grid(row=0, column=16, sticky="w", pady=4, padx=3)
         self.search_button = search_button
 
@@ -144,33 +166,35 @@ class InputMainFrame(Frame):
     def configuration(self):
         top = Toplevel()
         top.iconbitmap('./interface/resources/grumpy-cat.ico')
-        top.resizable(width=False, height=False)
+        # top.attributes("-toolwindow", 1)
+        # top.resizable(width=False, height=False)
         config = ConfigMainFrame(top, 1, 0)
 
     def get_input(self):
+        search_type = ''
+        if self.search_type_popup.selection == 'FILM' or self.search_type_popup.selection == 'CINE':
+            search_type = fflags.FILM_DIRECTORY_FLAG
+        elif self.search_type_popup.selection == 'SHOW' or self.search_type_popup.selection =='SERIE':
+            search_type = fflags.SHOW_DIRECTORY_FLAG
+        elif self.search_type_popup.selection == 'ANIME':
+            search_type = fflags.ANIME_DIRECTORY_FLAG
         return WebSearchInstance(title=self.title_entry.get(),
                                                     season=self.season_entry.get()[:2],
                                                     episode=self.episode_entry.get(),
                                                     header=self.header_popup.selection,
                                                     quality=self.quality_popup.selection,
-                                                    search_type=self.search_type_popup.selection,
+                                                    search_type=search_type,
                                                     year=self.year_entry.get()[:4])
 
     def validate_entries(self):
-        if self.search_type_popup.selection == 'SHOW':
+        if self.search_type_popup.selection == 'SHOW' or self.search_type_popup.selection == 'SERIE':
             if len(self.title_entry.get()) and len(self.season_entry.get()) and len(self.episode_entry.get()) > 0:
-                print(self.title_entry.get())
-                print(self.episode_entry.get())
-                print(self.season_entry.get())
                 return True
-        elif self.search_type_popup.selection == 'FILM':
+        elif self.search_type_popup.selection == 'FILM' or self.search_type_popup.selection == 'CINE':
             if len(self.title_entry.get()) > 0:
-                print(self.title_entry.get())
                 return True
         elif self.search_type_popup.selection == 'ANIME':
             if len(self.title_entry.get()) and len(self.episode_entry.get()) > 0:
-                print(self.title_entry.get())
-                print(self.episode_entry.get())
                 return True
         return False
 

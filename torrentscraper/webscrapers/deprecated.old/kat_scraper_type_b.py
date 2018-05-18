@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from bs4 import BeautifulSoup
 from torrentscraper.datastruct.rawdata_instance import RAWDataInstance

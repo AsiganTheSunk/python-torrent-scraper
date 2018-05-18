@@ -1,9 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 from torrent_scraper_interface import run_interface
+from description_downloader import DescriptionDownloader
+from lib.fileflags import FileFlags as fflags
+
+FILM_DIRECTORY_FLAG = '9'
 
 def main():
     run_interface()
+    # desc = DescriptionDownloader()
+    # info = desc.get_info(fflags.FILM_DIRECTORY_FLAG, 'Kong: Skull Island')
+    # # print(info)
 
 if __name__ == '__main__':
     main()

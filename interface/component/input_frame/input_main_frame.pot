@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2018-05-18 20:13+Romance Daylight Time\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:21
+msgid "[ Header ]"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:22
+msgid "[ Quality ]"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:23
+msgid "Title"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:24
+msgid "S"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:25
+msgid "Ep"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:26
+msgid "[ Category ]"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:27
+msgid "ANIME"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:27
+msgid "FILM"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:27
+msgid "SHOW"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:28
+msgid "Search"
+msgstr ""
+

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 class UriBuilderError(Exception):
     '''Raise when a there is an error in the creation of the uri'''

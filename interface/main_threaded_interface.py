@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # Import External Libraries
 from tkinter import *
@@ -15,7 +16,7 @@ import queue
 from lib.imdbfilmextension import IMDbExtension
 from torrent_scraper import TorrentScraper
 from lib.cover_downloader import CoverDownloader
-
+from description_downloader import DescriptionDownloader
 
 class ThreadedClient:
     def __init__(self, master):
@@ -37,8 +38,7 @@ class ThreadedClient:
 
 
     def periodicCallCategory(self):
-        if self.gui.search_type_popup.selection == 'SHOW':
-
+        if self.gui.search_type_popup.selection == 'SHOW' or self.gui.search_type_popup.selection == 'SERIE':
             self.gui.header_popup['textvariable'] = '[ Header ]'
             self.gui.year_entry.delete(0, 'end')
 
@@ -51,8 +51,8 @@ class ThreadedClient:
             self.gui.episode_entry['state'] = 'normal'
             self.gui.quality_popup['state'] = 'normal'
             self.gui.search_button['state'] = 'normal'
-        elif self.gui.search_type_popup.selection == 'FILM':
 
+        elif self.gui.search_type_popup.selection == 'FILM' or self.gui.search_type_popup.selection == 'CINE':
             self.gui.header_popup['textvariable'] = ''
             self.gui.episode_entry.delete(0, 'end')
             self.gui.season_entry.delete(0, 'end')
@@ -64,8 +64,8 @@ class ThreadedClient:
             self.gui.episode_entry['state'] = 'disable'
             self.gui.quality_popup['state'] = 'normal'
             self.gui.search_button['state'] = 'normal'
-        elif self.gui.search_type_popup.selection == 'ANIME':
 
+        elif self.gui.search_type_popup.selection == 'ANIME':
             self.gui.year_entry.delete(0, 'end')
             self.gui.season_entry.delete(0, 'end')
 
@@ -77,7 +77,6 @@ class ThreadedClient:
             self.gui.episode_entry['state'] = 'normal'
             self.gui.quality_popup['state'] = 'normal'
             self.gui.search_button['state'] = 'normal'
-
 
         else:
             self.gui.header_popup['state'] = 'disable'
@@ -100,6 +99,7 @@ class ThreadedClient:
             print('BackgroundThread: ENDED')
             top = Toplevel()
             top.geometry("865x625")
+            # top.attributes("-toolwindow", 1)
             top.iconbitmap('./interface/resources/grumpy-cat.ico')
             top.resizable(width=False, height=False)
 
@@ -136,8 +136,9 @@ class ThreadedClient:
             self.gui.update_idletasks()
 
             self.gui.progressbar_status['text'] = 'Retrieving General Information ...'
-            imdb_extension = IMDbExtension()
-            info = imdb_extension.get_movie_info(websearch.title)
+
+            description_downloader = DescriptionDownloader()
+            info = description_downloader.get_info(websearch.search_type, websearch.title)
             self.queue.put(info)
             self.gui.progressbar['value'] = 100
             self.gui.progressbar_status['text'] = 'Done !'

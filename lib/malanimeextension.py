@@ -8,6 +8,9 @@ class MalAnimeExtension():
         #self.supported_season_fflags = [fflags.SEASON_DIRECTORY_FLAG]
 
 
+    def get_movie_info(self, name, language_index=1):
+        pass
+
     def get_description(self, name, debug=False):
         '''
         This function retrieves number of episodes per season from a given show using tvdb_api

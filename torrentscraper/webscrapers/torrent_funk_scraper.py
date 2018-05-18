@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Import System Libraries
 import traceback
@@ -16,10 +16,11 @@ from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperPar
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
 
 # Constants
-FILM_FLAG = 'FILM'
-SHOW_FLAG = 'SHOW'
-ANIME_FLAG = 'ANIME'
+from lib.fileflags import FileFlags as fflags
 
+FILM_FLAG = fflags.FILM_DIRECTORY_FLAG
+SHOW_FLAG = fflags.SHOW_DIRECTORY_FLAG
+ANIME_FLAG = fflags.ANIME_DIRECTORY_FLAG
 
 class TorrentFunkScraper(object):
     def __init__(self, logger):

@@ -1,6 +1,14 @@
 import imdb
 import textwrap
 
+TITLE_STRING = ['Title','Título']
+YEAR_STRING = ['Year','Año']
+RUNTIME_STRING = ['Runtime','Duración']
+PLOT_STRING = ['Plot Summary','Resumen Argumento']
+DIRECTOR_STRING = ['Director', 'Director']
+ACTORS_STRING = ['Actors', 'Actores']
+
+
 class IMDbExtension():
     def __init__(self):
         self.name = 'IMDbExtension'
@@ -69,7 +77,7 @@ class IMDbExtension():
             formated_actors = textwrap.fill(dedented_text, width=88)
             return formated_actors
 
-    def get_movie_info(self, name):
+    def get_movie_info(self, name, language_index=1):
         actor_str = ''
         try:
             movie_index = self.imdb.search_movie(name)[0].movieID
@@ -78,12 +86,12 @@ class IMDbExtension():
             try:
                 year = movie_data['year']
             except:
-                year = ''
+                year = '----'
 
             try:
                 runtime = movie_data['runtime'][0]
             except:
-                runtime = '--'
+                runtime = '---'
             try:
                 actors = movie_data['actors']
 
@@ -94,29 +102,34 @@ class IMDbExtension():
                 formated_actors = textwrap.fill(dedented_text, width=88)
                 actors = formated_actors
             except:
-                actors = ''
+                actors = '----'
 
             try:
                 director = movie_data['director'][0]['name']
             except:
-                director = ''
+                director = '----'
 
             try:
                 plot = movie_data['plot summary'][0]
                 dedented_text = textwrap.dedent(plot).strip()
                 formated_plot = textwrap.fill(dedented_text, width=88)
             except:
-                formated_plot = ''
+                formated_plot = '----'
 
-            info = '[Title]: {0}\n' \
-                   '[Year]: {1}\n' \
+            info = '[{0}]: {1}\n' \
+                   '[{2}]: {3}\n' \
                    '----------------------------------------------------------------------------------------' \
-                   '[Runtime]: {2} Min\n' \
-                   '[Director]: {3}\n' \
+                   '[{4}]: {5} Min\n' \
+                   '[{6}]: {7}\n' \
                    '----------------------------------------------------------------------------------------' \
-                   '[Actors]:\n{4}\n' \
+                   '[{8}]:\n{9}\n' \
                    '----------------------------------------------------------------------------------------' \
-                   '[Plot Summary]:\n{5}\n'.format(name, year, runtime, director, actors, formated_plot)
+                   '[{10}]:\n{11}\n'.format(TITLE_STRING[language_index], name,
+                                            YEAR_STRING[language_index], year,
+                                            RUNTIME_STRING[language_index], runtime,
+                                            DIRECTOR_STRING[language_index], director,
+                                            ACTORS_STRING[language_index], actors,
+                                            PLOT_STRING[language_index], formated_plot)
         except Exception as err:
             print(err)
             info = ''

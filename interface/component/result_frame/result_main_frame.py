@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Import System Libraries
 from logging import INFO
@@ -27,6 +27,7 @@ console_handler.setFormatter(formatter)
 console_handler.setLevel(INFO)
 logger.addHandler(console_handler)
 
+
 class ResultMainFrame(Frame):
     def __init__(self, master, row, column, dataframe, info, image_poster, background='#ADD8E6'):
         Frame.__init__(self, master, background=background)
@@ -54,7 +55,7 @@ class ResultMainFrame(Frame):
         middle_border_frame = Frame(self, width=864, height=5, background='#ADD8E6')
         middle_border_frame.grid(row=2, column=0)
 
-        result_panel = ResultPanel(self, 3, 0, self.master)
+        result_panel = ResultPanel(self, 3, 0, self.close_window)
         self.result_panel = result_panel
 
         lower_border_frame = Frame(self, width=864, height=14, background='#ADD8E6')
@@ -64,6 +65,10 @@ class ResultMainFrame(Frame):
         self.update_poster(image_poster)
         self.update_description(info)
         self.update_result_search(dataframe)
+
+
+    def close_window(self):
+        self.master.destroy()
 
     def update_poster(self, image_poster):
         '''
@@ -85,47 +90,6 @@ class ResultMainFrame(Frame):
         '''
         self.info_panel.info_box.set_info_text(info)
 
-    # def update_data_box(self, dataframe):
-    #     '''
-    #
-    #     :param dataframe:
-    #     :return:
-    #     '''
-    #     index_selection = self.result_panel.list_panel.list_box.result_box.get_selection()
-    #     if index_selection != 'empty':
-    #         index_selection = self.result_panel.list_panel.list_box.result_box.get_selection()
-    #         print('NAME:', str(index_selection))
-    #         magnet = dataframe[['name'] == index_selection]['magnet']
-    #         size = dataframe[['name'] == index_selection]['size']
-    #         seed = dataframe[['name'] == index_selection]['seed']
-    #         leech = dataframe[['name'] == index_selection]['leech']
-    #         language = ''
-    #         mbuilder = MagnetBuilder(logger)
-    #         magnet_instance = mbuilder.parse_from_magnet(magnet, size, seed, leech)
-    #
-    #         quote = '[Hash]: {0}' \
-    #                 '\n-------------------------------------------------' \
-    #                 '\n[Size]: {1} MB' \
-    #                 '\n[Seed]: {2}' \
-    #                 '\n[Leech]: {3}' \
-    #                 '\n-------------------------------------------------' \
-    #                 '\n[Language]:( - )' \
-    #                 '\n-------------------------------------------------' \
-    #                 '\n[AnnounceList]:' \
-    #                 '\n\t[HTTPS]: {4}\n\t[HTTP]: {5}\n\t[UDP]: {6}'.format(magnet_instance['hash'],
-    #                                                                        magnet_instance['size'],
-    #                                                                        magnet_instance['seed'],
-    #                                                                        magnet_instance['leech'],
-    #                                                                        magnet_instance['announce_list']['https'],
-    #                                                                        magnet_instance['announce_list']['http'],
-    #                                                                        magnet_instance['announce_list']['udp'])
-    #
-    #         # print('Magnet: ', magnet_instance['hash'], magnet)
-    #         # self.result_panel.data_panel.button_box.tmp_magnet.set(magnet)
-    #         # self.result_panel.data_panel.button_box.tmp_hash.set(magnet_instance['hash'])
-    #
-    #         self.result_panel.data_panel.data_box.data_box.set_data(quote)
-
     def update_result_search(self, dataframe):
         '''
 
@@ -140,19 +104,3 @@ class ResultMainFrame(Frame):
             lista.append(formato)
 
         self.result_panel.list_panel.list_box.result_box.set_item_list(lista)
-
-
-    # def update_button_magnet(self, dataframe):
-    #     # hash = ''
-    #     magnet = ''
-    #     index_selection = self.result_panel.list_panel.list_box.result_box.get_selection()
-    #     if index_selection != 'empty':
-    #         index_selection = self.result_panel.list_panel.list_box.result_box.get_selection()
-    #         print('INDEX:', str(index_selection))
-    #         magnet = dataframe[['name'] == index_selection]['magnet']
-    #         print('MAGNET: ', magnet)
-    #
-    #
-    #
-    #     # self.result_panel.data_panel.button_box.set_tmp_hash(hash)
-    #     self.result_panel.data_panel.button_box.set_tmp_magnet(magnet)

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 class MagnetBuilderMagnetKeyHashError(Exception):
     '''Raise when a there is no more proxy entries in the proxy_list of a webscraper'''

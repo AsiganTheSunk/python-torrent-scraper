@@ -1,4 +1,12 @@
 import tvdb_api
+import textwrap
+
+TITLE_STRING = ['Title','Título']
+YEAR_STRING = ['Year','Año']
+RUNTIME_STRING = ['Runtime','Duración']
+PLOT_STRING = ['Plot Summary','Resumen Argumento']
+DIRECTOR_STRING = ['Director', 'Director']
+ACTORS_STRING = ['Actors', 'Actores']
 
 class TVDbShowExtension():
     def __init__(self):
@@ -7,6 +15,66 @@ class TVDbShowExtension():
         #self.supported_fflags = [fflags.SHOW_FLAG, fflags.SHOW_DIRECTORY_FLAG]
         #self.supported_season_fflags = [fflags.SEASON_DIRECTORY_FLAG]
         self.supported_subtitle_fflags = []
+
+    def get_show_info(self, name, language_index=0):
+        actor_str = ''
+        try:
+            show_data = self.tvdb[name]
+
+            try:
+                year = '----'
+            except:
+                year = '----'
+
+            try:
+                runtime = show_data['runtime']
+            except:
+                runtime = '---'
+            try:
+                actors = show_data['_actors']
+                #
+                # for item in actors[:15]:
+                #     actor_str = actor_str + ', ' + item['name']
+
+                # dedented_text = textwrap.dedent(actor_str[2:]).strip()
+                # formated_actors = textwrap.fill(dedented_text, width=88)
+                # actors = formated_actors
+            except:
+                actors = '----'
+
+            try:
+                director = '----'
+            except:
+                director = '----'
+
+            try:
+                plot = show_data['overview']
+                dedented_text = textwrap.dedent(plot).strip()
+                formated_plot = textwrap.fill(dedented_text, width=88)
+            except:
+                formated_plot = '----'
+
+            info = '[{0}]: {1}\n' \
+                   '[{2}]: {3}\n' \
+                   '----------------------------------------------------------------------------------------' \
+                   '[{4}]: {5} Min\n' \
+                   '[{6}]: {7}\n' \
+                   '----------------------------------------------------------------------------------------' \
+                   '[{8}]:\n{9}\n' \
+                   '----------------------------------------------------------------------------------------' \
+                   '[{10}]:\n{11}\n'.format(TITLE_STRING[language_index], name,
+                                            YEAR_STRING[language_index], year,
+                                            RUNTIME_STRING[language_index], runtime,
+                                            DIRECTOR_STRING[language_index], director,
+                                            ACTORS_STRING[language_index], actors,
+                                            PLOT_STRING[language_index], formated_plot)
+        except Exception as err:
+            print(err)
+            info = ''
+            return info
+        else:
+            return info
+
 
     def get_description(self, name, debug=False):
         '''

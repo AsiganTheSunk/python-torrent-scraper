@@ -1,5 +1,15 @@
 from tkinter import *
 from interface.component.config_frame.simple.button_box import ButtonBox
+import gettext
+idiomas = []
+t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
+_ = t.gettext
+
+LABEL0_TEXT = _('Remote Qbittorrent Configuration')
+LABEL1_TEXT = _(': User')
+LABEL2_TEXT = _(': Password')
+BUTTON0_TEXT = _('SAVE')
+BUTTON1_TEXT = _('EXIT')
 
 class QbitConfigDataPanel(Frame):
     def __init__(self, master, row, column, cmmndCloseConfig, width=275, height=274, background='#ADD8E6'):

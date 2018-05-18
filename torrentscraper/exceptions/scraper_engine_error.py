@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 class ScraperEngineNetworkError(Exception):
     '''Raise when a webscraper is unable to connect to a source'''
