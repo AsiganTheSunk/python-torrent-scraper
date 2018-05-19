@@ -7,7 +7,10 @@ import gettext
 idiomas = []
 t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
 _ = t.gettext
-
+# es = gettext.translation('about_config_data_panel', localedir='./interface/locale', languages=['es'])
+# es.install()
+# _ = es.gettext
+# _ = lambda s:s
 BUTTON0_TEXT = _('DOWNLOAD')
 BUTTON1_TEXT = _('EXIT')
 

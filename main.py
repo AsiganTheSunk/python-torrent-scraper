@@ -16,6 +16,11 @@ def main():
 if __name__ == '__main__':
     main()
 
+# TODO C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\result_frame\simple\data_box.py
+# TODO C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\result_frame\composed\data_panel.py
+# TODO C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\result_frame\simple\data_box.py
+#
+
 # TODO Añadir Internacionalizacion
 # TODO Corregir el bug, que genera WebscraperContentError y ErrorProxy al no permitir finalizar el proceoso.
 # TODO Añadir cache a la descripcion

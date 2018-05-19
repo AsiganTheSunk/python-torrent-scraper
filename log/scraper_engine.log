@@ -1,157 +1,60 @@
-05/19/2018 01:47:38 AM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
-05/19/2018 01:47:38 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://unblockedbay.info/s/?q=Mr+Robot++S03E01+720p&category=0&page=0&orderby=99 ]
-05/19/2018 01:47:38 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Mr+Robot++S03E01+720p&category=0&page=0&orderby=99 ]
-05/19/2018 01:47:42 AM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
-05/19/2018 01:47:42 AM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
-05/19/2018 01:47:42 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18724703/Mr.Robot.S03E01.720p.HDTV.x264-AVS ]
-05/19/2018 01:47:44 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS with Hash [ 172a6cb0259e5c1a3af21c671c1359541564ae28 ]
-05/19/2018 01:47:44 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18725240/Mr.Robot.S03E01.720p.HDTV.x264-AVS ]
-05/19/2018 01:47:46 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS with Hash [ a2052fceffd23680bb8bf489c63a674834443a42 ]
-05/19/2018 01:47:46 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18724748/Mr.Robot.S03E01.720p.HDTV.x264.%5BSeason.3.Episode.1%5D ]
-05/19/2018 01:47:48 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264.%5BSeason.3.Episode.1%5D with Hash [ c02ff5281e6f1649c5f4d719f6a615adc48ff30a ]
-05/19/2018 01:47:48 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18725574/Mr.Robot.S03E01.eps3.0.power-saver-mode.h.720p.AMZN.WEBRip.DDP5. ]
-05/19/2018 01:47:50 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.eps3.0.power-saver-mode.h.720p.AMZN.WEBRip.DDP5. with Hash [ d528dbd7dbca1ac57fff33fc94915450c548fef7 ]
-05/19/2018 01:47:50 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18724701/Mr.Robot.S03E01.720p.HDTV.x264-AVS%5Bettv%5D ]
-05/19/2018 01:47:52 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS%5Bettv%5D with Hash [ 91226868f3470a0f22c1c2a1d47c9a3115c16591 ]
-05/19/2018 01:47:52 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18725112/Mr.Robot.S03E01.720p.HDTV.2CH.x265.HEVC-PSA.mkv ]
-05/19/2018 01:47:54 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.2CH.x265.HEVC-PSA.mkv with Hash [ af12d093581e048a5be410a2343d28fbe3b179c4 ]
-05/19/2018 01:47:54 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18726474/Mr.Robot.S03E01.720p.WEBRip.2CH.x265.HEVC-PSA ]
-05/19/2018 01:47:57 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.WEBRip.2CH.x265.HEVC-PSA with Hash [ 28396f8336ce963a35a1acdd5648439598ff8bcd ]
-05/19/2018 01:47:57 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18726544/Mr.Robot.S03E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE ]
-05/19/2018 01:47:59 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE with Hash [ 344ad0356adccd6605a65dc0ad6bc29313289f06 ]
-05/19/2018 01:47:59 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18724760/Mr.Robot.S03E01.eps3.0_power-saver-mode.h.720p.HDTV.x264-Rapta ]
-05/19/2018 01:48:01 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.eps3.0_power-saver-mode.h.720p.HDTV.x264-Rapta with Hash [ 7bb51179b6abf57fff0f17286e062b1868906ad1 ]
-05/19/2018 01:48:01 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18726320/Mr_Robot_S03E01_720p_HDTV_HEVC_x265-RMTeam_(163MB)__Shadow_ ]
-05/19/2018 01:48:03 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr+Robot+S03E01+720p+HDTV+HEVC+x265-RMTeam+%28163MB%29+%E2%97%8FShadow%E2%97%8F with Hash [ 26f847b1b773237bf5469ea7fca0d53d2ed77211 ]
-05/19/2018 01:48:03 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18726325/Mr.Robot.S03E01.iNTERNAL.720p.HEVC.x265-MeGusta ]
-05/19/2018 01:48:06 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.iNTERNAL.720p.HEVC.x265-MeGusta with Hash [ 44e0a1732d209dad220dba7007cae37177aed6b1 ]
-05/19/2018 01:48:06 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18725159/Mr.Robot.S03E01.720p.HEVC.x265-MeGusta ]
-05/19/2018 01:48:07 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HEVC.x265-MeGusta with Hash [ 8720515a7064675755a522a8d3907a6ce8ec3981 ]
-05/19/2018 01:48:07 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18726143/Mr.Robot.S03E01.720p.10bit.WEBRip.2CH.x265.HEVC-PSA ]
-05/19/2018 01:48:10 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.10bit.WEBRip.2CH.x265.HEVC-PSA with Hash [ fdfa85e3cf22471d77e6f3866fe1b20f752bba1c ]
-05/19/2018 01:48:10 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/18774827/Mr._Robot_-_S03E01_-_720P_-_SweSub.mp4 ]
-05/19/2018 01:48:12 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.+Robot+-+S03E01+-+720P+-+SweSub.mp4 with Hash [ 3475e87c60c81ace954b917294ee5fe14f001790 ]
-05/19/2018 01:48:12 AM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
-05/19/2018 01:48:12 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://kickass.cd/search.php?q=Mr+Robot++S03E01+720p ]
-05/19/2018 01:48:12 AM -  [DEBUG0]: KatScrapperTypeA Searching on Proxy [ https://kickass.cd/search.php?q=Mr+Robot++S03E01+720p ]
-05/19/2018 01:48:15 AM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS with Hash [ 172a6cb0259e5c1a3af21c671c1359541564ae28 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS with Hash [ a2052fceffd23680bb8bf489c63a674834443a42 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264.%5BSeason.3.Episode.1%5D with Hash [ c02ff5281e6f1649c5f4d719f6a615adc48ff30a ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.eps3.0.power-saver-mode.h.720p.AMZN.WEBRip.DDP5. with Hash [ d528dbd7dbca1ac57fff33fc94915450c548fef7 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS%5Bettv%5D with Hash [ 91226868f3470a0f22c1c2a1d47c9a3115c16591 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.2CH.x265.HEVC-PSA.mkv with Hash [ af12d093581e048a5be410a2343d28fbe3b179c4 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.WEBRip.2CH.x265.HEVC-PSA with Hash [ 28396f8336ce963a35a1acdd5648439598ff8bcd ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE with Hash [ 344ad0356adccd6605a65dc0ad6bc29313289f06 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.eps3.0_power-saver-mode.h.720p.HDTV.x264-Rapta with Hash [ 7bb51179b6abf57fff0f17286e062b1868906ad1 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr+Robot+S03E01+720p+HDTV+HEVC+x265-RMTeam+%28163MB%29+%E2%97%8FShadow%E2%97%8F with Hash [ 26f847b1b773237bf5469ea7fca0d53d2ed77211 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.iNTERNAL.720p.HEVC.x265-MeGusta with Hash [ 44e0a1732d209dad220dba7007cae37177aed6b1 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HEVC.x265-MeGusta with Hash [ 8720515a7064675755a522a8d3907a6ce8ec3981 ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.10bit.WEBRip.2CH.x265.HEVC-PSA with Hash [ fdfa85e3cf22471d77e6f3866fe1b20f752bba1c ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.+Robot+-+S03E01+-+720P+-+SweSub.mp4 with Hash [ 3475e87c60c81ace954b917294ee5fe14f001790 ]
-05/19/2018 01:48:15 AM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://torrentfunk.unblocked.mx/all/torrents/Mr%20Robot%20%20S03E01%20720p.html ]
-05/19/2018 01:48:15 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/all/torrents/Mr%20Robot%20%20S03E01%20720p.html ]
-05/19/2018 01:48:17 AM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
-05/19/2018 01:48:17 AM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
-05/19/2018 01:48:17 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15765902/mr-robot-s03e01-720p-hindi-dual-audio-web-dl-katmoviehd.html ]
-05/19/2018 01:48:18 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15765902.torrent ]
-05/19/2018 01:48:19 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Mr Robot S03E01 720p Hindi Dual Audio WEB-DL x264 - KatmovieHD.net with Hash [ f063a74329b5096139b6fae23107ccd809fec0d2 ]
-05/19/2018 01:48:19 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15699808/mr-robot-s03e01-french-720p-amzn-web-dl-h264-fraternity.html ]
-05/19/2018 01:48:22 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15699808.torrent ]
-05/19/2018 01:48:23 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Mr.Robot.S03E01.FRENCH.720p.AMZN.WEB-DL.H264-FRATERNiTY.WwW.Torrent9.pe with Hash [ 78b87c88a29d633f6fbcd86e3fd6a1ec4ade723e ]
-05/19/2018 01:48:23 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/14831122/aqusiq-torrents-plmr-robot-s03e01-pl-720p-ralfshogho.html ]
-05/19/2018 01:48:24 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/14831122.torrent ]
-05/19/2018 01:48:26 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: [AqusiQ-TorrentS.pl]Mr.Robot.S03E01.PL.720p-Ralf[shogho] with Hash [ f071443a8ff562e708225e02979f1b8be692101d ]
-05/19/2018 01:48:26 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/14827367/mr-robot-s03e01-720p-swesub.html ]
-05/19/2018 01:48:27 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/14827367.torrent ]
-05/19/2018 01:48:28 AM -  [WARNING]: MagnetBuilderTorrentAnnounceKeyError, in MagnetBuilder Unable to Retrieve AnnounceKey Value from Torrent: [ b'announce' ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Mr. Robot - S03E01 - 720P - SweSub.mp4 with Hash [ 3475e87c60c81ace954b917294ee5fe14f001790 ]
-05/19/2018 01:48:28 AM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS with Hash [ 172a6cb0259e5c1a3af21c671c1359541564ae28 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS with Hash [ 172a6cb0259e5c1a3af21c671c1359541564ae28 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr+Robot+S03E01+720p+HDTV+HEVC+x265-RMTeam+%28163MB%29+%E2%97%8FShadow%E2%97%8F with Hash [ 26f847b1b773237bf5469ea7fca0d53d2ed77211 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr+Robot+S03E01+720p+HDTV+HEVC+x265-RMTeam+%28163MB%29+%E2%97%8FShadow%E2%97%8F with Hash [ 26f847b1b773237bf5469ea7fca0d53d2ed77211 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.WEBRip.2CH.x265.HEVC-PSA with Hash [ 28396f8336ce963a35a1acdd5648439598ff8bcd ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.WEBRip.2CH.x265.HEVC-PSA with Hash [ 28396f8336ce963a35a1acdd5648439598ff8bcd ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE with Hash [ 344ad0356adccd6605a65dc0ad6bc29313289f06 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE with Hash [ 344ad0356adccd6605a65dc0ad6bc29313289f06 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.+Robot+-+S03E01+-+720P+-+SweSub.mp4 with Hash [ 3475e87c60c81ace954b917294ee5fe14f001790 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.+Robot+-+S03E01+-+720P+-+SweSub.mp4 with Hash [ 3475e87c60c81ace954b917294ee5fe14f001790 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr. Robot - S03E01 - 720P - SweSub.mp4 with Hash [ 3475e87c60c81ace954b917294ee5fe14f001790 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.iNTERNAL.720p.HEVC.x265-MeGusta with Hash [ 44e0a1732d209dad220dba7007cae37177aed6b1 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.iNTERNAL.720p.HEVC.x265-MeGusta with Hash [ 44e0a1732d209dad220dba7007cae37177aed6b1 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.eps3.0_power-saver-mode.h.720p.HDTV.x264-Rapta with Hash [ 7bb51179b6abf57fff0f17286e062b1868906ad1 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.eps3.0_power-saver-mode.h.720p.HDTV.x264-Rapta with Hash [ 7bb51179b6abf57fff0f17286e062b1868906ad1 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HEVC.x265-MeGusta with Hash [ 8720515a7064675755a522a8d3907a6ce8ec3981 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HEVC.x265-MeGusta with Hash [ 8720515a7064675755a522a8d3907a6ce8ec3981 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS%5Bettv%5D with Hash [ 91226868f3470a0f22c1c2a1d47c9a3115c16591 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS%5Bettv%5D with Hash [ 91226868f3470a0f22c1c2a1d47c9a3115c16591 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS with Hash [ a2052fceffd23680bb8bf489c63a674834443a42 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264-AVS with Hash [ a2052fceffd23680bb8bf489c63a674834443a42 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.2CH.x265.HEVC-PSA.mkv with Hash [ af12d093581e048a5be410a2343d28fbe3b179c4 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.2CH.x265.HEVC-PSA.mkv with Hash [ af12d093581e048a5be410a2343d28fbe3b179c4 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264.%5BSeason.3.Episode.1%5D with Hash [ c02ff5281e6f1649c5f4d719f6a615adc48ff30a ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.HDTV.x264.%5BSeason.3.Episode.1%5D with Hash [ c02ff5281e6f1649c5f4d719f6a615adc48ff30a ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.eps3.0.power-saver-mode.h.720p.AMZN.WEBRip.DDP5. with Hash [ d528dbd7dbca1ac57fff33fc94915450c548fef7 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.eps3.0.power-saver-mode.h.720p.AMZN.WEBRip.DDP5. with Hash [ d528dbd7dbca1ac57fff33fc94915450c548fef7 ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.10bit.WEBRip.2CH.x265.HEVC-PSA with Hash [ fdfa85e3cf22471d77e6f3866fe1b20f752bba1c ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Mr.Robot.S03E01.720p.10bit.WEBRip.2CH.x265.HEVC-PSA with Hash [ fdfa85e3cf22471d77e6f3866fe1b20f752bba1c ]
-05/19/2018 01:48:28 AM -  [DEBUG0]: ScraperEngine New DataFrame Rows:
+05/19/2018 01:56:15 AM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
+05/19/2018 01:56:15 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://unblockedbay.info/s/?q=Final+Space++S01E10+1080p&category=0&page=0&orderby=99 ]
+05/19/2018 01:56:15 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Final+Space++S01E10+1080p&category=0&page=0&orderby=99 ]
+05/19/2018 01:56:20 AM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
+05/19/2018 01:56:20 AM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
+05/19/2018 01:56:20 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21078527/Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK ]
+05/19/2018 01:56:23 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK with Hash [ f129dd6a5df77e0a0c861e87375f1f0eea2acd4b ]
+05/19/2018 01:56:23 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21523762/Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta ]
+05/19/2018 01:56:26 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta with Hash [ 33ab05f8595ea6c08bb19653cd9cac93d2ffc74d ]
+05/19/2018 01:56:26 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21517215/Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE ]
+05/19/2018 01:56:27 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
+05/19/2018 01:56:27 AM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
+05/19/2018 01:56:27 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://kickass.cd/search.php?q=Final+Space++S01E10+1080p ]
+05/19/2018 01:56:27 AM -  [DEBUG0]: KatScrapperTypeA Searching on Proxy [ https://kickass.cd/search.php?q=Final+Space++S01E10+1080p ]
+05/19/2018 01:56:30 AM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
+05/19/2018 01:56:30 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK with Hash [ f129dd6a5df77e0a0c861e87375f1f0eea2acd4b ]
+05/19/2018 01:56:30 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta with Hash [ 33ab05f8595ea6c08bb19653cd9cac93d2ffc74d ]
+05/19/2018 01:56:30 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
+05/19/2018 01:56:30 AM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
+05/19/2018 01:56:30 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://torrentfunk.unblocked.mx/all/torrents/Final%20Space%20%20S01E10%201080p.html ]
+05/19/2018 01:56:30 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/all/torrents/Final%20Space%20%20S01E10%201080p.html ]
+05/19/2018 01:56:32 AM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
+05/19/2018 01:56:32 AM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
+05/19/2018 01:56:32 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15992961/ternal-1080p-web-bamboozle.html ]
+05/19/2018 01:56:33 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15992961.torrent ]
+05/19/2018 01:56:33 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: www.Speed.cd - Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
+05/19/2018 01:56:33 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/16014556/final-space-2018-s01e10-1080p-web-dl-x265-hevc-10bit-aac-5-1-ime.html ]
+05/19/2018 01:56:34 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/16014556.torrent ]
+05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Final Space (2018) - S01E10 (1080p WEB-DL x265 HEVC 10bit AAC 5.1 ImE) with Hash [ d085dfb365203e44c5197cb819d09e4d774d5ee4 ]
+05/19/2018 01:56:35 AM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
+05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta with Hash [ 33ab05f8595ea6c08bb19653cd9cac93d2ffc74d ]
+05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta with Hash [ 33ab05f8595ea6c08bb19653cd9cac93d2ffc74d ]
+05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
+05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
+05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: www.Speed.cd - Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
+05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK with Hash [ f129dd6a5df77e0a0c861e87375f1f0eea2acd4b ]
+05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK with Hash [ f129dd6a5df77e0a0c861e87375f1f0eea2acd4b ]
+05/19/2018 01:56:35 AM -  [DEBUG0]: ScraperEngine New DataFrame Rows:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                 name                                      hash  size  seed  leech      ratio                                             magnet
-0                  Mr.Robot.S03E01.720p.HDTV.x264-AVS  172a6cb0259e5c1a3af21c671c1359541564ae28   760   373     17  21.941176  magnet:?xt=urn:btih:172a6cb0259e5c1a3af21c671c...
-1   Mr+Robot+S03E01+720p+HDTV+HEVC+x265-RMTeam+%28...  26f847b1b773237bf5469ea7fca0d53d2ed77211   163     3      6   0.500000  magnet:?xt=urn:btih:26f847b1b773237bf5469ea7fc...
-2       Mr.Robot.S03E01.720p.WEBRip.2CH.x265.HEVC-PSA  28396f8336ce963a35a1acdd5648439598ff8bcd   181     4      3   1.333333  magnet:?xt=urn:btih:28396f8336ce963a35a1acdd56...
-3    Mr.Robot.S03E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE  344ad0356adccd6605a65dc0ad6bc29313289f06   999     4      3   1.333333  magnet:?xt=urn:btih:344ad0356adccd6605a65dc0ad...
-4              Mr.+Robot+-+S03E01+-+720P+-+SweSub.mp4  3475e87c60c81ace954b917294ee5fe14f001790   615     1      1   1.000000  magnet:?xt=urn:btih:3475e87c60c81ace954b917294...
-5     Mr.Robot.S03E01.iNTERNAL.720p.HEVC.x265-MeGusta  44e0a1732d209dad220dba7007cae37177aed6b1   153     2      3   0.666667  magnet:?xt=urn:btih:44e0a1732d209dad220dba7007...
-6   Mr.Robot.S03E01.eps3.0_power-saver-mode.h.720p...  7bb51179b6abf57fff0f17286e062b1868906ad1   343     3      3   1.000000  magnet:?xt=urn:btih:7bb51179b6abf57fff0f17286e...
-7              Mr.Robot.S03E01.720p.HEVC.x265-MeGusta  8720515a7064675755a522a8d3907a6ce8ec3981   146     1      3   0.333333  magnet:?xt=urn:btih:8720515a7064675755a522a8d3...
-8        Mr.Robot.S03E01.720p.HDTV.x264-AVS%5Bettv%5D  91226868f3470a0f22c1c2a1d47c9a3115c16591   760     8      3   2.666667  magnet:?xt=urn:btih:91226868f3470a0f22c1c2a1d4...
-9                  Mr.Robot.S03E01.720p.HDTV.x264-AVS  a2052fceffd23680bb8bf489c63a674834443a42   760    50      8   6.250000  magnet:?xt=urn:btih:a2052fceffd23680bb8bf489c6...
-10    Mr.Robot.S03E01.720p.HDTV.2CH.x265.HEVC-PSA.mkv  af12d093581e048a5be410a2343d28fbe3b179c4   211     4      3   1.333333  magnet:?xt=urn:btih:af12d093581e048a5be410a234...
-11  Mr.Robot.S03E01.720p.HDTV.x264.%5BSeason.3.Epi...  c02ff5281e6f1649c5f4d719f6a615adc48ff30a   760    27      3   9.000000  magnet:?xt=urn:btih:c02ff5281e6f1649c5f4d719f6...
-12  Mr.Robot.S03E01.eps3.0.power-saver-mode.h.720p...  d528dbd7dbca1ac57fff33fc94915450c548fef7   952     9      5   1.800000  magnet:?xt=urn:btih:d528dbd7dbca1ac57fff33fc94...
-13  Mr.Robot.S03E01.720p.10bit.WEBRip.2CH.x265.HEV...  fdfa85e3cf22471d77e6f3866fe1b20f752bba1c   196     1      4   0.250000  magnet:?xt=urn:btih:fdfa85e3cf22471d77e6f3866f...
+                                                name                                      hash  size  seed  leech     ratio                                             magnet
+0  Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-Me...  33ab05f8595ea6c08bb19653cd9cac93d2ffc74d   539     3      3  1.000000  magnet:?xt=urn:btih:33ab05f8595ea6c08bb19653cd...
+1  Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAM...  d6f74bc9000b7dbdec23bed617eefbf9462cddc1   761     7      3  2.333333  magnet:?xt=urn:btih:d6f74bc9000b7dbdec23bed617...
+2  Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WE...  f129dd6a5df77e0a0c861e87375f1f0eea2acd4b  2090     7      6  1.166667  magnet:?xt=urn:btih:f129dd6a5df77e0a0c861e8737...
 
-05/19/2018 01:48:28 AM -  [DEBUG0]: ScraperEngine Adding Merged New DataFrame to Main DataFrame:
-05/19/2018 01:48:28 AM -  [DEBUG0]: ScraperEngine Magnet WebScraping Search:
+05/19/2018 01:56:35 AM -  [DEBUG0]: ScraperEngine Adding Merged New DataFrame to Main DataFrame:
+05/19/2018 01:56:35 AM -  [DEBUG0]: ScraperEngine Magnet WebScraping Search:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                 name                                      hash  size  seed  leech      ratio                                             magnet
-0   Mr Robot S03E01 720p Hindi Dual Audio WEB-DL x...  f063a74329b5096139b6fae23107ccd809fec0d2   470     1      1   1.000000  magnet:?xt=urn:btih:f063a74329b5096139b6fae231...
-1   Mr.Robot.S03E01.FRENCH.720p.AMZN.WEB-DL.H264-F...  78b87c88a29d633f6fbcd86e3fd6a1ec4ade723e   778     1      1   1.000000  magnet:?xt=urn:btih:78b87c88a29d633f6fbcd86e3f...
-2   [AqusiQ-TorrentS.pl]Mr.Robot.S03E01.PL.720p-Ra...  f071443a8ff562e708225e02979f1b8be692101d  1700     1      1   1.000000  magnet:?xt=urn:btih:f071443a8ff562e708225e0297...
-3                  Mr.Robot.S03E01.720p.HDTV.x264-AVS  172a6cb0259e5c1a3af21c671c1359541564ae28   760   373     17  21.941176  magnet:?xt=urn:btih:172a6cb0259e5c1a3af21c671c...
-4   Mr+Robot+S03E01+720p+HDTV+HEVC+x265-RMTeam+%28...  26f847b1b773237bf5469ea7fca0d53d2ed77211   163     3      6   0.500000  magnet:?xt=urn:btih:26f847b1b773237bf5469ea7fc...
-5       Mr.Robot.S03E01.720p.WEBRip.2CH.x265.HEVC-PSA  28396f8336ce963a35a1acdd5648439598ff8bcd   181     4      3   1.333333  magnet:?xt=urn:btih:28396f8336ce963a35a1acdd56...
-6    Mr.Robot.S03E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE  344ad0356adccd6605a65dc0ad6bc29313289f06   999     4      3   1.333333  magnet:?xt=urn:btih:344ad0356adccd6605a65dc0ad...
-7              Mr.+Robot+-+S03E01+-+720P+-+SweSub.mp4  3475e87c60c81ace954b917294ee5fe14f001790   615     1      1   1.000000  magnet:?xt=urn:btih:3475e87c60c81ace954b917294...
-8     Mr.Robot.S03E01.iNTERNAL.720p.HEVC.x265-MeGusta  44e0a1732d209dad220dba7007cae37177aed6b1   153     2      3   0.666667  magnet:?xt=urn:btih:44e0a1732d209dad220dba7007...
-9   Mr.Robot.S03E01.eps3.0_power-saver-mode.h.720p...  7bb51179b6abf57fff0f17286e062b1868906ad1   343     3      3   1.000000  magnet:?xt=urn:btih:7bb51179b6abf57fff0f17286e...
-10             Mr.Robot.S03E01.720p.HEVC.x265-MeGusta  8720515a7064675755a522a8d3907a6ce8ec3981   146     1      3   0.333333  magnet:?xt=urn:btih:8720515a7064675755a522a8d3...
-11       Mr.Robot.S03E01.720p.HDTV.x264-AVS%5Bettv%5D  91226868f3470a0f22c1c2a1d47c9a3115c16591   760     8      3   2.666667  magnet:?xt=urn:btih:91226868f3470a0f22c1c2a1d4...
-12                 Mr.Robot.S03E01.720p.HDTV.x264-AVS  a2052fceffd23680bb8bf489c63a674834443a42   760    50      8   6.250000  magnet:?xt=urn:btih:a2052fceffd23680bb8bf489c6...
-13    Mr.Robot.S03E01.720p.HDTV.2CH.x265.HEVC-PSA.mkv  af12d093581e048a5be410a2343d28fbe3b179c4   211     4      3   1.333333  magnet:?xt=urn:btih:af12d093581e048a5be410a234...
-14  Mr.Robot.S03E01.720p.HDTV.x264.%5BSeason.3.Epi...  c02ff5281e6f1649c5f4d719f6a615adc48ff30a   760    27      3   9.000000  magnet:?xt=urn:btih:c02ff5281e6f1649c5f4d719f6...
-15  Mr.Robot.S03E01.eps3.0.power-saver-mode.h.720p...  d528dbd7dbca1ac57fff33fc94915450c548fef7   952     9      5   1.800000  magnet:?xt=urn:btih:d528dbd7dbca1ac57fff33fc94...
-16  Mr.Robot.S03E01.720p.10bit.WEBRip.2CH.x265.HEV...  fdfa85e3cf22471d77e6f3866fe1b20f752bba1c   196     1      4   0.250000  magnet:?xt=urn:btih:fdfa85e3cf22471d77e6f3866f...
+                                                name                                      hash  size  seed  leech     ratio                                             magnet
+0  Final Space (2018) - S01E10 (1080p WEB-DL x265...  d085dfb365203e44c5197cb819d09e4d774d5ee4   467     1      1  1.000000  magnet:?xt=urn:btih:d085dfb365203e44c5197cb819...
+1  Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-Me...  33ab05f8595ea6c08bb19653cd9cac93d2ffc74d   539     3      3  1.000000  magnet:?xt=urn:btih:33ab05f8595ea6c08bb19653cd...
+2  Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAM...  d6f74bc9000b7dbdec23bed617eefbf9462cddc1   761     7      3  2.333333  magnet:?xt=urn:btih:d6f74bc9000b7dbdec23bed617...
+3  Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WE...  f129dd6a5df77e0a0c861e87375f1f0eea2acd4b  2090     7      6  1.166667  magnet:?xt=urn:btih:f129dd6a5df77e0a0c861e8737...
 
-05/19/2018 01:48:28 AM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
+05/19/2018 01:56:35 AM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                 name                                      hash  size  seed  leech      ratio                                             magnet
-0                  Mr.Robot.S03E01.720p.HDTV.x264-AVS  172a6cb0259e5c1a3af21c671c1359541564ae28   760   373     17  21.941176  magnet:?xt=urn:btih:172a6cb0259e5c1a3af21c671c...
-1                  Mr.Robot.S03E01.720p.HDTV.x264-AVS  a2052fceffd23680bb8bf489c63a674834443a42   760    50      8   6.250000  magnet:?xt=urn:btih:a2052fceffd23680bb8bf489c6...
-2   Mr.Robot.S03E01.720p.HDTV.x264.%5BSeason.3.Epi...  c02ff5281e6f1649c5f4d719f6a615adc48ff30a   760    27      3   9.000000  magnet:?xt=urn:btih:c02ff5281e6f1649c5f4d719f6...
-3   Mr.Robot.S03E01.eps3.0.power-saver-mode.h.720p...  d528dbd7dbca1ac57fff33fc94915450c548fef7   952     9      5   1.800000  magnet:?xt=urn:btih:d528dbd7dbca1ac57fff33fc94...
-4        Mr.Robot.S03E01.720p.HDTV.x264-AVS%5Bettv%5D  91226868f3470a0f22c1c2a1d47c9a3115c16591   760     8      3   2.666667  magnet:?xt=urn:btih:91226868f3470a0f22c1c2a1d4...
-5       Mr.Robot.S03E01.720p.WEBRip.2CH.x265.HEVC-PSA  28396f8336ce963a35a1acdd5648439598ff8bcd   181     4      3   1.333333  magnet:?xt=urn:btih:28396f8336ce963a35a1acdd56...
-6    Mr.Robot.S03E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE  344ad0356adccd6605a65dc0ad6bc29313289f06   999     4      3   1.333333  magnet:?xt=urn:btih:344ad0356adccd6605a65dc0ad...
-7     Mr.Robot.S03E01.720p.HDTV.2CH.x265.HEVC-PSA.mkv  af12d093581e048a5be410a2343d28fbe3b179c4   211     4      3   1.333333  magnet:?xt=urn:btih:af12d093581e048a5be410a234...
-8   Mr.Robot.S03E01.eps3.0_power-saver-mode.h.720p...  7bb51179b6abf57fff0f17286e062b1868906ad1   343     3      3   1.000000  magnet:?xt=urn:btih:7bb51179b6abf57fff0f17286e...
-9   Mr+Robot+S03E01+720p+HDTV+HEVC+x265-RMTeam+%28...  26f847b1b773237bf5469ea7fca0d53d2ed77211   163     3      6   0.500000  magnet:?xt=urn:btih:26f847b1b773237bf5469ea7fc...
-10    Mr.Robot.S03E01.iNTERNAL.720p.HEVC.x265-MeGusta  44e0a1732d209dad220dba7007cae37177aed6b1   153     2      3   0.666667  magnet:?xt=urn:btih:44e0a1732d209dad220dba7007...
-11  Mr Robot S03E01 720p Hindi Dual Audio WEB-DL x...  f063a74329b5096139b6fae23107ccd809fec0d2   470     1      1   1.000000  magnet:?xt=urn:btih:f063a74329b5096139b6fae231...
-12  Mr.Robot.S03E01.FRENCH.720p.AMZN.WEB-DL.H264-F...  78b87c88a29d633f6fbcd86e3fd6a1ec4ade723e   778     1      1   1.000000  magnet:?xt=urn:btih:78b87c88a29d633f6fbcd86e3f...
-13  [AqusiQ-TorrentS.pl]Mr.Robot.S03E01.PL.720p-Ra...  f071443a8ff562e708225e02979f1b8be692101d  1700     1      1   1.000000  magnet:?xt=urn:btih:f071443a8ff562e708225e0297...
-14             Mr.+Robot+-+S03E01+-+720P+-+SweSub.mp4  3475e87c60c81ace954b917294ee5fe14f001790   615     1      1   1.000000  magnet:?xt=urn:btih:3475e87c60c81ace954b917294...
+                                                name                                      hash  size  seed  leech     ratio                                             magnet
+0  Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAM...  d6f74bc9000b7dbdec23bed617eefbf9462cddc1   761     7      3  2.333333  magnet:?xt=urn:btih:d6f74bc9000b7dbdec23bed617...
+1  Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WE...  f129dd6a5df77e0a0c861e87375f1f0eea2acd4b  2090     7      6  1.166667  magnet:?xt=urn:btih:f129dd6a5df77e0a0c861e8737...
+2  Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-Me...  33ab05f8595ea6c08bb19653cd9cac93d2ffc74d   539     3      3  1.000000  magnet:?xt=urn:btih:33ab05f8595ea6c08bb19653cd...
+3  Final Space (2018) - S01E10 (1080p WEB-DL x265...  d085dfb365203e44c5197cb819d09e4d774d5ee4   467     1      1  1.000000  magnet:?xt=urn:btih:d085dfb365203e44c5197cb819...

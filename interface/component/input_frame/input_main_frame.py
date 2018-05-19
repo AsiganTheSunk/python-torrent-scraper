@@ -24,6 +24,7 @@ from lib.fileflags import FileFlags as fflags
 es = gettext.translation('input_main_frame', localedir='./interface/locale', languages=['es'])
 es.install()
 _ = es.gettext
+# _ = lambda s:s
 
 HEADER_TEXT = _('[ Header ]')
 QUALITY_TEXT = _('[ Quality ]')

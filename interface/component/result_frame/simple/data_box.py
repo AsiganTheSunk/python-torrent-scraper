@@ -1,6 +1,15 @@
 # Import Interface Libraries
 from tkinter import *
 
+import gettext
+idiomas = []
+t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
+_ = t.gettext
+# es = gettext.translation('about_config_data_panel', localedir='./interface/locale', languages=['es'])
+# es.install()
+# _ = es.gettext
+# _ = lambda s:s
+
 class SimpleDataBox(Frame):
     def __init__(self, master, row, column, width=275, height=300, background='#F0F8FF'):
         Frame.__init__(self, master, width=width, height=height, background=background)
