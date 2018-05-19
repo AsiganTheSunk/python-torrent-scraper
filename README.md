@@ -1,4 +1,4 @@
-# python-torrent-scraper v0.4.2.1
+# python-torrent-scraper v0.4.6
 
 install requierments with pip install -r
 
