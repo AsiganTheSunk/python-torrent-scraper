@@ -130,7 +130,7 @@ class ScraperEngine(object):
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
                     # TODO Move to dynamic search, so it can call it self again,
-                    temp_torrent = './cache/temporal_torrent/temp_torrent.torrent'
+                    temp_torrent = './cache/temp_torrent.torrent'
                     response = self.dynamic_search(websearch, webscraper, raw_data.magnet_list[index])
                     torrent = webscraper.get_magnet_link(response.text)
                     raw_data.magnet_list[index] = torrent

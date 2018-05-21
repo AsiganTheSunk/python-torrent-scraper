@@ -4,8 +4,8 @@ from PIL import ImageTk, Image
 display_placeholder = './interface/resources/placeholders/display_placeholder.png'
 
 class DisplayBox(Frame):
-    def __init__(self, master, row, column, width=275, height=300, background='red'):
-        Frame.__init__(self, master, width=width, height=height, background=background)
+    def __init__(self, master, row, column, background='red'):
+        Frame.__init__(self, master, background=background)
         self.grid(row=row, column=column)
         self.flag_box = None
         self.label1 = None
@@ -13,6 +13,8 @@ class DisplayBox(Frame):
         self.label3 = None
         self.label4 = None
         self.label5 = None
+        self.main_theme = '#ADD8E6'
+        self.highlight_theme = '#91B6CE'
         self.on_create()
 
     def on_create(self):
@@ -27,57 +29,56 @@ class DisplayBox(Frame):
         placeholder = ImageTk.PhotoImage(tmp_img)
         flag_box.placeholder = placeholder
 
-        # Color de para el esqueleto: #F0F8FF
         # Blocks to the left side of the item box
-        initial_block = Frame(flag_box, width=35, height=48, background='#ADD8E6')
+        initial_block = Frame(flag_box, width=80, height=48, background=self.main_theme)
         initial_block.grid(row=0, column=0)
 
-        space_block0 = Frame(flag_box, width=3, height=48, background='#ADD8E6')
+        space_block0 = Frame(flag_box, width=3, height=48, background=self.main_theme)
         space_block0.grid(row=0, column=1)
 
         # Fifth to the right side
-        lable5 = Label(flag_box, width=60, height=48, background='#ADD8E6')
+        lable5 = Label(flag_box, width=60, height=48, background=self.main_theme)
         lable5.configure(borderwidth=0, image=placeholder)
         lable5.grid(row=0, column=2)
         self.label5 = lable5
 
-        space_block1 = Frame(flag_box, width=3, height=48, background='#ADD8E6')
+        space_block1 = Frame(flag_box, width=3, height=48, background=self.main_theme)
         space_block1.grid(row=0, column=3)
 
         # Fourth to the rigth side
-        label4 = Label(flag_box, width=60, height=48, background='#ADD8E6')
+        label4 = Label(flag_box, width=60, height=48, background=self.main_theme)
         label4.configure(borderwidth=0, image=placeholder)
         label4.grid(row=0, column=4)
         self.label4 = label4
 
-        space_block2 = Frame(flag_box, width=3, height=48, background='#ADD8E6')
+        space_block2 = Frame(flag_box, width=3, height=48, background=self.main_theme)
         space_block2.grid(row=0, column=5)
 
         # Third to the right side
-        label3 = Label(flag_box, width=60, height=48, background='#ADD8E6')
+        label3 = Label(flag_box, width=60, height=48, background=self.main_theme)
         label3.configure(borderwidth=0, image=placeholder)
         label3.grid(row=0, column=6)
         self.label3 = label3
 
-        space_block3 = Frame(flag_box, width=3, height=48, background='#ADD8E6')
+        space_block3 = Frame(flag_box, width=3, height=48, background=self.main_theme)
         space_block3.grid(row=0, column=7)
 
         # Second to the right side
-        label2 = Label(flag_box, width=60, height=48, background='#ADD8E6')
+        label2 = Label(flag_box, width=60, height=48, background=self.main_theme)
         label2.configure(borderwidth=0, image=placeholder)
         label2.grid(row=0, column=8)
         self.label2 = label2
 
-        space_block4 = Frame(flag_box, width=3, height=48, background='#ADD8E6')
+        space_block4 = Frame(flag_box, width=3, height=48, background=self.main_theme)
         space_block4.grid(row=0, column=9)
 
         # First to the right side
-        label1 = Label(flag_box, width=60, height=48, background='#ADD8E6')
+        label1 = Label(flag_box, width=60, height=48, background=self.main_theme)
         label1.configure(borderwidth=0, image=placeholder)
         label1.grid(row=0, column=10)
         self.label1 = label1
 
-        space_block5 = Frame(flag_box, width=3, height=48, background='#ADD8E6')
+        space_block5 = Frame(flag_box, width=3, height=48, background=self.main_theme)
         space_block5.grid(row=0, column=11)
 
     def set_image(self, quality, vcodec, bit, acodec, channels):

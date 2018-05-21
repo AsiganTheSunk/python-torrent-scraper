@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+from tkinter import *
 from torrent_scraper_interface import run_interface
-
+from interface.component.result_frame.result_main_frame import ResultMainFrame
 
 def main():
+
+    # root = Tk()
     run_interface()
+    # ResultMainFrame(root, 0, 0)
+    # root.mainloop()
 
 if __name__ == '__main__':
     main()

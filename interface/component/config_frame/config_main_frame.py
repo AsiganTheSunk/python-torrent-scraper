@@ -18,8 +18,8 @@ class ConfigMainFrame(Frame):
         upper_border = Frame(self, width=376, height=3, background=self.main_theme)
         upper_border.grid(row=0, column=0)
         vlb = CustomListBox(self, 1, 0, self.close)
-        upper_border = Frame(self, width=376, height=3, background=self.main_theme)
-        upper_border.grid(row=2, column=0)
+        lower_border = Frame(self, width=376, height=3, background=self.main_theme)
+        lower_border.grid(row=2, column=0)
 
     def close(self):
         self.master.destroy()

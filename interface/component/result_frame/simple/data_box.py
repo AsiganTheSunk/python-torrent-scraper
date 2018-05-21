@@ -23,17 +23,19 @@ except Exception as err:
     print(err)
 
 class SimpleDataBox(Frame):
-    def __init__(self, master, row, column, width=275, height=300, background='#F0F8FF'):
-        Frame.__init__(self, master, width=width, height=height, background=background)
+    def __init__(self, master, row, column, background='#F0F8FF'):
+        Frame.__init__(self, master, background=background)
         self.grid(row=row, column=column)
         self.data = None
+        self.main_theme = '#ADD8E6'
+        self.highlight_theme = '#91B6CE'
         self.on_create()
 
     def on_create(self):
-        upperborder = Frame(self, width=353, height=3, background='#F0F8FF')
+        upperborder = Frame(self, width=396, height=2, background=self.highlight_theme)
         upperborder.grid(row=0, column=0)
 
-        data_box = Frame(self, width=200, height=185, background='#F0F8FF')
+        data_box = Frame(self, background=self.highlight_theme)
         data_box.grid(row=1, column=0)
 
         T2 = Text(data_box, bg='#DCDCDC', width=49, height=12)
@@ -54,7 +56,7 @@ class SimpleDataBox(Frame):
         T2.insert(END, quote)
         T2.config(state=DISABLED)
 
-        lowerborder = Frame(self, width=353, height=3, background='#F0F8FF')
+        lowerborder = Frame(self, width=396, height=2, background=self.highlight_theme)
         lowerborder.grid(row=2, column=0)
 
     def set_data(self, info_data):

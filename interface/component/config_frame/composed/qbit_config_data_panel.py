@@ -22,8 +22,8 @@ BUTTON0_TEXT = _('SAVE')
 BUTTON1_TEXT = _('EXIT')
 
 class QbitConfigDataPanel(Frame):
-    def __init__(self, master, row, column, cmmndCloseConfig, width=275, height=274, background='#ADD8E6'):
-        Frame.__init__(self, master, width=width, height=height, background=background)
+    def __init__(self, master, row, column, cmmndCloseConfig, background='#ADD8E6'):
+        Frame.__init__(self, master, background=background)
         self.grid(row=row, column=column)
         self.cmmndCloseConfig = cmmndCloseConfig
         self.button_box = None
@@ -52,7 +52,7 @@ class QbitConfigDataPanel(Frame):
         inner_border_framex = Frame(label_frame1, width=250, height=2, background=self.main_theme)
         inner_border_framex.grid(row=2, column=0)
 
-        entry_frame = Frame(label_frame1, width=250, height=17, background=self.highlight_theme)
+        entry_frame = Frame(label_frame1, width=250, height=17, background=self.main_theme)
         entry_frame.grid(row=3, column=0)
 
         self.user_entry = Entry(entry_frame, width=15)
@@ -87,7 +87,7 @@ class QbitConfigDataPanel(Frame):
         inner_border_frame2.grid(row=4, column=0)
 
         # ButtonBox: Content
-        inner_border_frame3 = Frame(self, width=275, height=160, background=self.main_theme)
+        inner_border_frame3 = Frame(self, width=275, height=159, background=self.main_theme)
         inner_border_frame3.grid(row=7, column=0)
 
         self.button_box = ButtonBox(self, 8, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)

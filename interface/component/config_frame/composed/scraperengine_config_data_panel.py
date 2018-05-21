@@ -24,8 +24,8 @@ BUTTON0_TEXT = _('SAVE')
 BUTTON1_TEXT = _('EXIT')
 
 class ScraperEngineConfigDataPanel(Frame):
-    def __init__(self, master, row, column, cmmndCloseConfig, width=275, height=274, background='#ADD8E6'):
-        Frame.__init__(self, master, width=width, height=height, background=background)
+    def __init__(self, master, row, column, cmmndCloseConfig, background='#ADD8E6'):
+        Frame.__init__(self, master, background=background)
         self.grid(row=row, column=column)
         self.cmmndCloseConfig = cmmndCloseConfig
         self.button_box = None
@@ -70,7 +70,7 @@ class ScraperEngineConfigDataPanel(Frame):
         check_bar1.grid(row=5, column=0)
         self.check_bar1 = check_bar1
 
-        inner_border_frame4 = Frame(self, width=275, height=156, background=self.main_theme)
+        inner_border_frame4 = Frame(self, width=275, height=153, background=self.main_theme)
         inner_border_frame4.grid(row=6, column=0)
 
         button_box = ButtonBox(self, 7, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)

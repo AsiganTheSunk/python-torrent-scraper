@@ -21,8 +21,8 @@ BUTTON0_TEXT = _('ISSUE')
 BUTTON1_TEXT = _('EXIT')
 
 class AboutConfigDataPanel(Frame):
-    def __init__(self, master, row, column, cmmndCloseConfig, width=275, height=274, background='#ADD8E6'):
-        Frame.__init__(self, master, width=width, height=height, background=background)
+    def __init__(self, master, row, column, cmmndCloseConfig, background='#ADD8E6'):
+        Frame.__init__(self, master, background=background)
         self.grid(row=row, column=column)
         self.master = master
         self.cmmndCloseConfig = cmmndCloseConfig
@@ -53,7 +53,7 @@ class AboutConfigDataPanel(Frame):
         inner_border_frame2.grid(row=3, column=0)
 
         # ButtonBox: Content
-        inner_border_frame3 = Frame(self, width=275, height=183, background=self.main_theme)
+        inner_border_frame3 = Frame(self, width=275, height=184, background=self.main_theme)
         inner_border_frame3.grid(row=4, column=0)
 
         self.button_box = ButtonBox(self, 5, 0, self.cmmndCloseConfig, self.open_issue, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)

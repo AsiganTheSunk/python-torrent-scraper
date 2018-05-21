@@ -41,7 +41,7 @@ except Exception as err:
 
 class SimpleListBox(Listbox):
     def __init__(self, master, item_list, databox, displaybox, buttonbox, dataframe=None):
-        Listbox.__init__(self, master, height=19, width=80)
+        Listbox.__init__(self, master, height=20, width=80)
         self.item_list = item_list
         self.master = master
         self.databox = databox

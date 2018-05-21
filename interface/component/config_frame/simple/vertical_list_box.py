@@ -24,8 +24,8 @@ from interface.component.config_frame.composed.scraperengine_config_data_panel i
 from interface.component.config_frame.composed.general_config_data_panel import GeneralConfigDataPanel
 
 class SimpleVerticalListBox(Listbox):
-    def __init__(self, master, item_list, right_block, cmmndCloseConfig,buttonbox=None):
-        Listbox.__init__(self, master, height=19, width=15)
+    def __init__(self, master, item_list, right_block, cmmndCloseConfig, buttonbox=None):
+        Listbox.__init__(self, master, height=17, width=16)
         self.item_list = item_list
         self.master = master
         self.buttonbox = buttonbox
@@ -69,19 +69,19 @@ class SimpleVerticalListBox(Listbox):
 
     def eval_frame(self):
         if self.qbit is not None:
-            self.qbit.grid_remove()
+            # self.qbit.grid_remove()
             self.qbit.destroy()
             self.qbit = None
         elif self.se is not None:
-            self.se.grid_remove()
+            # self.se.grid_remove()
             self.se.destroy()
             self.se = None
         elif self.about is not None:
-            self.about.grid_remove()
+            # self.about.grid_remove()
             self.about.destroy()
             self.about = None
         elif self.general is not None:
-            self.general.grid_remove()
+            # self.general.grid_remove()
             self.general.destroy()
             self.general = None
 

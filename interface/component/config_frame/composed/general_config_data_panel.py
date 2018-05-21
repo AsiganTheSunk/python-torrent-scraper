@@ -5,8 +5,10 @@ from tkinter import *
 from interface.component.config_frame.simple.button_box import ButtonBox
 from config_parser import CustomConfigParser
 from interface.component.input_frame.simple.option_menu import SimpleOptionMenu
+from interface.component.config_frame.simple.single_button_box import SingleButtonBox
 import gettext
-
+from lib.description_downloader import DescriptionDownloader
+from lib.cover_downloader import CoverDownloader
 try:
     se_config = CustomConfigParser('./torrentscraper.ini')
     language_config = se_config.get_section_map('Language')
@@ -25,10 +27,11 @@ LANGUAGE_POPUP_TEXT = [_('English'), _('Spanish')]
 SEARCH_POPUP_TEXT = [_('Standar'), _('Deep'), _('Custom')]
 BUTTON0_TEXT = _('SAVE')
 BUTTON1_TEXT = _('EXIT')
+BUTTON2_TEXT = _('CLEAR CACHE')
 
 class GeneralConfigDataPanel(Frame):
-    def __init__(self, master, row, column, cmmndCloseConfig, width=275, height=274, background='#ADD8E6'):
-        Frame.__init__(self, master, width=width, height=height, background=background)
+    def __init__(self, master, row, column, cmmndCloseConfig, background='#ADD8E6'):
+        Frame.__init__(self, master, background=background)
         self.grid(row=row, column=column)
         self.cmmndCloseConfig = cmmndCloseConfig
         self.button_box = None
@@ -105,17 +108,19 @@ class GeneralConfigDataPanel(Frame):
         self.language_popup = SimpleOptionMenu(self, language_value, *LANGUAGE_POPUP_TEXT)
         self.language_popup.grid(row=7, column=0, columnspan=1)
 
-        inner_border_frame2 = Frame(self, width=275, height=3, background=self.main_theme)
+        inner_border_frame2 = Frame(self, width=275, height=40, background=self.main_theme)
         inner_border_frame2.grid(row=8, column=0)
 
-        # ButtonBox: Content
-        inner_border_frame6 = Frame(self, width=275, height=110, background=self.main_theme)
-        inner_border_frame6.grid(row=9, column=0)
+        single = SingleButtonBox(self, 10, 0, fst_text=BUTTON2_TEXT, cmmndClearCache=self.clear_cache)
 
-        self.button_box = ButtonBox(self, 10, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)
+        # ButtonBox: Content
+        inner_border_frame6 = Frame(self, width=275, height=33, background=self.main_theme)
+        inner_border_frame6.grid(row=11, column=0)
+
+        self.button_box = ButtonBox(self, 12, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)
 
         inner_border_frame7 = Frame(self, width=275, height=3, background=self.main_theme)
-        inner_border_frame7.grid(row=11, column=0)
+        inner_border_frame7.grid(row=13, column=0)
 
     def save_picks(self):
         language = self.language_popup.selection
@@ -147,3 +152,12 @@ class GeneralConfigDataPanel(Frame):
         self.se_config.set_section_key('Language', 'language', str(language_value))
 
 
+    def clear_cache(self):
+        try:
+            description_downloader = DescriptionDownloader()
+            description_downloader.clear_cache()
+            cover_downloader = CoverDownloader()
+            cover_downloader.clear_cache()
+            print('Cleaning Was Successfull!!')
+        except Exception as err:
+            print('button clear cache',err)

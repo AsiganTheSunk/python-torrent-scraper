@@ -14,14 +14,12 @@ class InfoPanel(Frame):
         left_border_frame = Frame(self, width=10, height=275, background='#ADD8E6')
         left_border_frame.grid(row=0, column=0)
 
-        info_box = SimpleInfoBox(self, 0, 1)
-        self.info_box = info_box
+        self.info_box = SimpleInfoBox(self, 0, 1)
 
-        inner_border_frame = Frame(self, width=5, height=275, background='#ADD8E6')
+        inner_border_frame = Frame(self, width=6, height=275, background='#ADD8E6')
         inner_border_frame.grid(row=0, column=3)
 
-        poster_box = SimplePosterBox(self, 0, 4)
-        self.poster_box = poster_box
+        self.poster_box = SimplePosterBox(self, 0, 4)
 
         right_border_frame = Frame(self, width=5, height=275, background='#ADD8E6')
         right_border_frame.grid(row=0, column=5)

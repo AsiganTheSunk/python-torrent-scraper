@@ -12,6 +12,7 @@ from interface.component.input_frame.simple.option_menu import SimpleOptionMenu
 from torrentscraper.datastruct.websearch_instance import WebSearchInstance
 from interface.component.config_frame.config_main_frame import ConfigMainFrame
 
+from input_box import InputBox
 # Import Interface Libraries
 from tkinter import *
 from tkinter.ttk import Progressbar
@@ -30,10 +31,9 @@ try:
 except Exception as err:
     print(err)
 
-# _ = lambda s: s
-
 HEADER_TEXT = _('[ Header ]')
 QUALITY_TEXT = _('[ Quality ]')
+YEAR_TEXT = _('Year')
 TITLE_TEXT = _('Title')
 SEASON_TEXT = _('S')
 EPISODE_TEXT = _('Ep')
@@ -71,26 +71,29 @@ class InputMainFrame(Frame):
         self.progressbar_status = None
         self.search_button = None
 
+        self.main_theme = '#ADD8E6'
+        self.highlight_theme = '#91B6CE'
+
         self.on_create(retrieveData)
 
     def on_create(self, retrieveData):
         # Input Block
-        input_block_space0 = Frame(self, width=865, height=30, background='#ADD8E6')
+        input_block_space0 = Frame(self, width=865, height=30, background=self.main_theme)
         input_block_space0.grid(row=0, column=0)
 
-        input_block_space1 = Frame(self, width=837, height=2, background='#F0F8FF')
+        input_block_space1 = Frame(self, width=852, height=2, background=self.highlight_theme)
         input_block_space1.grid(row=1, column=0)
 
         input_block = Frame(self, width=865, height=25, background='#F0F8FF')
         input_block.grid(row=2, column=0)
 
-        input_block_space1 = Frame(self, width=837, height=2, background='#F0F8FF')
+        input_block_space1 = Frame(self, width=852, height=2, background=self.highlight_theme)
         input_block_space1.grid(row=3, column=0)
 
-        input_block_space2 = Frame(self, width=865, height=20, background='#ADD8E6')
+        input_block_space2 = Frame(self, width=865, height=20, background=self.main_theme)
         input_block_space2.grid(row=4, column=0)
 
-        label_status = Label(input_block_space2, background='#ADD8E6')
+        label_status = Label(input_block_space2, background=self.main_theme)
         label_status.grid(row=0,column=0)
         self.progressbar_status = label_status
 
@@ -107,63 +110,47 @@ class InputMainFrame(Frame):
         space_block.grid(row=0, column=0)
 
         header = {'[HorribleSubs]': 'HorribleSubs'}
-        header_popup = SimpleOptionMenu(input_block, HEADER_TEXT, *header)
-        header_popup.grid(row=0, column=1, columnspan=1, sticky='W')
-        self.header_popup = header_popup
+        self.header_popup = SimpleOptionMenu(input_block, HEADER_TEXT, *header)
+        self.header_popup.grid(row=0, column=1, columnspan=1, sticky='W')
 
         space_block0 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block0.grid(row=0, column=3)
 
-        title_entry = Entry(input_block, width=34)
-        title_entry.insert(END, '')
-        title_entry.grid(row=0, column=4)
-        self.title_entry = title_entry
+        self.title_entry =InputBox(input_block, 0, 4, default_message=TITLE_TEXT)
 
         space_block1 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block1.grid(row=0, column=5)
 
-        year_entry = Entry(input_block, width=5)
-        year_entry.insert(END, '')
-        year_entry.grid(row=0, column=6)
-        self.year_entry = year_entry
+        self.year_entry = InputBox(input_block, 0, 6, width=5, default_message=YEAR_TEXT)
 
         space_block2 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block2.grid(row=0, column=7)
 
-        season_entry = Entry(input_block, width=3)
-        season_entry.insert(END, '')
-        season_entry.grid(row=0, column=8)
-        self.season_entry = season_entry
+        self.season_entry = InputBox(input_block, 0, 8, width=3, default_message=SEASON_TEXT)
 
         space_block4 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block4.grid(row=0, column=9)
 
-        episode_entry = Entry(input_block, width=3)
-        episode_entry.insert(END, '')
-        episode_entry.grid(row=0, column=10)
-        self.episode_entry = episode_entry
+        self.episode_entry = InputBox(input_block, 0, 10, width=3, default_message=EPISODE_TEXT)
 
         space_block5 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block5.grid(row=0, column=11)
 
         quality = ['1080p', '720p','HDTV', 'WEBRip', '']
-        quality_popup = SimpleOptionMenu(input_block, QUALITY_TEXT, *quality)
-        quality_popup.grid(row=0, column=12, columnspan=1, sticky='W')
-        self.quality_popup = quality_popup
+        self.quality_popup = SimpleOptionMenu(input_block, QUALITY_TEXT, *quality)
+        self.quality_popup.grid(row=0, column=12, columnspan=1, sticky='W')
 
         space_block5 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block5.grid(row=0, column=13)
 
-        search_type_popup = SimpleOptionMenu(input_block, SEARCH_TYPE, *SEARCH_TYPE_LIST)
-        search_type_popup.grid(row=0, column=14, columnspan=1, sticky='W')
-        self.search_type_popup = search_type_popup
+        self.search_type_popup = SimpleOptionMenu(input_block, SEARCH_TYPE, *SEARCH_TYPE_LIST)
+        self.search_type_popup.grid(row=0, column=14, columnspan=1, sticky='W')
 
         space_block6 = Frame(input_block, width=3, height=25, background='#F0F8FF')
         space_block6.grid(row=0, column=15)
 
-        search_button = Button(input_block, text=SEARCH_TEXT, command=lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482')
-        search_button.grid(row=0, column=16, sticky="w", pady=4, padx=3)
-        self.search_button = search_button
+        self.search_button = Button(input_block, text=SEARCH_TEXT, command=lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482')
+        self.search_button.grid(row=0, column=16, sticky="w", pady=4, padx=3)
 
         config_img = PhotoImage(file='./interface/resources/config.png')
         self.config_img = config_img
@@ -173,8 +160,7 @@ class InputMainFrame(Frame):
     def configuration(self):
         top = Toplevel()
         top.iconbitmap('./interface/resources/grumpy-cat.ico')
-        # top.attributes("-toolwindow", 1)
-        # top.resizable(width=False, height=False)
+        top.resizable(width=False, height=False)
         config = ConfigMainFrame(top, 1, 0)
 
     def get_input(self):

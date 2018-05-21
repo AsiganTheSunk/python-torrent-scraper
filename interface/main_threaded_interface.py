@@ -35,54 +35,55 @@ class ThreadedClient:
         self.periodicCall()
         self.periodicCallCategory()
 
-
     def periodicCallCategory(self):
         if self.gui.search_type_popup.selection == 'SHOW' or self.gui.search_type_popup.selection == 'SERIE':
-            self.gui.header_popup['textvariable'] = '[ Header ]'
-            self.gui.year_entry.delete(0, 'end')
+            # self.gui.title_entry.reset_to_default()
+            self.gui.year_entry.reset_to_default()
 
+            self.gui.title_entry.enable()
+            self.gui.year_entry.disable()
+            self.gui.season_entry.enable()
+            self.gui.episode_entry.enable()
+
+            self.gui.header_popup['textvariable'] = '[ Header ]'
             self.gui.header_popup['state'] = 'disable'
-            self.gui.header_popup['textvariable'] = ''
-            self.gui.title_entry['state'] = 'normal'
-            self.gui.year_entry['state'] = 'disable'
-            self.gui.year_entry['textvariable'] = ''
-            self.gui.season_entry['state'] = 'normal'
-            self.gui.episode_entry['state'] = 'normal'
             self.gui.quality_popup['state'] = 'normal'
             self.gui.search_button['state'] = 'normal'
 
         elif self.gui.search_type_popup.selection == 'FILM' or self.gui.search_type_popup.selection == 'CINE':
-            self.gui.header_popup['textvariable'] = '[ Header ]'
-            self.gui.episode_entry.delete(0, 'end')
-            self.gui.season_entry.delete(0, 'end')
+            self.gui.episode_entry.reset_to_default()
+            self.gui.season_entry.reset_to_default()
 
+            self.gui.title_entry.enable()
+            self.gui.year_entry.enable()
+            self.gui.season_entry.disable()
+            self.gui.episode_entry.disable()
+
+            self.gui.header_popup['textvariable'] = '[ Header ]'
             self.gui.header_popup['state'] = 'disable'
-            self.gui.title_entry['state'] = 'normal'
-            self.gui.year_entry['state'] = 'normal'
-            self.gui.season_entry['state'] = 'disable'
-            self.gui.episode_entry['state'] = 'disable'
             self.gui.quality_popup['state'] = 'normal'
             self.gui.search_button['state'] = 'normal'
 
         elif self.gui.search_type_popup.selection == 'ANIME':
-            self.gui.year_entry.delete(0, 'end')
-            self.gui.season_entry.delete(0, 'end')
+            self.gui.year_entry.reset_to_default()
+            self.gui.season_entry.reset_to_default()
 
+            self.gui.title_entry.enable()
+            self.gui.year_entry.disable()
+            self.gui.season_entry.disable()
+            self.gui.episode_entry.enable()
             self.gui.header_popup['state'] = 'normal'
-            self.gui.title_entry['state'] = 'normal'
-            self.gui.year_entry['state'] = 'disable'
-            self.gui.season_entry['state'] = 'disable'
-
-            self.gui.episode_entry['state'] = 'normal'
             self.gui.quality_popup['state'] = 'normal'
             self.gui.search_button['state'] = 'normal'
 
         else:
+            self.gui.title_entry.reset_to_default()
+
+            self.gui.title_entry.disable()
+            self.gui.year_entry.disable()
+            self.gui.season_entry.disable()
+            self.gui.episode_entry.disable()
             self.gui.header_popup['state'] = 'disable'
-            self.gui.title_entry['state'] = 'disable'
-            self.gui.year_entry['state'] = 'disable'
-            self.gui.season_entry['state'] = 'disable'
-            self.gui.episode_entry['state'] = 'disable'
             self.gui.quality_popup['state'] = 'disable'
             self.gui.search_button['state'] = 'disable'
 
@@ -97,8 +98,6 @@ class ThreadedClient:
         while self.active_search:
             print('BackgroundThread: ENDED')
             top = Toplevel()
-            top.geometry("865x625")
-            # top.attributes("-toolwindow", 1)
             top.iconbitmap('./interface/resources/grumpy-cat.ico')
             top.resizable(width=False, height=False)
 
