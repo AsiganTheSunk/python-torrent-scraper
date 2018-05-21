@@ -10,5 +10,5 @@ def run_interface():
     root.resizable(width=False, height=False)
     # root.attributes("-toolwindow", 1)
     root.iconbitmap('./interface/resources/grumpy-cat.ico')
-    root.title("python-torrent-scraper-interface-v0.4.2")
+    root.title("python-torrent-scraper-interface-v0.4.8")
     root.mainloop()

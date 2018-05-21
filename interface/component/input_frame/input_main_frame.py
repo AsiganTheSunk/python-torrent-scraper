@@ -12,7 +12,7 @@ from interface.component.input_frame.simple.option_menu import SimpleOptionMenu
 from torrentscraper.datastruct.websearch_instance import WebSearchInstance
 from interface.component.config_frame.config_main_frame import ConfigMainFrame
 
-from input_box import InputBox
+from interface.component.input_frame.simple.input_box import InputBox
 # Import Interface Libraries
 from tkinter import *
 from tkinter.ttk import Progressbar
