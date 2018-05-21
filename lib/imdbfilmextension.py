@@ -1,12 +1,29 @@
 import imdb
 import textwrap
+from lib.fileflags import FileFlags as fflags
+from config_parser import CustomConfigParser
+import gettext
 
-TITLE_STRING = ['Title','Título']
-YEAR_STRING = ['Year','Año']
-RUNTIME_STRING = ['Runtime','Duración']
-PLOT_STRING = ['Plot Summary','Resumen Argumento']
-DIRECTOR_STRING = ['Director', 'Director']
-ACTORS_STRING = ['Actors', 'Actores']
+
+try:
+    se_config = CustomConfigParser('./torrentscraper.ini')
+    language_config = se_config.get_section_map('Language')
+    if language_config['language'] == '0':
+        _ = lambda s: s
+    else:
+        es = gettext.translation('imdbfilmextension', localedir='./interface/locale', languages=['es'])
+        es.install()
+        _ = es.gettext
+
+    TITLE_STRING = _('Title')
+    YEAR_STRING = _('Year')
+    RUNTIME_STRING = _('Runtime')
+    PLOT_STRING = _('Plot Summary')
+    DIRECTOR_STRING = _('Director')
+    ACTORS_STRING = _('Actors')
+
+except Exception as err:
+    print(err)
 
 
 class IMDbExtension():
@@ -27,6 +44,65 @@ class IMDbExtension():
             print(self.name,  movie_index, name)
             return movie_index
 
+    def get_movie_info(self, name):
+        actor_str = ''
+        try:
+            movie_index = self.imdb.search_movie(name)[0].movieID
+            movie_data = self.imdb.get_movie(str(movie_index))
+
+            try:
+                year = movie_data['year']
+            except:
+                year = '----'
+
+            try:
+                runtime = movie_data['runtime'][0]
+            except:
+                runtime = '---'
+            try:
+                actors = movie_data['actors']
+
+                for item in actors[:15]:
+                    actor_str = actor_str + ', ' + item['name']
+
+                dedented_text = textwrap.dedent(actor_str[2:]).strip()
+                formated_actors = textwrap.fill(dedented_text, width=88)
+                actors = formated_actors
+            except:
+                actors = '----'
+
+            try:
+                director = movie_data['director'][0]['name']
+            except:
+                director = '----'
+
+            try:
+                plot = movie_data['plot summary'][0]
+                dedented_text = textwrap.dedent(plot).strip()
+                formated_plot = textwrap.fill(dedented_text, width=88)
+            except:
+                formated_plot = '----'
+
+            info = '[{0}]: {1}\n' \
+                   '[{2}]: {3}\n' \
+                   '----------------------------------------------------------------------------------------' \
+                   '[{4}]: {5} Min\n' \
+                   '[{6}]: {7}\n' \
+                   '----------------------------------------------------------------------------------------' \
+                   '[{8}]:\n{9}\n' \
+                   '----------------------------------------------------------------------------------------' \
+                   '[{10}]:\n{11}\n'.format(TITLE_STRING, name,
+                                            YEAR_STRING, year,
+                                            RUNTIME_STRING, runtime,
+                                            DIRECTOR_STRING, director,
+                                            ACTORS_STRING, actors,
+                                            PLOT_STRING, formated_plot)
+        except Exception as err:
+            print(err)
+            info = ''
+            return info
+        else:
+            return info
 
     def get_poster_movie(self, movie_index):
         try:
@@ -76,68 +152,6 @@ class IMDbExtension():
             dedented_text = textwrap.dedent(actor_str[2:]).strip()
             formated_actors = textwrap.fill(dedented_text, width=88)
             return formated_actors
-
-    def get_movie_info(self, name, language_index=1):
-        actor_str = ''
-        try:
-            movie_index = self.imdb.search_movie(name)[0].movieID
-            movie_data = self.imdb.get_movie(str(movie_index))
-
-            try:
-                year = movie_data['year']
-            except:
-                year = '----'
-
-            try:
-                runtime = movie_data['runtime'][0]
-            except:
-                runtime = '---'
-            try:
-                actors = movie_data['actors']
-
-                for item in actors[:15]:
-                    actor_str = actor_str + ', ' + item['name']
-
-                dedented_text = textwrap.dedent(actor_str[2:]).strip()
-                formated_actors = textwrap.fill(dedented_text, width=88)
-                actors = formated_actors
-            except:
-                actors = '----'
-
-            try:
-                director = movie_data['director'][0]['name']
-            except:
-                director = '----'
-
-            try:
-                plot = movie_data['plot summary'][0]
-                dedented_text = textwrap.dedent(plot).strip()
-                formated_plot = textwrap.fill(dedented_text, width=88)
-            except:
-                formated_plot = '----'
-
-            info = '[{0}]: {1}\n' \
-                   '[{2}]: {3}\n' \
-                   '----------------------------------------------------------------------------------------' \
-                   '[{4}]: {5} Min\n' \
-                   '[{6}]: {7}\n' \
-                   '----------------------------------------------------------------------------------------' \
-                   '[{8}]:\n{9}\n' \
-                   '----------------------------------------------------------------------------------------' \
-                   '[{10}]:\n{11}\n'.format(TITLE_STRING[language_index], name,
-                                            YEAR_STRING[language_index], year,
-                                            RUNTIME_STRING[language_index], runtime,
-                                            DIRECTOR_STRING[language_index], director,
-                                            ACTORS_STRING[language_index], actors,
-                                            PLOT_STRING[language_index], formated_plot)
-        except Exception as err:
-            print(err)
-            info = ''
-            return info
-        else:
-            #print(self.name, movie_index, movie_data)
-            return info
-
 
     def get_year(self, movie_index):
         try:

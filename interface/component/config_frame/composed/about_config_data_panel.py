@@ -1,14 +1,19 @@
 from tkinter import *
 from interface.component.config_frame.simple.button_box import ButtonBox
-
+from config_parser import CustomConfigParser
 import gettext
-idiomas = []
-# t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
-# _ = t.gettext
-es = gettext.translation('about_config_data_panel', localedir='./interface/locale', languages=['es'])
-es.install()
-_ = es.gettext
-# _ = lambda s:s
+
+try:
+    se_config = CustomConfigParser('./torrentscraper.ini')
+    language_config = se_config.get_section_map('Language')
+    if language_config['language'] == '0':
+        _ = lambda s: s
+    else:
+        es = gettext.translation('about_config_data_panel', localedir='./interface/locale', languages=['es'])
+        es.install()
+        _ = es.gettext
+except Exception as err:
+    print(err)
 
 LABEL0_TEXT = _('About')
 LABEL1_TEXT = _('Did it for the Lulz')
@@ -23,6 +28,7 @@ class AboutConfigDataPanel(Frame):
         self.cmmndCloseConfig = cmmndCloseConfig
         self.main_theme = '#ADD8E6'
         self.highlight_theme = '#F0F8FF'
+
         self.on_create()
 
     def on_create(self):

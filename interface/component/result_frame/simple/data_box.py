@@ -1,14 +1,26 @@
 # Import Interface Libraries
 from tkinter import *
-
+from config_parser import CustomConfigParser
 import gettext
-idiomas = []
-t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
-_ = t.gettext
-# es = gettext.translation('about_config_data_panel', localedir='./interface/locale', languages=['es'])
-# es.install()
-# _ = es.gettext
-# _ = lambda s:s
+
+try:
+    se_config = CustomConfigParser('./torrentscraper.ini')
+    language_config = se_config.get_section_map('Language')
+    if language_config['language'] == '0':
+        _ = lambda s: s
+    else:
+        es = gettext.translation('data_box', localedir='./interface/locale', languages=['es'])
+        es.install()
+        _ = es.gettext
+
+    HASH_TEXT = _('Hash')
+    SIZE_TEXT = _('Size')
+    SEED_TEXT = _('Seeds')
+    LEECH_TEXT = _('Leechs')
+    LANGUAGE_TEXT = _('Language')
+    ANNOUNCE_LIST_TEXT = _('AnnounceList')
+except Exception as err:
+    print(err)
 
 class SimpleDataBox(Frame):
     def __init__(self, master, row, column, width=275, height=300, background='#F0F8FF'):
@@ -16,7 +28,6 @@ class SimpleDataBox(Frame):
         self.grid(row=row, column=column)
         self.data = None
         self.on_create()
-
 
     def on_create(self):
         upperborder = Frame(self, width=353, height=3, background='#F0F8FF')
@@ -29,16 +40,16 @@ class SimpleDataBox(Frame):
         self.data = T2
         T2.grid(row=0, column=0)
         T2.configure(relief='flat')
-        quote = '[Hash]: ---' \
+        quote = '[{0}]: ---' \
                 '\n-------------------------------------------------' \
-                '\n[Size]: ---' \
-                '\n[Seed]: ---' \
-                '\n[Leech]: ---' \
+                '\n[{1}]: ---' \
+                '\n[{2}]: ---' \
+                '\n[{3}]: ---' \
                 '\n-------------------------------------------------' \
-                '\n[Language]:(-)' \
+                '\n[{4}]:( - )' \
                 '\n-------------------------------------------------' \
-                '\n[AnnounceList]:' \
-                '\n\t[HTTPS]: --\n\t[HTTP]: --\n\t[UDP]: --'
+                '\n[{5}]:' \
+                '\n\t[HTTPS]: --\n\t[HTTP]: --\n\t[UDP]: --'.format(HASH_TEXT, SIZE_TEXT, SEED_TEXT, LEECH_TEXT, LANGUAGE_TEXT, ANNOUNCE_LIST_TEXT)
 
         T2.insert(END, quote)
         T2.config(state=DISABLED)

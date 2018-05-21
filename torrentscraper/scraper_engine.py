@@ -195,10 +195,15 @@ class ScraperEngine(object):
                     p2p_instance_list.append(P2PInstance(webscraper.name, websearch['search_type'],
                                                          websearch['lower_size_limit'], websearch['upper_size_limit'],
                                                          websearch['ratio_limit'], magnet_instance_list))
+
+                # Avoid Crash Went there it's no cotent or parse error message, so the systems it's able to construct
+                # the DataFrame.
                 except WebScraperContentError as err:
-                    self.logger.error(err.message + 'sssssssssssssssssssssss')
+                    self.logger.error(err.message)
+                    pass
                 except WebScraperParseError as err:
                     self.logger.error(err.message)
+                    pass
         return p2p_instance_list
 
     def _gather_raw_data(self, websearch, webscraper):

@@ -2,16 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from torrent_scraper_interface import run_interface
-from description_downloader import DescriptionDownloader
-from lib.fileflags import FileFlags as fflags
 
-FILM_DIRECTORY_FLAG = '9'
 
 def main():
     run_interface()
-    # desc = DescriptionDownloader()
-    # info = desc.get_info(fflags.FILM_DIRECTORY_FLAG, 'Kong: Skull Island')
-    # # print(info)
 
 if __name__ == '__main__':
     main()
@@ -20,12 +14,6 @@ if __name__ == '__main__':
 # TODO C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\result_frame\composed\data_panel.py
 # TODO C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\result_frame\simple\data_box.py
 #
-
-# TODO Añadir Internacionalizacion
-# TODO Corregir el bug, que genera WebscraperContentError y ErrorProxy al no permitir finalizar el proceoso.
-# TODO Añadir cache a la descripcion
-# TODO Añadir boton de clear cache en el config menu, en general
-# TODO Funcion de Save de QbitConfigDataPanel
 # TODO Propagar Theme por los objetos, añadirlo al menu de configuración general, y limpiar el codigo
 
     # cv = CoverDownloader()

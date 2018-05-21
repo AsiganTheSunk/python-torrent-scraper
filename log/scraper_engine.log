@@ -1,60 +1,9 @@
-05/19/2018 01:56:15 AM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
-05/19/2018 01:56:15 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://unblockedbay.info/s/?q=Final+Space++S01E10+1080p&category=0&page=0&orderby=99 ]
-05/19/2018 01:56:15 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Final+Space++S01E10+1080p&category=0&page=0&orderby=99 ]
-05/19/2018 01:56:20 AM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
-05/19/2018 01:56:20 AM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://unblockedbay.info ]
-05/19/2018 01:56:20 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21078527/Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK ]
-05/19/2018 01:56:23 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK with Hash [ f129dd6a5df77e0a0c861e87375f1f0eea2acd4b ]
-05/19/2018 01:56:23 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21523762/Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta ]
-05/19/2018 01:56:26 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta with Hash [ 33ab05f8595ea6c08bb19653cd9cac93d2ffc74d ]
-05/19/2018 01:56:26 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/torrent/21517215/Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE ]
-05/19/2018 01:56:27 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
-05/19/2018 01:56:27 AM -  [INFO]: KatScrapperTypeA Selected Proxy from Proxy List [ https://kickass.cd ]
-05/19/2018 01:56:27 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://kickass.cd/search.php?q=Final+Space++S01E10+1080p ]
-05/19/2018 01:56:27 AM -  [DEBUG0]: KatScrapperTypeA Searching on Proxy [ https://kickass.cd/search.php?q=Final+Space++S01E10+1080p ]
-05/19/2018 01:56:30 AM -  [INFO]: KatScrapperTypeA Retrieving Raw Values from Search Result Response:
-05/19/2018 01:56:30 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK with Hash [ f129dd6a5df77e0a0c861e87375f1f0eea2acd4b ]
-05/19/2018 01:56:30 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta with Hash [ 33ab05f8595ea6c08bb19653cd9cac93d2ffc74d ]
-05/19/2018 01:56:30 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
-05/19/2018 01:56:30 AM -  [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
-05/19/2018 01:56:30 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://torrentfunk.unblocked.mx/all/torrents/Final%20Space%20%20S01E10%201080p.html ]
-05/19/2018 01:56:30 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/all/torrents/Final%20Space%20%20S01E10%201080p.html ]
-05/19/2018 01:56:32 AM -  [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
-05/19/2018 01:56:32 AM -  [INFO]: TorrentFunkScraper Retrieving Torrent File from Proxy [ https://torrentfunk.unblocked.mx ]
-05/19/2018 01:56:32 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/15992961/ternal-1080p-web-bamboozle.html ]
-05/19/2018 01:56:33 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/15992961.torrent ]
-05/19/2018 01:56:33 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: www.Speed.cd - Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
-05/19/2018 01:56:33 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/torrent/16014556/final-space-2018-s01e10-1080p-web-dl-x265-hevc-10bit-aac-5-1-ime.html ]
-05/19/2018 01:56:34 AM -  [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/tor/16014556.torrent ]
-05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Final Space (2018) - S01E10 (1080p WEB-DL x265 HEVC 10bit AAC 5.1 ImE) with Hash [ d085dfb365203e44c5197cb819d09e4d774d5ee4 ]
-05/19/2018 01:56:35 AM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
-05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta with Hash [ 33ab05f8595ea6c08bb19653cd9cac93d2ffc74d ]
-05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-MeGusta with Hash [ 33ab05f8595ea6c08bb19653cd9cac93d2ffc74d ]
-05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
-05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
-05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: www.Speed.cd - Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAMBOOZLE with Hash [ d6f74bc9000b7dbdec23bed617eefbf9462cddc1 ]
-05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK with Hash [ f129dd6a5df77e0a0c861e87375f1f0eea2acd4b ]
-05/19/2018 01:56:35 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WEBRip.x264-BRiNK with Hash [ f129dd6a5df77e0a0c861e87375f1f0eea2acd4b ]
-05/19/2018 01:56:35 AM -  [DEBUG0]: ScraperEngine New DataFrame Rows:
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash  size  seed  leech     ratio                                             magnet
-0  Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-Me...  33ab05f8595ea6c08bb19653cd9cac93d2ffc74d   539     3      3  1.000000  magnet:?xt=urn:btih:33ab05f8595ea6c08bb19653cd...
-1  Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAM...  d6f74bc9000b7dbdec23bed617eefbf9462cddc1   761     7      3  2.333333  magnet:?xt=urn:btih:d6f74bc9000b7dbdec23bed617...
-2  Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WE...  f129dd6a5df77e0a0c861e87375f1f0eea2acd4b  2090     7      6  1.166667  magnet:?xt=urn:btih:f129dd6a5df77e0a0c861e8737...
-
-05/19/2018 01:56:35 AM -  [DEBUG0]: ScraperEngine Adding Merged New DataFrame to Main DataFrame:
-05/19/2018 01:56:35 AM -  [DEBUG0]: ScraperEngine Magnet WebScraping Search:
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash  size  seed  leech     ratio                                             magnet
-0  Final Space (2018) - S01E10 (1080p WEB-DL x265...  d085dfb365203e44c5197cb819d09e4d774d5ee4   467     1      1  1.000000  magnet:?xt=urn:btih:d085dfb365203e44c5197cb819...
-1  Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-Me...  33ab05f8595ea6c08bb19653cd9cac93d2ffc74d   539     3      3  1.000000  magnet:?xt=urn:btih:33ab05f8595ea6c08bb19653cd...
-2  Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAM...  d6f74bc9000b7dbdec23bed617eefbf9462cddc1   761     7      3  2.333333  magnet:?xt=urn:btih:d6f74bc9000b7dbdec23bed617...
-3  Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WE...  f129dd6a5df77e0a0c861e87375f1f0eea2acd4b  2090     7      6  1.166667  magnet:?xt=urn:btih:f129dd6a5df77e0a0c861e8737...
-
-05/19/2018 01:56:35 AM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash  size  seed  leech     ratio                                             magnet
-0  Final.Space.S01E10.iNTERNAL.1080p.WEB.x264-BAM...  d6f74bc9000b7dbdec23bed617eefbf9462cddc1   761     7      3  2.333333  magnet:?xt=urn:btih:d6f74bc9000b7dbdec23bed617...
-1  Lost.in.Space.2018.S01E10.FiNAL.MULTi.1080p.WE...  f129dd6a5df77e0a0c861e87375f1f0eea2acd4b  2090     7      6  1.166667  magnet:?xt=urn:btih:f129dd6a5df77e0a0c861e8737...
-2  Final.Space.S01E10.iNTERNAL.1080p.HEVC.x265-Me...  33ab05f8595ea6c08bb19653cd9cac93d2ffc74d   539     3      3  1.000000  magnet:?xt=urn:btih:33ab05f8595ea6c08bb19653cd...
-3  Final Space (2018) - S01E10 (1080p WEB-DL x265...  d085dfb365203e44c5197cb819d09e4d774d5ee4   467     1      1  1.000000  magnet:?xt=urn:btih:d085dfb365203e44c5197cb819...
+05/21/2018 07:43:03 PM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://unblockedbay.info ]
+05/21/2018 07:43:03 PM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://unblockedbay.info/s/?q=Westworld++S02E03+720p&category=0&page=0&orderby=99 ]
+05/21/2018 07:43:03 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://unblockedbay.info/s/?q=Westworld++S02E03+720p&category=0&page=0&orderby=99 ]
+05/21/2018 07:43:06 PM -  [INFO]: PirateBayScraper Corrupted Content, Trying a New Proxy from Proxy List: [ https://ukpirate.org ]
+05/21/2018 07:43:06 PM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://ukpirate.org/s/?q=Westworld++S02E03+720p&category=0&page=0&orderby=99 ]
+05/21/2018 07:43:06 PM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://ukpirate.org/s/?q=Westworld++S02E03+720p&category=0&page=0&orderby=99 ]
+05/21/2018 07:43:07 PM -  [ERROR]: WebScraperContentError, in WebScraperContentError Content Error in Search Result Response: [ ContentError: unable to retrieve values ]
+05/21/2018 07:43:07 PM -  [WARNING]: ScraperEngine Unable to Create a Unique Magnet DataFrame: Empty
+05/21/2018 07:43:07 PM -  [WARNING]: ScraperEngine Unable to Filter Magnet DataFrame: Empty

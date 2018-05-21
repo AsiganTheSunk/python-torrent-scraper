@@ -4,13 +4,24 @@ from interface.component.result_frame.composed.display_box import DisplayBox
 from interface.component.result_frame.composed.button_box import ButtonBox
 
 import gettext
-idiomas = []
-t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
-_ = t.gettext
-# es = gettext.translation('about_config_data_panel', localedir='./interface/locale', languages=['es'])
-# es.install()
-# _ = es.gettext
-# _ = lambda s:s
+# idiomas = []
+# t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
+# _ = t.gettext
+
+from config_parser import CustomConfigParser
+import gettext
+try:
+    se_config = CustomConfigParser('./torrentscraper.ini')
+    language_config = se_config.get_section_map('Language')
+    if language_config['language'] == '0':
+        _ = lambda s: s
+    else:
+        es = gettext.translation('data_panel', localedir='./interface/locale', languages=['es'])
+        es.install()
+        _ = es.gettext
+except Exception as err:
+    print(err)
+
 BUTTON0_TEXT = _('DOWNLOAD')
 BUTTON1_TEXT = _('EXIT')
 

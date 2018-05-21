@@ -1,5 +1,5 @@
 from tkinter import *
-from lib.imdbfilmextension import IMDbExtension
+from tkinter import END
 
 class SimpleInfoBox(Frame):
     def __init__(self, master, row, column, width=275, height=590, background='#ADD8E6'):

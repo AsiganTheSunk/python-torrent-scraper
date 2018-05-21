@@ -1,22 +1,43 @@
 import tvdb_api
 import textwrap
+import gettext
+from lib.fileflags import FileFlags as fflags
+from config_parser import CustomConfigParser
 
-TITLE_STRING = ['Title','Título']
-YEAR_STRING = ['Year','Año']
-RUNTIME_STRING = ['Runtime','Duración']
-PLOT_STRING = ['Plot Summary','Resumen Argumento']
-DIRECTOR_STRING = ['Director', 'Director']
-ACTORS_STRING = ['Actors', 'Actores']
+
+try:
+    se_config = CustomConfigParser('./torrentscraper.ini')
+    language_config = se_config.get_section_map('Language')
+    print('Loading Language, Set to:', language_config)
+    if language_config['language'] == '0':
+        print('Loading English Label')
+        _ = lambda s: s
+    else:
+        print('Loading Spanish Label')
+        es = gettext.translation('tvdbshowextension', localedir='./interface/locale', languages=['es'])
+        es.install()
+        _ = es.gettext
+
+    TITLE_STRING = _('Title')
+    YEAR_STRING = _('Year')
+    RUNTIME_STRING = _('Runtime')
+    PLOT_STRING = _('Plot Summary')
+    DIRECTOR_STRING = _('Director')
+    ACTORS_STRING = _('Actors')
+
+except Exception as err:
+    print(err)
 
 class TVDbShowExtension():
     def __init__(self):
         self.name = 'TVDbExtension'
         self.tvdb = tvdb_api.Tvdb(actors = True)
-        #self.supported_fflags = [fflags.SHOW_FLAG, fflags.SHOW_DIRECTORY_FLAG]
-        #self.supported_season_fflags = [fflags.SEASON_DIRECTORY_FLAG]
+        # self.supported_fflags = [fflags.SHOW_FLAG, fflags.SHOW_DIRECTORY_FLAG]
+        # self.supported_season_fflags = [fflags.SEASON_DIRECTORY_FLAG]
         self.supported_subtitle_fflags = []
 
-    def get_show_info(self, name, language_index=0):
+        print(TITLE_STRING, YEAR_STRING, RUNTIME_STRING, PLOT_STRING, DIRECTOR_STRING, ACTORS_STRING, '3')
+    def get_show_info(self, name):
         actor_str = ''
         try:
             show_data = self.tvdb[name]
@@ -34,7 +55,9 @@ class TVDbShowExtension():
                 actors = show_data['_actors']
                 #
                 # for item in actors[:15]:
-                #     actor_str = actor_str + ', ' + item['name']
+                #     print('LOLOLOL: ',item[7:-2])
+                    #
+                    # actor_str = actor_str + ', ' + item['name']
 
                 # dedented_text = textwrap.dedent(actor_str[2:]).strip()
                 # formated_actors = textwrap.fill(dedented_text, width=88)
@@ -62,12 +85,12 @@ class TVDbShowExtension():
                    '----------------------------------------------------------------------------------------' \
                    '[{8}]:\n{9}\n' \
                    '----------------------------------------------------------------------------------------' \
-                   '[{10}]:\n{11}\n'.format(TITLE_STRING[language_index], name,
-                                            YEAR_STRING[language_index], year,
-                                            RUNTIME_STRING[language_index], runtime,
-                                            DIRECTOR_STRING[language_index], director,
-                                            ACTORS_STRING[language_index], actors,
-                                            PLOT_STRING[language_index], formated_plot)
+                   '[{10}]:\n{11}\n'.format(TITLE_STRING, name,
+                                            YEAR_STRING, year,
+                                            RUNTIME_STRING, runtime,
+                                            DIRECTOR_STRING, director,
+                                            ACTORS_STRING, actors,
+                                            PLOT_STRING, formated_plot)
         except Exception as err:
             print(err)
             info = ''

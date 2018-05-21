@@ -8,7 +8,7 @@ class MalAnimeExtension():
         #self.supported_season_fflags = [fflags.SEASON_DIRECTORY_FLAG]
 
 
-    def get_movie_info(self, name, language_index=1):
+    def get_movie_info(self, name):
         pass
 
     def get_description(self, name, debug=False):

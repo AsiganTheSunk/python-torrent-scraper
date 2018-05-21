@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2018-05-21 17:32+Romance Daylight Time\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\lib\tvdbshowextension.py:4
+msgid "Title"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\lib\tvdbshowextension.py:5
+msgid "Year"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\lib\tvdbshowextension.py:6
+msgid "Runtime"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\lib\tvdbshowextension.py:7
+msgid "Plot Summary"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\lib\tvdbshowextension.py:8
+msgid "Director"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\lib\tvdbshowextension.py:9
+msgid "Actors"
+msgstr ""
+

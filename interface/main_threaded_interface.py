@@ -15,7 +15,7 @@ import queue
 # Import Custom Utils
 from torrent_scraper import TorrentScraper
 from lib.cover_downloader import CoverDownloader
-from description_downloader import DescriptionDownloader
+from lib.description_downloader import DescriptionDownloader
 
 class ThreadedClient:
     def __init__(self, master):

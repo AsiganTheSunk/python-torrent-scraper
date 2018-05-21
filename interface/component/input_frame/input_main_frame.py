@@ -16,15 +16,21 @@ from interface.component.config_frame.config_main_frame import ConfigMainFrame
 from tkinter import *
 from tkinter.ttk import Progressbar
 from lib.fileflags import FileFlags as fflags
+from config_parser import CustomConfigParser
 
-# idiomas = []
-# t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
-# _ = t.gettext
+try:
+    se_config = CustomConfigParser('./torrentscraper.ini')
+    language_config = se_config.get_section_map('Language')
+    if language_config['language'] == '0':
+        _ = lambda s: s
+    else:
+        es = gettext.translation('input_main_frame', localedir='./interface/locale', languages=['es'])
+        es.install()
+        _ = es.gettext
+except Exception as err:
+    print(err)
 
-es = gettext.translation('input_main_frame', localedir='./interface/locale', languages=['es'])
-es.install()
-_ = es.gettext
-# _ = lambda s:s
+# _ = lambda s: s
 
 HEADER_TEXT = _('[ Header ]')
 QUALITY_TEXT = _('[ Quality ]')
