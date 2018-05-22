@@ -33,4 +33,6 @@ class InputBox(Frame):
         self.input_box['state'] = 'normal'
 
     def get(self):
+        if self.input_box.get() == self.default_message:
+            return ''
         return self.input_box.get()

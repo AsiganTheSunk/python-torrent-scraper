@@ -20,7 +20,6 @@ class DescriptionDownloader():
         try:
             info = ''
             if fflag == fflags.SHOW_DIRECTORY_FLAG:
-                print('PASA POR AQUI')
                 clean_title = title.replace(':', '')
                 if self.check_chache(clean_title) is not True:
                     show_extension = TVDbShowExtension()
