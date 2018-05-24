@@ -18,7 +18,7 @@ class DisplayBox(Frame):
         self.on_create()
 
     def on_create(self):
-        flag_box = Frame(self, width=200, height=50)
+        flag_box = Frame(self)
         flag_box.grid(row=0, column=0)
         self.flag_box = flag_box
 
@@ -30,8 +30,8 @@ class DisplayBox(Frame):
         flag_box.placeholder = placeholder
 
         # Blocks to the left side of the item box
-        initial_block = Frame(flag_box, width=80, height=48, background=self.main_theme)
-        initial_block.grid(row=0, column=0)
+        # initial_block = Frame(flag_box, width=45, height=48, background=self.main_theme)
+        # initial_block.grid(row=0, column=0)
 
         space_block0 = Frame(flag_box, width=3, height=48, background=self.main_theme)
         space_block0.grid(row=0, column=1)

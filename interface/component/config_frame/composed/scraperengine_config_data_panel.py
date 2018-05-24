@@ -37,6 +37,7 @@ class ScraperEngineConfigDataPanel(Frame):
         self.deep_profile = self.se_config.get_section_map('DeepProfile')
         self.check_bar0 = None
         self.check_bar1 = None
+        self.check_bar2 = None
 
         self.main_theme = '#ADD8E6'
         self.highlight_theme = '#F0F8FF'
@@ -70,20 +71,28 @@ class ScraperEngineConfigDataPanel(Frame):
         check_bar1.grid(row=5, column=0)
         self.check_bar1 = check_bar1
 
-        inner_border_frame4 = Frame(self, width=275, height=153, background=self.main_theme)
+        inner_border_frame4 = Frame(self, width=275, height=2, background=self.main_theme)
         inner_border_frame4.grid(row=6, column=0)
 
-        button_box = ButtonBox(self, 7, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)
+        check_bar2 = Checkbar1(self, self.scraper_config)
+        check_bar2.grid(row=7, column=0)
+        self.check_bar2 = check_bar2
+
+        inner_border_frame5 = Frame(self, width=275, height=126, background=self.main_theme)
+        inner_border_frame5.grid(row=8, column=0)
+
+        button_box = ButtonBox(self, 9, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)
         self.button_box = button_box
 
-        inner_border_frame5 = Frame(self, width=275, height=3, background=self.main_theme)
-        inner_border_frame5.grid(row=8, column=0)
+        inner_border_frame6 = Frame(self, width=275, height=3, background=self.main_theme)
+        inner_border_frame6.grid(row=10, column=0)
 
     def save_picks(self):
         aux0 = self.check_bar0.get_picks()
         aux1 = self.check_bar1.get_picks()
+        aux2 = self.check_bar2.get_picks()
 
-        result = dict(list(aux0.items()) + list(aux1.items()))
+        result = dict(list(aux0.items()) + list(aux1.items()) + list(aux2.items()))
         for index, item in enumerate(result):
             print(index, item, result[item])
             self.se_config.set_section_key('ScraperEngine', item, str(result[item]))
@@ -106,15 +115,15 @@ class Checkbar(Frame):
         self.var3 = IntVar()
 
         self.var1.set(self.picks['thepiratebay'])
-        check_button0 = Checkbutton(self, text='thepiratebay', variable=self.var1, background=self.main_theme)
+        check_button0 = Checkbutton(self, text='thepiratebay', variable=self.var1, background=self.main_theme, font=('calibri', (10)))
         check_button0.grid(row=1, column=0)
 
         self.var2.set(self.picks['kickass'])
-        check_button1 = Checkbutton(self, text='kickass', variable=self.var2, background=self.main_theme)
+        check_button1 = Checkbutton(self, text='kickass', variable=self.var2, background=self.main_theme, font=('calibri', (10)))
         check_button1.grid(row=1, column=1)
 
         self.var3.set(self.picks['torrentfunk'])
-        check_button2 = Checkbutton(self, text='torrentfunk', variable=self.var3, background=self.main_theme)
+        check_button2 = Checkbutton(self, text='torrentfunk', variable=self.var3, background=self.main_theme, font=('calibri', (10)))
         check_button2.grid(row=1, column=2)
 
     def get_picks(self):
@@ -133,23 +142,55 @@ class Checkbar0(Frame):
         self.var6 = IntVar()
 
         self.var4.set(self.picks['extratorrent'])
-        check_button0 = Checkbutton(self, text='extratorrent', variable=self.var4, background=self.main_theme)
+        check_button0 = Checkbutton(self, text='extratorrent', variable=self.var4, background=self.main_theme, font=('calibri', (10)))
         check_button0.grid(row=1, column=0)
         # TODO **** DISABLED
         check_button0['state'] = 'disable'
 
         self.var5.set(self.picks['rarbg'])
-        check_button1 = Checkbutton(self, text='rarbg', variable=self.var5, background=self.main_theme)
+        check_button1 = Checkbutton(self, text='rarbg', variable=self.var5, background=self.main_theme, font=('calibri', (10)))
         check_button1.grid(row=1, column=1)
         # TODO **** DISABLED
         check_button1['state'] = 'disable'
 
         self.var6.set(self.picks['mejortorrent'])
-        check_button2 = Checkbutton(self, text='mejortorrent', variable=self.var6, background=self.main_theme)
+        check_button2 = Checkbutton(self, text='mejortorrent', variable=self.var6, background=self.main_theme, font=('calibri', (10)))
         check_button2.grid(row=1, column=2)
         # TODO **** DISABLED
         check_button2['state'] = 'disable'
 
     def get_picks(self):
         result = {'extratorrent': self.var4.get(), 'rarbg': self.var5.get(), 'mejortorrent':self.var6.get()}
+        return result
+
+class Checkbar1(Frame):
+    def __init__(self, parent, picks):
+        Frame.__init__(self, parent)
+        self.main_theme = '#ADD8E6'
+        self.highlight_theme = '#F0F8FF'
+        self.picks = picks
+        self.var7 = IntVar()
+        self.var8 = IntVar()
+        self.var9 = IntVar()
+
+        self.var7.set(self.picks['nyaa'])
+        check_button0 = Checkbutton(self, text='nyaa', variable=self.var7, background=self.main_theme, font=('calibri', (10)))
+        check_button0.grid(row=1, column=0)
+        # TODO **** DISABLED
+        # check_button0['state'] = 'disable'
+
+        # self.var8.set(self.picks['rarbg'])
+        # check_button1 = Checkbutton(self, text='rarbg', variable=self.var8, background=self.main_theme, font=('calibri', (10)))
+        # check_button1.grid(row=1, column=1)
+        # # TODO **** DISABLED
+        # check_button1['state'] = 'disable'
+        #
+        # self.var9.set(self.picks['mejortorrent'])
+        # check_button2 = Checkbutton(self, text='mejortorrent', variable=self.var9, background=self.main_theme, font=('calibri', (10)))
+        # check_button2.grid(row=1, column=2)
+        # # TODO **** DISABLED
+        # check_button2['state'] = 'disable'
+
+    def get_picks(self):
+        result = {'nyaa': self.var7.get()}#, 'rarbg': self.var8.get(), 'mejortorrent':self.var9.get()}
         return result

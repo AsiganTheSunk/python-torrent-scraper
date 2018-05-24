@@ -43,9 +43,9 @@ class DescriptionDownloader():
                 clean_title = title.replace(':', '')
                 if self.check_chache(clean_title) is not True:
                     anime_extension = MalAnimeExtension()
-                    anime_extension.get_movie_info(title)
-
+                    info = anime_extension.get_anime_info(title)
                     self.save_in_cache(clean_title, info)
+                    return info
                 else:
                     return self.get_info_from_cache(clean_title)
         except Exception as err:

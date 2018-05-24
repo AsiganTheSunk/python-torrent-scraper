@@ -20,14 +20,19 @@ class ResultPanel(Frame):
         left_border_frame = Frame(self, width=10, height=275, background= self.main_theme)
         left_border_frame.grid(row=0, column=0)
 
-        inner_border_frame = Frame(self, width=6, height=275, background= self.main_theme)
+        #ListBox
+
+        inner_border_frame = Frame(self, width=11, height=275, background= self.main_theme)
         inner_border_frame.grid(row=0, column=2)
 
         data_panel = DataPanel(self, 0, 3, self.cmmndClose)
         self.data_panel = data_panel
 
+        right_border_frame = Frame(self, width=6, height=275, background= self.main_theme)
+        right_border_frame.grid(row=0, column=4)
+
+        #Moved Here!
         list_panel = ListPanel(self, 0, 1, data_panel.data_box, data_panel.display_box, data_panel.button_box)
         self.list_panel = list_panel
 
-        right_border_frame = Frame(self, width=5, height=275, background= self.main_theme)
-        right_border_frame.grid(row=0, column=4)
+

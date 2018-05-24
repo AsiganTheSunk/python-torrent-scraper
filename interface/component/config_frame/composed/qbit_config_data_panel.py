@@ -1,5 +1,6 @@
 from tkinter import *
 from interface.component.config_frame.simple.button_box import ButtonBox
+from interface.component.config_frame.simple.input_box import InputBox
 import gettext
 
 try:
@@ -43,7 +44,7 @@ class QbitConfigDataPanel(Frame):
         label_frame1.grid(row=1, column=0)
 
         # Label Frame 1: Content
-        label = Label(label_frame1, text=LABEL0_TEXT, background=self.main_theme)
+        label = Label(label_frame1, text=LABEL0_TEXT, background=self.main_theme, font=('calibri', (10)))
         label.grid(row=0, column=0)
 
         inner_border_frame1 = Frame(label_frame1, width=250, height=2, background=self.highlight_theme)
@@ -55,16 +56,8 @@ class QbitConfigDataPanel(Frame):
         entry_frame = Frame(label_frame1, width=250, height=17, background=self.main_theme)
         entry_frame.grid(row=3, column=0)
 
-        self.user_entry = Entry(entry_frame, width=15)
-        self.user_entry.insert(END, '')
-        self.user_entry.grid(row=0, column=0)
-        self.user_entry['state'] = 'disable'
-
-        label = Label(entry_frame, text=LABEL1_TEXT, background=self.main_theme)
-        label.grid(row=0, column=1)
-
-        push_frame = Frame(entry_frame, width=70, height=19, background=self.main_theme)
-        push_frame.grid(row=0, column=3)
+        self.user_entry = InputBox(entry_frame, 0, 0, default_message=LABEL1_TEXT, width=15)
+        self.user_entry.disable()
 
         inner_border_framex = Frame(label_frame1, width=250, height=2, background=self.main_theme)
         inner_border_framex.grid(row=4, column=0)
@@ -72,22 +65,14 @@ class QbitConfigDataPanel(Frame):
         entry_frame0 = Frame(label_frame1, width=250, height=17, background=self.main_theme)
         entry_frame0.grid(row=5, column=0)
 
-        self.pass_entry = Entry(entry_frame0, width=15)
-        self.pass_entry.insert(END, '')
-        self.pass_entry.grid(row=0, column=0)
-        self.pass_entry['state'] = 'disable'
-
-        label1 = Label(entry_frame0, text=LABEL2_TEXT, background=self.main_theme)
-        label1.grid(row=0, column=1)
-
-        push_frame0 = Frame(entry_frame0, width=47, height=18, background=self.main_theme)
-        push_frame0.grid(row=0, column=3)
+        self.pass_entry = InputBox(entry_frame0, 0, 0, default_message=LABEL2_TEXT, width=15)
+        self.pass_entry.disable()
 
         inner_border_frame2 = Frame(self, width=275, height=3, background=self.main_theme)
         inner_border_frame2.grid(row=4, column=0)
 
         # ButtonBox: Content
-        inner_border_frame3 = Frame(self, width=275, height=159, background=self.main_theme)
+        inner_border_frame3 = Frame(self, width=275, height=163, background=self.main_theme)
         inner_border_frame3.grid(row=7, column=0)
 
         self.button_box = ButtonBox(self, 8, 0, self.cmmndCloseConfig, self.save_picks, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)

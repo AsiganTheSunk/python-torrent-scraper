@@ -24,6 +24,7 @@ from torrentscraper.utils.custom_logger import CustomLogger
 from torrentscraper.webscrapers import kat_scraper_type_a as kata
 from torrentscraper.webscrapers import pirate_bay_scraper as tpb
 from torrentscraper.webscrapers import torrent_funk_scraper as funk
+from torrentscraper.webscrapers import nyaa_scraper as nyaa
 
 # Import Custom Exceptions: WebScraper Exceptions
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
@@ -70,8 +71,6 @@ ANIME_FLAG = fflags.ANIME_DIRECTORY_FLAG
 DEBUG0 = 15
 VERBOSE = 5
 
-
-
 # TODO Terminar de Prograpagar Excepciones!!!
 # TODO Hacer los examples para las mismas
 # TODO Resolver problema de webdrivers. rbg.RarbgScrapper()
@@ -80,16 +79,16 @@ class ScraperEngine(object):
         self.name = self.__class__.__name__
 
         # Create & Config CustomLogger
-        self.logger = CustomLogger(name=__name__, level=DEBUG0)
+        self.logger = CustomLogger(name=__name__, level=DEBUG)
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
         file_handler = logging.FileHandler('log/scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(level=DEBUG0)
+        file_handler.setLevel(level=DEBUG)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(DEBUG0)
+        console_handler.setLevel(DEBUG)
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
@@ -97,7 +96,8 @@ class ScraperEngine(object):
         if webscraper_dict is not None:
             self.webscrapers = self.load_webscraper(webscraper_dict)
         else:
-            self.webscrapers = [tpb.PirateBayScraper(self.logger), funk.TorrentFunkScraper(self.logger), kata.KatScrapperTypeA(self.logger)]
+            self.logger.info('Genera Lista con NyaaScraper')
+            self.webscrapers = [nyaa.NyaaScraper(self.logger), tpb.PirateBayScraper(self.logger), funk.TorrentFunkScraper(self.logger), kata.KatScrapperTypeA(self.logger)]
 
     def load_webscraper(self, webscraper_dict):
         aux_list = []
@@ -108,6 +108,8 @@ class ScraperEngine(object):
                 aux_list.append(kata.KatScrapperTypeA(self.logger))
             elif item == 'torrentfunk' and webscraper_dict[item] == '1':
                 aux_list.append(funk.TorrentFunkScraper(self.logger))
+            elif item == 'nyaa' and webscraper_dict[item] == '1':
+                aux_list.append(nyaa.NyaaScraper(self.logger))
         return aux_list
 
     def _normalize_magnet_entries(self, raw_data, websearch, webscraper):
@@ -200,9 +202,11 @@ class ScraperEngine(object):
                 # the DataFrame.
                 except WebScraperContentError as err:
                     self.logger.error(err.message)
+                    print('AQUI 0')
                     pass
                 except WebScraperParseError as err:
                     self.logger.error(err.message)
+                    print('AQUI')
                     pass
         return p2p_instance_list
 

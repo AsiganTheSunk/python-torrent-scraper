@@ -40,13 +40,13 @@ class AboutConfigDataPanel(Frame):
         label_frame1.grid(row=1, column=0)
 
         # Label Frame 1: Content
-        label = Label(label_frame1, text=LABEL0_TEXT, background=self.main_theme)
+        label = Label(label_frame1, text=LABEL0_TEXT, background=self.main_theme, font=('calibri', (10)))
         label.grid(row=0, column=0)
 
         inner_border_frame1 = Frame(label_frame1, width=250, height=2, background=self.highlight_theme)
         inner_border_frame1.grid(row=1, column=0)
 
-        label = Label(self, text=LABEL1_TEXT, background=self.main_theme)
+        label = Label(self, text=LABEL1_TEXT, background=self.main_theme, font=('calibri', (10)))
         label.grid(row=2, column=0)
 
         inner_border_frame2 = Frame(self, width=275, height=3, background=self.main_theme)

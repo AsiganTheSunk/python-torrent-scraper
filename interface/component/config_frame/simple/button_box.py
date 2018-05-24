@@ -25,7 +25,7 @@ class ButtonBox(Frame):
         button_frame = Frame(self, width=200, height=40, background=self.main_theme)
         button_frame.grid(row=0, column=1)
 
-        self.button0 = Button(button_frame, text=self.fst_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.cmmndSave())
+        self.button0 = Button(button_frame, text=self.fst_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.cmmndSave(), font=('calibri', (10)), highlightbackground='#848482')
         self.button0.grid(row=0, column=0)
 
         inner_border_frameb = Frame(button_frame, width=2, height=40, background=self.highlight_theme)
@@ -37,7 +37,7 @@ class ButtonBox(Frame):
         inner_border_framea = Frame(button_frame, width=2, height=40, background=self.highlight_theme)
         inner_border_framea.grid(row=0, column=3)
 
-        self.button1 = Button(button_frame, text=self.snd_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.cmmndCloseConfig())
+        self.button1 = Button(button_frame, text=self.snd_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.cmmndCloseConfig(), font=('calibri', (10)), highlightbackground='#848482')
         self.button1.grid(row=0, column=4)
 
         right_border_frame = Frame(self, width=2, height=40, background=self.highlight_theme)

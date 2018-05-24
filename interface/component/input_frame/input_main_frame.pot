@@ -17,7 +17,7 @@ msgstr ""
 
 #:
 #: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:21
-msgid "[ Header ]"
+msgid "[ Source ]"
 msgstr ""
 
 #:

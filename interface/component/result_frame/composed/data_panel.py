@@ -51,13 +51,13 @@ class DataPanel(Frame):
         data_box = SimpleDataBox(self, 3, 0)
         self.data_box = data_box
 
-        inner_border_frame1 = Frame(self, width=275, height=17, background=self.main_theme)
+        inner_border_frame1 = Frame(self, width=275, height=26, background=self.main_theme)
         inner_border_frame1.grid(row=4, column=0)
 
         button_box = ButtonBox(self, 5, 0, self.cmmndClose, fst_text=BUTTON0_TEXT, snd_text=BUTTON1_TEXT)
         self.button_box = button_box
 
-        inner_border_frame0 = Frame(self, width=275, height=3, background=self.main_theme)
-        inner_border_frame0.grid(row=6, column=0)
+        # inner_border_frame0 = Frame(self, width=275, height=3, background=self.main_theme)
+        # inner_border_frame0.grid(row=6, column=0)
 
 

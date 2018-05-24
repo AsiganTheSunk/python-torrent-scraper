@@ -60,7 +60,7 @@ class GeneralConfigDataPanel(Frame):
         label_frame1.grid(row=1, column=0)
 
         # Label Frame 1: Content
-        label = Label(label_frame1, text=LABEL0_TEXT, background=self.main_theme)
+        label = Label(label_frame1, text=LABEL0_TEXT, background=self.main_theme, font=('calibri', (10)))
         label.grid(row=0, column=0)
 
         inner_border_frame1 = Frame(label_frame1, width=250, height=2, background=self.highlight_theme)
@@ -89,7 +89,7 @@ class GeneralConfigDataPanel(Frame):
         label_frame2.grid(row=5, column=0)
 
         # Label Frame 2: Content
-        label = Label(label_frame2, text=LABEL1_TEXT, background=self.main_theme)
+        label = Label(label_frame2, text=LABEL1_TEXT, background=self.main_theme, font=('calibri', (10)))
         label.grid(row=0, column=0)
 
         inner_border_frame4 = Frame(label_frame2, width=250, height=2, background=self.highlight_theme)

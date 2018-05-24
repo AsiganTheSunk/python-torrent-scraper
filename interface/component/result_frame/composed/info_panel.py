@@ -21,6 +21,6 @@ class InfoPanel(Frame):
 
         self.poster_box = SimplePosterBox(self, 0, 4)
 
-        right_border_frame = Frame(self, width=5, height=275, background='#ADD8E6')
+        right_border_frame = Frame(self, width=6, height=275, background='#ADD8E6')
         right_border_frame.grid(row=0, column=5)
 

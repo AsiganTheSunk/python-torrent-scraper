@@ -46,13 +46,6 @@ class MagnetBuilder(object):
     def __init__(self, logger):
         self.name = self.__class__.__name__
         self.logger = logger
-        #self.logger_lvl = self.logger.getLevelName(self.logger.getEffectiveLevel())
-
-    # def __str__(self):
-    #     return('{0} Id: {1}\n Logger Id:{2}, Logger Lvl:{3}\n'.format(
-    #         self.name, id(self),
-    #         self.logger.getLevelName(self.logger.getEffectiveLevel()),
-    #         self.logger.getEffectiveLevel()))
 
     def is_empty(self, magnet):
         if magnet.hash and magnet.display_name != '':
@@ -104,7 +97,7 @@ class MagnetBuilder(object):
         _result = ''
         try:
             if value[b'info'][b'name'].decode() != b'name':
-                _result = value[b'info'][b'name'].decode()
+                _result = value[b'info'][b'name'].decode('utf-8')
         except Exception as err:
             raise MagnetBuilderTorrentKeyDisplayNameError(self.name, str(err))
         return _result
@@ -186,6 +179,7 @@ class MagnetBuilder(object):
         display_name = ''
         try:
             display_name = re.search('(?<=(\&dn=)).*?(?=(\&tr))', magnet_link, re.IGNORECASE).group(0)
+            display_name = urllib.parse.unquote(display_name)
             self.logger.debug('{0} Display Name: [ {1} ]'.format(self.name, display_name))
         except AttributeError as err:
             try:

@@ -25,7 +25,7 @@ from interface.component.config_frame.composed.general_config_data_panel import 
 
 class SimpleVerticalListBox(Listbox):
     def __init__(self, master, item_list, right_block, cmmndCloseConfig, buttonbox=None):
-        Listbox.__init__(self, master, height=17, width=16)
+        Listbox.__init__(self, master, height=17, width=16, font=('calibri', (10)))
         self.item_list = item_list
         self.master = master
         self.buttonbox = buttonbox

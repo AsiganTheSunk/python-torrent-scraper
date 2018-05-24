@@ -27,28 +27,28 @@ class ButtonBox(Frame):
         self.on_create()
 
     def on_create(self):
-        left_border_frame = Frame(self, width=2, height=40, background=self.highlight_theme)
+        left_border_frame = Frame(self, width=2, height=41, background=self.highlight_theme)
         left_border_frame.grid(row=0, column=0)
 
         button_frame = Frame(self, background=self.main_theme)
         button_frame.grid(row=0, column=1)
 
-        B = Button(button_frame, text=self.fst_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.download())
+        B = Button(button_frame, text=self.fst_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.download(), font=('calibri', (10)), highlightbackground='#848482')
         B.grid(row=0, column=0)
 
-        inner_border_frameb = Frame(button_frame, width=2, height=40, background=self.highlight_theme)
+        inner_border_frameb = Frame(button_frame, width=2, height=41, background=self.highlight_theme)
         inner_border_frameb.grid(row=0, column=1)
 
-        inner_border_frame = Frame(button_frame, width=40, height=40, background=self.main_theme)
+        inner_border_frame = Frame(button_frame, width=40, height=41, background=self.main_theme)
         inner_border_frame.grid(row=0, column=2)
 
-        inner_border_framea = Frame(button_frame, width=2, height=40, background=self.highlight_theme)
+        inner_border_framea = Frame(button_frame, width=2, height=41, background=self.highlight_theme)
         inner_border_framea.grid(row=0, column=3)
 
-        B1 = Button(button_frame, text=self.snd_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.cmmndClose())
+        B1 = Button(button_frame, text=self.snd_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.cmmndClose(), font=('calibri', (10)), highlightbackground='#848482')
         B1.grid(row=0, column=4)
 
-        right_border_frame = Frame(self, width=2, height=40, background=self.highlight_theme)
+        right_border_frame = Frame(self, width=2, height=41, background=self.highlight_theme)
         right_border_frame.grid(row=0, column=2)
 
     def download(self):

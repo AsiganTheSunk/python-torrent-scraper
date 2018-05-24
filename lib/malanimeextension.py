@@ -1,161 +1,130 @@
-from myanimelist.session import Session
+from Pymoe import Anilist
+import textwrap
+from lib.fileflags import FileFlags as fflags
+from config_parser import CustomConfigParser
+import gettext
+
+
+try:
+    se_config = CustomConfigParser('./torrentscraper.ini')
+    language_config = se_config.get_section_map('Language')
+    if language_config['language'] == '0':
+        _ = lambda s: s
+    else:
+        es = gettext.translation('imdbfilmextension', localedir='./interface/locale', languages=['es'])
+        es.install()
+        _ = es.gettext
+
+    TITLE_STRING = _('Title')
+    YEAR_STRING = _('Year')
+    RUNTIME_STRING = _('Runtime')
+    PLOT_STRING = _('Plot Summary')
+    DIRECTOR_STRING = _('Director')
+    ACTORS_STRING = _('Actors')
+
+except Exception as err:
+    print(err)
 
 class MalAnimeExtension():
     def __init__(self):
         self.name = 'TVDbExtension'
-        self.mal = Session()
+        self.ani = Anilist()
         #self.supported_fflags = [fflags.SHOW_FLAG, fflags.SHOW_DIRECTORY_FLAG]
         #self.supported_season_fflags = [fflags.SEASON_DIRECTORY_FLAG]
 
+    def get_anime_info(self, name):
+        actor_str = ''
+        try:
+            anime_index = self.ani.search.anime(name)['data']['Page']['media'][0]['id']
+            anime_data = self.ani.get.anime(anime_index)
 
-    def get_movie_info(self, name):
-        pass
+            try:
+                year = anime_data['data']['Media']['startDate']['year']
+            except:
+                year = '----'
+
+            try:
+                runtime = '---'
+            except:
+                runtime = '---'
+            try:
+                actors = '----'
+                # actors = movie_data['actors']
+                #
+                # for item in actors[:15]:
+                #     actor_str = actor_str + ', ' + item['name']
+                #
+                # dedented_text = textwrap.dedent(actor_str[2:]).strip()
+                # formated_actors = textwrap.fill(dedented_text, width=80)
+                # actors = formated_actors
+            except:
+                actors = '----'
+
+            try:
+                director = '----'
+            except:
+                director = '----'
+
+            try:
+                plot = anime_data['data']['Media']['description']
+                dedented_text = textwrap.dedent(plot).strip()
+                formated_plot = textwrap.fill(dedented_text, width=120)
+            except:
+                formated_plot = '----'
+
+            info = '[{0}]: {1}\n' \
+                   '[{2}]: {3}\n' \
+                   '----------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' \
+                   '[{4}]: {5} Min\n' \
+                   '[{6}]: {7}\n' \
+                   '----------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' \
+                   '[{8}]:\n{9}\n' \
+                   '----------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n' \
+                   '[{10}]:\n{11}\n'.format(TITLE_STRING, name,
+                                            YEAR_STRING, year,
+                                            RUNTIME_STRING, runtime,
+                                            DIRECTOR_STRING, director,
+                                            ACTORS_STRING, actors,
+                                            PLOT_STRING, formated_plot)
+        except Exception as err:
+            print(err)
+            info = ''
+            return info
+        else:
+            return info.replace('<br><br> ', '')
+
 
     def get_description(self, name, debug=False):
-        '''
-        This function retrieves number of episodes per season from a given show using tvdb_api
-        :param name: It represents the name of the show you're searching for
-        :param season: It represents the season of the show you're searching for
-        :return: EPISODE_COUNT
-        '''
-        try:
-            overview = self.tvdb[name]['overview']
-        except:
-            # raise error that would be corrected in ReEngine turning exception into blank field
-            overview = ''
-            return overview
-        else:
-            if debug:
-                print('{0}: name:{1}, description: {2}'.format(self.name, name, overview))
-            return overview
+        pass
 
     def get_year(self, name, debug=False):
-        '''
-        This function retrieves number of episodes per season from a given show using tvdb_api
-        :param name: It represents the name of the show you're searching for
-        :param season: It represents the season of the show you're searching for
-        :return: EPISODE_COUNT
-        '''
-        try:
-            year = self.tvdb[name]['firstAired']
-        except:
-            # raise error that would be corrected in ReEngine turning exception into blank field
-            year = ''
-            return year
-        else:
-            if debug:
-                print('{0}: name:{1}, year: {2}'.format(self.name, name, year[:-6]))
-            return year[:-6]
+        pass
 
     def get_runtime(self, name, debug=False):
-        '''
-        This function retrieves number of episodes per season from a given show using tvdb_api
-        :param name: It represents the name of the show you're searching for
-        :param season: It represents the season of the show you're searching for
-        :return: EPISODE_COUNT
-        '''
-        try:
-            runtime = self.tvdb[name]['runtime']
-        except:
-            # raise error that would be corrected in ReEngine turning exception into blank field
-            runtime = ''
-            return runtime
-        else:
-            if debug:
-                print('{0}: name:{1}, runtime: {2}'.format(self.name, name, runtime))
-            return runtime
+        pass
 
     def get_actors(self, name, debug=False):
-        '''
-        This function retrieves number of episodes per season from a given show using tvdb_api
-        :param name: It represents the name of the show you're searching for
-        :param season: It represents the season of the show you're searching for
-        :return: EPISODE_COUNT
-        '''
-        try:
-            actors = self.tvdb[name]['_actors']
-        except:
-            # raise error that would be corrected in ReEngine turning exception into blank field
-            actors = ''
-            return actors
-        else:
-            if debug:
-                print('{0}: name:{1}, actors: {2}'.format(self.name, name, actors))
-            return actors
+        pass
 
 
     def get_genre(self, name, debug=False):
-        '''
-         This function retrieves genre values from a given show using tvdb_api
-        :param name: It represents the input string you're parsing
-        :param debug: It represents the debug status of the function, default it's False
-        :return: GENRE
-        '''
-        try:
-            genres = self.tvdb[name]['genre']
-            genre = genres[1:-1].split('|')[0]
-        except:
-            # raise error that would be corrected in ReEngine turning exception into blank field
-            genre = ''
-            return genre
-        else:
-            if debug:
-                print('{0}: name:{1} :: genre:{2}'.format(self.name, name, genre))
-            return genre
+        pass
 
     def get_episode_name(self, name, season, episode, debug=False):
-        '''
-        This function retrieves episode name values from a given show using tvdb_api
-        :param name: It represents the name of the show you're searching for
-        :param season: It represents the season of the show you're searching for
-        :param episode: It represents the episode of the show you're searching for
-        :param debug: It represents the debug status of the function, default it's False
-        :return: EPISODE_NAME
-        '''
-        try:
-            aux_episode = self.tvdb[name][int(season)][int(episode)]
-        except:
-            # raise error that would be corrected in ReEngine turning exception into blank field
-            episode_name = ''
-            return episode_name
-        else:
-            episode_name = aux_episode['episodename']
-            if debug:
-                print('{0}: name:{1}, season:{2}, episode:{3} :: ename:{4}'.format(
-                    self.name, name, season, episode, episode_name))
-
-            return episode_name
+        pass
 
     def get_number_of_season_episodes(self, name, season, debug=False):
-        '''
-        This function retrieves number of episodes per season from a given show using tvdb_api
-        :param name: It represents the name of the show you're searching for
-        :param season: It represents the season of the show you're searching for
-        :return: EPISODE_COUNT
-        '''
-        try:
-            episode_count = len(self.tvdb[name][int(season)])
-        except:
-            # raise error that would be corrected in ReEngine turning exception into blank field
-            episode_count = 0
-            return episode_count
-        else:
-            if debug:
-                print('{0}: name:{1}, season:{2} :: episodes:{3}').format(self.name, name, season, episode_count)
-            return episode_count
+        pass
 
     def get_number_of_seasons(self, name, debug=False):
-        '''
-        This function retrieves number of seasons from a given show using tvdb_api
-        :param name: It represents the name of the show you're searching for
-        :return: SEASON_COUNT
-        '''
-        try:
-            season_count = len(self.tvdb[name])
-        except:
-            season_count = 0
-            return season_count
-        else:
-            if debug:
-                print('{0}: name:{1} :: seasons:{2}').format(self.name, name, season_count)
-            return season_count
+        pass
+
+    # print('staff', instance.get.staff(5114))
+    #
+    # import myanimelist.session
+    # session = myanimelist.session.Session()
+    # # Return an anime object corresponding to an ID of 1. IDs must be natural numbers.
+    # data = session.anime(5114)
+    # print(data)
+    # for character in data.characters:
+    #     print(character.name, '---', data.characters[character]['role'])

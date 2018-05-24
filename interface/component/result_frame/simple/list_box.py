@@ -42,6 +42,7 @@ except Exception as err:
 class SimpleListBox(Listbox):
     def __init__(self, master, item_list, databox, displaybox, buttonbox, dataframe=None):
         Listbox.__init__(self, master, height=20, width=80)
+        self.config(font=('calibri', (10)), relief='flat')
         self.item_list = item_list
         self.master = master
         self.databox = databox
@@ -79,13 +80,13 @@ class SimpleListBox(Listbox):
             magnet_instance = mbuilder.parse_from_magnet(magnet, size, seed, leech)
 
             quote = '[{0}]: {1}' \
-                    '\n-------------------------------------------------' \
+                    '\n------------------------------------------------------------------------------------' \
                     '\n[{2}]: {3} MB' \
                     '\n[{4}]: {5}' \
                     '\n[{6}]: {7}' \
-                    '\n-------------------------------------------------' \
+                    '\n------------------------------------------------------------------------------------' \
                     '\n[{8}]:( {9} )' \
-                    '\n-------------------------------------------------' \
+                    '\n------------------------------------------------------------------------------------' \
                     '\n[{10}]:' \
                     '\n\t[HTTPS]: {11}\n\t[HTTP]: {12}\n\t[UDP]: {13}'.format(HASH_TEXT, magnet_instance['hash'],
                                                                               SIZE_TEXT, magnet_instance['size'],

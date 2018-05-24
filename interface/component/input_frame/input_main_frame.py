@@ -4,7 +4,7 @@
 # Import System Libraries
 import queue
 import gettext
-
+import os
 # Import Custom Interface Components
 from interface.component.input_frame.simple.option_menu import SimpleOptionMenu
 
@@ -31,7 +31,7 @@ try:
 except Exception as err:
     print(err)
 
-HEADER_TEXT = _('[ Header ]')
+SOURCE_TEXT = _('[ Source ]')
 QUALITY_TEXT = _('[ Quality ]')
 YEAR_TEXT = _('Year')
 TITLE_TEXT = _('Title')
@@ -40,6 +40,8 @@ EPISODE_TEXT = _('Ep')
 SEARCH_TYPE = _('[ Category ]')
 SEARCH_TYPE_LIST = [_('SHOW'), _('FILM'), _('ANIME')]
 SEARCH_TEXT = _('Search')
+
+
 
 class InputMainFrame(Frame):
     def __init__(self, master, row, column, retrieveData, queue):
@@ -54,7 +56,7 @@ class InputMainFrame(Frame):
         self.queue = queue
 
         # Input Variable
-        self.header_popup = None
+        self.source_popup = None
         self.title_entry = None
         self.year_entry = None
         self.season_entry = None
@@ -73,83 +75,87 @@ class InputMainFrame(Frame):
 
         self.main_theme = '#ADD8E6'
         self.highlight_theme = '#91B6CE'
+        self.bg_highligh_theme = '#F0F8FF'
+
+        self.movie_sources = ['']
+        self.show_sources = ['']
 
         self.on_create(retrieveData)
 
     def on_create(self, retrieveData):
         # Input Block
-        input_block_space0 = Frame(self, width=865, height=30, background=self.main_theme)
+        input_block_space0 = Frame(self, width=920, height=30, background=self.main_theme)
         input_block_space0.grid(row=0, column=0)
 
-        input_block_space1 = Frame(self, width=852, height=2, background=self.highlight_theme)
+        input_block_space1 = Frame(self, width=897, height=2, background=self.highlight_theme)
         input_block_space1.grid(row=1, column=0)
 
-        input_block = Frame(self, width=865, height=25, background='#F0F8FF')
+        input_block = Frame(self, width=865, height=25, background= self.bg_highligh_theme)
         input_block.grid(row=2, column=0)
 
-        input_block_space1 = Frame(self, width=852, height=2, background=self.highlight_theme)
+        input_block_space1 = Frame(self, width=897, height=2, background=self.highlight_theme)
         input_block_space1.grid(row=3, column=0)
 
-        input_block_space2 = Frame(self, width=865, height=20, background=self.main_theme)
+        input_block_space2 = Frame(self, width=920, height=20, background=self.main_theme)
         input_block_space2.grid(row=4, column=0)
 
         label_status = Label(input_block_space2, background=self.main_theme)
         label_status.grid(row=0,column=0)
         self.progressbar_status = label_status
 
-        progressbar_block = Progressbar(self, orient=HORIZONTAL, length=855, mode='determinate')
+        progressbar_block = Progressbar(self, orient=HORIZONTAL, length=897, mode='determinate')
         progressbar_block.grid(row=5, column=0)
         self.progressbar = progressbar_block
 
-        input_block_space3 = Frame(self, width=865, height=5, background='#ADD8E6')
+        input_block_space3 = Frame(self, width=900, height=5, background=self.main_theme)
         input_block_space3.grid(row=6, column=0)
 
         ##########################################################################################
         # Entries, PopUp Block
-        space_block = Frame(input_block, width=3, height=25, background='#F0F8FF')
+        space_block = Frame(input_block, width=3, height=25, background=self.bg_highligh_theme)
         space_block.grid(row=0, column=0)
 
-        header = {'[HorribleSubs]': 'HorribleSubs'}
-        self.header_popup = SimpleOptionMenu(input_block, HEADER_TEXT, *header)
-        self.header_popup.grid(row=0, column=1, columnspan=1, sticky='W')
+        self.search_type_popup = SimpleOptionMenu(input_block, SEARCH_TYPE, *SEARCH_TYPE_LIST)
+        self.search_type_popup.grid(row=0, column=1, columnspan=1, sticky='W')
 
-        space_block0 = Frame(input_block, width=3, height=25, background='#F0F8FF')
+        space_block0 = Frame(input_block, width=3, height=25, background=self.bg_highligh_theme)
         space_block0.grid(row=0, column=3)
 
         self.title_entry =InputBox(input_block, 0, 4, default_message=TITLE_TEXT)
 
-        space_block1 = Frame(input_block, width=3, height=25, background='#F0F8FF')
+        space_block1 = Frame(input_block, width=3, height=25, background=self.bg_highligh_theme)
         space_block1.grid(row=0, column=5)
 
         self.year_entry = InputBox(input_block, 0, 6, width=5, default_message=YEAR_TEXT)
 
-        space_block2 = Frame(input_block, width=3, height=25, background='#F0F8FF')
+        space_block2 = Frame(input_block, width=3, height=25, background=self.bg_highligh_theme)
         space_block2.grid(row=0, column=7)
 
         self.season_entry = InputBox(input_block, 0, 8, width=3, default_message=SEASON_TEXT)
 
-        space_block4 = Frame(input_block, width=3, height=25, background='#F0F8FF')
+        space_block4 = Frame(input_block, width=3, height=25, background=self.bg_highligh_theme)
         space_block4.grid(row=0, column=9)
 
         self.episode_entry = InputBox(input_block, 0, 10, width=3, default_message=EPISODE_TEXT)
 
-        space_block5 = Frame(input_block, width=3, height=25, background='#F0F8FF')
+        space_block5 = Frame(input_block, width=3, height=25, background=self.bg_highligh_theme)
         space_block5.grid(row=0, column=11)
 
         quality = ['1080p', '720p','HDTV', 'WEBRip', '']
         self.quality_popup = SimpleOptionMenu(input_block, QUALITY_TEXT, *quality)
         self.quality_popup.grid(row=0, column=12, columnspan=1, sticky='W')
 
-        space_block5 = Frame(input_block, width=3, height=25, background='#F0F8FF')
+        space_block5 = Frame(input_block, width=3, height=25, background=self.bg_highligh_theme)
         space_block5.grid(row=0, column=13)
 
-        self.search_type_popup = SimpleOptionMenu(input_block, SEARCH_TYPE, *SEARCH_TYPE_LIST)
-        self.search_type_popup.grid(row=0, column=14, columnspan=1, sticky='W')
+        sources = ['HorribleSubs', 'PuyaSubs!', 'Leopard-Raws', 'AnimeRG', 'Tenshi', 'Chyuu', 'Ohy-Raws', 'SquareSubs', 'Golumpa', 'AnimeSan']
+        self.source_popup = SimpleOptionMenu(input_block, SOURCE_TEXT, *sources)
+        self.source_popup.grid(row=0, column=14, columnspan=1, sticky='W')
 
-        space_block6 = Frame(input_block, width=3, height=25, background='#F0F8FF')
+        space_block6 = Frame(input_block, width=3, height=25, background=self.bg_highligh_theme)
         space_block6.grid(row=0, column=15)
 
-        self.search_button = Button(input_block, text=SEARCH_TEXT, command=lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482')
+        self.search_button = Button(input_block, text=SEARCH_TEXT, command=lambda: retrieveData(self.get_input()), width=15, relief='groove', borderwidth=2, bg='#DCDCDC', highlightbackground='#848482', font=('calibri', (10)))
         self.search_button.grid(row=0, column=16, sticky="w", pady=4, padx=3)
 
         config_img = PhotoImage(file='./interface/resources/config.png')
@@ -159,7 +165,8 @@ class InputMainFrame(Frame):
 
     def configuration(self):
         top = Toplevel()
-        top.iconbitmap('./interface/resources/grumpy-cat.ico')
+        if os.name == 'nt':
+            top.iconbitmap('./interface/resources/grumpy-cat.ico')
         top.resizable(width=False, height=False)
         config = ConfigMainFrame(top, 1, 0)
 
@@ -172,12 +179,12 @@ class InputMainFrame(Frame):
         elif self.search_type_popup.selection == 'ANIME':
             search_type = fflags.ANIME_DIRECTORY_FLAG
         return WebSearchInstance(title=self.title_entry.get(),
-                                                    season=self.season_entry.get()[:2],
-                                                    episode=self.episode_entry.get(),
-                                                    header=self.header_popup.selection,
-                                                    quality=self.quality_popup.selection,
-                                                    search_type=search_type,
-                                                    year=self.year_entry.get()[:4])
+                                 season=self.season_entry.get()[:2],
+                                 episode=self.episode_entry.get(),
+                                 source=self.source_popup.selection,
+                                 quality=self.quality_popup.selection,
+                                 search_type=search_type,
+                                 year=self.year_entry.get()[:4])
 
     def validate_entries(self):
         if self.search_type_popup.selection == 'SHOW' or self.search_type_popup.selection == 'SERIE':

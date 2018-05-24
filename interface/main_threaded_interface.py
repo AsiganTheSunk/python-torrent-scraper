@@ -3,7 +3,7 @@
 
 # Import External Libraries
 from tkinter import *
-
+from time import sleep
 # Import Custom Frames
 from interface.component.result_frame.result_main_frame import ResultMainFrame
 from interface.component.input_frame.input_main_frame import InputMainFrame
@@ -11,11 +11,28 @@ from config_parser import CustomConfigParser
 # Import System Libraries
 import threading
 import queue
-
+import os
 # Import Custom Utils
 from torrent_scraper import TorrentScraper
 from lib.cover_downloader import CoverDownloader
 from lib.description_downloader import DescriptionDownloader
+
+from lib.fileflags import FileFlags as fflags
+from config_parser import CustomConfigParser
+import gettext
+try:
+    se_config = CustomConfigParser('./torrentscraper.ini')
+    language_config = se_config.get_section_map('Language')
+    if language_config['language'] == '0':
+        _ = lambda s: s
+    else:
+        es = gettext.translation('input_main_frame', localedir='./interface/locale', languages=['es'])
+        es.install()
+        _ = es.gettext
+except Exception as err:
+    print(err)
+
+SOURCE_TEXT = _('[ Source ]')
 
 class ThreadedClient:
     def __init__(self, master):
@@ -37,55 +54,47 @@ class ThreadedClient:
 
     def periodicCallCategory(self):
         if self.gui.search_type_popup.selection == 'SHOW' or self.gui.search_type_popup.selection == 'SERIE':
-            # self.gui.title_entry.reset_to_default()
             self.gui.year_entry.reset_to_default()
-
             self.gui.title_entry.enable()
             self.gui.year_entry.disable()
             self.gui.season_entry.enable()
             self.gui.episode_entry.enable()
-
-            self.gui.header_popup['textvariable'] = '[ Header ]'
-            self.gui.header_popup['state'] = 'disable'
+            self.gui.source_popup['state'] = 'disable'
             self.gui.quality_popup['state'] = 'normal'
-            self.gui.search_button['state'] = 'normal'
+
 
         elif self.gui.search_type_popup.selection == 'FILM' or self.gui.search_type_popup.selection == 'CINE':
             self.gui.episode_entry.reset_to_default()
             self.gui.season_entry.reset_to_default()
-
             self.gui.title_entry.enable()
             self.gui.year_entry.enable()
             self.gui.season_entry.disable()
             self.gui.episode_entry.disable()
 
-            self.gui.header_popup['textvariable'] = '[ Header ]'
-            self.gui.header_popup['state'] = 'disable'
+            self.gui.update_idletasks()
+            self.gui.source_popup['state'] = 'disable'
             self.gui.quality_popup['state'] = 'normal'
-            self.gui.search_button['state'] = 'normal'
+
 
         elif self.gui.search_type_popup.selection == 'ANIME':
             self.gui.year_entry.reset_to_default()
             self.gui.season_entry.reset_to_default()
-
             self.gui.title_entry.enable()
             self.gui.year_entry.disable()
             self.gui.season_entry.disable()
             self.gui.episode_entry.enable()
-            self.gui.header_popup['state'] = 'normal'
+            self.gui.source_popup['state'] = 'normal'
             self.gui.quality_popup['state'] = 'normal'
-            self.gui.search_button['state'] = 'normal'
+
 
         else:
             self.gui.title_entry.reset_to_default()
-
             self.gui.title_entry.disable()
             self.gui.year_entry.disable()
             self.gui.season_entry.disable()
             self.gui.episode_entry.disable()
-            self.gui.header_popup['state'] = 'disable'
+            self.gui.source_popup['state'] = 'disable'
             self.gui.quality_popup['state'] = 'disable'
-            self.gui.search_button['state'] = 'disable'
 
         self.master.after(100, self.periodicCallCategory)
 
@@ -98,11 +107,11 @@ class ThreadedClient:
         while self.active_search:
             print('BackgroundThread: ENDED')
             top = Toplevel()
-            top.iconbitmap('./interface/resources/grumpy-cat.ico')
+            if os.name == 'nt':
+                top.iconbitmap('./interface/resources/grumpy-cat.ico')
             top.resizable(width=False, height=False)
 
             self.result_gui = ResultMainFrame(top, 0, 0, self.gui.dataframe, self.gui.info, self.gui.image_poster)
-
             self.gui.search_button['state'] = 'normal'
             self.reset_active_search()
         else:
@@ -152,9 +161,15 @@ class ThreadedClient:
         '''
         if self.gui.validate_entries():
             print('Scrap!, Status: ', self.active_search)
-            thread = threading.Thread(target=self.BackgroundThread, args=(websearch,))
-            thread.start()
             self.gui.search_button['state'] = 'disable'
+            self.gui.update_idletasks()
+            tmp_websearh = websearch.validate()
+
+            thread = threading.Thread(target=self.BackgroundThread, args=(tmp_websearh,))
+            thread.start()
+
+
+
 
     def reset_active_search(self):
         '''

@@ -32,7 +32,7 @@ class SimpleDataBox(Frame):
         self.on_create()
 
     def on_create(self):
-        upperborder = Frame(self, width=396, height=2, background=self.highlight_theme)
+        upperborder = Frame(self, width=347, height=2, background=self.highlight_theme)
         upperborder.grid(row=0, column=0)
 
         data_box = Frame(self, background=self.highlight_theme)
@@ -41,22 +41,22 @@ class SimpleDataBox(Frame):
         T2 = Text(data_box, bg='#DCDCDC', width=49, height=12)
         self.data = T2
         T2.grid(row=0, column=0)
-        T2.configure(relief='flat')
+        T2.configure(font=('calibri', (10)), relief='flat')
         quote = '[{0}]: ---' \
-                '\n-------------------------------------------------' \
+                '\n------------------------------------------------------------------------------------' \
                 '\n[{1}]: ---' \
                 '\n[{2}]: ---' \
                 '\n[{3}]: ---' \
-                '\n-------------------------------------------------' \
+                '\n------------------------------------------------------------------------------------' \
                 '\n[{4}]:( - )' \
-                '\n-------------------------------------------------' \
+                '\n------------------------------------------------------------------------------------' \
                 '\n[{5}]:' \
                 '\n\t[HTTPS]: --\n\t[HTTP]: --\n\t[UDP]: --'.format(HASH_TEXT, SIZE_TEXT, SEED_TEXT, LEECH_TEXT, LANGUAGE_TEXT, ANNOUNCE_LIST_TEXT)
 
         T2.insert(END, quote)
         T2.config(state=DISABLED)
 
-        lowerborder = Frame(self, width=396, height=2, background=self.highlight_theme)
+        lowerborder = Frame(self, width=347, height=2, background=self.highlight_theme)
         lowerborder.grid(row=2, column=0)
 
     def set_data(self, info_data):

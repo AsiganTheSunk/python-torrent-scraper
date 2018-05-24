@@ -17,10 +17,6 @@ from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperCon
 # Constants
 from lib.fileflags import FileFlags as fflags
 
-FILM_FLAG = fflags.FILM_DIRECTORY_FLAG
-SHOW_FLAG = fflags.SHOW_DIRECTORY_FLAG
-ANIME_FLAG = fflags.ANIME_DIRECTORY_FLAG
-
 class PirateBayScraper():
     def __init__(self, logger):
         self.name = self.__class__.__name__
@@ -39,7 +35,7 @@ class PirateBayScraper():
         self.default_search = '/s/'
         self.default_tail = ''
         self.default_params = {'category':'0', 'page':'0', 'orderby':'99'}
-        self.supported_searchs = [FILM_FLAG, SHOW_FLAG, ANIME_FLAG]
+        self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG]
 
     def update_main_page(self):
         try:

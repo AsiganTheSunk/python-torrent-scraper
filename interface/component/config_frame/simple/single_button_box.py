@@ -23,7 +23,7 @@ class SingleButtonBox(Frame):
         button_frame = Frame(self, width=200, height=40, background=self.main_theme)
         button_frame.grid(row=0, column=1)
 
-        self.button0 = Button(button_frame, text=self.fst_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.cmmndClearCache())
+        self.button0 = Button(button_frame, text=self.fst_text, width=15, height=2, relief='flat', borderwidth=2, command=lambda: self.cmmndClearCache(), font=('calibri', (10)), highlightbackground='#848482')
         self.button0.grid(row=0, column=0)
 
         inner_border_frameb = Frame(button_frame, width=2, height=40, background=self.highlight_theme)
