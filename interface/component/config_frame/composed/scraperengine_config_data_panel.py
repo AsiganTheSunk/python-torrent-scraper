@@ -51,7 +51,7 @@ class ScraperEngineConfigDataPanel(Frame):
         label_frame0 = Frame(self, width=275, height=18, background=self.main_theme)
         label_frame0.grid(row=1, column=0)
 
-        label = Label(label_frame0, text=LABEL0_TEXT, background=self.main_theme)
+        label = Label(label_frame0, text=LABEL0_TEXT, background=self.main_theme, font=('calibri', (10)))
         label.grid(row=0, column=0)
 
         inner_border_frame0 = Frame(label_frame0, width=250, height=2, background=self.highlight_theme)

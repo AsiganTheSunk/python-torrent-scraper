@@ -66,7 +66,7 @@ class IMDbExtension():
                     actor_str = actor_str + ', ' + item['name']
 
                 dedented_text = textwrap.dedent(actor_str[2:]).strip()
-                formated_actors = textwrap.fill(dedented_text, width=130)
+                formated_actors = textwrap.fill(dedented_text, width=120)
                 actors = formated_actors
             except:
                 actors = '----'
@@ -79,7 +79,7 @@ class IMDbExtension():
             try:
                 plot = movie_data['plot summary'][0]
                 dedented_text = textwrap.dedent(plot).strip()
-                formated_plot = textwrap.fill(dedented_text, width=130)
+                formated_plot = textwrap.fill(dedented_text, width=120)
             except:
                 formated_plot = '----'
 

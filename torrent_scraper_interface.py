@@ -11,5 +11,11 @@ def run_interface():
     root.resizable(width=False, height=False)
     if os.name == 'nt':
         root.iconbitmap('./interface/resources/grumpy-cat.ico')
-    root.title('python-torrent-scraper-interface-v0.4.9')
+    root.title('python-torrent-scraper-interface-v0.4.9.1')
     root.mainloop()
+
+def main():
+    run_interface()
+
+if __name__ == '__main__':
+    main()

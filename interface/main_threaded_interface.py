@@ -3,21 +3,18 @@
 
 # Import External Libraries
 from tkinter import *
-from time import sleep
 # Import Custom Frames
 from interface.component.result_frame.result_main_frame import ResultMainFrame
 from interface.component.input_frame.input_main_frame import InputMainFrame
-from config_parser import CustomConfigParser
 # Import System Libraries
 import threading
 import queue
 import os
 # Import Custom Utils
-from torrent_scraper import TorrentScraper
+from torrentscraper.torrent_scraper import TorrentScraper
 from lib.cover_downloader import CoverDownloader
 from lib.description_downloader import DescriptionDownloader
 
-from lib.fileflags import FileFlags as fflags
 from config_parser import CustomConfigParser
 import gettext
 try:
