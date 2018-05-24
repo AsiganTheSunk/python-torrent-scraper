@@ -1,4 +1,4 @@
-# python-torrent-scraper v0.4.8.1
+# python-torrent-scraper v0.4.9
 
 install requierments with pip3 install -r requirements.txt
 
