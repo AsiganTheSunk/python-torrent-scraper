@@ -7,17 +7,11 @@ class RAWDataInstance(object):
         self.leech_list = []
         self.magnet_list = []
 
-    def add_size(self, value):
-        self.size_list.append(value)
-
-    def add_seed(self, value):
-        self.seed_list.append(value)
-
-    def add_leech(self, value):
-        self.leech_list.append(value)
-
-    def add_magnet(self, value):
-        self.magnet_list.append(value)
+    def add_new_row(self, size='0', seed='1', leech='1', magnet=''):
+        self.size_list.append(str(int(size)))
+        self.seed_list.append(str(int(seed)))
+        self.leech_list.append(str(int(leech)))
+        self.magnet_list.append(str(magnet))
 
     def list(self):
         struct = zip(self.size_list, self.seed_list, self.leech_list, self.magnet_list)

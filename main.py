@@ -7,9 +7,22 @@ from torrentscraper.scraper_engine import ScraperEngine
 from torrentscraper.datastruct.websearch_instance import WebSearchInstance
 from lib.fileflags import FileFlags as fflags
 from lib.malanimeextension import MalAnimeExtension
+from torrentscraper.webscrapers.mejortorrent_scraper import MejorTorrentScraper
+from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
 
 def main():
-    run_interface()
+    # run_interface()
+
+    from torrentscraper.webscrapers import mejortorrent_scraper as mjrt
+
+    ws = WebSearchInstance(title='Resident Evil 3', search_type=fflags.FILM_DIRECTORY_FLAG)
+    #ws = WebSearchInstance(title='Rick y Morty', search_type=fflags.SHOW_DIRECTORY_FLAG)
+    ws = ws.validate()
+    se = ScraperEngine()
+    p2p_instance_list = se.search(ws)
+    dataframe = se.create_magnet_dataframe(p2p_instance_list)
+    dataframe = se.unique_magnet_dataframe(dataframe)
+    dataframe = se.get_dataframe(dataframe, top=10)
 
 if __name__ == '__main__':
     main()

@@ -42,6 +42,8 @@ class TorrentFunkScraper(object):
         self.default_tail = '.html'
         self.supported_searchs = [FILM_FLAG, SHOW_FLAG, ANIME_FLAG]
 
+        self.hops = [self.get_magnet_link]
+
     def update_main_page(self):
         try:
             value = self._proxy_list_pos
@@ -61,60 +63,54 @@ class TorrentFunkScraper(object):
             # Retrieving individual values from the search result
             ttable = soup.findAll('table', {'class':'tmain'})
             if ttable != []:
-                self.logger.info('{0} Retrieving Raw Values from Search Result Response:'.format(self.name))
-                for items in ttable:
-                    tbody = items.findAll('tr')
-                    for tr in tbody[1:]:
-                        seed = (tr.findAll('td'))[3].text
-                        if seed == '0':
-                            seed = '1'
+                try:
+                    self.logger.info('{0} Retrieving Raw Values from Search Result Response:'.format(self.name))
+                    for items in ttable:
+                        tbody = items.findAll('tr')
+                        for tr in tbody[1:]:
+                            seed = (tr.findAll('td'))[3].text
+                            if seed == '0':
+                                seed = '1'
 
-                        leech = (tr.findAll('td'))[4].text
-                        if leech == '0':
-                            leech = '1'
+                            leech = (tr.findAll('td'))[4].text
+                            if leech == '0':
+                                leech = '1'
 
-                        # Converting GB to MB, to Easily Manage The Pandas Structure
-                        size = (tr.findAll('td'))[2].text
-                        if 'MB' in size:
-                            size = float(size[:-2])
-                        elif 'GB' in size:
-                            size = float(size[:-2]) * 1000
+                            # Converting GB to MB, to Easily Manage The Pandas Structure
+                            size = (tr.findAll('td'))[2].text
+                            if 'MB' in size:
+                                size = float(size[:-2])
+                            elif 'GB' in size:
+                                size = float(size[:-2]) * 1000
 
-                        magnet_link = (tr.findAll('a'))[0]['href']
+                            magnet_link = (tr.findAll('a'))[0]['href']
 
-                        # Patch to Avoid Getting False Torrents
-                        if int(seed) < 1500:
-                            raw_data.add_magnet(str(magnet_link))
-                            raw_data.add_seed(int(seed))
-                            raw_data.add_leech(int(leech))
-                            raw_data.add_size(int(size))
-                            self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(self.name,
-                                                                                                          str(int(size)),
-                                                                                                          str(seed),
-                                                                                                          str(leech),
-                                                                                                          magnet_link))
-            else:
-                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values',
-                                             traceback.format_exc())
-        except WebScraperContentError as err:
-            raise WebScraperContentError(err.name, err.err, err.trace)
+                            # Patch to Avoid Getting False Torrents
+                            if int(seed) < 1500:
+                                raw_data.add_new_row(size, seed, leech, magnet_link)
+                                self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(
+                                    self.name, str(int(size)), str(seed), str(leech), magnet_link))
+                except Exception as err:
+                    raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
+                                               traceback.format_exc())
         except Exception as err:
-            raise WebScraperParseError(self.name, err, traceback.format_exc())
+            raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
+                                         traceback.format_exc())
         return raw_data
 
-    def get_magnet_link(self, content):
+    def get_magnet_link(self, content, websearch):
         soup = BeautifulSoup(content, 'html.parser')
         try:
             content = (soup.findAll('div',{'class':'content'}))
             if content != []:
-                magnet = content[2].findAll('a')[1]['href']
-
-            else:
-                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values', traceback.format_exc())
-        except WebScraperContentError as err:
-            raise WebScraperContentError(err.name, err.err, err.trace)
+                try:
+                    magnet = content[2].findAll('a')[1]['href']
+                    return magnet
+                except Exception as err:
+                    raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
+                                               traceback.format_exc())
         except Exception as err:
-            raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
-        return magnet
+            raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
+                                         traceback.format_exc())
 
 

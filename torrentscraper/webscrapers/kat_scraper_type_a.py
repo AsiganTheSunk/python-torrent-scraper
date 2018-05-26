@@ -40,6 +40,7 @@ class KatScrapperTypeA():
         self.default_tail = ''
         self.default_params = {}
         self.supported_searchs = [FILM_FLAG, SHOW_FLAG]
+        self.hops = []
 
     def update_main_page(self):
         try:
@@ -60,47 +61,42 @@ class KatScrapperTypeA():
             ttable = soup.findAll('tr', {'class':'odd'})
             # Retrieving Individual Raw Values From Search Result
             if ttable != []:
-                self.logger.info('{0} Retrieving Raw Values from Search Result Response:'.format(self.name))
-                for items in ttable:
-                    _pos = len(raw_data.magnet_list)
+                try:
+                    self.logger.info('{0} Retrieving Raw Values from Search Result Response:'.format(self.name))
+                    for items in ttable:
+                        _pos = len(raw_data.magnet_list)
 
-                    seed = (soup.findAll('td', {'class': 'green center'}))[ _pos].text
-                    if seed == '0':
-                        seed = '1'
+                        size = (items.findAll('td', {'class': 'nobr center'}))[0].text
+                        # Converting GB to MB, to Easily Manage The Pandas Structure
+                        if 'MiB' in size:
+                            size = size.replace('MiB', 'MB')
+                            size = float(size[:-3])
+                        elif 'GiB' in size:
+                            size = size.replace('GiB', 'GB')
+                            size = float(size[:-3]) * 1000
 
-                    leech = (soup.findAll('td', {'class': 'red lasttd center'}))[ _pos].text
-                    if leech == '0':
-                        leech = '1'
+                        elif 'B' in size:
+                            size = float(size[:-2]) * 0.000001
 
-                    size = (items.findAll('td', {'class': 'nobr center'}))[0].text
-                    # Converting GB to MB, to Easily Manage The Pandas Structure
-                    if 'MiB' in size:
-                        size = size.replace('MiB', 'MB')
-                        size = float(size[:-3])
-                    elif 'GiB' in size:
-                        size = size.replace('GiB', 'GB')
-                        size = float(size[:-3]) * 1000
+                        seed = (soup.findAll('td', {'class': 'green center'}))[ _pos].text
+                        if seed == '0':
+                            seed = '1'
 
-                    magnet_link = (items.findAll('a', {'title': 'Torrent magnet link'}))[0]['href']
+                        leech = (soup.findAll('td', {'class': 'red lasttd center'}))[ _pos].text
+                        if leech == '0':
+                            leech = '1'
 
-                    raw_data.add_magnet(magnet_link)
-                    raw_data.add_size(int(size))
-                    raw_data.add_seed(int(seed))
-                    raw_data.add_leech(int(leech))
+                        magnet_link = (items.findAll('a', {'title': 'Torrent magnet link'}))[0]['href']
 
-                    self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(self.name,
-                                                                                                  str(int(size)),
-                                                                                                  str(seed),
-                                                                                                  str(leech),
-                                                                                                  magnet_link))
-            else:
-                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values', traceback.format_exc())
-        # TODO corregir esto para que no capture
-        except WebScraperContentError as err:
-            raise WebScraperContentError(err.name, err.err, err.trace)
+                        if size > 1:
+                            raw_data.add_new_row(size, seed, leech, magnet_link)
+                        self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(
+                            self.name, str(int(size)), str(seed), str(leech), magnet_link))
+
+                except Exception as err:
+                    raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
+                                               traceback.format_exc())
         except Exception as err:
-            raise WebScraperParseError(self.name, err, traceback.format_exc())
+            raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
+                                         traceback.format_exc())
         return raw_data
-
-    def magnet_link_scrapper(self, content):
-        return

@@ -7,6 +7,7 @@ from lib.fileflags import  FileFlags as fflags
 
 SEASON_WRAP = -1
 EPISODE_WRAP = 0
+TEMPORADA_WRAP = 1
 
 class UriBuilder():
     def __init__(self, logger):
@@ -28,13 +29,17 @@ class UriBuilder():
         if webscraper.disable_quality:
             websearch.quality = ''
 
-        search_query = ({'q':'{header} {title} {year} {season}{episode} {quality}'.format(
-                header=websearch.source,
-                title=websearch.title,
-                year=websearch.year,
-                season=self.eval_wrapped_key(value=websearch.season, wrap_type=SEASON_WRAP, search_type=None),
-                episode=self.eval_wrapped_key(value=websearch.episode, wrap_type=EPISODE_WRAP, search_type=websearch.search_type),
-                quality=websearch.quality).strip()})
+        if webscraper.name == 'MejorTorrentScraper':
+            search_query = {'valor':'{0}'.format(websearch.title, websearch.season[-1:])}
+
+        else:
+            search_query = ({'q':'{header} {title} {year} {season}{episode} {quality}'.format(
+                    header=websearch.source,
+                    title=websearch.title,
+                    year=websearch.year,
+                    season=self.eval_wrapped_key(value=websearch.season, wrap_type=SEASON_WRAP, search_type=None),
+                    episode=self.eval_wrapped_key(value=websearch.episode, wrap_type=EPISODE_WRAP, search_type=websearch.search_type),
+                    quality=websearch.quality).strip()})
 
         if webscraper.default_params != {}:
             search_params = {**search_query, **webscraper.default_params}
@@ -52,6 +57,8 @@ class UriBuilder():
 
         self.logger.debug0('{0} Generated Uri from Query Params: [ {1} ]'.format(self.name, search_uri))
         return search_uri
+
+
 
     def eval_wrapped_key(self, value, wrap_type, search_type=None):
         '''
@@ -75,5 +82,9 @@ class UriBuilder():
                 if value is '' or search_type == fflags.ANIME_DIRECTORY_FLAG:
                     return value
                 return ('E' + value)
+            elif wrap_type is 1:
+                if value is '':
+                    return value
+                return
             else:
                 return value

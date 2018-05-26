@@ -8,5 +8,6 @@ class P2PInstance():
         self.upper_size_limit = upper_size_limit
         self.ratio_limit = ratio_limit
         self.magnet_instance_list = magnet_instance_list
+        self.magnet_instance_batch_list = []
 
 

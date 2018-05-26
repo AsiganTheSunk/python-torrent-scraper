@@ -37,6 +37,9 @@ class NyaaScraper():
         self.default_tail = ''
         self.default_params = {'f': '0', 'c:': '0_0', 'p': '0'}
         self.supported_searchs = [fflags.ANIME_DIRECTORY_FLAG]
+        self.hops = []
+
+
 
     def update_main_page(self):
         try:
@@ -56,38 +59,36 @@ class NyaaScraper():
         try:
             ttable = soup.select('table tr')
             if ttable != []:
-                dict_result = Utils.parse_nyaa(ttable, limit=None)
+                try:
+                    dict_result = Utils.parse_nyaa(ttable, limit=None)
 
-                for item in dict_result:
-                    seed = str(item['seeders'])
-                    if seed == '0':
-                        seed = '1'
-                    leech = str(item['leechers'])
-                    if leech == '0':
-                        leech = '1'
+                    for item in dict_result:
+                        size = item['size']
+                        if 'MiB' in size:
+                            size = size.replace('MiB', 'MB')
+                            size = float(size[:-2])
+                        elif 'GiB' in size:
+                            size = size.replace('GiB', 'GB')
+                            size = float(size[:-2]) * 1000
 
-                    size = item['size']
-                    if 'MiB' in size:
-                        size = size.replace('MiB', 'MB')
-                        size = float(size[:-2])
-                    elif 'GiB' in size:
-                        size = size.replace('GiB', 'GB')
-                        size = float(size[:-2]) * 1000
+                        seed = str(item['seeders'])
+                        if seed == '0':
+                            seed = '1'
+                        leech = str(item['leechers'])
+                        if leech == '0':
+                            leech = '1'
 
-                    magnet_link = item['magnet']
+                        magnet_link = item['magnet']
 
-                    raw_data.add_magnet(str(magnet_link))
-                    raw_data.add_size(int(size))
-                    raw_data.add_seed(int(seed))
-                    raw_data.add_leech(int(leech))
-                    self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(
-                        self.name, str(size), str(seed), str(leech), magnet_link))
-            else:
-                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values', traceback.format_exc())
-        except WebScraperContentError as err:
-            raise WebScraperContentError(err.name, err.err, err.trace)
-        except Exception as e:
-            raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
+                        raw_data.add_new_row(size, seed, leech, magnet_link)
+                        self.logger.debug('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(
+                            self.name, str(size), str(seed), str(leech), magnet_link))
+                except Exception as err:
+                    raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
+                                               traceback.format_exc())
+        except Exception as err:
+            raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
+                                         traceback.format_exc())
         return raw_data
 
     def magnet_link_scrapper(self, content):
