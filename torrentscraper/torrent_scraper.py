@@ -8,7 +8,7 @@ class TorrentScraper():
         self.name = self.__class__.__name__
         self.scraper_engine = ScraperEngine(webscraper_dict)
 
-    def scrap(self, websearch, top=15):
+    def scrap(self, websearch, top=20):
         p2p_instance_list = []
         try:
             p2p_instance_list = self.scraper_engine.search(websearch)

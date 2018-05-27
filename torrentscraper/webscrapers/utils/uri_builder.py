@@ -24,22 +24,14 @@ class UriBuilder():
         :return: this function, returns the custom uri created for the request
         :rtype: str
         '''
+        search_query = {}
         search_params = {}
-        search_query = None
-        if webscraper.disable_quality:
-            websearch.quality = ''
+        search_uri_list = []
 
         if webscraper.name == 'MejorTorrentScraper':
-            search_query = {'valor':'{0}'.format(websearch.title, websearch.season[-1:])}
-
+            search_query = self._get_mjrt_url(websearch)
         else:
-            search_query = ({'q':'{header} {title} {year} {season}{episode} {quality}'.format(
-                    header=websearch.source,
-                    title=websearch.title,
-                    year=websearch.year,
-                    season=self.eval_wrapped_key(value=websearch.season, wrap_type=SEASON_WRAP, search_type=None),
-                    episode=self.eval_wrapped_key(value=websearch.episode, wrap_type=EPISODE_WRAP, search_type=websearch.search_type),
-                    quality=websearch.quality).strip()})
+            search_query = self._get_general_url(websearch)
 
         if webscraper.default_params != {}:
             search_params = {**search_query, **webscraper.default_params}
@@ -58,33 +50,68 @@ class UriBuilder():
         self.logger.debug0('{0} Generated Uri from Query Params: [ {1} ]'.format(self.name, search_uri))
         return search_uri
 
-
-
-    def eval_wrapped_key(self, value, wrap_type, search_type=None):
+    def _get_mjrt_url(self, websearch):
         '''
-        This function peform auxiliary help to the build name functions validating the content of the string
-        :param value: It represents the key you're testing
-        :type value: str
-        :param wrap_type: It represents the type of wrapping the string it's going to get, numbers 0 to 2, being 0
-        for [value], 1 for (value), 2 for -(value) 3 value
-        :type wrap_type: int
-        :return: modified value
-        :rtype: str
+
+        :param websearch:
+        :return:
         '''
-        if value is None:
-            return ''
+        if websearch.search_type == fflags.FILM_DIRECTORY_FLAG:
+            return {'valor': '{0}'.format(websearch.title)}
         else:
-            if wrap_type is -1:
-                if value is '':
-                    return value
-                return ('S' + value)
-            elif wrap_type is 0:
-                if value is '' or search_type == fflags.ANIME_DIRECTORY_FLAG:
-                    return value
-                return ('E' + value)
-            elif wrap_type is 1:
-                if value is '':
-                    return value
-                return
+            if websearch.season != '':
+                return {'valor': '{0} - {1}'.format(websearch.title, websearch.season[-1:])}
             else:
-                return value
+                return {'valor': '{0}'.format(websearch.title)}
+
+    def _get_general_url(self, websearch):
+        '''
+
+        :param websearch:
+        :return:
+        '''
+        if websearch.search_type == fflags.FILM_DIRECTORY_FLAG:
+            return {'q': '{0} {1} {2}'.format(
+                websearch.title, websearch.year, websearch.quality.strip())}
+
+        elif websearch.search_type == fflags.ANIME_DIRECTORY_FLAG:
+            return ({'q': '{0} {1} {2} {3}'.format(
+                websearch.source, websearch.title, websearch.episode, websearch.quality).strip()})
+
+        elif websearch.search_type == fflags.SHOW_DIRECTORY_FLAG:
+            if (websearch.season != '' and websearch.episode != ''):
+                return {'q': '{0} S{1}E{2} {3}'.format(
+                    websearch.title, websearch.season, websearch.episode, websearch.quality).strip()}
+            else:
+                return {'q': '{0} Season {1} {2}'.format(
+                    websearch.title, websearch.season[1:], websearch.quality).strip()}
+
+
+    # def eval_wrapped_key(self, value, wrap_type, search_type=None):
+    #     '''
+    #     This function peform auxiliary help to the build name functions validating the content of the string
+    #     :param value: It represents the key you're testing
+    #     :type value: str
+    #     :param wrap_type: It represents the type of wrapping the string it's going to get, numbers 0 to 2, being 0
+    #     for [value], 1 for (value), 2 for -(value) 3 value
+    #     :type wrap_type: int
+    #     :return: modified value
+    #     :rtype: str
+    #     '''
+    #     if value is None:
+    #         return ''
+    #     else:
+    #         if wrap_type is -1:
+    #             if value is '':
+    #                 return value
+    #             return ('S' + value)
+    #         elif wrap_type is 0:
+    #             if value is '' or search_type == fflags.ANIME_DIRECTORY_FLAG:
+    #                 return value
+    #             return ('E' + value)
+    #         elif wrap_type is 1:
+    #             if value is '':
+    #                 return value
+    #             return
+    #         else:
+    #             return value

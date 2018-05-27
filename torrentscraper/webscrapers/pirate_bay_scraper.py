@@ -26,7 +26,6 @@ class PirateBayScraper():
         self._proxy_list_pos = 0
         self.cloudflare_cookie = False
         self.query_type = True
-        self.disable_quality = False
         self.thread_defense_bypass_cookie = False
         self.torrent_file = False
         self.magnet_link = True
@@ -36,7 +35,7 @@ class PirateBayScraper():
         self.default_tail = ''
         self.default_params = {'category':'0', 'page':'0', 'orderby':'99'}
         self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG]
-        self.hops = [self.get_magnet_link]
+        self.hops = [self.get_magnet_info]
 
     def update_main_page(self):
         try:
@@ -96,7 +95,7 @@ class PirateBayScraper():
                                          traceback.format_exc())
         return raw_data
 
-    def get_magnet_link(self, content, websearch):
+    def get_magnet_info(self, content, *args):
         soup = BeautifulSoup(content, 'html.parser')
         magnet = ''
         try:

@@ -31,7 +31,6 @@ class TorrentFunkScraper(object):
         self._proxy_list_pos = 0
         self.cloudflare_cookie = False
         self.query_type = False
-        self.disable_quality = False
         self.thread_defense_bypass_cookie = False
         self.torrent_file = True
         self.magnet_link = False
@@ -41,7 +40,7 @@ class TorrentFunkScraper(object):
         self.default_search = '/all/torrents/'
         self.default_tail = '.html'
         self.supported_searchs = [FILM_FLAG, SHOW_FLAG, ANIME_FLAG]
-
+        self.batch_hops = []
         self.hops = [self.get_magnet_link]
 
     def update_main_page(self):
@@ -98,7 +97,7 @@ class TorrentFunkScraper(object):
                                          traceback.format_exc())
         return raw_data
 
-    def get_magnet_link(self, content, websearch):
+    def get_magnet_link(self, content, *args):
         soup = BeautifulSoup(content, 'html.parser')
         try:
             content = (soup.findAll('div',{'class':'content'}))

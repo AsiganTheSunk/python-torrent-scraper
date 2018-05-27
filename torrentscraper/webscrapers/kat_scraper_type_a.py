@@ -30,7 +30,6 @@ class KatScrapperTypeA():
         self._proxy_list_pos = 0
         self.cloudflare_cookie = False
         self.query_type = True
-        self.disable_quality = False
         self.thread_defense_bypass_cookie = False
         self.torrent_file = False
         self.magnet_link = False
@@ -41,6 +40,7 @@ class KatScrapperTypeA():
         self.default_params = {}
         self.supported_searchs = [FILM_FLAG, SHOW_FLAG]
         self.hops = []
+        self.batch_hops = []
 
     def update_main_page(self):
         try:

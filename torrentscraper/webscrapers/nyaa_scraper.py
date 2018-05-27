@@ -27,7 +27,6 @@ class NyaaScraper():
         self._proxy_list_pos = 0
         self.cloudflare_cookie = False
         self.query_type = True
-        self.disable_quality = False
         self.thread_defense_bypass_cookie = False
         self.torrent_file = False
         self.magnet_link = True
@@ -38,8 +37,7 @@ class NyaaScraper():
         self.default_params = {'f': '0', 'c:': '0_0', 'p': '0'}
         self.supported_searchs = [fflags.ANIME_DIRECTORY_FLAG]
         self.hops = []
-
-
+        self.batch_hops = []
 
     def update_main_page(self):
         try:

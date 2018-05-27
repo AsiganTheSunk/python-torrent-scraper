@@ -27,7 +27,6 @@ class MejorTorrentScraper():
         self._proxy_list_pos = 0
         self.cloudflare_cookie = False
         self.query_type = True
-        self.disable_quality = True
         self.thread_defense_bypass_cookie = False
         self.torrent_file = True
         self.magnet_link = False
@@ -36,10 +35,10 @@ class MejorTorrentScraper():
         self.default_search = '/secciones.php'
         self.default_tail = ''
         self.default_params = {'sec':'buscador'}
-        self.hops = [self.get_magnet_link, self.get_magnet_clickhere]
+        self.batch_hops = [self.get_torrent_link_batch, self.get_torrent_info]
+        self.hops = [self.get_torrent_link, self.get_torrent_info]
 
     def update_main_page(self):
-        pass
         try:
             value = self._proxy_list_pos
             if self._proxy_list_length > self._proxy_list_pos:
@@ -62,66 +61,95 @@ class MejorTorrentScraper():
                     raw_data.add_new_row(magnet=magnet_link)
                     self.logger.debug0('{0} New Entry Raw Values: {1:7} {2:>4}/{3:4} {4}'.format(
                         self.name, str(int(0)), str(1), str(1), magnet_link))
-                except WebScraperContentError as err:
-                    raise WebScraperContentError(err.name, err.err, err.trace)
-        except Exception as e:
-            raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values', traceback.format_exc())
+
+                except Exception as err:
+                    raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values {0}'.format(err),
+                                               traceback.format_exc())
+        except Exception as err:
+            raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
+                                         traceback.format_exc())
+
+
         return raw_data
 
-    def get_magnet_link(self, content, websearch):
+    def get_torrent_link_batch(self, content, websearch, hop, *args):
         soup = BeautifulSoup(content, 'html.parser')
-            # Retrieving individual raw values from the search result
-        if websearch.search_type == fflags.FILM_DIRECTORY_FLAG:
-            tr = soup.findAll('tr')
-            for index, item in enumerate(tr[32:-1]):
-                try:
-                    link = item.findAll('a')[0]['href']
-                except Exception as err:
-                    raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
-                                               traceback.format_exc())
-                return '/' + link
-        else:
+        try:
+            surrogated_id = ''
+            surrogated_list = []
             ttable = soup.findAll('table')
-            try:
-                for index, item in enumerate(ttable[19:-3]):
-                    # try:
+            for index, item in enumerate(ttable[19:-3]):
+                try:
+                    surrogated_id = hop.split('-')[3:-(len(hop.split('-')[3:]) -2)]
+                    surrogated_id = surrogated_id[0]+surrogated_id[1]
                     id = item.findAll('a')[0]['href']
-                    print('index id: ', id)
-                    magnet_link = '/secciones.php?sec=descargas&ap=contar&tabla=series&id={0}'.format(id.split('-')[4])
-                    self.logger.warning('{0} - - {1}'.format(self.name, magnet_link))
-                    print('status: ',id, magnet_link)
-                    if 'x{0}'.format(websearch.episode) in id:
-                        return magnet_link
-                    # else: # Batch Mode
-                    #    tmp_magnet_list.append(magnet_link)
-            except Exception as err:
-                print(self.name, 'get_magnet_link()', err)
+                    single_link_pattern = '/secciones.php?sec=descargas&ap=contar&tabla=series&id={0}'.format(id.split('-')[4])
+                    self.logger.debug('{0} - {1}::{2} : {3}'.format(self.name, 'Batch_Mode Single-iD', id, single_link_pattern))
+                    surrogated_list.append(single_link_pattern)
+
+                except Exception as err:
+                    raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err), traceback.format_exc())
+            return surrogated_list, surrogated_id
+
+        except Exception as err:
+            raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
+                                         traceback.format_exc())
 
 
-        # except Exception as err:
-        #     raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
-        #                                  traceback.format_exc())
-
-    def get_magnet_clickhere(self, content, websearh):
+    def get_torrent_link(self, content, websearch, *args):
         soup = BeautifulSoup(content, 'html.parser')
-        magnet = ''
+        if websearch.search_type == fflags.FILM_DIRECTORY_FLAG:
+            try:
+                link = ''
+                tr = soup.findAll('tr')
+                for index, item in enumerate(tr[32:-1]):
+                    try:
+                        link = item.findAll('a')[0]['href']
+                    except Exception as err:
+                        raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
+                                                   traceback.format_exc())
+            except Exception as err:
+                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
+                                                 traceback.format_exc())
+            return '/' + link
+        else:
+            try:
+                ttable = soup.findAll('table')
+                for index, item in enumerate(ttable[19:-3]):
+                    try:
+                        if websearch.episode != '':
+                            id = item.findAll('a')[0]['href']
+                            single_link_pattern = '/secciones.php?sec=descargas&ap=contar&tabla=series&id={0}'.format(
+                                id.split('-')[4])
+
+                            if '{0}x{1}'.format(websearch.season[1:], websearch.episode) in \
+                                    id.split('-')[(len(id.split('-')) - 1):][0]:
+                                self.logger.debug('{0} - {1}::{2} : {3}'.format(self.name, 'Normal_Mode Single-iD', id, single_link_pattern))
+                                return single_link_pattern
+
+                    except Exception as err:
+                        raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
+                                                   traceback.format_exc())
+            except Exception as err:
+                raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
+                                                 traceback.format_exc())
+
+    def get_torrent_info(self, content, *args):
+        soup = BeautifulSoup(content, 'html.parser')
+        torrent_file = ''
         try:
             ttable = soup.findAll('table')
-            # for index, item in enumerate(ttable):
-            #     print('index: ', index, 'item: \n', item)
             try:
-                try:
-                    magnet = ttable[15].select('a')[0]['href']
-                    if self.proxy_list[self._proxy_list_pos] in magnet:
-                        magnet =  magnet[len(self.proxy_list[self._proxy_list_pos]):]
+                # Retrieving the Link to the Torrent File
+                torrent_file = ttable[15].select('a')[0]['href']
 
-                    self.logger.warning('{0} - - {1}'.format(self.name, magnet))
-                    return magnet
-                except Exception as err:
-                    pass
+                # Normalize output, because this web is inconsistent with it, removing the default_proxy_url
+                if self.proxy_list[self._proxy_list_pos] in torrent_file:
+                    torrent_file =  torrent_file[len(self.proxy_list[self._proxy_list_pos]):]
             except Exception as err:
                 raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
                                            traceback.format_exc())
         except Exception as err:
             raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
                                          traceback.format_exc())
+        return torrent_file

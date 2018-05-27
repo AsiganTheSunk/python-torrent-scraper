@@ -58,7 +58,7 @@ from torrentscraper.exceptions.scraper_engine_error import ScraperEngineCookieEr
 from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
 from torrentscraper.webscrapers.utils.magnet_builder import MagnetBuilder
 from lib.fileflags import FileFlags as fflags
-
+from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
 # Pandas Terminal Configuration
 pd.set_option('display.max_rows', 750)
 pd.set_option('display.max_columns',750)
@@ -83,16 +83,16 @@ class ScraperEngine(object):
         self.name = self.__class__.__name__
         self.cache_path = './cache/temp_torrent.torrent'
         # Create & Config CustomLogger
-        self.logger = CustomLogger(name=__name__, level=DEBUG)
+        self.logger = CustomLogger(name=__name__, level=INFO)
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
         file_handler = logging.FileHandler('log/scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(level=DEBUG)
+        file_handler.setLevel(level=INFO)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(DEBUG)
+        console_handler.setLevel(INFO)
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
@@ -100,23 +100,21 @@ class ScraperEngine(object):
         if webscraper_dict is not None:
             self.webscrapers = self.load_webscraper(webscraper_dict)
         else:
-            self.webscrapers = [mjrt.MejorTorrentScraper(self.logger)]
-            # tpb.PirateBayScraper(self.logger), kata.KatScrapperTypeA(self.logger), kata.KatScrapperTypeA(self.logger), nyaa.NyaaScraper(self.logger), funk.TorrentFunkScraper(self.logger)
-
+            self.webscrapers = [mjrt.MejorTorrentScraper(self.logger),tpb.PirateBayScraper(self.logger)] #,tpb.PirateBayScraper(self.logger),  kata.KatScrapperTypeA(self.logger), nyaa.NyaaScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
 
     def load_webscraper(self, webscraper_dict):
         aux_list = []
         for item in webscraper_dict:
             if item == 'thepiratebay' and webscraper_dict[item] == '1':
                 aux_list.append(tpb.PirateBayScraper(self.logger))
+            elif item == 'mejortorrent' and webscraper_dict[item] == '1':
+                aux_list.append(mjrt.MejorTorrentScraper(self.logger))
             elif item == 'kickass'  and webscraper_dict[item] == '1':
                 aux_list.append(kata.KatScrapperTypeA(self.logger))
             elif item == 'torrentfunk' and webscraper_dict[item] == '1':
                 aux_list.append(funk.TorrentFunkScraper(self.logger))
             elif item == 'nyaa' and webscraper_dict[item] == '1':
                 aux_list.append(nyaa.NyaaScraper(self.logger))
-            elif item == 'mejortorrent' and webscraper_dict[item] == '1':
-                aux_list.append(mjrt.MejorTorrentScraper(self.logger))
         return aux_list
 
     def _normalize_magnet_entries(self, raw_data, websearch, webscraper):
@@ -131,41 +129,68 @@ class ScraperEngine(object):
         :rtype: *.torrent or magnet
         '''
         magnet_instance_list = []
+        surrogated_list = []
         source_link = ''
-        self.logger.info('{0} Retrieving Info Source from Proxy [ {1} ]'.format(webscraper.name, webscraper.main_page))
-        for index in range(0, len(raw_data.magnet_list), 1):
-            try:
-                source_link = self.resolve_hops(websearch, webscraper, raw_data.magnet_list[index])
-                magnet_instance_list = self.add_magnet_instance_entry(
-                    websearch, webscraper, magnet_instance_list, source_link,
-                    raw_data.size_list[index], raw_data.seed_list[index], raw_data.leech_list[index])
-            except Exception as err:
-                self.logger.error('{0} Unable to Retrieve Info Source [{1}]\n Error: {2}'.format(webscraper.name, source_link, str(err)))
-        return magnet_instance_list
 
-    def add_magnet_instance_entry(self, websearch, webscraper, magnet_instance_list, source_link, size, seed, leech):
+        if len(raw_data.magnet_list) > 1:
+            for index in range(0, len(raw_data.magnet_list), 1):
+                try:
+                    if webscraper.name == 'MejorTorrentScraper' and websearch.episode == '':
+                        surrogated_list, source_link = self.resolve_batch_hops(websearch, webscraper, raw_data.magnet_list[index])
+                        if surrogated_list is not []:
+                            for item in surrogated_list:
+                                magnet_instance_list = self.add_magnet_instance_entry(
+                                    websearch, webscraper, magnet_instance_list, item, raw_data.size_list[index],
+                                    raw_data.seed_list[index], raw_data.leech_list[index], source_link)
+                    else:
+                        source_link = self.resolve_hops(websearch, webscraper, raw_data.magnet_list[index])
+                        magnet_instance_list = self.add_magnet_instance_entry(
+                            websearch, webscraper, magnet_instance_list, source_link, raw_data.size_list[index],
+                            raw_data.seed_list[index], raw_data.leech_list[index], '')
+
+                    # print(source_link, surrogated_list)
+                except Exception as err:
+                    self.logger.error('{0} Unable to Retrieve Info Source [{1}]\n Error: {2}'.format(webscraper.name, source_link, str(err)))
+
+            return magnet_instance_list
+        else:
+            return magnet_instance_list
+
+    def add_magnet_instance_entry(self, websearch, webscraper, magnet_instance_list, source_link, size, seed, leech, surrogated_id):
         mbuilder = MagnetBuilder(self.logger)
         if MAGNET_EXTENSION in source_link:
-            self.logger.info('{0} {1} Detected:\n {2}'.format(self.name, 'magnet', source_link))
-            magnet_instance_list.append(mbuilder.parse_from_magnet(source_link, size, seed, leech))
-
+            self.logger.info('{0} {1} Detected: {2}'.format(self.name, 'magnet', source_link))
+            magnet_instance_list.append(mbuilder.parse_from_magnet(source_link, size, seed, leech, surrogated_id))
         else:
             torrent_file = self.dynamic_search(websearch, webscraper, source_link)
-            self.logger.info('{0} {1} Detected:\n {2}'.format(self.name, 'torrent', source_link))
+            self.logger.info('{0} {1} Detected: {2}'.format(self.name, 'torrent', source_link))
             self.write_cache(torrent_file)
-            magnet_instance_list.append(mbuilder.parse_from_file(self.cache_path, size=size, seed=seed, leech=leech))
-
+            magnet_instance_list.append(mbuilder.parse_from_file(self.cache_path, size=size, seed=seed, leech=leech, surrogated_id=surrogated_id))
         return magnet_instance_list
 
     def resolve_hops(self, websearch, webscraper, nextHop, hopCount=0):
         if len(webscraper.hops) -1 >= hopCount:
-            print('HOPPPPPPPPINGGGGGGGGG', hopCount)
             response = self.dynamic_search(websearch, webscraper, nextHop)
-            nextHop = webscraper.hops[hopCount](response.text, websearch)
+            nextHop = webscraper.hops[hopCount](response.text, websearch, nextHop)
             return self.resolve_hops(websearch, webscraper, nextHop, hopCount + 1)
         else:
-            print('LAST HOP', nextHop)
             return nextHop
+
+    def resolve_batch_hops(self, websearch, webscraper, nextHop, hopCount=0):
+        surrogated_id = ''
+        surrogated_list = []
+        if len(webscraper.hops) -1 >= hopCount:
+            # Retrieve The Initial Table With The Data
+            response = self.dynamic_search(websearch, webscraper, nextHop)
+            nextHop, surrogated_id = webscraper.batch_hops[hopCount](response.text, websearch, nextHop)
+            if len(nextHop) > 1:
+                for index, hop_item in enumerate(nextHop):
+                    surrogated_list.append(self.resolve_hops(websearch, webscraper, hop_item, hopCount + 1))
+                return surrogated_list, surrogated_id
+
+            return self.resolve_batch_hops(websearch, webscraper, nextHop[0], hopCount + 1)
+        return nextHop, surrogated_id
+
 
     def clean_cache(self):
         pass
@@ -197,20 +222,18 @@ class ScraperEngine(object):
             if websearch['search_type'] in webscraper.supported_searchs:
                 self.logger.info('{0} Selected Proxy from Proxy List [ {1} ]'.format(webscraper.name, webscraper.main_page))
                 try:
+                    self.logger.info(
+                        '{0} Retrieving Information from Source  [ {1} ]'.format(webscraper.name, webscraper.main_page))
                     raw_data = self._gather_raw_data(websearch, webscraper)
                     magnet_instance_list = self._normalize_magnet_entries(raw_data, websearch, webscraper)  # Normalize Entries
-                    p2p_instance_list.append(P2PInstance(webscraper.name, websearch['search_type'],
-                                                         websearch['lower_size_limit'], websearch['upper_size_limit'],
-                                                         websearch['ratio_limit'], magnet_instance_list))
-
-                # Avoid Crash Went there it's no cotent or parse error message, so the systems it's able to construct
-                # the DataFrame.
+                    if magnet_instance_list is not []:
+                        p2p_instance_list.append(P2PInstance(webscraper.name, websearch['search_type'],
+                                                             websearch['lower_size_limit'], websearch['upper_size_limit'],
+                                                             websearch['ratio_limit'], magnet_instance_list))
                 except WebScraperContentError as err:
                     self.logger.error(err.message)
-                    pass
                 except WebScraperParseError as err:
                     self.logger.error(err.message)
-                    pass
         return p2p_instance_list
 
     def _gather_raw_data(self, websearch, webscraper):
@@ -220,7 +243,7 @@ class ScraperEngine(object):
         :param webscraper:
         :return:
         '''
-        raw_data = None
+        raw_data = RAWDataInstance()
         response = self.dynamic_search(websearch, webscraper)
         sleep(randint(1, 2))  # Random Sleep to Avoid Flooding
         if response is not None:
@@ -228,12 +251,18 @@ class ScraperEngine(object):
                 raw_data = webscraper.get_raw_data(response.text)  # Retrieving RawData from Source
                 return raw_data
             except WebScraperContentError or WebScraperParseError as err:
-                try:
-                    response = self._retry_connection(websearch, webscraper, forced=True)
-                    raw_data = webscraper.get_raw_data(response.text)  # Retrieving RawData from Source
-                    return raw_data
-                except WebScraperContentError or WebScraperProxyListError or WebScraperParseError as err:
-                    raise WebScraperContentError(err.name, err.err)
+                self.logger.error(err.message)
+                return RAWDataInstance()
+                # try:
+                #     response = self._retry_connection(websearch, webscraper, forced=True)
+                #     raw_data = webscraper.get_raw_data(response.text)
+                #     return raw_data
+                # except WebScraperContentError or WebScraperProxyListError or WebScraperParseError as err:
+                #     return RAWDataInstance()
+
+        return RAWDataInstance()
+
+
 
     def _setup_uri(self, websearch, webscraper, append_uri=None):
         '''
@@ -347,6 +376,36 @@ class ScraperEngine(object):
                     webscraper.name, counter, max_counter, webscraper.proxy_list[webscraper._proxy_list_pos]))
             return self.dynamic_search(websearch, webscraper, append_uri, counter)
 
+    def create_magnet_surrogated_entry(self, magnet_instance_list):
+        '''
+        This function, creates a transforms p2p instance list into a dataframe
+        :param p2p_instance_list: this values, respresents a list of p2p instances
+        :type p2p_instance_list: list
+        :return: this function, returns a dataframe object with the magnet values
+        :rtype: DataFrame
+        '''
+        try:
+            surrogated_dataframe = DataFrame()
+            for item in magnet_instance_list:
+                new_row = {'name': [item['display_name']],
+                           'hash': [item['hash']],
+                           'size': [item['size']],
+                           'seed': [item['seed']],
+                           'leech': [item['leech']],
+                           'ratio': [item['ratio']],
+                           'magnet': [item['magnet']],
+                           'surrogated_id': item['surrogated_id']}
+
+                new_row_df = DataFrame(new_row,
+                                       columns=['name', 'hash', 'size', 'seed', 'leech',
+                                                'ratio', 'magnet', 'surrogated_id'])
+                surrogated_dataframe = surrogated_dataframe.append(new_row_df, ignore_index=True)
+            return surrogated_dataframe
+        except Exception as err:
+            err_msg = ScraperEngineUnknowError(self.name, err, traceback.format_exc())
+            self.logger.error(err_msg.message)
+            return DataFrame()
+
     def create_magnet_dataframe(self, p2p_instance_list):
         '''
         This function, creates a transforms p2p instance list into a dataframe
@@ -365,9 +424,10 @@ class ScraperEngine(object):
                                'seed': [item['seed']],
                                'leech': [item['leech']],
                                'ratio': [item['ratio']],
-                               'magnet': [item['magnet']]}
+                               'magnet': [item['magnet']],
+                               'surrogated_id': item['surrogated_id']}
 
-                    new_row_df = DataFrame(new_row, columns=['name', 'hash', 'size', 'seed', 'leech', 'ratio', 'magnet'])
+                    new_row_df = DataFrame(new_row, columns=['name', 'hash', 'size', 'seed', 'leech', 'ratio', 'magnet', 'surrogated_id'])
                     dataframe = dataframe.append(new_row_df, ignore_index=True)
             return dataframe
         except Exception as err:
@@ -402,7 +462,8 @@ class ScraperEngine(object):
                     tmp_size = dataframe.iloc[int(aux_index)]['size']
                     tmp_seed = dataframe.iloc[int(aux_index)]['seed']
                     tmp_leech = dataframe.iloc[int(aux_index)]['leech']
-                    self.logger.debug('{0} Magnet Master Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
+                    tmp_surrogated_id = dataframe.iloc[int(aux_index)]['surrogated_id']
+                    self.logger.debug('{0} Magnet Master Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech, tmp_surrogated_id))
                     aux_magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
 
                     self.logger.debug('{0} Index: {1}'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
@@ -414,7 +475,8 @@ class ScraperEngine(object):
                         tmp_size = dataframe.iloc[int(index)]['size']
                         tmp_seed = dataframe.iloc[int(index)]['seed']
                         tmp_leech = dataframe.iloc[int(index)]['leech']
-                        self.logger.debug('{0} Magnet Slave Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech))
+                        tmp_surrogated_id = dataframe.iloc[int(index)]['surrogated_id']
+                        self.logger.debug('{0} Magnet Slave Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech, tmp_surrogated_id))
 
                         magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
                         aux_magnet_instance = mbuilder.merge_announce_list(aux_magnet_instance, magnet_instance)
@@ -431,9 +493,10 @@ class ScraperEngine(object):
                                'seed': [aux_magnet_instance['seed']],
                                'leech': [aux_magnet_instance['leech']],
                                'ratio': [aux_magnet_instance['ratio']],
-                               'magnet': [aux_magnet_instance['magnet']]}
+                               'magnet': [aux_magnet_instance['magnet']],
+                               'surrogated_id': [aux_magnet_instance['surrogated_id']]}
 
-                    new_row_df = DataFrame(new_row, columns=['name', 'hash', 'size', 'seed', 'leech', 'ratio', 'magnet'])
+                    new_row_df = DataFrame(new_row, columns=['name', 'hash', 'size', 'seed', 'leech', 'ratio', 'magnet', 'surrogated_id'])
                     self.logger.debug('{0} Adding Merged GroupHash to Temp DataFrame: [ {1} ]\n'.format(self.name, item_hash))
                     new_dataframe = new_dataframe.append(new_row_df, ignore_index=True)
 

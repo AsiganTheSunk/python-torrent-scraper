@@ -299,7 +299,7 @@ class MagnetBuilder(object):
             print(err)
         return data
 
-    def parse_from_file(self, file, base='16', size=0, seed=1, leech=1):
+    def parse_from_file(self, file, base='16', size=0, seed=1, leech=1, surrogated_id=''):
         '''
         This function, will parse the content of a *.torrent file, retrieving the fundamental values
         :param file: this value, represents the path to the *.torrent file
@@ -349,11 +349,11 @@ class MagnetBuilder(object):
             display_name = ch_filter.sub('', str(display_name))
             self.logger.debug0('{0} Generated Uri from Torrent File: {1} with Hash [ {2} ]'.format(self.name, display_name,  _hash))
             self.logger.debug('* Announce List {0}'.format(announce_list))
-            return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech)
+            return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech, surrogated_id)
         except Exception as err:
             return MagnetInstance
 
-    def parse_from_magnet(self, magnet_link, size=0, seed=1, leech=1):
+    def parse_from_magnet(self, magnet_link, size=0, seed=1, leech=1, surrogated_id=''):
         '''
         This function, will parse the content present in a magnet link
         :param magnet_link: this value, represents a magnet_link
@@ -386,7 +386,7 @@ class MagnetBuilder(object):
 
             self.logger.debug0('{0} Generated Uri from Magnet Link: {1} with Hash [ {2} ]'.format(self.name, display_name, _hash))
             self.logger.debug('* Announce List {0}'.format(announce_list))
-            return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech)
+            return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech, surrogated_id)
         except Exception as err:
             return MagnetInstance
 
