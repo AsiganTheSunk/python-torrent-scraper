@@ -10,32 +10,46 @@ from bs4 import BeautifulSoup
 from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
 
 # Import Custom Exceptions
-from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperParseError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 
-# Constants
+# Import Custom Constants
 from lib.fileflags import FileFlags as fflags
 
-class PirateBayScraper():
+
+class PirateBayScraper(object):
     def __init__(self, logger):
         self.name = self.__class__.__name__
-        self.logger = logger
-        self.proxy_list = ['https://unblockedbay.info', 'https://ukpirate.org', 'https://thehiddenbay.info']
-        self._proxy_list_length = len(self.proxy_list)
-        self._proxy_list_pos = 0
-        self.cloudflare_cookie = False
-        self.query_type = True
-        self.thread_defense_bypass_cookie = False
-        self.torrent_file = False
-        self.magnet_link = True
 
+        # CustomLogger
+        self.logger = logger
+
+        # Scraper Configuration Parameters
+        self.query_type = True
+        self.cloudflare_cookie = False
+        self.thread_defense_bypass_cookie = False
+
+        # Supported FileFlags
+        self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG]
+
+        # Sleep Limit, for connections to the web source
+        self.safe_sleep_time = [0.500, 1.250]
+
+        # ProxyList Parameters
+        self.proxy_list = ['https://unblockedbay.info', 'https://ukpirate.org', 'https://thehiddenbay.info']
+        self._proxy_list_pos = 0
+        self._proxy_list_length = len(self.proxy_list)
         self.main_page = self.proxy_list[self._proxy_list_pos]
+
+        # Uri Composition Parameters
         self.default_search = '/s/'
         self.default_tail = ''
         self.default_params = {'category':'0', 'page':'0', 'orderby':'99'}
-        self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG]
+
+        # Hop Definitions
         self.hops = [self.get_magnet_info]
+        self.batch_hops = []
 
     def update_main_page(self):
         try:
@@ -103,6 +117,7 @@ class PirateBayScraper():
             if content!=[]:
                 try:
                     magnet = content[0].findAll('a')[0]['href']
+                    print('entra aqui por yisus: ', magnet)
                     return magnet
                 except Exception as err:
                     raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),

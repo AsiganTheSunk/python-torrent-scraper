@@ -1,10 +1,19 @@
-from Pymoe import Anilist
-import textwrap
-from lib.fileflags import FileFlags as fflags
-from config_parser import CustomConfigParser
+#!/usr/bin/env python3
+
+# Import System Libraries
 import gettext
+import textwrap
 
+# Import External Libraries
+from Pymoe import Anilist
 
+# Import Custom Constants
+from lib.fileflags import FileFlags as fflags
+
+# Import Custom ConfigParser
+from config_parser import CustomConfigParser
+
+# Language Configuration
 try:
     se_config = CustomConfigParser('./torrentscraper.ini')
     language_config = se_config.get_section_map('Language')

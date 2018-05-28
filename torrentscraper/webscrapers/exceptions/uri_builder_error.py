@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 class UriBuilderError(Exception):
     '''Raise when a there is an error in the creation of the uri'''
     def __init__(self, webscraper_name, err, trace,*args):

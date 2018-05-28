@@ -2,14 +2,15 @@
 
 # Import System Libraries
 from collections.abc import Mapping
-import os
 
 # Import External Libraries
-from colorama import Fore, Style
 from lib.fileflags import FileFlags as fflags
 
+
 class WebSearchInstance(Mapping):
-    def __init__(self, title='', year='', season='', episode='', quality='', source='', search_type='', lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
+    def __init__(self, title='', year='', season='', episode='', quality='', source='',
+                 search_type='', lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
+
         self.search_type = search_type
         self.lower_size_limit = lower_size_limit
         self.upper_size_limit = upper_size_limit
@@ -58,11 +59,11 @@ class WebSearchInstance(Mapping):
             self.source = ''
             self.year = ''
             if len(self.episode) == 1:
-                self.episode = '0' + str(self.episode)
+                self.episode = '0'+str(self.episode)
             if len(self.season) == 1:
-                self.season = '0' + str(self.season)
-
+                self.season = '0'+str(self.season)
         return self
+
     # def __repr__(self):
     #     '''
     #     This function, overrides the default function method.

@@ -10,35 +10,51 @@ from bs4 import BeautifulSoup
 from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
 
 # Import Custom Exceptions
-from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperParseError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 
-# Constants
+# Import Custom
 from lib.fileflags import FileFlags as fflags
 
 class MejorTorrentScraper():
     def __init__(self, logger):
         self.name = self.__class__.__name__
-        self.logger = logger
-        self.proxy_list = ['http://www.mejortorrent.com']
-        self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG]
-        self._proxy_list_length = len(self.proxy_list)
-        self._proxy_list_pos = 0
-        self.cloudflare_cookie = False
-        self.query_type = True
-        self.thread_defense_bypass_cookie = False
-        self.torrent_file = True
-        self.magnet_link = False
 
+        # CustomLogger
+        self.logger = logger
+
+        # Scraper Configuration Parameters
+        self.query_type = True
+        self.cloudflare_cookie = False
+        self.thread_defense_bypass_cookie = False
+
+        # Supported FileFlags
+        self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG]
+
+        # Sleep Limit, for connections to the web source
+        self.safe_sleep_time = [0.500, 1.250]
+
+        # ProxyList Parameters
+        self.proxy_list = ['http://www.mejortorrent.com']
+        self._proxy_list_pos = 0
+        self._proxy_list_length = len(self.proxy_list)
         self.main_page = self.proxy_list[self._proxy_list_pos]
+
+        # Uri Composition Parameters
         self.default_search = '/secciones.php'
         self.default_tail = ''
         self.default_params = {'sec':'buscador'}
+
+        # Hop Definitions
         self.batch_hops = [self.get_torrent_link_batch, self.get_torrent_info]
         self.hops = [self.get_torrent_link, self.get_torrent_info]
 
     def update_main_page(self):
+        '''
+
+        :return:
+        '''
         try:
             value = self._proxy_list_pos
             if self._proxy_list_length > self._proxy_list_pos:
@@ -50,6 +66,11 @@ class MejorTorrentScraper():
             raise WebScraperProxyListError(self.name, err, traceback.format_exc())
 
     def get_raw_data(self, content=None):
+        '''
+
+        :param content:
+        :return:
+        '''
         raw_data = RAWDataInstance()
         soup = BeautifulSoup(content, 'html.parser')
 
@@ -73,6 +94,14 @@ class MejorTorrentScraper():
         return raw_data
 
     def get_torrent_link_batch(self, content, websearch, hop, *args):
+        '''
+
+        :param content:
+        :param websearch:
+        :param hop:
+        :param args:
+        :return:
+        '''
         soup = BeautifulSoup(content, 'html.parser')
         try:
             surrogated_id = ''

@@ -11,39 +11,52 @@ from bs4 import BeautifulSoup
 from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
 
 # Import Custom Exceptions
-from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperParseError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 
-# Constants
+# Import Custom Constants
 from lib.fileflags import FileFlags as fflags
-
-FILM_FLAG = fflags.FILM_DIRECTORY_FLAG
-SHOW_FLAG = fflags.SHOW_DIRECTORY_FLAG
-ANIME_FLAG = fflags.ANIME_DIRECTORY_FLAG
 
 class TorrentFunkScraper(object):
     def __init__(self, logger):
+        '''
+
+        :param logger:
+        '''
         self.name = self.__class__.__name__
+
+        # CustomLogger
         self.logger = logger
-        self.proxy_list = ['https://torrentfunk.unblocked.mx','https://www.torrentfunk.com']
-        self._proxy_list_length = len(self.proxy_list)
-        self._proxy_list_pos = 0
+
+        # Scraper Configuration Parameters
         self.cloudflare_cookie = False
         self.query_type = False
         self.thread_defense_bypass_cookie = False
-        self.torrent_file = True
-        self.magnet_link = False
 
-        self.default_params = {}
+        # Supported FileFlags
+        self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG, fflags.ANIME_DIRECTORY_FLAG]
+
+        # ProxyList Parameters
+        self.proxy_list = ['https://torrentfunk.unblocked.mx','https://www.torrentfunk.com']
+        self._proxy_list_pos = 0
+        self._proxy_list_length = len(self.proxy_list)
         self.main_page = self.proxy_list[self._proxy_list_pos]
+
+        # Uri Composition Parameters
+        self.default_params = {}
         self.default_search = '/all/torrents/'
         self.default_tail = '.html'
-        self.supported_searchs = [FILM_FLAG, SHOW_FLAG, ANIME_FLAG]
+
+        # Hop Definitions
         self.batch_hops = []
         self.hops = [self.get_magnet_link]
 
     def update_main_page(self):
+        '''
+
+        :return:
+        '''
         try:
             value = self._proxy_list_pos
             if self._proxy_list_length > self._proxy_list_pos:
@@ -54,14 +67,19 @@ class TorrentFunkScraper(object):
         except IndexError as err:
             raise WebScraperProxyListError(self.name, err, traceback.format_exc())
 
-    def get_raw_data(self, content=None,):
+    def get_raw_data(self, content=None):
+        '''
+
+        :param content:
+        :return:
+        '''
         raw_data = RAWDataInstance()
         soup = BeautifulSoup(content, 'html.parser')
 
         try:
             # Retrieving individual values from the search result
             ttable = soup.findAll('table', {'class':'tmain'})
-            if ttable != []:
+            if ttable is not []:
                 try:
                     self.logger.info('{0} Retrieving Raw Values from Search Result Response:'.format(self.name))
                     for items in ttable:
@@ -98,10 +116,11 @@ class TorrentFunkScraper(object):
         return raw_data
 
     def get_magnet_link(self, content, *args):
+        ''''''
         soup = BeautifulSoup(content, 'html.parser')
         try:
             content = (soup.findAll('div',{'class':'content'}))
-            if content != []:
+            if content is not []:
                 try:
                     magnet = content[2].findAll('a')[1]['href']
                     return magnet
@@ -111,5 +130,3 @@ class TorrentFunkScraper(object):
         except Exception as err:
             raise WebScraperContentError(self.name, 'ContentError: unable to retrieve values {0}'.format(err),
                                          traceback.format_exc())
-
-

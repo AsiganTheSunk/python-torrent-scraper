@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 # Import System Libraries
-from collections.abc import Mapping
 import urllib.parse
+from collections.abc import Mapping
+
 
 class MagnetInstance(Mapping):
     def __init__(self, _hash, display_name, announce_list, size=0, seed=1, leech=1, surrogated_id=''):

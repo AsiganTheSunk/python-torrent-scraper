@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 # Import System Libraries
-from time import sleep
-from random import randint
-from logging import DEBUG, INFO, WARNING
+import random
 import logging
 import traceback
+from time import sleep
+from logging import DEBUG, INFO, WARNING
 
 # Import External Libraries
 import requests
@@ -21,16 +21,26 @@ from torrentscraper.datastruct.p2p_instance import P2PInstance
 from torrentscraper.utils.custom_logger import CustomLogger
 
 # Import Custom WebScraper
-from torrentscraper.webscrapers import kat_scraper_type_a as kata
+from torrentscraper.webscrapers import kat_scraper as kata
+from torrentscraper.webscrapers import nyaa_scraper as nyaa
 from torrentscraper.webscrapers import pirate_bay_scraper as tpb
 from torrentscraper.webscrapers import torrent_funk_scraper as funk
-from torrentscraper.webscrapers import nyaa_scraper as nyaa
 from torrentscraper.webscrapers import mejortorrent_scraper as mjrt
 
 # Import Custom Exceptions: WebScraper Exceptions
-from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
-from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperParseError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
+
+# Import Custom Exceptions: ScraperEngine
+# from torrentscraper.exceptions.scraper_engine_error import ScraperEngineNetworkError
+from torrentscraper.exceptions.scraper_engine_error import ScraperEngineUnknowError
+from torrentscraper.exceptions.scraper_engine_error import ScraperEngineCookieError
+
+# Import Custom Utils
+from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
+from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
+from torrentscraper.webscrapers.utils.magnet_builder import MagnetBuilder
 
 # # Import Custom Exceptions: MagnetBuilder Torrent KeyError
 # from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyHashError
@@ -47,18 +57,6 @@ from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperPar
 # from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderNetworkAnnounceListKeyError
 # from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderNetworkError
 
-
-# Import Custom Exceptions: ScraperEngine
-# from torrentscraper.exceptions.scraper_engine_error import ScraperEngineNetworkError
-from torrentscraper.exceptions.scraper_engine_error import ScraperEngineUnknowError
-from torrentscraper.exceptions.scraper_engine_error import ScraperEngineCookieError
-
-
-# Import Custom Utils
-from torrentscraper.webscrapers.utils.uri_builder import UriBuilder
-from torrentscraper.webscrapers.utils.magnet_builder import MagnetBuilder
-from lib.fileflags import FileFlags as fflags
-from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
 # Pandas Terminal Configuration
 pd.set_option('display.max_rows', 750)
 pd.set_option('display.max_columns',750)
@@ -66,43 +64,53 @@ pd.set_option('display.width', 1400)
 
 # Constants
 line = '-----------------------' * 8
-FILM_FLAG = fflags.FILM_DIRECTORY_FLAG
-SHOW_FLAG = fflags.SHOW_DIRECTORY_FLAG
-ANIME_FLAG = fflags.ANIME_DIRECTORY_FLAG
+
 DEBUG0 = 15
 VERBOSE = 5
 
 TORRENT_EXTENSION = '.torrent'
 MAGNET_EXTENSION = 'magnet:'
 
-# TODO Terminar de Prograpagar Excepciones!!!
-# TODO Hacer los examples para las mismas
-# TODO Resolver problema de webdrivers. rbg.RarbgScrapper()
 class ScraperEngine(object):
     def __init__(self, webscraper_dict=None):
         self.name = self.__class__.__name__
+
+        # Cache Path
         self.cache_path = './cache/temp_torrent.torrent'
-        # Create & Config CustomLogger
-        self.logger = CustomLogger(name=__name__, level=INFO)
+
+        # CustomLogger instance Creation
+        self.logger = CustomLogger(name=__name__, level=DEBUG0)
+
+        # CustomLogger Format Definition
         formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
+
+        # Custom Logger File Configuration
         file_handler = logging.FileHandler('log/scraper_engine.log', 'w')
         file_handler.setFormatter(formatter)
-        file_handler.setLevel(level=INFO)
+        file_handler.setLevel(level=DEBUG0)
 
+        # Custom Logger Console Configuration
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(INFO)
+        console_handler.setLevel(DEBUG0)
 
+        # Custom Logger
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)
 
+        # Webscraper Setup
         if webscraper_dict is not None:
             self.webscrapers = self.load_webscraper(webscraper_dict)
         else:
-            self.webscrapers = [mjrt.MejorTorrentScraper(self.logger),tpb.PirateBayScraper(self.logger)] #,tpb.PirateBayScraper(self.logger),  kata.KatScrapperTypeA(self.logger), nyaa.NyaaScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
+            self.webscrapers = [tpb.PirateBayScraper(self.logger)] #mjrt.MejorTorrentScraper(self.logger),tpb.PirateBayScraper(self.logger),  kata.KatScrapperTypeA(self.logger), nyaa.NyaaScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
 
     def load_webscraper(self, webscraper_dict):
+        '''
+
+        :param webscraper_dict:
+        :return:
+        '''
         aux_list = []
         for item in webscraper_dict:
             if item == 'thepiratebay' and webscraper_dict[item] == '1':
@@ -110,7 +118,7 @@ class ScraperEngine(object):
             elif item == 'mejortorrent' and webscraper_dict[item] == '1':
                 aux_list.append(mjrt.MejorTorrentScraper(self.logger))
             elif item == 'kickass'  and webscraper_dict[item] == '1':
-                aux_list.append(kata.KatScrapperTypeA(self.logger))
+                aux_list.append(kata.KatScrapper(self.logger))
             elif item == 'torrentfunk' and webscraper_dict[item] == '1':
                 aux_list.append(funk.TorrentFunkScraper(self.logger))
             elif item == 'nyaa' and webscraper_dict[item] == '1':
@@ -135,8 +143,9 @@ class ScraperEngine(object):
         if len(raw_data.magnet_list) > 1:
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
-                    if webscraper.name == 'MejorTorrentScraper' and websearch.episode == '':
-                        surrogated_list, source_link = self.resolve_batch_hops(websearch, webscraper, raw_data.magnet_list[index])
+                    if (webscraper.name == 'MejorTorrentScraper' and websearch.episode == ''):
+                        print('season: ', websearch.season)
+                        surrogated_list, source_link = self.resolve_batch_hops(websearch, webscraper, raw_data.magnet_list[index], batch_mode=True)
                         if surrogated_list is not []:
                             for item in surrogated_list:
                                 magnet_instance_list = self.add_magnet_instance_entry(
@@ -147,8 +156,6 @@ class ScraperEngine(object):
                         magnet_instance_list = self.add_magnet_instance_entry(
                             websearch, webscraper, magnet_instance_list, source_link, raw_data.size_list[index],
                             raw_data.seed_list[index], raw_data.leech_list[index], '')
-
-                    # print(source_link, surrogated_list)
                 except Exception as err:
                     self.logger.error('{0} Unable to Retrieve Info Source [{1}]\n Error: {2}'.format(webscraper.name, source_link, str(err)))
 
@@ -157,11 +164,28 @@ class ScraperEngine(object):
             return magnet_instance_list
 
     def add_magnet_instance_entry(self, websearch, webscraper, magnet_instance_list, source_link, size, seed, leech, surrogated_id):
+        '''
+
+        :param websearch:
+        :param webscraper:
+        :param magnet_instance_list:
+        :param source_link:
+        :param size:
+        :param seed:
+        :param leech:
+        :param surrogated_id:
+        :return:
+        '''
+
+        # Launch a MagnetBuilder instance, to get the magnet or the torrent info from the web source
         mbuilder = MagnetBuilder(self.logger)
+
+        # Magnet: Detected
         if MAGNET_EXTENSION in source_link:
             self.logger.info('{0} {1} Detected: {2}'.format(self.name, 'magnet', source_link))
             magnet_instance_list.append(mbuilder.parse_from_magnet(source_link, size, seed, leech, surrogated_id))
         else:
+            # Torrent: Detected
             torrent_file = self.dynamic_search(websearch, webscraper, source_link)
             self.logger.info('{0} {1} Detected: {2}'.format(self.name, 'torrent', source_link))
             self.write_cache(torrent_file)
@@ -169,6 +193,14 @@ class ScraperEngine(object):
         return magnet_instance_list
 
     def resolve_hops(self, websearch, webscraper, nextHop, hopCount=0):
+        '''
+
+        :param websearch:
+        :param webscraper:
+        :param nextHop:
+        :param hopCount:
+        :return:
+        '''
         if len(webscraper.hops) -1 >= hopCount:
             response = self.dynamic_search(websearch, webscraper, nextHop)
             nextHop = webscraper.hops[hopCount](response.text, websearch, nextHop)
@@ -177,12 +209,24 @@ class ScraperEngine(object):
             return nextHop
 
     def resolve_batch_hops(self, websearch, webscraper, nextHop, hopCount=0):
+        '''
+
+        :param websearch:
+        :param webscraper:
+        :param nextHop:
+        :param hopCount:
+        :return:
+        '''
         surrogated_id = ''
         surrogated_list = []
         if len(webscraper.hops) -1 >= hopCount:
-            # Retrieve The Initial Table With The Data
+            # # Retrieve The Initial Table With The Data
+            # if batch_mode:
+            #     nextHop, surrogated_id = webscraper.batch_hops[hopCount](websearch, nextHop)
+            # else:
             response = self.dynamic_search(websearch, webscraper, nextHop)
             nextHop, surrogated_id = webscraper.batch_hops[hopCount](response.text, websearch, nextHop)
+
             if len(nextHop) > 1:
                 for index, hop_item in enumerate(nextHop):
                     surrogated_list.append(self.resolve_hops(websearch, webscraper, hop_item, hopCount + 1))
@@ -191,11 +235,19 @@ class ScraperEngine(object):
             return self.resolve_batch_hops(websearch, webscraper, nextHop[0], hopCount + 1)
         return nextHop, surrogated_id
 
-
     def clean_cache(self):
+        '''
+
+        :return:
+        '''
         pass
 
     def write_cache(self, torrent_info):
+        '''
+
+        :param torrent_info:
+        :return:
+        '''
         try:
             with open(self.cache_path, 'wb', encoding=torrent_info.encoding) as file:
                 file.write(torrent_info.content)
@@ -222,8 +274,7 @@ class ScraperEngine(object):
             if websearch['search_type'] in webscraper.supported_searchs:
                 self.logger.info('{0} Selected Proxy from Proxy List [ {1} ]'.format(webscraper.name, webscraper.main_page))
                 try:
-                    self.logger.info(
-                        '{0} Retrieving Information from Source  [ {1} ]'.format(webscraper.name, webscraper.main_page))
+                    self.logger.info('{0} Retrieving Information from Source  [ {1} ]'.format(webscraper.name, webscraper.main_page))
                     raw_data = self._gather_raw_data(websearch, webscraper)
                     magnet_instance_list = self._normalize_magnet_entries(raw_data, websearch, webscraper)  # Normalize Entries
                     if magnet_instance_list is not []:
@@ -245,7 +296,7 @@ class ScraperEngine(object):
         '''
         raw_data = RAWDataInstance()
         response = self.dynamic_search(websearch, webscraper)
-        sleep(randint(1, 2))  # Random Sleep to Avoid Flooding
+        sleep(round(random.uniform(webscraper.safe_sleep_time[0], webscraper.safe_sleep_time[1])))
         if response is not None:
             try:
                 raw_data = webscraper.get_raw_data(response.text)  # Retrieving RawData from Source
@@ -261,8 +312,6 @@ class ScraperEngine(object):
                 #     return RAWDataInstance()
 
         return RAWDataInstance()
-
-
 
     def _setup_uri(self, websearch, webscraper, append_uri=None):
         '''
@@ -341,11 +390,21 @@ class ScraperEngine(object):
             return self._retry_connection(websearch, webscraper, append_uri, counter, max_counter)
 
     def _retry_connection(self, websearch, webscraper, append_uri=None, counter=0, max_counter=3, forced=False):
+        '''
+
+        :param websearch:
+        :param webscraper:
+        :param append_uri:
+        :param counter:
+        :param max_counter:
+        :param forced:
+        :return:
+        '''
         if counter >= max_counter:
             try:
 
                 webscraper.update_main_page()
-                sleep(randint(1, 2))
+                sleep(round(random.uniform(webscraper.safe_sleep_time[0], webscraper.safe_sleep_time[1])))
                 self.logger.info(
                     '{0} Connection Failed Multiple Times, Trying a New Proxy from Proxy List: [ {1} ]'.format(
                         webscraper.name, webscraper.proxy_list[webscraper._proxy_list_pos]))
@@ -358,7 +417,7 @@ class ScraperEngine(object):
         elif forced:
             try:
                 webscraper.update_main_page()
-                sleep(randint(1, 2))
+                sleep(round(random.uniform(webscraper.safe_sleep_time[0], webscraper.safe_sleep_time[1])))
                 self.logger.info(
                     '{0} Corrupted Content, Trying a New Proxy from Proxy List: [ {1} ]'.format(
                         webscraper.name, webscraper.proxy_list[webscraper._proxy_list_pos]))
@@ -370,7 +429,7 @@ class ScraperEngine(object):
 
         else:
             counter += 1
-            sleep(randint(1, 3))
+            sleep(round(random.uniform(webscraper.safe_sleep_time[0], webscraper.safe_sleep_time[1])))
             self.logger.info(
                 '{0} [{1:d}/{2:d}] Connection Failed, Retrying in a Few Seconds wiht Proxy: [ {3} ]'.format(
                     webscraper.name, counter, max_counter, webscraper.proxy_list[webscraper._proxy_list_pos]))

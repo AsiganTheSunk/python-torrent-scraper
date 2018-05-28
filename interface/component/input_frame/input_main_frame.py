@@ -41,8 +41,6 @@ SEARCH_TYPE = _('[ Category ]')
 SEARCH_TYPE_LIST = [_('SHOW'), _('FILM'), _('ANIME')]
 SEARCH_TEXT = _('Search')
 
-
-
 class InputMainFrame(Frame):
     def __init__(self, master, row, column, retrieveData, queue):
         self.name = self.__class__.__name__
@@ -188,7 +186,7 @@ class InputMainFrame(Frame):
 
     def validate_entries(self):
         if self.search_type_popup.selection == 'SHOW' or self.search_type_popup.selection == 'SERIE':
-            if len(self.title_entry.get()) and len(self.season_entry.get()) and len(self.episode_entry.get()) > 0:
+            if len(self.title_entry.get()) and len(self.season_entry.get()):
                 return True
         elif self.search_type_popup.selection == 'FILM' or self.search_type_popup.selection == 'CINE':
             if len(self.title_entry.get()) > 0:

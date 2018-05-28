@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 
-# path to qClient config C:\Users\Asigan\AppData\Roaming\qBittorrent.ini
-# search values, to change and auto configurate. nº of conexions etc etc
+# TODO path to qClient config C:\Users\Asigan\AppData\Roaming\qBittorrent.ini
 
+# Import External Libraries
 from qbittorrent import Client
-from time import sleep
+
 
 class QClientManager(object):
-    def __init__(self, url='http://127.0.0.1:8080/'):  #, user='admin', paswd='examples'):
+    def __init__(self, url='http://127.0.0.1:8080/', user='', passwd=''):
         self.name = self.__class__.__name__
-        self.url = url
-        # self.user = user
-        # self.paswd = paswd
 
-        # Launching Session to QClient
-        self.session = Client(self.url)
-        # self.session.login(self.user, self.paswd)
+        # Default Parameters for QClient Session
+        self.defautl_url = url
+        self.user = user
+        self.passwd = passwd
+
+        # Launching Session in QClient
+        self.session = Client(self.defautl_url)
+        if self.user != '' and self.passwd != '':
+            self.session.login(self.user, self.passwd)
 
     def session_shutdown(self):
         try:
@@ -37,11 +40,6 @@ class QClientManager(object):
             print (e)
         return True
 
-
-def main():
-    qclient = QClientManager()
-    #qclient.session.set_category(torrents[0]['hash'], category='Anime')
-    qclient.get_torrent_info()
-
-if __name__ == '__main__':
-    main()
+# qclient = QClientManager()
+# qclient.session.set_category(torrents[0]['hash'], category='Anime')
+# qclient.get_torrent_info()

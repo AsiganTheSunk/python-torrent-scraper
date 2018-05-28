@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-05-18 20:13+Romance Daylight Time\n"
+"POT-Creation-Date: 2018-05-27 19:52+Romance Daylight Time\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,52 +16,57 @@ msgstr ""
 
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:21
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:34
 msgid "[ Source ]"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:22
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:35
 msgid "[ Quality ]"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:23
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:36
+msgid "Year"
+msgstr ""
+
+#:
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:37
 msgid "Title"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:24
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:38
 msgid "S"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:25
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:39
 msgid "Ep"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:26
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:40
 msgid "[ Category ]"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:27
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:41
 msgid "ANIME"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:27
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:41
 msgid "FILM"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:27
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:41
 msgid "SHOW"
 msgstr ""
 
 #:
-#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:28
+#: C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\component\input_frame\input_main_frame.py:42
 msgid "Search"
 msgstr ""
 

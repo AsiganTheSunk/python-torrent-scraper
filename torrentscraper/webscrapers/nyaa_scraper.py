@@ -11,35 +11,52 @@ import traceback
 from torrentscraper.datastruct.rawdata_instance import RAWDataInstance
 
 # Import Custom Exceptions
-from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperParseError
 from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperContentError
+from torrentscraper.webscrapers.exceptions.webscraper_error import WebScraperProxyListError
 
-# Constants
+# Import Custom Constants
 from lib.fileflags import FileFlags as fflags
 
-class NyaaScraper():
+
+class NyaaScraper(object):
     def __init__(self, logger):
         self.name = self.__class__.__name__
-        self.logger = logger
-        self.proxy_list = ['http://nyaa.si']
-        self._proxy_list_length = len(self.proxy_list)
-        self._proxy_list_pos = 0
-        self.cloudflare_cookie = False
-        self.query_type = True
-        self.thread_defense_bypass_cookie = False
-        self.torrent_file = False
-        self.magnet_link = True
 
+        # CustomLogger
+        self.logger = logger
+
+        # Scraper Configuration Parameters
+        self.query_type = True
+        self.cloudflare_cookie = False
+        self.thread_defense_bypass_cookie = False
+
+        # Supported FileFlags
+        self.supported_searchs = [fflags.ANIME_DIRECTORY_FLAG]
+
+        # Sleep Limit, for connections to the web source
+        self.safe_sleep_time = [0.500, 1.250]
+
+        # ProxyList Parameters
+        self.proxy_list = ['http://nyaa.si']
+        self._proxy_list_pos = 0
+        self._proxy_list_length = len(self.proxy_list)
         self.main_page = self.proxy_list[self._proxy_list_pos]
+
+        # Uri Composition Parameters
         self.default_search = '/'
         self.default_tail = ''
         self.default_params = {'f': '0', 'c:': '0_0', 'p': '0'}
-        self.supported_searchs = [fflags.ANIME_DIRECTORY_FLAG]
+
+        # Hop Definitions
         self.hops = []
         self.batch_hops = []
 
     def update_main_page(self):
+        '''
+
+        :return:
+        '''
         try:
             value = self._proxy_list_pos
             if self._proxy_list_length > self._proxy_list_pos:
@@ -51,6 +68,11 @@ class NyaaScraper():
             raise WebScraperProxyListError(self.name, err, traceback.format_exc())
 
     def get_raw_data(self, content=None):
+        '''
+
+        :param content:
+        :return:
+        '''
         raw_data = RAWDataInstance()
         soup = BeautifulSoup(content, 'html.parser')
 
