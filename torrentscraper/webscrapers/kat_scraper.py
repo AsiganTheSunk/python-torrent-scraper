@@ -35,7 +35,7 @@ class KatScrapper(object):
         self.supported_searchs = [fflags.SHOW_DIRECTORY_FLAG, fflags.FILM_DIRECTORY_FLAG]
 
         # Sleep Limit, for connections to the web source
-        self.safe_sleep_time = [0.500, 1.250]
+        self.safe_sleep_time = [0.750, 1.250]
 
         # ProxyList Parameters
         self.proxy_list = ['https://kickass.cd']

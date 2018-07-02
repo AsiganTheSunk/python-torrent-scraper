@@ -29,12 +29,11 @@ console_handler.setLevel(DEBUG)
 
 from torrentscraper.torrent_scraper import TorrentScraper
 
-
 # Introducir Threshholds de comportamiento, para el sleep, en base a los tiempos de respuesta y que se ajuste.
 def main():
     run_interface()
     #
-    # websearch = WebSearchInstance(title='Silicon Valley', season='1', episode='1', quality='HDTV', search_type=fflags.SHOW_DIRECTORY_FLAG)
+    # websearch = WebSearchInstance(title='Silicon Valley', season='1', quality='HDTV', search_type=fflags.SHOW_DIRECTORY_FLAG)
     # websearch = websearch.validate()
     # ts = TorrentScraper()
     # result = ts.scrap(websearch)

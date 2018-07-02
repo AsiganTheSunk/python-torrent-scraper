@@ -18,8 +18,6 @@ class TorrentScraper():
         # ScraperEngine Instance
         self.scraper_engine = ScraperEngine(webscraper_dict)
 
-
-
     def scrap(self, websearch, top=20, batch_mode=False):
         '''
 
@@ -38,7 +36,7 @@ class TorrentScraper():
 
         if batch_mode:
             batch_dataframe = self.scrap_batch(websearch)
-            return self.scraper_engine.merge_dataframe_list([dataframe, batch_dataframe])
+            dataframe =  self.scraper_engine.merge_dataframe_list([dataframe, batch_dataframe])
 
 
         surrogated_view = dataframe[dataframe.surrogated_id != '']

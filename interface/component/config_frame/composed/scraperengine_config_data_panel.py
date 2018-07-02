@@ -156,7 +156,7 @@ class Checkbar0(Frame):
         self.var6.set(self.picks['mejortorrent'])
         check_button2 = Checkbutton(self, text='mejortorrent', variable=self.var6, background=self.main_theme, font=('calibri', (10)))
         check_button2.grid(row=1, column=2)
-        # TODO **** DISABLED
+        # # TODO **** DISABLED
         check_button2['state'] = 'disable'
 
     def get_picks(self):
@@ -188,9 +188,7 @@ class Checkbar1(Frame):
         # self.var9.set(self.picks['mejortorrent'])
         # check_button2 = Checkbutton(self, text='mejortorrent', variable=self.var9, background=self.main_theme, font=('calibri', (10)))
         # check_button2.grid(row=1, column=2)
-        # # TODO **** DISABLED
-        # check_button2['state'] = 'disable'
 
     def get_picks(self):
-        result = {'nyaa': self.var7.get()}#, 'rarbg': self.var8.get(), 'mejortorrent':self.var9.get()}
+        result = {'nyaa': self.var7.get(), 'mejortorrent':self.var9.get()}#, 'rarbg': self.var8.get(), 'mejortorrent':self.var9.get()}
         return result

@@ -112,7 +112,7 @@ class ScraperEngine(object):
         if webscraper_dict is not None:
             self.webscrapers = self.load_webscraper(webscraper_dict)
         else:
-            self.webscrapers = [funk.TorrentFunkScraper(self.logger), mjrt.MejorTorrentScraper(self.logger)] #kata.KatScrapper(self.logger), tpb.PirateBayScraper(self.logger), nyaa.NyaaScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
+            self.webscrapers = [mjrt.MejorTorrentScraper(self.logger)] #kata.KatScrapper(self.logger), tpb.PirateBayScraper(self.logger), nyaa.NyaaScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
 
     def load_webscraper(self, webscraper_dict):
         '''
