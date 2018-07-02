@@ -30,9 +30,13 @@ class TorrentFunkScraper(object):
         self.logger = logger
 
         # Scraper Configuration Parameters
-        self.cloudflare_cookie = False
         self.query_type = False
+        self.batch_style = False
+        self.cloudflare_cookie = False
         self.thread_defense_bypass_cookie = False
+
+        # Sleep Limit, for connections to the web source
+        self.safe_sleep_time = [1.0, 1.5]
 
         # Supported FileFlags
         self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG, fflags.ANIME_DIRECTORY_FLAG]

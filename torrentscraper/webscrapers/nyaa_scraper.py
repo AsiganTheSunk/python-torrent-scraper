@@ -28,6 +28,7 @@ class NyaaScraper(object):
 
         # Scraper Configuration Parameters
         self.query_type = True
+        self.batch_style = False
         self.cloudflare_cookie = False
         self.thread_defense_bypass_cookie = False
 

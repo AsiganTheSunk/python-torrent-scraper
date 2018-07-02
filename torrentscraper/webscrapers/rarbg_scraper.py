@@ -27,6 +27,7 @@ class RarbgScrapper(object):
 
         # Scraper Configuration Parameters
         self.query_type = False
+        self.batch_style = False
         self.cloudflare_cookie = False
         self.thread_defense_bypass_cookie = True
 

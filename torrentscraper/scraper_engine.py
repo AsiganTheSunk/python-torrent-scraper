@@ -57,9 +57,12 @@ from torrentscraper.webscrapers.utils.magnet_builder import MagnetBuilder
 # from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderNetworkAnnounceListKeyError
 # from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderNetworkError
 
+# Testing Imports
+from data_statistics import StatusData, MagnetAnalizedViewer, MagnetCounterViewer
+
 # Pandas Terminal Configuration
 pd.set_option('display.max_rows', 750)
-pd.set_option('display.max_columns',750)
+pd.set_option('display.max_columns', 750)
 pd.set_option('display.width', 1400)
 
 # Constants
@@ -71,18 +74,24 @@ VERBOSE = 5
 TORRENT_EXTENSION = '.torrent'
 MAGNET_EXTENSION = 'magnet:'
 
+
 class ScraperEngine(object):
     def __init__(self, webscraper_dict=None):
         self.name = self.__class__.__name__
+
+        #StatusData
+        self.analized_data = 0
+        self.countered_data = 0
+        self.actual_webscraper = ''
 
         # Cache Path
         self.cache_path = './cache/temp_torrent.torrent'
 
         # CustomLogger instance Creation
-        self.logger = CustomLogger(name=__name__, level=DEBUG0)
+        self.logger = CustomLogger(name=__name__, level=DEBUG)
 
         # CustomLogger Format Definition
-        formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',
+        formatter = logging.Formatter(fmt='%(asctime)s - [%(levelname)s]: %(message)s',
                                       datefmt='%m/%d/%Y %I:%M:%S %p')
 
         # Custom Logger File Configuration
@@ -93,7 +102,7 @@ class ScraperEngine(object):
         # Custom Logger Console Configuration
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
-        console_handler.setLevel(DEBUG0)
+        console_handler.setLevel(DEBUG)
 
         # Custom Logger
         self.logger.addHandler(file_handler)
@@ -103,7 +112,7 @@ class ScraperEngine(object):
         if webscraper_dict is not None:
             self.webscrapers = self.load_webscraper(webscraper_dict)
         else:
-            self.webscrapers = [tpb.PirateBayScraper(self.logger)] #mjrt.MejorTorrentScraper(self.logger),tpb.PirateBayScraper(self.logger),  kata.KatScrapperTypeA(self.logger), nyaa.NyaaScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
+            self.webscrapers = [funk.TorrentFunkScraper(self.logger), mjrt.MejorTorrentScraper(self.logger)] #kata.KatScrapper(self.logger), tpb.PirateBayScraper(self.logger), nyaa.NyaaScraper(self.logger), funk.TorrentFunkScraper(self.logger)]
 
     def load_webscraper(self, webscraper_dict):
         '''
@@ -139,13 +148,11 @@ class ScraperEngine(object):
         magnet_instance_list = []
         surrogated_list = []
         source_link = ''
-
-        if len(raw_data.magnet_list) > 1:
+        if len(raw_data.magnet_list) >= 1:
             for index in range(0, len(raw_data.magnet_list), 1):
                 try:
-                    if (webscraper.name == 'MejorTorrentScraper' and websearch.episode == ''):
-                        print('season: ', websearch.season)
-                        surrogated_list, source_link = self.resolve_batch_hops(websearch, webscraper, raw_data.magnet_list[index], batch_mode=True)
+                    if webscraper.batch_style and websearch.episode == '':
+                        surrogated_list, source_link = self.resolve_batch_hops(websearch, webscraper, raw_data.magnet_list[index])
                         if surrogated_list is not []:
                             for item in surrogated_list:
                                 magnet_instance_list = self.add_magnet_instance_entry(
@@ -155,9 +162,12 @@ class ScraperEngine(object):
                         source_link = self.resolve_hops(websearch, webscraper, raw_data.magnet_list[index])
                         magnet_instance_list = self.add_magnet_instance_entry(
                             websearch, webscraper, magnet_instance_list, source_link, raw_data.size_list[index],
-                            raw_data.seed_list[index], raw_data.leech_list[index], '')
+                            raw_data.seed_list[index], raw_data.leech_list[index], websearch['surrogated_id'])
+
+                    self.analized_data = len(magnet_instance_list)
                 except Exception as err:
                     self.logger.error('{0} Unable to Retrieve Info Source [{1}]\n Error: {2}'.format(webscraper.name, source_link, str(err)))
+                    # status_data.notify()
 
             return magnet_instance_list
         else:
@@ -276,11 +286,12 @@ class ScraperEngine(object):
                 try:
                     self.logger.info('{0} Retrieving Information from Source  [ {1} ]'.format(webscraper.name, webscraper.main_page))
                     raw_data = self._gather_raw_data(websearch, webscraper)
+                    self.countered_data = len(raw_data.magnet_list)
                     magnet_instance_list = self._normalize_magnet_entries(raw_data, websearch, webscraper)  # Normalize Entries
+
                     if magnet_instance_list is not []:
-                        p2p_instance_list.append(P2PInstance(webscraper.name, websearch['search_type'],
-                                                             websearch['lower_size_limit'], websearch['upper_size_limit'],
-                                                             websearch['ratio_limit'], magnet_instance_list))
+                        p2p_instance_list.append(P2PInstance(webscraper.name, websearch, magnet_instance_list))
+
                 except WebScraperContentError as err:
                     self.logger.error(err.message)
                 except WebScraperParseError as err:
@@ -435,35 +446,12 @@ class ScraperEngine(object):
                     webscraper.name, counter, max_counter, webscraper.proxy_list[webscraper._proxy_list_pos]))
             return self.dynamic_search(websearch, webscraper, append_uri, counter)
 
-    def create_magnet_surrogated_entry(self, magnet_instance_list):
-        '''
-        This function, creates a transforms p2p instance list into a dataframe
-        :param p2p_instance_list: this values, respresents a list of p2p instances
-        :type p2p_instance_list: list
-        :return: this function, returns a dataframe object with the magnet values
-        :rtype: DataFrame
-        '''
-        try:
-            surrogated_dataframe = DataFrame()
-            for item in magnet_instance_list:
-                new_row = {'name': [item['display_name']],
-                           'hash': [item['hash']],
-                           'size': [item['size']],
-                           'seed': [item['seed']],
-                           'leech': [item['leech']],
-                           'ratio': [item['ratio']],
-                           'magnet': [item['magnet']],
-                           'surrogated_id': item['surrogated_id']}
+########################################################################################################################
+# DATAFRAME FUNCTIONS
+########################################################################################################################
 
-                new_row_df = DataFrame(new_row,
-                                       columns=['name', 'hash', 'size', 'seed', 'leech',
-                                                'ratio', 'magnet', 'surrogated_id'])
-                surrogated_dataframe = surrogated_dataframe.append(new_row_df, ignore_index=True)
-            return surrogated_dataframe
-        except Exception as err:
-            err_msg = ScraperEngineUnknowError(self.name, err, traceback.format_exc())
-            self.logger.error(err_msg.message)
-            return DataFrame()
+    def merge_dataframe_list(self, dataframe_list):
+        return pd.concat(dataframe_list, ignore_index=True)
 
     def create_magnet_dataframe(self, p2p_instance_list):
         '''
@@ -477,6 +465,8 @@ class ScraperEngine(object):
             dataframe = DataFrame()
             for item_list in p2p_instance_list:
                 for item in item_list.magnet_instance_list:
+                    #print('SURROGATED _ ID : ', item.surrogated_id, item['surrogated_id'], item.surrogated_id)
+
                     new_row = {'name': [item['display_name']],
                                'hash': [item['hash']],
                                'size': [item['size']],
@@ -484,7 +474,7 @@ class ScraperEngine(object):
                                'leech': [item['leech']],
                                'ratio': [item['ratio']],
                                'magnet': [item['magnet']],
-                               'surrogated_id': item['surrogated_id']}
+                               'surrogated_id': [item['surrogated_id']]}
 
                     new_row_df = DataFrame(new_row, columns=['name', 'hash', 'size', 'seed', 'leech', 'ratio', 'magnet', 'surrogated_id'])
                     dataframe = dataframe.append(new_row_df, ignore_index=True)
@@ -513,7 +503,8 @@ class ScraperEngine(object):
             for item_hash in cmmn_hash.groups:
                 if len(cmmn_hash.get_group(item_hash)) > 1:
                     modified_hash.append(item_hash)
-                    self.logger.debug('{0} GroupHash: {1} GroupLen: {2}'.format(self.name, item_hash, len(cmmn_hash.get_group(item_hash))))
+                    self.logger.debug('{0} GroupHash: {1} GroupLen: {2}'.format(
+                        self.name, item_hash, len(cmmn_hash.get_group(item_hash))))
                     aux_index = cmmn_hash.get_group(item_hash).index.tolist()[0]
                     tmp_dn = dataframe.iloc[int(aux_index)]['name']
                     tmp_hash = dataframe.iloc[int(aux_index)]['hash']
@@ -522,11 +513,14 @@ class ScraperEngine(object):
                     tmp_seed = dataframe.iloc[int(aux_index)]['seed']
                     tmp_leech = dataframe.iloc[int(aux_index)]['leech']
                     tmp_surrogated_id = dataframe.iloc[int(aux_index)]['surrogated_id']
-                    self.logger.debug('{0} Magnet Master Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech, tmp_surrogated_id))
+
                     aux_magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
 
-                    self.logger.debug('{0} Index: {1}'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
-                    self.logger.debug('{0} Common DataFrame: {1}\n'.format(self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
+                    self.logger.debug('{0} Magnet Master Values: {1} {2} {3} {4} {5}'.format(
+                        self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech, tmp_surrogated_id))
+                    self.logger.debug('{0} Common DataFrame: {1}\n'.format(
+                        self.name, cmmn_hash.get_group(item_hash).index.tolist(), cmmn_hash.get_group(item_hash)))
+
                     for index in cmmn_hash.get_group(item_hash).index.tolist()[1:]:
                         tmp_dn = dataframe.iloc[int(index)]['name']
                         tmp_hash = dataframe.iloc[int(index)]['hash']
@@ -535,16 +529,16 @@ class ScraperEngine(object):
                         tmp_seed = dataframe.iloc[int(index)]['seed']
                         tmp_leech = dataframe.iloc[int(index)]['leech']
                         tmp_surrogated_id = dataframe.iloc[int(index)]['surrogated_id']
-                        self.logger.debug('{0} Magnet Slave Values: {1} {2} {3} {4} {5}'.format(self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech, tmp_surrogated_id))
 
-                        magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech)
+                        self.logger.debug('{0} Magnet Slave Values: {1} {2} {3} {4} {5}'.format(
+                            self.name, tmp_dn, tmp_hash, tmp_size, tmp_seed, tmp_leech, tmp_surrogated_id))
+
+                        magnet_instance = mbuilder.parse_from_magnet(tmp_magnet, tmp_size, tmp_seed, tmp_leech, tmp_surrogated_id)
                         aux_magnet_instance = mbuilder.merge_announce_list(aux_magnet_instance, magnet_instance)
-                    self.logger.debug('{0} Final Magnet Values: {1} {2} {3} {4} {5}'.format(self.name,
-                                                                                             aux_magnet_instance['display_name'],
-                                                                                             aux_magnet_instance['hash'],
-                                                                                             aux_magnet_instance['size'],
-                                                                                             aux_magnet_instance['seed'],
-                                                                                             aux_magnet_instance['leech']))
+
+                    self.logger.debug('{0} Final Magnet Values: {1} {2} {3} {4} {5}'.format(
+                        self.name, aux_magnet_instance['display_name'], aux_magnet_instance['hash'],
+                        aux_magnet_instance['size'], aux_magnet_instance['seed'], aux_magnet_instance['leech']))
 
                     new_row = {'name': [aux_magnet_instance['display_name']],
                                'hash': [aux_magnet_instance['hash']],
@@ -555,13 +549,17 @@ class ScraperEngine(object):
                                'magnet': [aux_magnet_instance['magnet']],
                                'surrogated_id': [aux_magnet_instance['surrogated_id']]}
 
-                    new_row_df = DataFrame(new_row, columns=['name', 'hash', 'size', 'seed', 'leech', 'ratio', 'magnet', 'surrogated_id'])
-                    self.logger.debug('{0} Adding Merged GroupHash to Temp DataFrame: [ {1} ]\n'.format(self.name, item_hash))
+                    new_row_df = DataFrame(new_row, columns=['name', 'hash', 'size', 'seed', 'leech',
+                                                             'ratio', 'magnet', 'surrogated_id'])
+
+                    self.logger.debug('{0} Adding Merged GroupHash to Temp DataFrame: [ {1} ]\n'.format(
+                        self.name, item_hash))
                     new_dataframe = new_dataframe.append(new_row_df, ignore_index=True)
 
             self.logger.debug0('{0} New DataFrame Rows:\n{1}\n{2}\n'.format(self.name, line, new_dataframe))
             for item_hash in modified_hash:
-                self.logger.debug('{0} Filtering GroupHash from Main DataFrame with Hash: [ {1} ]'.format(self.name, item_hash))
+                self.logger.debug('{0} Filtering GroupHash from Main DataFrame with Hash: [ {1} ]'.format(
+                    self.name, item_hash))
                 dataframe = dataframe[dataframe['hash'] != item_hash]
 
             self.logger.debug0('{0} Adding Merged New DataFrame to Main DataFrame:'.format(self.name))
@@ -575,6 +573,27 @@ class ScraperEngine(object):
             err_msg = ScraperEngineUnknowError(self.name, err, traceback.format_exc())
             self.logger.error(err_msg.message)
             return tmp_dataframe
+
+    def generate_alias_dataframe_row(self, dataframe, websearch):
+        new_dataframe = DataFrame()
+        unique_surrogated_list = dataframe.surrogated_id.unique()
+        for surrogated_id in unique_surrogated_list:
+            if surrogated_id != '':
+                new_row = {'name': ['Batch: [ {0} ] [ S/T: {1} ] [ {2} ]'.format(websearch['title'], websearch['season'], websearch['quality'])],
+                           'hash': ['xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
+                           'size': ['x'],
+                           'seed': ['x'],
+                           'leech': ['x'],
+                           'ratio': ['x'],
+                           'magnet': ['manget:?xt=urn:btih:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
+                           'surrogated_id': [surrogated_id]}
+
+                self.logger.debug('{0} Adding Batch Alias to DataFrame with Surrogated Id: [ {1} ]\n'.format(self.name, surrogated_id))
+                new_row_df = DataFrame(new_row,
+                                       columns=['name', 'hash', 'size', 'seed', 'leech', 'ratio', 'magnet',
+                                                'surrogated_id'])
+                new_dataframe = new_dataframe.append(new_row_df, ignore_index=True)
+        return new_dataframe
 
     def filter_magnet_dataframe(self, dataframe, lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
         '''

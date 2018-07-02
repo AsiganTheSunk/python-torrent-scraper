@@ -27,6 +27,7 @@ class PirateBayScraper(object):
 
         # Scraper Configuration Parameters
         self.query_type = True
+        self.batch_style = False
         self.cloudflare_cookie = False
         self.thread_defense_bypass_cookie = False
 
@@ -34,7 +35,7 @@ class PirateBayScraper(object):
         self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG]
 
         # Sleep Limit, for connections to the web source
-        self.safe_sleep_time = [0.500, 1.250]
+        self.safe_sleep_time = [1.0, 1.5]
 
         # ProxyList Parameters
         self.proxy_list = ['https://unblockedbay.info', 'https://ukpirate.org', 'https://thehiddenbay.info']
@@ -111,14 +112,13 @@ class PirateBayScraper(object):
 
     def get_magnet_info(self, content, *args):
         soup = BeautifulSoup(content, 'html.parser')
-        magnet = ''
+        magnet_info = ''
         try:
             content = (soup.findAll('div',{'class':'download'}))
             if content!=[]:
                 try:
-                    magnet = content[0].findAll('a')[0]['href']
-                    print('entra aqui por yisus: ', magnet)
-                    return magnet
+                    magnet_info = content[0].findAll('a')[0]['href']
+                    return magnet_info
                 except Exception as err:
                     raise WebScraperParseError(self.name, 'ParseError: unable to retrieve values: {0}'.format(err),
                                                traceback.format_exc())

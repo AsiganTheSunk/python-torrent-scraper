@@ -1,0 +1,32 @@
+07/02/2018 09:03:52 PM - [INFO]: TorrentFunkScraper Selected Proxy from Proxy List [ https://torrentfunk.unblocked.mx ]
+07/02/2018 09:03:52 PM - [INFO]: TorrentFunkScraper Retrieving Information from Source  [ https://torrentfunk.unblocked.mx ]
+07/02/2018 09:03:52 PM - [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://torrentfunk.unblocked.mx/all/torrents/HorribleSubs%20Boku%20No%20Hero%2001%201080p.html ]
+07/02/2018 09:03:52 PM - [DEBUG0]: TorrentFunkScraper Searching on Proxy [ https://torrentfunk.unblocked.mx/all/torrents/HorribleSubs%20Boku%20No%20Hero%2001%201080p.html ]
+07/02/2018 09:04:05 PM - [INFO]: TorrentFunkScraper Retrieving Raw Values from Search Result Response:
+07/02/2018 09:04:05 PM - [INFO]: NyaaScraper Selected Proxy from Proxy List [ http://nyaa.si ]
+07/02/2018 09:04:05 PM - [INFO]: NyaaScraper Retrieving Information from Source  [ http://nyaa.si ]
+07/02/2018 09:04:05 PM - [DEBUG0]: UriBuilder Generated Uri from Query Params: [ http://nyaa.si/?q=HorribleSubs+Boku+No+Hero+01+1080p&f=0&c%3A=0_0&p=0 ]
+07/02/2018 09:04:05 PM - [DEBUG0]: NyaaScraper Searching on Proxy [ http://nyaa.si/?q=HorribleSubs+Boku+No+Hero+01+1080p&f=0&c%3A=0_0&p=0 ]
+07/02/2018 09:04:07 PM - [INFO]: ScraperEngine magnet Detected: magnet:?xt=urn:btih:IM7BRKW6YRKWY5GI7K2CTMJMC7FWBJBJ&dn=%5BHorribleSubs%5D+Boku+no+Hero+Academia+%2801-38%29+%5B1080p%5D+%28Unofficial+Batch%29&tr=http%3A%2F%2Fnyaa.tracker.wf%3A7777%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce
+07/02/2018 09:04:07 PM - [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: [HorribleSubs]+Boku+no+Hero+Academia+(01-38)+[1080p]+(Unofficial+Batch) with Hash [ IM7BRKW6YRKWY5GI7K2CTMJMC7FWBJBJ ]
+07/02/2018 09:04:07 PM - [INFO]: ScraperEngine magnet Detected: magnet:?xt=urn:btih:BL3IGBO4QIHURU2YJJXCWXLCXP3SR2TC&dn=%5BHorribleSubs%5D+Boku+no+Hero+Academia+-+01+%5B1080p%5D.mkv&tr=http%3A%2F%2Fnyaa.tracker.wf%3A7777%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce
+07/02/2018 09:04:07 PM - [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: [HorribleSubs]+Boku+no+Hero+Academia+-+01+[1080p].mkv with Hash [ BL3IGBO4QIHURU2YJJXCWXLCXP3SR2TC ]
+07/02/2018 09:04:07 PM - [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
+07/02/2018 09:04:07 PM - [DEBUG0]: ScraperEngine New DataFrame Rows:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Empty DataFrame
+Columns: []
+Index: []
+
+07/02/2018 09:04:07 PM - [DEBUG0]: ScraperEngine Adding Merged New DataFrame to Main DataFrame:
+07/02/2018 09:04:07 PM - [DEBUG0]: ScraperEngine Magnet WebScraping Search:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                name                              hash   size  seed  leech  ratio                                             magnet surrogated_id
+0  [HorribleSubs]+Boku+no+Hero+Academia+(01-38)+[...  IM7BRKW6YRKWY5GI7K2CTMJMC7FWBJBJ  22900    36     12    3.0  magnet:?xt=urn:btih:IM7BRKW6YRKWY5GI7K2CTMJMC7...              
+1  [HorribleSubs]+Boku+no+Hero+Academia+-+01+[108...  BL3IGBO4QIHURU2YJJXCWXLCXP3SR2TC    730     9      1    9.0  magnet:?xt=urn:btih:BL3IGBO4QIHURU2YJJXCWXLCXP...              
+
+07/02/2018 09:04:07 PM - [INFO]: ScraperEngine Magnet Candidates from WebScraping:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                name                              hash   size  seed  leech  ratio                                             magnet surrogated_id
+0  [HorribleSubs]+Boku+no+Hero+Academia+(01-38)+[...  IM7BRKW6YRKWY5GI7K2CTMJMC7FWBJBJ  22900    36     12    3.0  magnet:?xt=urn:btih:IM7BRKW6YRKWY5GI7K2CTMJMC7...              
+1  [HorribleSubs]+Boku+no+Hero+Academia+-+01+[108...  BL3IGBO4QIHURU2YJJXCWXLCXP3SR2TC    730     9      1    9.0  magnet:?xt=urn:btih:BL3IGBO4QIHURU2YJJXCWXLCXP...              

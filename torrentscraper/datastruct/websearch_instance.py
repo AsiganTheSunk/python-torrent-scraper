@@ -9,7 +9,7 @@ from lib.fileflags import FileFlags as fflags
 
 class WebSearchInstance(Mapping):
     def __init__(self, title='', year='', season='', episode='', quality='', source='',
-                 search_type='', lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1):
+                 search_type='', lower_size_limit=-1, upper_size_limit=-1, ratio_limit=-1, surrogated_id=''):
 
         self.search_type = search_type
         self.lower_size_limit = lower_size_limit
@@ -21,6 +21,7 @@ class WebSearchInstance(Mapping):
         self.season = season
         self.episode = episode
         self.source = source
+        self.surrogated_id = surrogated_id
         self._storage = {'search_type': self.search_type,
                          'lower_size_limit': self.lower_size_limit,
                          'upper_size_limit': self.upper_size_limit,
@@ -30,11 +31,10 @@ class WebSearchInstance(Mapping):
                          'year': self.year,
                          'season': self.season,
                          'episode': self.episode,
-                         'source': self.source}
+                         'source': self.source,
+                         'surrogated_id': self.surrogated_id}
 
     def __getitem__(self, key):
-        if key == 'alpha_tango_shit':
-            return
         return self._storage[key]
 
     def __iter__(self):
@@ -62,6 +62,7 @@ class WebSearchInstance(Mapping):
                 self.episode = '0'+str(self.episode)
             if len(self.season) == 1:
                 self.season = '0'+str(self.season)
+
         return self
 
     # def __repr__(self):
@@ -92,3 +93,6 @@ class WebSearchInstance(Mapping):
 
     def set_header(self, value):
         self.source = value
+
+    def set_surrogated_id(self, value):
+        self.surrogated_id = value

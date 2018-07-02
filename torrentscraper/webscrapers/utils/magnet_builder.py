@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # Import System Libraries
 import urllib.parse
 import hashlib
 import base64
 import re
-
+import chardet
+import io
 # Import External Libraries
 import torrent_parser as tp
 import bencodepy
@@ -15,10 +17,10 @@ import requests
 from torrentscraper.datastruct.magnet_instance import MagnetInstance
 
 # Import Custom Exceptions: MagnetBuilder Torrent KeyError
-from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyHashError
 from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentKeyDisplayNameError
 from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentAnnounceListKeyError
 from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentAnnounceKeyError
+from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderTorrentSizeKeyError
 
 # Import Custom Exceptions: MagnetBuilder Magnet KeyError
 from torrentscraper.webscrapers.exceptions.magnet_builder_error import MagnetBuilderMagnetKeyDisplayNameError
@@ -62,9 +64,8 @@ class MagnetBuilder(object):
         '''
         _result = []
         try:
-            if value[b'announce-list'] != b'announce-list':
-                for items in value[b'announce-list']:
-                    _result.append(str(items[0].decode('utf-8')))
+            for items in value['announce-list']:
+                _result.append(str(items[0]))
         except Exception as err:
             raise MagnetBuilderTorrentAnnounceListKeyError(self.name, str(err))
         return _result
@@ -79,11 +80,29 @@ class MagnetBuilder(object):
         '''
         _result = ''
         try:
-            if value[b'announce'].decode() != b'announce':
-                _result = value[b'announce'].decode()
+            _result = value['announce']
             _result += '&'
         except Exception as err:
             raise MagnetBuilderTorrentAnnounceKeyError(self.name, str(err))
+        return _result
+
+    def _eval_size(self, value):
+        '''
+        This function, will eval a dictionary entry, and search for a value, in this case, announce
+        :param value: this value, represents the sub-sample of a dict
+        :type value: dict
+        :return: this function, returns the str with the announce
+        :rtype: str
+        '''
+        _piece_length = ''
+        _pieces = ''
+        _result = ''
+        try:
+            _piece_length = value['info']['piece length']
+            _pieces = value['info']['pieces']
+            _result = round(_piece_length * len(_pieces) * 0.000001, 0)
+        except Exception as err:
+            raise MagnetBuilderTorrentSizeKeyError(self.name, str(err))
         return _result
 
     def _eval_display_name(self, value):
@@ -96,8 +115,9 @@ class MagnetBuilder(object):
         '''
         _result = ''
         try:
-            if value[b'info'][b'name'].decode() != b'name':
-                _result = value[b'info'][b'name'].decode('utf-8')
+            # if value[b'info'][b'name'].decode() != b'name':
+            #   _result = value[b'info'][b'name'].decode('utf-8')
+            _result = value['info']['name']
         except Exception as err:
             raise MagnetBuilderTorrentKeyDisplayNameError(self.name, str(err))
         return _result
@@ -258,7 +278,7 @@ class MagnetBuilder(object):
                 diff = list(set(announce_list1).difference(set(cmmn)))
                 self.logger.debug('%s: Common\n\t\t- %s\n%s: Diference\n\t\t- %s' % (self.name, cmmn, self.name, diff))
                 if diff is []:
-                    updated_announce_list =  announce_list0
+                    updated_announce_list = announce_list0
                 else:
                     updated_announce_list = announce_list0 + diff
                 self.logger.debug('%s: Result\n\t\t- %s' % (self.name, updated_announce_list))
@@ -279,7 +299,7 @@ class MagnetBuilder(object):
 
             except Exception as e:
                 self.logger.error('{0} ErrorMergeMagnet Unable to Retrieve the Value {1}'.format(self.name, str(e)))
-            return MagnetInstance(magnet0.hash, magnet0.display_name, updated_announce_list, size, seed, leech)
+            return MagnetInstance(magnet0.hash, magnet0.display_name, updated_announce_list, size, seed, leech, magnet0.surrogated_id)
 
         else:
             return magnet0
@@ -313,10 +333,10 @@ class MagnetBuilder(object):
         announce_list = ''
 
         try:
+            metadata0 = self.raw_parse_from_file(file)
             metadata = bencodepy.decode_from_file(file)     # Read from the file
             subj = metadata[b'info']
-
-            # Calculating hash
+            # # Calculating hash
             try:
                 hashcontents = bencodepy.encode(subj)
                 digest = hashlib.sha1(hashcontents).digest()    # Calculating the magnet hash 16, based on the metadata[b'info]
@@ -328,18 +348,23 @@ class MagnetBuilder(object):
                 self.logger.error(err)
 
             try:
-                display_name = self._eval_display_name(metadata)    # Gather display_name from the file
+                display_name = self._eval_display_name(metadata0)    # Gather display_name from the file
             except MagnetBuilderTorrentKeyDisplayNameError as err:
                 self.logger.warning(err.message)
 
             try:
-                announce = self._eval_announce(metadata)            # Gather announce from the file
+                announce = self._eval_announce(metadata0)            # Gather announce from the file
             except MagnetBuilderTorrentAnnounceKeyError as err:
                 self.logger.warning(err.message)
 
             try:
-                announce_list = self._eval_announce_list(metadata)  # Gather announce_list from the file
+                announce_list = self._eval_announce_list(metadata0)  # Gather announce_list from the file
             except MagnetBuilderTorrentAnnounceListKeyError as err:
+                self.logger.warning(err.message)
+
+            try:
+                size = self._eval_size(metadata0)  # Gather announce_list from the file
+            except MagnetBuilderTorrentSizeKeyError as err:
                 self.logger.warning(err.message)
 
             if announce_list is '':
@@ -349,6 +374,7 @@ class MagnetBuilder(object):
             display_name = ch_filter.sub('', str(display_name))
             self.logger.debug0('{0} Generated Uri from Torrent File: {1} with Hash [ {2} ]'.format(self.name, display_name,  _hash))
             self.logger.debug('* Announce List {0}'.format(announce_list))
+            print(_hash, str(display_name), announce_list, size, seed, leech, surrogated_id)
             return MagnetInstance(_hash, str(display_name), announce_list, size, seed, leech, surrogated_id)
         except Exception as err:
             return MagnetInstance

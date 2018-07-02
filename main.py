@@ -29,18 +29,19 @@ console_handler.setLevel(DEBUG)
 
 from torrentscraper.torrent_scraper import TorrentScraper
 
+
+# Introducir Threshholds de comportamiento, para el sleep, en base a los tiempos de respuesta y que se ajuste.
 def main():
-    #run_interface()
-    # # websearch0 == WebSearchInstance(title='Rick and Morty', season='3', search_type=fflags.SHOW_DIRECTORY_FLAG)
-    websearch = WebSearchInstance(title='Rick and Morty', season='03', search_type=fflags.SHOW_DIRECTORY_FLAG)
-    ts = TorrentScraper()
-    ts.scrap_batch(websearch)
-    # se = ScraperEngine()
-    # p2p_instance_list = se.search(websearch)
-    # dataframe = se.create_magnet_dataframe(p2p_instance_list)
-    # print(dataframe)
-    # # dataframe = se.unique_magnet_dataframe(dataframe)
-    # dataframe = se.get_dataframe(dataframe, top=10)
+    run_interface()
+    #
+    # websearch = WebSearchInstance(title='Silicon Valley', season='1', episode='1', quality='HDTV', search_type=fflags.SHOW_DIRECTORY_FLAG)
+    # websearch = websearch.validate()
+    # ts = TorrentScraper()
+    # result = ts.scrap(websearch)
+
+    # print(result.values)
+    # for a in result.values:
+    #     print(a[0], a[1], a[2], a[3], a[4], a[5], a[6])
 
 if __name__ == '__main__':
     main()

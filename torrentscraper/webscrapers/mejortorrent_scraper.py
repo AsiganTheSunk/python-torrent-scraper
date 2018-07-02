@@ -25,9 +25,11 @@ class MejorTorrentScraper():
         self.logger = logger
 
         # Scraper Configuration Parameters
+        self.batch_style = True
         self.query_type = True
         self.cloudflare_cookie = False
         self.thread_defense_bypass_cookie = False
+
 
         # Supported FileFlags
         self.supported_searchs = [fflags.FILM_DIRECTORY_FLAG, fflags.SHOW_DIRECTORY_FLAG]
