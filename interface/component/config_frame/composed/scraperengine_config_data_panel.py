@@ -125,6 +125,7 @@ class Checkbar(Frame):
         self.var3.set(self.picks['torrentfunk'])
         check_button2 = Checkbutton(self, text='torrentfunk', variable=self.var3, background=self.main_theme, font=('calibri', (10)))
         check_button2.grid(row=1, column=2)
+        check_button2['state'] = 'disable'
 
     def get_picks(self):
         result = {'thepiratebay': self.var1.get(), 'kickass': self.var2.get(), 'torrentfunk':self.var3.get()}
