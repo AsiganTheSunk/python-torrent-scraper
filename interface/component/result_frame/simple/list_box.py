@@ -4,12 +4,13 @@
 import gettext
 from logging import INFO
 import logging
-from tkinter import Listbox, StringVar, END, font
+from tkinter import Listbox, StringVar, END
 from lib.fileflags import FileFlags as fflag
-from torrentscraper.webscrapers.utils.magnet_builder import MagnetBuilder
+from torrentscraper.core.scraper_engine.webscrapers.utils.magnet_builder import MagnetBuilder
+
 from config_parser import CustomConfigParser
 # Import Custom Logger
-from torrentscraper.utils.custom_logger import CustomLogger
+from torrentscraper.logger.custom_logger import CustomLogger
 from lib.metadata.regex.regexengine import RegexEngine
 
 logger = CustomLogger(name=__name__, level=INFO)

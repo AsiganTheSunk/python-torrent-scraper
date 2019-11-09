@@ -6,7 +6,7 @@ import logging
 from tkinter import *
 
 # Import Custom Logger
-from torrentscraper.utils.custom_logger import CustomLogger
+from torrentscraper.logger.custom_logger import CustomLogger
 
 logger = CustomLogger(name=__name__, level=INFO)
 formatter = logging.Formatter(fmt='%(asctime)s -  [%(levelname)s]: %(message)s',

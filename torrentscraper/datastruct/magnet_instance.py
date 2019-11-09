@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 
 # Import System Libraries
-import urllib.parse
 from collections.abc import Mapping
-
+import urllib.parse
 
 class MagnetInstance(Mapping):
-    def __init__(self, _hash, display_name, announce_list, size=0, seed=1, leech=1, surrogated_id=''):
+    def __init__(self, _hash, display_name, announce_list, size=0, seed=1, leech=1):
         self.name = self.__class__.__name__
         self.hash = _hash
         self.display_name = display_name
         self.size = size
         self.seed = int(seed)
         self.leech = int(leech)
-        self.surrogated_id = surrogated_id
         self.announce_list = self._get_announce_list(announce_list)
         self.activity = {'seed': self.seed, 'leech': self.leech}
         self._storage = {'hash': self.hash,
@@ -22,7 +20,6 @@ class MagnetInstance(Mapping):
                          'seed': self.seed,
                          'leech': self.leech,
                          'ratio': self.seed/self.leech,
-                         'surrogated_id': self.surrogated_id,
                          'announce_list':{'https':self.announce_list[0],
                                           'http':self.announce_list[1],
                                           'udp':self.announce_list[2]}}

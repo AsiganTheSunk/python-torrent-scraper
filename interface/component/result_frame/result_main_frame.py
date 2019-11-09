@@ -15,7 +15,7 @@ from interface.component.result_frame.composed.result_panel import ResultPanel
 from PIL import ImageTk, Image
 
 # Import Custom Utils
-from torrentscraper.utils.custom_logger import CustomLogger
+from torrentscraper.logger.custom_logger import CustomLogger
 
 # Define Aux Logger to use on MagnetBuilder
 # TODO Add Logger to the whole interface

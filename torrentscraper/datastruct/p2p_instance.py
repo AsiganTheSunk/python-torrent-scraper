@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 class P2PInstance():
-    def __init__(self, scraper_name, websearch, magnet_instance_list):
-        self.scrapper_name = scraper_name
-        self.search_type = websearch['search_type']
-        self.surrogated_id = websearch['surrogated_id']
-        self.ratio_limit = websearch['ratio_limit']
-        self.lower_size_limit = websearch['lower_size_limit']
-        self.upper_size_limit = websearch['upper_size_limit']
+    def __init__(self, name, search_type, lower_size_limit, upper_size_limit, ratio_limit, magnet_instance_list):
+        self.scrapper_name = name
+        self.search_type = search_type
+        self.lower_size_limit = lower_size_limit
+        self.upper_size_limit = upper_size_limit
+        self.ratio_limit = ratio_limit
         self.magnet_instance_list = magnet_instance_list
+
 

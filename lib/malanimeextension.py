@@ -1,19 +1,9 @@
-#!/usr/bin/env python3
-
-# Import System Libraries
-import gettext
+#from Pymoe import Anilist
 import textwrap
-
-# Import External Libraries
-from Pymoe import Anilist
-
-# Import Custom Constants
-from lib.fileflags import FileFlags as fflags
-
-# Import Custom ConfigParser
 from config_parser import CustomConfigParser
+import gettext
 
-# Language Configuration
+
 try:
     se_config = CustomConfigParser('./torrentscraper.ini')
     language_config = se_config.get_section_map('Language')
@@ -37,7 +27,7 @@ except Exception as err:
 class MalAnimeExtension():
     def __init__(self):
         self.name = 'TVDbExtension'
-        self.ani = Anilist()
+        #self.ani = Anilist()
         #self.supported_fflags = [fflags.SHOW_FLAG, fflags.SHOW_DIRECTORY_FLAG]
         #self.supported_season_fflags = [fflags.SEASON_DIRECTORY_FLAG]
 

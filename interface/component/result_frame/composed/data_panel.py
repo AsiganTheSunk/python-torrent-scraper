@@ -1,9 +1,9 @@
 from tkinter import *
+
 from interface.component.result_frame.simple.data_box import SimpleDataBox
 from interface.component.result_frame.composed.display_box import DisplayBox
 from interface.component.result_frame.composed.button_box import ButtonBox
 
-import gettext
 # idiomas = []
 # t = gettext.translation('programa', 'locale', languages=idiomas, fallback=True,)
 # _ = t.gettext

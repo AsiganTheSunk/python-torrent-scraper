@@ -165,12 +165,8 @@ class ThreadedClient:
             thread = threading.Thread(target=self.BackgroundThread, args=(tmp_websearh,))
             thread.start()
 
-
-
-
     def reset_active_search(self):
         '''
-
         :return:
         '''
         self.active_search = 0

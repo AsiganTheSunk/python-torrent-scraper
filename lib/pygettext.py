@@ -264,7 +264,7 @@ def containsAny(str, set):
 
 def _visit_pyfiles(list, dirname, names):
     """Helper for getFilesForName()."""
-    # get extension for python source files
+    # get webscrapers for python source files
     if '_py_ext' not in globals():
         global _py_ext
         _py_ext = [triple[0] for triple in imp.get_suffixes()
@@ -286,7 +286,7 @@ def _get_modpkg_path(dotted_name, pathlist=None):
 
     Return the file system path to a file for a module, and to a directory for
     a package. Return None if the name is not found, or is a builtin or
-    extension module.
+    webscrapers module.
     """
     # split off top-most name
     parts = dotted_name.split('.', 1)

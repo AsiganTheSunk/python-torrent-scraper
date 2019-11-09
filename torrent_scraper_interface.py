@@ -14,8 +14,14 @@ def run_interface():
     root.title('python-torrent-scraper-interface-v0.4.9.1')
     root.mainloop()
 
+
 def main():
     run_interface()
 
+
 if __name__ == '__main__':
     main()
+
+# TODO Propagar Theme por los objetos, añadirlo al menu de configuración general
+# pyinstaller --onefile --name TorretScraper-v0.4.8.2 --paths=C:\Users\Asigan\Documents\python-torrent-scrapper\Lib\site-packages\win32com --windowed
+# --icon=C:\Users\Asigan\Documents\GitHub\python-torrent-scrapper\interface\resources\grumpy-cat.ico --log-level=DEBUG main.py

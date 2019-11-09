@@ -1,69 +1,38 @@
-07/02/2018 09:32:56 PM - [INFO]: MejorTorrentScraper Selected Proxy from Proxy List [ http://www.mejortorrent.com ]
-07/02/2018 09:32:56 PM - [INFO]: MejorTorrentScraper Retrieving Information from Source  [ http://www.mejortorrent.com ]
-07/02/2018 09:32:56 PM - [DEBUG0]: UriBuilder Generated Uri from Query Params: [ http://www.mejortorrent.com/secciones.php?valor=Silicon+Valley+-+1&sec=buscador ]
-07/02/2018 09:32:56 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?valor=Silicon+Valley+-+1&sec=buscador ]
-07/02/2018 09:32:57 PM - [DEBUG0]: MejorTorrentScraper New Entry Raw Values: 0          1/1    /serie-descargar-torrents-19687-19688-Silicon-Valley-1-Temporada.html
-07/02/2018 09:32:57 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/serie-descargar-torrents-19687-19688-Silicon-Valley-1-Temporada.html ]
-07/02/2018 09:32:57 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?sec=descargas&ap=contar&tabla=series&id=19688 ]
-07/02/2018 09:32:57 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?sec=descargas&ap=contar&tabla=series&id=19779 ]
-07/02/2018 09:32:58 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?sec=descargas&ap=contar&tabla=series&id=19865 ]
-07/02/2018 09:32:58 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?sec=descargas&ap=contar&tabla=series&id=19934 ]
-07/02/2018 09:32:58 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?sec=descargas&ap=contar&tabla=series&id=19998 ]
-07/02/2018 09:32:58 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?sec=descargas&ap=contar&tabla=series&id=20063 ]
-07/02/2018 09:32:58 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?sec=descargas&ap=contar&tabla=series&id=20137 ]
-07/02/2018 09:32:59 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/secciones.php?sec=descargas&ap=contar&tabla=series&id=20216 ]
-07/02/2018 09:32:59 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/uploads/torrents/series/sillicon-valley-1-01.torrent ]
-07/02/2018 09:32:59 PM - [INFO]: ScraperEngine torrent Detected: /uploads/torrents/series/sillicon-valley-1-01.torrent
-07/02/2018 09:32:59 PM - [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Sillicon Valley - Temporada 1 [HDTV][Cap.101][Español Castellano] with Hash [ cca042cc5bf476d5f8abf5d0e1e08770950536ff ]
-07/02/2018 09:32:59 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/uploads/torrents/series/silicon-valley-1-02.torrent ]
-07/02/2018 09:32:59 PM - [INFO]: ScraperEngine torrent Detected: /uploads/torrents/series/silicon-valley-1-02.torrent
-07/02/2018 09:32:59 PM - [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Silicon Valley - Temporada 1 [HDTV][Cap.102][Español Castellano] with Hash [ 6532c6115495cae839f9e4dc22cf4b3a915e0ad2 ]
-07/02/2018 09:32:59 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/uploads/torrents/series/silicon-valley-1-03.torrent ]
-07/02/2018 09:32:59 PM - [INFO]: ScraperEngine torrent Detected: /uploads/torrents/series/silicon-valley-1-03.torrent
-07/02/2018 09:32:59 PM - [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Silicon Valley - Temporada 1 [HDTV][Cap.103][Español Castellano] with Hash [ 9d33287bbf9ef6c20f4663ce5055df0c63595bbc ]
-07/02/2018 09:32:59 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/uploads/torrents/series/silicon-valley-1-04.torrent ]
-07/02/2018 09:32:59 PM - [INFO]: ScraperEngine torrent Detected: /uploads/torrents/series/silicon-valley-1-04.torrent
-07/02/2018 09:32:59 PM - [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Silicon Valley - Temporada 1 [HDTV][Cap.104][Español Castellano] with Hash [ b136fdca1828dbdda5885530c01fdfd838cff631 ]
-07/02/2018 09:32:59 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/uploads/torrents/series/silicon-valley-1-05.torrent ]
-07/02/2018 09:32:59 PM - [INFO]: ScraperEngine torrent Detected: /uploads/torrents/series/silicon-valley-1-05.torrent
-07/02/2018 09:32:59 PM - [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Silicon Valley - Temporada 1 [HDTV][Cap.105][Español Castellano] with Hash [ 3c4ed1bf2fad04773288799f6d2ae0b8131fdf0c ]
-07/02/2018 09:32:59 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/uploads/torrents/series/silicon_valley_1_06.torrent ]
-07/02/2018 09:32:59 PM - [INFO]: ScraperEngine torrent Detected: /uploads/torrents/series/silicon_valley_1_06.torrent
-07/02/2018 09:32:59 PM - [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Silicon Valley - Temporada 1 [HDTV][Cap.106][Español Castellano] with Hash [ 9a5fbc5238c4175febb933e5e51c8600b6f0553b ]
-07/02/2018 09:32:59 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/uploads/torrents/series/silicon-valley-1-07.torrent ]
-07/02/2018 09:33:00 PM - [INFO]: ScraperEngine torrent Detected: /uploads/torrents/series/silicon-valley-1-07.torrent
-07/02/2018 09:33:00 PM - [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Silicon Valley - Temporada 1 [HDTV][Cap.107][Español Castellano] with Hash [ a45623b15dbc78b1b858cdc92403d7be69f14999 ]
-07/02/2018 09:33:00 PM - [DEBUG0]: MejorTorrentScraper Searching on Proxy [ http://www.mejortorrent.com/uploads/torrents/series/silicon-valley-1-08.torrent ]
-07/02/2018 09:33:00 PM - [INFO]: ScraperEngine torrent Detected: /uploads/torrents/series/silicon-valley-1-08.torrent
-07/02/2018 09:33:00 PM - [DEBUG0]: MagnetBuilder Generated Uri from Torrent File: Silicon Valley - Temporada 1 [HDTV][Cap.108][Español Castellano] with Hash [ d6a3045c420c4c0198fa04685b871418d5d3000c ]
-07/02/2018 09:33:00 PM - [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
-07/02/2018 09:33:00 PM - [DEBUG0]: ScraperEngine New DataFrame Rows:
+10/03/2019 12:38:13 AM -  [INFO]: PirateBayScraper Selected Proxy from Proxy List [ https://247prox.link ]
+10/03/2019 12:38:13 AM -  [DEBUG]: UriBuilder Query Params:
+10/03/2019 12:38:13 AM -  [DEBUG]: [ q : Kong: La Isla Calavera 2017 ]
+10/03/2019 12:38:13 AM -  [DEBUG]: [ category : 0 ]
+10/03/2019 12:38:13 AM -  [DEBUG]: [ page : 0 ]
+10/03/2019 12:38:13 AM -  [DEBUG]: [ orderby : 99 ]
+10/03/2019 12:38:13 AM -  [DEBUG0]: UriBuilder Generated Uri from Query Params: [ https://247prox.link/s/?q=Kong%3A+La+Isla+Calavera+2017&category=0&page=0&orderby=99 ]
+10/03/2019 12:38:13 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://247prox.link/s/?q=Kong%3A+La+Isla+Calavera+2017&category=0&page=0&orderby=99 ]
+10/03/2019 12:38:16 AM -  [INFO]: PirateBayScraper Retrieving Raw Values from Search Result Response:
+10/03/2019 12:38:16 AM -  [DEBUG]: PirateBayScraper New Entry Raw Values: 1500       2/1    /torrent/18474878/Kong.La.Isla.Calavera.2017.DVDRip.XviD.Espa_ntilde_ol.avi
+10/03/2019 12:38:16 AM -  [INFO]: PirateBayScraper Retrieving Magnet from Proxy [ https://247prox.link ]
+10/03/2019 12:38:16 AM -  [DEBUG0]: PirateBayScraper Searching on Proxy [ https://247prox.link/torrent/18474878/Kong.La.Isla.Calavera.2017.DVDRip.XviD.Espa_ntilde_ol.avi ]
+10/03/2019 12:38:17 AM -  [DEBUG]: MagnetBuilder Display Name: [ Kong.La.Isla.Calavera.2017.DVDRip.XviD.Espa&ntilde;ol.avi ]
+10/03/2019 12:38:17 AM -  [DEBUG]: MagnetBuilder Hash [ 1dfe215a02465cc3908977d3f15be277ffd0abea ]
+10/03/2019 12:38:17 AM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.leechers-paradise.org:6969 ]
+10/03/2019 12:38:17 AM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.openbittorrent.com:80 ]
+10/03/2019 12:38:17 AM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://open.demonii.com:1337 ]
+10/03/2019 12:38:17 AM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://tracker.coppersurfer.tk:6969 ]
+10/03/2019 12:38:17 AM -  [DEBUG]: MagnetBuilder Announce List Item: [ udp://exodus.desync.com:6969 ]
+10/03/2019 12:38:17 AM -  [DEBUG0]: MagnetBuilder Generated Uri from Magnet Link: Kong.La.Isla.Calavera.2017.DVDRip.XviD.Espa&ntilde;ol.avi with Hash [ 1dfe215a02465cc3908977d3f15be277ffd0abea ]
+10/03/2019 12:38:17 AM -  [DEBUG]: * Announce List ['udp://tracker.leechers-paradise.org:6969', 'udp://tracker.openbittorrent.com:80', 'udp://open.demonii.com:1337', 'udp://tracker.coppersurfer.tk:6969', 'udp://exodus.desync.com:6969']
+10/03/2019 12:38:17 AM -  [INFO]: ScraperEngine Creating Unique Magnet DataFrame:
+10/03/2019 12:38:17 AM -  [DEBUG0]: ScraperEngine New DataFrame Rows:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Empty DataFrame
 Columns: []
 Index: []
 
-07/02/2018 09:33:00 PM - [DEBUG0]: ScraperEngine Adding Merged New DataFrame to Main DataFrame:
-07/02/2018 09:33:00 PM - [DEBUG0]: ScraperEngine Magnet WebScraping Search:
+10/03/2019 12:38:17 AM -  [DEBUG0]: ScraperEngine Adding Merged New DataFrame to Main DataFrame:
+10/03/2019 12:38:17 AM -  [DEBUG0]: ScraperEngine Magnet WebScraping Search:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash   size  seed  leech  ratio                                             magnet surrogated_id
-0  Sillicon Valley - Temporada 1 [HDTV][Cap.101][...  cca042cc5bf476d5f8abf5d0e1e08770950536ff  316.0     1      1    1.0  magnet:?xt=urn:btih:cca042cc5bf476d5f8abf5d0e1...    1968719688
-1  Silicon Valley - Temporada 1 [HDTV][Cap.102][E...  6532c6115495cae839f9e4dc22cf4b3a915e0ad2  305.0     1      1    1.0  magnet:?xt=urn:btih:6532c6115495cae839f9e4dc22...    1968719688
-2  Silicon Valley - Temporada 1 [HDTV][Cap.103][E...  9d33287bbf9ef6c20f4663ce5055df0c63595bbc  308.0     1      1    1.0  magnet:?xt=urn:btih:9d33287bbf9ef6c20f4663ce50...    1968719688
-3  Silicon Valley - Temporada 1 [HDTV][Cap.104][E...  b136fdca1828dbdda5885530c01fdfd838cff631  307.0     1      1    1.0  magnet:?xt=urn:btih:b136fdca1828dbdda5885530c0...    1968719688
-4  Silicon Valley - Temporada 1 [HDTV][Cap.105][E...  3c4ed1bf2fad04773288799f6d2ae0b8131fdf0c  306.0     1      1    1.0  magnet:?xt=urn:btih:3c4ed1bf2fad04773288799f6d...    1968719688
-5  Silicon Valley - Temporada 1 [HDTV][Cap.106][E...  9a5fbc5238c4175febb933e5e51c8600b6f0553b  309.0     1      1    1.0  magnet:?xt=urn:btih:9a5fbc5238c4175febb933e5e5...    1968719688
-6  Silicon Valley - Temporada 1 [HDTV][Cap.107][E...  a45623b15dbc78b1b858cdc92403d7be69f14999  304.0     1      1    1.0  magnet:?xt=urn:btih:a45623b15dbc78b1b858cdc924...    1968719688
-7  Silicon Valley - Temporada 1 [HDTV][Cap.108][E...  d6a3045c420c4c0198fa04685b871418d5d3000c  307.0     1      1    1.0  magnet:?xt=urn:btih:d6a3045c420c4c0198fa04685b...    1968719688
+                                                name                                      hash  size  seed  leech  ratio                                             magnet
+0  Kong.La.Isla.Calavera.2017.DVDRip.XviD.Espa&nt...  1dfe215a02465cc3908977d3f15be277ffd0abea  1500     2      1    2.0  magnet:?xt=urn:btih:1dfe215a02465cc3908977d3f1...
 
-07/02/2018 09:33:00 PM - [INFO]: ScraperEngine Magnet Candidates from WebScraping:
+10/03/2019 12:38:17 AM -  [INFO]: ScraperEngine Magnet Candidates from WebScraping:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                name                                      hash   size  seed  leech  ratio                                             magnet surrogated_id
-0  Sillicon Valley - Temporada 1 [HDTV][Cap.101][...  cca042cc5bf476d5f8abf5d0e1e08770950536ff  316.0     1      1    1.0  magnet:?xt=urn:btih:cca042cc5bf476d5f8abf5d0e1...    1968719688
-1  Silicon Valley - Temporada 1 [HDTV][Cap.102][E...  6532c6115495cae839f9e4dc22cf4b3a915e0ad2  305.0     1      1    1.0  magnet:?xt=urn:btih:6532c6115495cae839f9e4dc22...    1968719688
-2  Silicon Valley - Temporada 1 [HDTV][Cap.103][E...  9d33287bbf9ef6c20f4663ce5055df0c63595bbc  308.0     1      1    1.0  magnet:?xt=urn:btih:9d33287bbf9ef6c20f4663ce50...    1968719688
-3  Silicon Valley - Temporada 1 [HDTV][Cap.104][E...  b136fdca1828dbdda5885530c01fdfd838cff631  307.0     1      1    1.0  magnet:?xt=urn:btih:b136fdca1828dbdda5885530c0...    1968719688
-4  Silicon Valley - Temporada 1 [HDTV][Cap.105][E...  3c4ed1bf2fad04773288799f6d2ae0b8131fdf0c  306.0     1      1    1.0  magnet:?xt=urn:btih:3c4ed1bf2fad04773288799f6d...    1968719688
-5  Silicon Valley - Temporada 1 [HDTV][Cap.106][E...  9a5fbc5238c4175febb933e5e51c8600b6f0553b  309.0     1      1    1.0  magnet:?xt=urn:btih:9a5fbc5238c4175febb933e5e5...    1968719688
-6  Silicon Valley - Temporada 1 [HDTV][Cap.107][E...  a45623b15dbc78b1b858cdc92403d7be69f14999  304.0     1      1    1.0  magnet:?xt=urn:btih:a45623b15dbc78b1b858cdc924...    1968719688
-7  Silicon Valley - Temporada 1 [HDTV][Cap.108][E...  d6a3045c420c4c0198fa04685b871418d5d3000c  307.0     1      1    1.0  magnet:?xt=urn:btih:d6a3045c420c4c0198fa04685b...    1968719688
+                                                name                                      hash  size  seed  leech  ratio                                             magnet
+0  Kong.La.Isla.Calavera.2017.DVDRip.XviD.Espa&nt...  1dfe215a02465cc3908977d3f15be277ffd0abea  1500     2      1    2.0  magnet:?xt=urn:btih:1dfe215a02465cc3908977d3f1...

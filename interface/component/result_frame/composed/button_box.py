@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 
 # Import Custom Utils Libraries
-from torrentscraper.qclient_manager import QClientManager
+from torrentscraper.core.qbittorent_client.core.qclient_manager import QClientManager
 
 CANCEL = "cancel"
 YES = "yes"

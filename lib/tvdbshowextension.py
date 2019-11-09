@@ -222,7 +222,7 @@ class TVDbShowExtension():
             episode_count = 0
             return episode_count
         else:
-            print('{0}: name:{1}, season:{2} :: episodes:{3}'.format(self.name, name, season, episode_count))
+            print('{0}: name:{1}, season:{2} :: episodes:{3}').format(self.name, name, season, episode_count)
             return episode_count
 
     def get_number_of_seasons(self, name, debug=False):
