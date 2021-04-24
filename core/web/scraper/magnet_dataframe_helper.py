@@ -5,18 +5,19 @@ import traceback
 
 # Import External Libraries
 # import cfscrape
-from pandas import Data
+from pandas import DataFrame
 
 # Import Custom Data Structure
 from core.web.scraper.data_struct.p2p_instance import P2PInstance
 
 # Import Custom Exceptions: ScraperEngine
-from exceptions.scraper_engine_error import ScraperEngineUnknownError
+from core.exceptions.scraper_engine_error import ScraperEngineUnknownError
 
 # Import Custom Utils
 # from core.scraper_engine.web_scraper.utils.magnet_builder import MagnetBuilder
 from python_magnet_builder.magnet_builder import MagnetBuilder
 from logger.logger_master import tracker_scraper_logger
+
 
 class MagnetDataFrameHelper:
     def process_p2p_instance_list(self, p2p_instance_list: list[P2PInstance], top: int = 10) -> DataFrame:

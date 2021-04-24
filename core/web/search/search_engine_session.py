@@ -36,7 +36,7 @@ from core.web.scraper.exceptions.webscraper_error import WebScraperProxyListErro
 
 # Import Custom Exceptions: ScraperEngine
 # from torrentscraper.exceptions.scraper_engine_error import ScraperEngineNetworkError
-from exceptions.scraper_engine_error import ScraperEngineCookieError
+from core.exceptions.scraper_engine_error import ScraperEngineCookieError
 
 
 # Import Custom Utils
