@@ -28,7 +28,7 @@ from core.web.search.procedures.constants.web_scrap_procedure import WebScrapPro
 
 # Import Custom Utils
 from python_magnet_builder.magnet_builder import MagnetBuilder
-
+from logger.logger_master import tracker_scraper_logger
 
 class Gatherer:
     def __init__(self, search_engine, mode: WebScrapProcedure):
@@ -42,14 +42,14 @@ class Gatherer:
         try:
             task_status.advance()
             response = self.search_engine.browser_request(resource_link)
-            torrent_link = self.search_engine.search_session.web_scraper.get_magnet_link(response)
-            torrent_response = self.search_engine.request_file(torrent_link)
-            task_status.advance()
-            _, size, seed, leech = raw_data.get_row_data(resource_index)
-            return self.magnet_builder.process_torrent_from_response(torrent_response, size, seed, leech)
+            if response != '':
+                torrent_link = self.search_engine.search_session.web_scraper.get_magnet_link(response)
+                torrent_response = self.search_engine.request_file(torrent_link)
+                task_status.advance()
+                _, size, seed, leech = raw_data.get_row_data(resource_index)
+                return self.magnet_builder.process_torrent_from_response(torrent_response, size, seed, leech)
         except Exception as error:
-            print(error)
-            pass
+            tracker_scraper_logger.logger.warning(f'{self.__class__.__name__} torrent_file: {error}')
 
     def torrent_link(self, resource_index, resource_link, raw_data):
         task_status = Context(TaskInitialized(), f'Gather TorrentFile {resource_link}')
@@ -57,13 +57,14 @@ class Gatherer:
         try:
             task_status.advance()
             response = self.search_engine.browser_request(resource_link)
-            magnet = self.search_engine.search_session.web_scraper.get_magnet_link(response)
-            task_status.advance()
-            _, size, seed, leech = raw_data.get_row_data(resource_index)
-            return self.magnet_builder.read(magnet, size, seed, leech)
+            if response != '':
+                magnet = self.search_engine.search_session.web_scraper.get_magnet_link(response)
+                task_status.advance()
+                _, size, seed, leech = raw_data.get_row_data(resource_index)
+                return self.magnet_builder.read(magnet, size, seed, leech)
         except Exception as error:
-            print(error)
-            pass
+            tracker_scraper_logger.logger.warning(f'{self.__class__.__name__} torrent_file: {error}')
+
 
     def magnet_link(self, resource_index, resource_link, raw_data):
         task_status = Context(TaskInitialized(), f'Gather TorrentFile {resource_link}')

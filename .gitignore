@@ -9,3 +9,7 @@
 
 /test/
 examples/
+
+geckodriver.log
+
+logs/tracker_scraper.log

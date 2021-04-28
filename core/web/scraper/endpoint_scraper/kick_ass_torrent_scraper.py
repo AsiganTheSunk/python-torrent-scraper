@@ -22,7 +22,9 @@ from logger.logger_master import tracker_scraper_logger
 
 class KickAssTorrentsScraper(ScraperInstance):
     def __init__(self):
-        super().__init__(['https://kickasss.to'], [FileFlags.FILM_DIRECTORY_FLAG, FileFlags.SHOW_DIRECTORY_FLAG])
+        super().__init__(
+            ['https://kickasstorrents.unblockninja.com', 'https://kickass.torrentbay.to', 'https://kickasss.to'],
+            [FileFlags.FILM_DIRECTORY_FLAG, FileFlags.SHOW_DIRECTORY_FLAG])
 
         self.cloudflare_cookie = False
         self.query_type = False

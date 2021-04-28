@@ -16,8 +16,8 @@ if __name__ == '__main__':
         # Move Size Limit to Other Place, not Withing the Search, or apply other
         # filters based on the current place we are searching.
         web_search_instance = WebSearchInstance(
-            title='Mortal Kombat',
-            year='1995', quality='1080p',
+            title='kong vs godzilla',
+            year='2021', quality='1080p',
             search_type=FileFlags.FILM_DIRECTORY_FLAG,
             upper_size_limit='4000', lower_size_limit='1000')
 

@@ -44,6 +44,7 @@ from core.web.search.procedures.gatherer import Gatherer
 from functools import partial
 import concurrent.futures
 import requests
+from logger.logger_master import tracker_scraper_logger
 
 
 class SearchEngine:
@@ -56,10 +57,10 @@ class SearchEngine:
             raw_data = self.search_session.web_scraper.get_raw_data(response)
             return raw_data
         except WebScraperContentError as error:
-            print(error.message)
+            tracker_scraper_logger.logger.fatal(f'{self.__class__.__name__} gather: {error.message}')
 
         except WebScraperParseError as error:
-            print(error.message)
+            tracker_scraper_logger.logger.fatal(f'{self.__class__.__name__} gather: {error.message}')
 
         except WebScraperProxyListError as error:
             # Todo make it so it can be processes and ignored in the upper functions
@@ -93,7 +94,7 @@ class SearchEngine:
         magnet_instance_list = []
         try:
             futures = []
-            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            with concurrent.futures.ThreadPoolExecutor() as executor:
                 for resource_index, resource_link in enumerate(raw_data.resource_link_list):
                     composed_procedure = partial(
                         Gatherer(self, self.search_session.web_scraper.procedure).execute,
@@ -105,4 +106,4 @@ class SearchEngine:
 
                 return magnet_instance_list
         except Exception as error:
-            print(error)
+            tracker_scraper_logger.logger.warning(f'{self.__class__.__name__}: {error}')

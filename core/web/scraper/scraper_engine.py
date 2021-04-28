@@ -60,7 +60,8 @@ line = '-----------------------' * 8
 
 DEBUG0 = 15
 VERBOSE = 5
-
+from execution_timer import timeit
+from functools import partial
 
 class ScraperEngine:
     def __init__(self, web_scraper_dict=None):
@@ -76,7 +77,7 @@ class ScraperEngine:
             self.web_scrapers = [
                 PirateBayScraper(),
                 TorrentFunkScraper(),
-                # KickAssTorrentsScraper()
+                KickAssTorrentsScraper()
             ]
             # self.web_scrapers = [KickAssTorrentsScrapper(self.logger)]
 
@@ -93,62 +94,7 @@ class ScraperEngine:
         #         aux_list.append(nyaa.NyaaScraper(self.logger))
         return [PirateBayScraper()]
 
-    def get_sessions(self, web_search_instance):
-        search_engine_sessions = dict()
-        for web_scraper in self.web_scrapers:
-            search_engine = SearchEngine(SearchEngineSession(web_scraper, web_search_instance))
-            search_engine_sessions[web_scraper.__class__.__name__] = search_engine
-        return search_engine_sessions
-
-    def get_raw_data(self, web_search_instance, executor, search_engine_sessions):
-        web_scraper_futures = dict()
-
-        for web_scraper in self.web_scrapers:
-            futures = []
-            if web_search_instance['search_type'] in web_scraper.supported_searches:
-                tracker_scraper_logger.logger.info(f'{web_scraper.__class__.__name__} '
-                                                   f'Selected Proxy from Proxy List [ {web_scraper.main_page} ]')
-                try:
-                    futures.append(executor.submit(search_engine_sessions[web_scraper.__class__.__name__].gather))
-
-                except WebScraperProxyListError as error:
-                    tracker_scraper_logger.logger.error(f'{error}')
-                    tracker_scraper_logger.logger.error(f'{web_scraper.__class__.__name__}: '
-                                                        f'Moving To Next Scraper, Try Again Later ...')
-                except Exception as error:
-                    tracker_scraper_logger.logger.fatal(f'get_raw_data: FatalError {error}')
-
-            web_scraper_futures[web_scraper.__class__.__name__] = futures
-
-        return web_scraper_futures
-
-    def get_p2p_instances(self, web_search_instance, web_scraper_futures, search_engine_sessions):
-        p2p_instance_list = []
-        for web_scraper in web_scraper_futures:
-            for future in concurrent.futures.as_completed(web_scraper_futures[web_scraper]):
-                try:
-                    magnet_instance_list = search_engine_sessions[web_scraper].normalize(future.result())
-                    tracker_scraper_logger.logger.info(f'{self.__class__.__name__} Found {len(magnet_instance_list)} '
-                                                       f'Results on {web_scraper} selected endpoint')
-                    p2p_instance_list.append(P2PInstance(web_scraper, web_search_instance['search_type'],
-                                                         web_search_instance['lower_size_limit'],
-                                                         web_search_instance['upper_size_limit'],
-                                                         web_search_instance['ratio_limit'], magnet_instance_list))
-                except WebScraperContentError as error:
-                    tracker_scraper_logger.logger.error(error.message)
-
-                except WebScraperParseError as error:
-                    tracker_scraper_logger.logger.error(error.message)
-
-                except WebScraperProxyListError as error:
-                    tracker_scraper_logger.logger.error(f'{error}')
-                    tracker_scraper_logger.logger.error(f'{web_scraper.__class__.__name__}: ' 
-                                                        f'Moving To Next Scraper, Try Again Later ...')
-                except Exception as error:
-                    tracker_scraper_logger.logger.fatal(f'get_raw_data: FatalError {error}')
-
-        return p2p_instance_list
-
+    @timeit
     def search(self, web_search_instance):
         """
         This functions, will run a search process, retrieving the raw_data from a main search page, later normalize
@@ -163,8 +109,71 @@ class ScraperEngine:
         with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.web_scrapers)) as executor:
             try:
                 web_scraper_futures = self.get_raw_data(web_search_instance, executor, sessions)
-                p2p_instance_list = self.get_p2p_instances(web_search_instance, web_scraper_futures, sessions)
+                p2p_instance_list = self.create_p2p_instances(web_search_instance, web_scraper_futures)
                 return p2p_instance_list
             except Exception as error:
-                tracker_scraper_logger.info(f'{error}')
-                tracker_scraper_logger.info(f'{self.__class__.__name__}: FatalError')
+                tracker_scraper_logger.logger.info(f'{error}')
+                tracker_scraper_logger.logger.info(f'{self.__class__.__name__}: FatalError')
+
+    def get_sessions(self, web_search_instance):
+        search_engine_sessions = dict()
+        for web_scraper in self.web_scrapers:
+            search_engine = SearchEngine(SearchEngineSession(web_scraper, web_search_instance))
+            search_engine_sessions[web_scraper.__class__.__name__] = search_engine
+        return search_engine_sessions
+
+    @timeit
+    def get_raw_data(self, web_search_instance, executor, search_engine_sessions):
+        web_scraper_futures = dict()
+        for web_scraper in self.web_scrapers:
+            futures = []
+            if web_search_instance['search_type'] in web_scraper.supported_searches:
+                tracker_scraper_logger.logger.info(f'{web_scraper.__class__.__name__} '
+                                                   f'Selected Proxy from Proxy List [ {web_scraper.main_page} ]')
+                try:
+                    composed_procedure = partial(self.execute_gather, web_scraper=web_scraper,
+                                                 search_engine_sessions=search_engine_sessions)
+                    futures.append(executor.submit(composed_procedure))
+
+                except WebScraperProxyListError as error:
+                    tracker_scraper_logger.logger.error(f'{error}')
+                    tracker_scraper_logger.logger.error(f'{web_scraper.__class__.__name__}: '
+                                                        f'Moving To Next Scraper, Try Again Later ...')
+                except Exception as error:
+                    tracker_scraper_logger.logger.fatal(f'get_raw_data: FatalError {error}')
+
+            web_scraper_futures[web_scraper.__class__.__name__] = futures
+
+        return web_scraper_futures
+
+    def execute_gather(self, web_scraper, search_engine_sessions):
+        raw_data = search_engine_sessions[web_scraper.__class__.__name__].gather()
+        magnet_instance_list = search_engine_sessions[web_scraper.__class__.__name__].normalize(raw_data)
+        tracker_scraper_logger.logger.info(f'{self.__class__.__name__} Found {len(magnet_instance_list)} '
+                                           f'Results on {web_scraper.__class__.__name__} selected endpoint')
+        return magnet_instance_list
+
+    @timeit
+    def create_p2p_instances(self, web_search_instance, web_scraper_futures):
+        p2p_instance_list = []
+        for web_scraper in web_scraper_futures:
+            for future in concurrent.futures.as_completed(web_scraper_futures[web_scraper]):
+                try:
+                    p2p_instance_list.append(P2PInstance(web_scraper, web_search_instance['search_type'],
+                                                         web_search_instance['lower_size_limit'],
+                                                         web_search_instance['upper_size_limit'],
+                                                         web_search_instance['ratio_limit'], future.result()))
+                except WebScraperContentError as error:
+                    tracker_scraper_logger.logger.error(error.message)
+
+                except WebScraperParseError as error:
+                    tracker_scraper_logger.logger.error(error.message)
+
+                except WebScraperProxyListError as error:
+                    tracker_scraper_logger.logger.error(f'{error}')
+                    tracker_scraper_logger.logger.error(f'{web_scraper.__class__.__name__}: '
+                                                        f'Moving To Next Scraper, Try Again Later ...')
+                except Exception as error:
+                    tracker_scraper_logger.logger.fatal(f'get_raw_data: FatalError {error}')
+
+        return p2p_instance_list

@@ -20,10 +20,8 @@ from logger.logger_master import tracker_scraper_logger
 
 
 class MagnetDataFrameHelper:
-    def process_p2p_instance_list(self, p2p_instance_list: list[P2PInstance], top: int = 10) -> DataFrame:
+    def process_p2p_instance_list(self, p2p_instance_list: list[P2PInstance], top: int = 20) -> DataFrame:
         magnet_dataframe = self.create_magnet_dataframe_from_p2p_instance(p2p_instance_list)
-        tracker_scraper_logger.logger.info(f'{self.__class__.__name__} UnFiltered MagnetDataframe:')
-        tracker_scraper_logger.logger.info(f'\n{magnet_dataframe}')
         magnet_dataframe = self.unique_magnet_dataframe(magnet_dataframe)
         return self.get_magnet_dataframe(magnet_dataframe, top)
 
@@ -32,7 +30,7 @@ class MagnetDataFrameHelper:
         magnet_dataframe = magnet_dataframe.sort_values(by=['seed', 'ratio'], ascending=False)
         return magnet_dataframe[:magnet_number_limit].reset_index(drop=True)
 
-    def get_magnet_dataframe(self, magnet_dataframe, magnet_number_limit: int = 10) -> DataFrame:
+    def get_magnet_dataframe(self, magnet_dataframe, magnet_number_limit: int = 20) -> DataFrame:
         """
         This function, will output the top results from the WebScraping Search
         :param magnet_dataframe: this value, represents the dataframe with the magnet values
@@ -53,6 +51,10 @@ class MagnetDataFrameHelper:
             err_msg = ScraperEngineUnknownError(self.__class__, err, traceback.format_exc())
             tracker_scraper_logger.logger.fatal(f'{self.__class__.__name__}: FatalError')
             return original_dataframe
+
+    @staticmethod
+    def filter_unwanted_extensions(magnet_dataframe):
+        return magnet_dataframe[magnet_dataframe['name'][-4:] != ('.rar' or '.zip')]
 
     @staticmethod
     def filter_magnet_ratio(magnet_dataframe, magnet_ratio_limit):
@@ -81,6 +83,7 @@ class MagnetDataFrameHelper:
         """
         original_magnet_dataframe = magnet_dataframe
         try:
+            # magnet_dataframe = self.filter_unwanted_extensions(magnet_dataframe)
             magnet_dataframe = self.filter_magnet_ratio(magnet_dataframe, magnet_ratio_limit)
             magnet_dataframe = self.filter_size_limit(magnet_dataframe, magnet_lower_size_limit, magnet_upper_size_limit)
             return magnet_dataframe.reset_index(drop=True)
